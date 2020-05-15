@@ -1,0 +1,234 @@
+//////////////////////////////////////////////////////
+//               product-reg1.html                  //
+//////////////////////////////////////////////////////
+.txtb{
+    min-width:1000px;
+    margin:5px;
+    margin-left: 0.5px;
+}
+
+.lg{    
+    max-width: 150px;       // SelectBox width
+}
+
+#search_text{               // SelectBox - text - SearchButton
+    display:inline-block;   // 한줄에 나란히 놓기
+    width:300px;    
+}
+
+
+.selectBox-light {                        //SelectBox 색 설정
+    background-color: #6C757D;
+    color:white;
+}
+
+.selectBox-light:hover {                  //SelectBox hover 색 설정
+    background-color: #3B444E;
+    color: white;
+}
+
+/*
+    노출 설정 테이블 세팅
+*/
+.table-form-exposure{
+    width:100%;
+    border: 1px solid #DEE2E6;
+}
+
+.table-form-exposure th, .table-form-exposure td{
+    width:200px;
+    height:50px;
+    border: 1px solid #DEE2E6;
+}
+
+.table-form-exposure th{ 
+    font-weight: bold;
+    text-align: center;
+    color:white;
+    background-color:#CBCBCB;
+}
+
+.table-form-exposure td{ 
+    padding-left:30px;
+}
+
+/*
+    노출테이블 종료
+*/
+
+
+/*
+    카테고리 설정 테이블 세팅
+*/
+.table-form-category{
+    width:100%;
+    border: 1px solid #DEE2E6;
+}
+
+.table-form-category th,.table-form-category td{
+    width:200px;
+    height:50px;
+    border: 1px solid #DEE2E6;
+}
+
+.table-form-category th{ 
+    font-weight: bold;
+    text-align: center;
+    color:white;
+    background-color:#CBCBCB;
+}
+
+.table-form-category td{ 
+    padding-left:30px;
+}
+
+.table-form-category select{
+    width:150px;
+    max-width: 150px;
+}
+.table-form-category .form-control{
+    width:150px;
+    max-width: 150px;
+    display:inline-block;    
+}
+/*
+    카테고리 설정 테이블 종료
+*/
+
+/*
+    image 등록
+*/
+.no-outline{            // 투명 텍스트박스 
+    width:1000px;
+    border:1px solid white;
+    outline:none;
+}
+
+
+.lspace{                // 상하 공간넣기용
+    padding-bottom:50px;
+}
+
+.text-space{            // 좌우 공간 넣기용
+    margin-left:30px;
+}
+
+.product-info{          // 상품 기본 정보 테이블 텍스트박스
+    min-width: 200px;
+    max-width: 200px;
+}
+
+/*
+    파일 업로드 테이블 시작
+*/
+.img-reg{
+    width:200px;
+    height:250px;
+    border: 1px solid #DEE2E6;
+}
+
+
+#img-section{
+    width:150px;
+    height:150px;
+}
+
+.img-section{
+    max-width: 150px;
+    max-height: 180px;
+    display:inline-block;
+    margin-right:50px;
+}
+
+/*
+    파일 업로드 테이블 종료
+*/
+
+.pro-op td{
+    height: 200px;
+}   
+
+.btn-submit-section{          //버튼 가운데 정렬
+    text-align: center;
+}
+.btn-submit-color{
+    background-color:#CBCBCB;       // 등록,목록 버튼
+    border: 1px solid #DEE2E6;
+}
+
+//////////////////////////////////////////////////////
+//                category-reg.html                 //
+//////////////////////////////////////////////////////
+
+.category-list{                     // 카테고리 리스트 세팅
+    height:300px;   
+    border: 1px solid #DEE2E6;
+}
+
+.category-add, .category-remove, .category-modify{    //카테고리 등록 테이블 세팅
+    width:100%;
+    height:100px;
+    border: 1px solid #DEE2E6;       
+}
+.category-add td, .category-remove td, .category-modify td{       // 카테고리 등록 마진
+    padding-left:30px;
+}
+
+#cate-add-button, #cate-del-button, #cate-mod-button{       // 카테고리 등록,삭제,수정 추가버튼 크기조절
+    height:38px;
+    line-height: 14px;
+    margin-bottom:2px;
+}
+
+.textbox:hover{       // 버튼 text필드로 사용하기 마우스 변경X
+    cursor:default;
+}
+
+#cate-select{
+    width:150px;
+    max-width: 150px;
+    height:38px;
+}
+
+//////////////////////////////////////////////////////
+//                 send-mail.html                   //
+//////////////////////////////////////////////////////
+.maile-zone .th{
+    max-height: 42px;
+}
+
+.mail-input{
+    width:80%;
+}
+
+.email-info{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.email-info span{
+    font-size:20px;
+    font-weight: bold;
+}
+
+.form-control.mail-custom{
+    display:inline-block;
+    width:93.3%;
+}
+
+.form-control:focus{
+    border-color:black;
+}
+
+
+
+.pagination.pagination-rounded.justify-content-center.page-custom{
+    margin-top: 30px;
+}
+
+.card-body{
+    margin-bottom:20px;
+}
+
+.form-control .text-box-focus{
+    border:solid 1px black;
+}

@@ -1,0 +1,54 @@
+/*
+파일 업로드
+*/
+.box {
+  width: 200px;
+}
+.filetype {
+  position: relative;
+  display: inline-flex;
+  vertical-align: top;
+  *margin-right: 4px;
+}
+.filetype * {
+  vertical-align: middle;
+}
+
+
+.filetype .file-select {
+  position: absolute;
+  top: -5px;
+  right: 0;             // file upload box 만들기
+  width: 80px;          // file-select 안에 input-file
+  margin-left: 38px;
+  z-index: 10;
+  overflow: hidden;
+  
+}
+.filetype .file-select .input-file {
+  width: 80px;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  cursor: pointer;
+  height: 40px;
+}
+
+
+.row .col-sm-2 .avatar-sm{
+    margin: 20px;             // 파비콘 + 로고
+}
+.row .box .filetype {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.table-form-category .box .filetype .btn-secondary{
+  margin: 10px 5px; 
+  border-style: none;                    // 찾아보기 button
+  background-color: #CDD3D4;
+  cursor: pointer;
+}
+.col-sm-2 .img-scs-logo{
+    width: 150px;
+}
+
