@@ -35,13 +35,18 @@
     <!-- Init js-->
     <script type="text/javascript" src="../assets/js/pages/form-pickers.init.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form-xeditable.init.js"></script>
-    <script type="text/javascript" src="assets/js/pages/form-fileuploads.init.js"></script>
+    <script type="text/javascript" src="../assets/js/pages/form-fileuploads.init.js"></script>
 	<script type="text/javascript" src="../assets/js/pages/form-advanced.init.js"></script>
     <script type="text/javascript" src="../assets/js/pages/form-quilljs.init.js"></script>
 
     <!-- Buttons init js-->
     <script type="text/javascript" src="../assets/js/pages/loading-btn.init.js"></script>
 
+    <!-- Sweet Alerts js -->
+    <script type="text/javascript" src="../assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- Sweet alert init js-->
+    <script type="text/javascript" src="../assets/js/pages/sweet-alerts.init.js"></script>
     <!-- Datatables init -->
     <script type="text/javascript" src="../assets/js/pages/datatables.init.js"></script>
 

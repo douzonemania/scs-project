@@ -13,6 +13,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        
+        <!-- Sweet Alert-->
+        <link href="../assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
        
         <!-- Plugins css -->
         <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
@@ -123,7 +126,7 @@
                                     <td>
                                         <i class=' mdi mdi-message-text-outline member-icon'></i>
                                     </td>
-                                    <td><i class="fe-trash-2 member-icon"></i></td>
+                                    <td class="icon-wrap"><button type="button" class="btn btn-xs sa-warning"><i class="fe-x-square member-icon"></i></button></td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
@@ -134,7 +137,7 @@
                                     <td>
                                         <i class=' mdi mdi-message-text-outline member-icon'></i>
                                     </td>
-                                    <td><i class="fe-trash-2 member-icon"></i></td>
+                                    <td class="icon-wrap"><button type="button" class="btn btn-xs sa-warning"><i class="fe-x-square member-icon"></i></button></td>>
                                 </tr>
                                 </tbody>
 

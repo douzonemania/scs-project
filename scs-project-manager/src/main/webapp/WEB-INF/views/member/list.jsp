@@ -13,6 +13,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        
+        <!-- Sweet Alert-->
+        <link href="../assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
        
         <!-- Plugins css -->
         <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
@@ -120,7 +123,7 @@
                                     <td>sjy8033@naver.com</td>
                                     <td>신정은</td>
                                     <td>01039027775</td>
-                                    <td class="icon-wrap"><i class="fe-x-square member-icon"></i></td>
+                                    <td class="icon-wrap"><button type="button" class="btn btn-xs sa-warning"><i class="fe-x-square member-icon"></i></button></td>
                 
                                     <!-- 메일 발송 -->
                                    <td class="icon-wrap">
@@ -136,7 +139,7 @@
                                     <td>Woldt</td>
                                     <td>Airline Transport Pilot</td>
                                     <td>3 Oct 1981</td>
-                                    <td class="icon-wrap"><i class="fe-x-square member-icon"></i></td>
+                                    <td class="icon-wrap"><button type="button" class="btn btn-xs sa-warning"><i class="fe-x-square member-icon"></i></button></td>
                 
                                      <!-- 메일 발송 -->
                                     <td class="icon-wrap">
