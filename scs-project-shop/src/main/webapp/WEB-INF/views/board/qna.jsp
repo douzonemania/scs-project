@@ -1,48 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="UTF-8">
 <head>
-    <meta charset="utf-8" />
+    <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="../assetsimages/favicon.ico">
        
         <!-- Plugins css -->
-        <link href="assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
        
-        <link href="assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
         
-        <link href="assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/select2/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
 
         <!-- third party css -->
-        <link href="assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="../assetslibs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
         <!-- third party css end -->
 
         <!-- App css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assetscss/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assetscss/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assetscss/app.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
     <!-- Navigation Bar-->
     <header id="topnav" style="background-color:#ffffff">
-        @@include('../shop-partials/shop-topbar.html')
+        <c:import url ='/WEB-INF/views/partials/topbar.jsp'/>
     </header>
 
 
@@ -97,55 +101,54 @@
  
 
                 <!-- Vendor js -->
-                <script src="assets/js/vendor.min.js"></script>
+                <script src="../assetsjs/vendor.min.js"></script>
                 
 
-                <script src="assets/libs/jquery-nice-select/jquery.nice-select.min.js"></script>
-                <script src="assets/libs/switchery/switchery.min.js"></script>
-                <script src="assets/libs/multiselect/jquery.multi-select.js"></script>
-                <script src="assets/libs/select2/select2.min.js"></script>
-                <script src="assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
-                <script src="assets/libs/autocomplete/jquery.autocomplete.min.js"></script>
-                <script src="assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
-                <script src="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
-                <script src="assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+                <script src="../assetslibs/jquery-nice-select/jquery.nice-select.min.js"></script>
+                <script src="../assetslibs/switchery/switchery.min.js"></script>
+                <script src="../assetslibs/multiselect/jquery.multi-select.js"></script>
+                <script src="../assetslibs/select2/select2.min.js"></script>
+                <script src="../assetslibs/jquery-mockjax/jquery.mockjax.min.js"></script>
+                <script src="../assetslibs/autocomplete/jquery.autocomplete.min.js"></script>
+                <script src="../assetslibs/bootstrap-select/bootstrap-select.min.js"></script>
+                <script src="../assetslibs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+                <script src="../assetslibs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
 
                 <!-- third party js -->
-                <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
-                <script src="assets/libs/datatables/dataTables.bootstrap4.js"></script>
-                <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
-                <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
-                <script src="assets/libs/datatables/dataTables.buttons.min.js"></script>
-                <script src="assets/libs/datatables/buttons.bootstrap4.min.js"></script>
-                <script src="assets/libs/datatables/buttons.html5.min.js"></script>
-                <script src="assets/libs/datatables/buttons.flash.min.js"></script>
-                <script src="assets/libs/datatables/buttons.print.min.js"></script>
-                <script src="assets/libs/datatables/dataTables.keyTable.min.js"></script>
-                <script src="assets/libs/datatables/dataTables.select.min.js"></script>
-                <script src="assets/libs/pdfmake/pdfmake.min.js"></script>
-                <script src="assets/libs/pdfmake/vfs_fonts.js"></script>
+                <script src="../assetslibs/datatables/jquery.dataTables.min.js"></script>
+                <script src="../assetslibs/datatables/dataTables.bootstrap4.js"></script>
+                <script src="../assetslibs/datatables/dataTables.responsive.min.js"></script>
+                <script src="../assetslibs/datatables/responsive.bootstrap4.min.js"></script>
+                <script src="../assetslibs/datatables/dataTables.buttons.min.js"></script>
+                <script src="../assetslibs/datatables/buttons.bootstrap4.min.js"></script>
+                <script src="../assetslibs/datatables/buttons.html5.min.js"></script>
+                <script src="../assetslibs/datatables/buttons.flash.min.js"></script>
+                <script src="../assetslibs/datatables/buttons.print.min.js"></script>
+                <script src="../assetslibs/datatables/dataTables.keyTable.min.js"></script>
+                <script src="../assetslibs/datatables/dataTables.select.min.js"></script>
+                <script src="../assetslibs/pdfmake/pdfmake.min.js"></script>
+                <script src="../assetslibs/pdfmake/vfs_fonts.js"></script>
                 <!-- third party js ends -->
         
                 <!-- Plugins js -->
-                <script src="assets/libs/katex/katex.min.js"></script>
-                <script src="assets/libs/quill/quill.min.js"></script>
-                <script src="assets/libs/dropzone/dropzone.min.js"></script>
-                <script src="assets/libs/dropify/dropify.min.js"></script>
+                <script src="../assetslibs/katex/katex.min.js"></script>
+                <script src="../assetslibs/quill/quill.min.js"></script>
+                <script src="../assetslibs/dropzone/dropzone.min.js"></script>
+                <script src="../assetslibs/dropify/dropify.min.js"></script>
 
                 <!-- Datatables init -->
-                <script src="assets/js/pages/datatables.init.js"></script>
+                <script src="../assetsjs/pages/datatables.init.js"></script>
         
                 <!-- Init js-->
-                <script src="assets/js/pages/form-advanced.init.js"></script>
-                <script src="assets/js/pages/form-quilljs.init.js"></script>
-                <script src="assets/js/pages/form-fileuploads.init.js"></script>
+                <script src="../assetsjs/pages/form-advanced.init.js"></script>
+                <script src="../assetsjs/pages/form-quilljs.init.js"></script>
+                <script src="../assetsjs/pages/form-fileuploads.init.js"></script>
 
                 <!-- App js-->
-                <script src="assets/js/app.min.js"></script>
+                <script src="../assetsjs/app.min.js"></script>
 
-    
-
-                @@include('../shop-partials/shop-footer.html')
+                <!-- footer -->
+		    	<c:import url ='/WEB-INF/views/partials/footer.jsp'/>
 
 
 

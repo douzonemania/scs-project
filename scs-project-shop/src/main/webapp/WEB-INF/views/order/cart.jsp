@@ -1,28 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
+<html lang="UTF-8">
+<head>
+    <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    
             <title></title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
             <meta content="Coderthemes" name="author" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <!-- App favicon -->
-            <link rel="shortcut icon" href="assets/images/favicon.ico">
+            <link rel="shortcut icon" href="../assets/images/favicon.ico">
     
             <!-- Plugins css -->
-            <link href="assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+            <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
     
             <!-- App css -->
-            <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-            <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-            <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+            <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+            <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+            <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
     </head>
 <body>
     <!-- Navigation Bar-->
     <header id="topnav" style="background-color:#ffffff">
-        @@include('../shop-partials/shop-topbar.html')
+        <c:import url ='/WEB-INF/views/partials/topbar.jsp'/>
     </header>
 
     <div class="wrapper">
@@ -67,7 +71,7 @@
                                         </div>
                                     </td>
                                     <td style="padding-top:15px">
-                                        <img src="assets/images/review-img.png" alt="d" class="rounded cart-img">
+                                        <img src="../assets/images/review-img.png" alt="d" class="rounded cart-img">
                                         <div class = "order-custom-product-name"> 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 </div>
                                     </td>   
                                     <td>
@@ -92,7 +96,7 @@
                                             </div>
                                         </td>
                                         <td style="padding-top:15px">
-                                            <img src="assets/images/review-img.png" alt="d" class="rounded cart-img" >
+                                            <img src="../assets/images/review-img.png" alt="d" class="rounded cart-img" >
                                             <div class = "order-custom-product-name"> 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 </div>
                                         </td>   
                                         <td>
@@ -117,7 +121,7 @@
                                                 </div>
                                             </td>
                                             <td style="padding-top:15px">
-                                                <img src="assets/images/review-img.png" alt="d" class="rounded cart-img">
+                                                <img src="../assets/images/review-img.png" alt="d" class="rounded cart-img">
                                                 <div class = "order-custom-product-name"> 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 </div>
                                             </td>   
                                             <td>
@@ -142,7 +146,7 @@
                                                 </div>
                                             </td>
                                             <td style="padding-top:15px">
-                                                <img src="assets/images/review-img.png" alt="d" class="rounded cart-img" >
+                                                <img src="../assets/images/review-img.png" alt="d" class="rounded cart-img" >
                                                 <div class = "order-custom-product-name"> 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 </div>
                                             </td>   
                                             <td>
@@ -167,7 +171,7 @@
                                                 </div>
                                             </td>
                                             <td style="padding-top:15px">
-                                                <img src="assets/images/review-img.png" alt="d"  class="rounded cart-img">
+                                                <img src="../assets/images/review-img.png" alt="d"  class="rounded cart-img">
                                                 <div class = "order-custom-product-name"> 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 </div>
                                             </td>   
                                             <td>
@@ -192,7 +196,7 @@
                                                 </div>
                                             </td>
                                             <td style="padding-top:15px">
-                                                <img src="assets/images/review-img.png" alt="d"  class="rounded cart-img">
+                                                <img src="../assets/images/review-img.png" alt="d"  class="rounded cart-img">
                                                 <div class = "order-custom-product-name"> 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 </div>
                                             </td>   
                                             <td>
@@ -217,7 +221,7 @@
                                                 </div>
                                             </td>
                                             <td style="padding-top:15px">
-                                                <img src="assets/images/review-img.png" alt="d"  class="rounded cart-img">
+                                                <img src="../assets/images/review-img.png" alt="d"  class="rounded cart-img">
                                                 <div class = "order-custom-product-name"> 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 </div>
                                             </td>   
                                             <td>
@@ -242,7 +246,7 @@
                                                 </div>
                                             </td>
                                             <td style="padding-top:15px">
-                                                <img src="assets/images/review-img.png" alt="d"  class="rounded cart-img" >
+                                                <img src="../assets/images/review-img.png" alt="d"  class="rounded cart-img" >
                                                 <div class = "order-custom-product-name"> 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 </div>
                                             </td>   
                                             <td>
@@ -301,6 +305,8 @@
         </div>
     </div>
 
+    <!-- footer -->
+    	<c:import url ='/WEB-INF/views/partials/footer.jsp'/>
     <!-- @@include('../shop-partials/shop-footer.html') -->
 
 </body>

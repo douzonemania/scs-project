@@ -10,4 +10,9 @@ public class MainController {
 	public String home() {
 		return "main/index";
 	}
+	
+	@RequestMapping("/cart")
+	public String home2() {
+		return "order/cart";
+	}
 }
