@@ -53,7 +53,7 @@
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 		
-				<!-- MyBatis -->
+		<!-- MyBatis -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
@@ -147,7 +147,7 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<configuration>
 					<url>http://192.168.1.58:8080/manager/text</url>
-					<path>/scs-project-front</path>
+					<path>/scs-project-manager</path>
 					<username>admin</username>
 					<password>admin</password>
 				</configuration>
