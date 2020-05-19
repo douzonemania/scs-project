@@ -53,7 +53,7 @@ $(document).ready(function() {
     	e.preventdefault();
         Swal.fire(
             {
-                title: '가입되었당께롱!',
+                title: '가입되었습니다!',
                 text: '축하드립니다.',
                 type: 'success',
                 confirmButtonClass: 'btn btn-confirm mt-2'
@@ -61,50 +61,111 @@ $(document).ready(function() {
         )
     });
 	
-})
+});
 
 
-// 아이디 유효성 검사(1 = 중복 / 0 != 중복)
-	$("#user_id").blur(function() {
-		// id = "id_reg" / name = "userId"
-		var user_id = $('#user_id').val();
-		$.ajax({
-			url : '${pageContext.request.contextPath}/user/idCheck?userId='+ user_id,
-			type : 'get',
-			success : function(data) {
-				console.log("1 = 중복o / 0 = 중복x : "+ data);							
+// 유효성 검사
+$(function() {
+		$("#join-form").submit(function() {
+// 			e.preventDefault();
+			
+			if($("#user_name").val() == '') {
+				alert('이름이 비어 있습니다.');
+				$("#user_name").focus();
+				return ;
+			}
+			
+ 			if($("#user_id").val() == '') {
+				alert('아이디가 비어 있습니다.');
+				$("#user_id").focus();
 				
-				if (data == 1) {
-						// 1 : 아이디가 중복되는 문구
-						$("#id_check").text("사용중인 아이디입니다 :p");
-						$("#id_check").css("color", "red");
-						$("#reg_submit").attr("disabled", true);
-					} else {
-						
-						if(idJ.test(user_id)){
-							// 0 : 아이디 길이 / 문자열 검사
-							$("#id_check").text("");
-							$("#reg_submit").attr("disabled", false);
+				return ;
+			}
+			
+			if($("#user_password").val() == '') {
+				alert('비밀번호가 비어 있습니다.');
+				$("#user_password").focus();
 				
-						} else if(user_id == ""){
-							
-							$('#id_check').text('아이디를 입력해주세요 :)');
-							$('#id_check').css('color', 'red');
-							$("#reg_submit").attr("disabled", true);				
-							
-						} else {
-							
-							$('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다 :) :)");
-							$('#id_check').css('color', 'red');
-							$("#reg_submit").attr("disabled", true);
-						}
-						
+				return ;
+			}
+			
+			if($("#user_email").val() == '') {
+				alert('이메일이 비어 있습니다.');
+				$("#user_email").focus();
+				
+				return ;
+			}
+			
+			if($("#img-checkid").is(":hidden")) {
+				alert('아이디 중복 체크를 하지 않았습니다.');
+				
+				return ;
+			}
+			
+			if($("#user_phone").val() == '') {
+				alert('휴대폰번호가 비어 있습니다.');
+				$("#user_phone").focus();
+				
+				return ;
+			}
+			
+			if($("#user_company").val() == '') {
+				alert('회사명이 비어 있습니다.');
+				$("#user_company").focus();
+				
+				return ;
+			}
+			
+			if($("#agree-prov").is(":checked") == false) {
+				alert('약관 동의가 필요합니다.');
+				$("#agree-prov").focus();
+				
+				return ;
+			} 
+			
+			this.submit();
+		});
+		
+		$('#id').change(function() {
+			$("#btn-checkid").show();
+			$("#img-checkid").hide();
+		})
+		
+		$("#btn-checkid").click(function() {
+			var id = $("#id").val();
+			if(id == '') {
+				return;
+			}
+				
+			$.ajax({
+				url: "${pageContext.request.contextPath }/api/user/checkid?id=" + id,
+				type: 'get',
+				// contextType : 'application/json'
+				data:'',
+				dataType: 'json',
+				success: function(response) {
+					if(response.result == 'fail') {
+						console.error(response.message);
+						return;
 					}
-				}, error : function() {
-						console.log("실패");
+					if(response.data == true) {
+						alert('존재하는 이메일입니다.');
+						$("#email")
+							.val('')
+							.focus();
+						return;
+					}
+					
+					$('#btn-checkid').hide();
+					$('#img-checkid').show();
+				},
+				error: function(XHR, status, e) {
+					console.error(status, ":" + e);
 				}
 			});
 		});
+});
+
 </script>
 </head>
 ​
@@ -125,8 +186,11 @@ $(document).ready(function() {
 								</a>
 							</div>
 							<div class="signin-body">
-								<form:form modelAttribute="ceoVo" class="join-form"
-									id="join-form" method="post"
+								<form:form 
+								    modelAttribute="ceoVo" 
+								    class="join-form"
+									id="join-form" 
+									method="post"
 									action="${ pageContext.request.contextPath }/user/join">
 									<div class="row">
 										<div class="col-lg-6">
@@ -143,33 +207,45 @@ $(document).ready(function() {
 												<div class="form-group mb-3">
 													<label for="id2">아이디</label><a id="red-star">*</a>
 													<form:input path="id" class="form-control" type="text"
-														id="id2" placeholder="아이디(6~12자)" />
-													<form:errors path="id" />
+														id="user_id" placeholder="아이디(6~10자)" />
+													<input type="button" class="btn btn-secondary btn-sm float-right" value="중복확인" style="margin-top: 5px;">
+													<img id='img-checkid' style='width: 30px; display: none;' src = '${ pageContext.request.contextPath }/assets/images/check.png' />
+													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+														<form:errors path="id" />
+													</p>
 												</div>
 												<div class="form-group mb-3">
 													<label for="password2">비밀번호</label><a id="red-star">*</a>
 													<form:input path="password" class="form-control"
-														type="password" id="password2"
-														placeholder="비밀번호(4~18자 이상)" />
-													<form:errors path="password" />
+														type="password" id="user_password"
+														placeholder="비밀번호(4~12자)" />
+													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+														<form:errors path="password" />
+													</p>
 												</div>
 												<div class="form-group mb-3">
 													<label for="emailaddress2">이메일</label><a id="red-star">*</a>
 													<form:input path="email" class="form-control" type="email"
-														id="emailaddress2" />
-													<form:errors path="email" />
+														id="user_email" />
+													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+														<form:errors path="email" />
+													</p>
 												</div>
 												<div class="form-group mb-3">
 													<label for="phonenum">휴대폰번호</label><a id="red-star">*</a>
 													<form:input path="phoneNumber" class="form-control"
-														type="text" id="phonenum" placeholder="-는 제외하고 입력하세요" />
-													<form:errors path="phoneNumber" />
+														type="text" id="user_phone" placeholder="-는 제외하고 입력하세요" />
+													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+														<form:errors path="phoneNumber" />
+													</p>
 												</div>
 												<div class="form-group mb-3">
 													<label for="company">회사명</label><a id="red-star">*</a>
 													<form:input path="companyName" class="form-control"
-														type="text" id="company" />
-													<form:errors path="companyName" />
+														type="text" id="user_company" />
+													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+														<form:errors path="companyName" />
+													</p>
 												</div>
 											</div>
 										</div>
@@ -211,10 +287,10 @@ $(document).ready(function() {
 														class="btn btn-dark waves-effect waves-light ceo-join-btn-custom">우편
 														번호 찾기</button>
 													<div style="margin-top: 5px;"></div>
-													<input class="form-control" type="text" id="postcode2">
+													<form:input path="address1" class="form-control" type="text" id="postcode2" />
 													<div style="margin-top: 5px;"></div>
-													<input class="form-control" type="text"
-														id="company-address">
+													<form:input path="address2" class="form-control" type="text"
+														id="company-address" />
 												</div>
 												<div style="margin-top: 10px;"></div>
 												<div class="form-group mb-0">
@@ -222,7 +298,6 @@ $(document).ready(function() {
 														style="z-index: 0;">
 														<button type="submit"
 															class="btn btn-secondary btn-sm float-right btn-signup"
-															id="sa-success"
 															style="position: absolute; right: 0; bottom: 0; z-index: 10;">가입하기</button>
 														<input type="checkbox" class="custom-control-input"
 															id="checkbox-signup"> <label

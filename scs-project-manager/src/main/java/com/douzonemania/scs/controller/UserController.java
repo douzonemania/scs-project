@@ -16,7 +16,7 @@ import com.douzonemania.scs.vo.ceo.CeoVo;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
+
 	@Autowired
 	UserService userService;
 
@@ -24,38 +24,51 @@ public class UserController {
 	public String join(@ModelAttribute CeoVo ceoVo) {
 		return "user/signup";
 	}
-	
-	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(@ModelAttribute @Valid CeoVo ceoVo, BindingResult result, Model model) {
 
+	@RequestMapping(value="/join", method=RequestMethod.POST)
+	public String join(@ModelAttribute @Valid CeoVo ceoVo, BindingResult result,
+			Model model) {
+
+		
+		if(result.hasErrors()) {
+			model.addAllAttributes(result.getModel());
+			return "user/signup";
+		}
+		
 		model.addAllAttributes(result.getModel());
+
+		ceoVo.setAddress(ceoVo.getAddress1() + " " + ceoVo.getAddress2());
+
+		System.out.println(ceoVo.toString());
+		//userService.insert(ceoVo);
+
+//		String id = ceoVo.getId();
+//		userService.createDB(id);
+//		userService.createTable(id);
+//		userService.alterTable(id);
 		
-		userService.insert(ceoVo);
-		String id = ceoVo.getId();
-		userService.createDB(id);
-		
-		return "";
+		return "user/join";
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
-		return "user/login";
+		return "redirect:/user/login";
 	}
-	
+
 	@RequestMapping(value = "/recover", method = RequestMethod.GET)
 	public String recover() {
 		return "user/recover";
 	}
-	
-	
+
+
 	@RequestMapping(value="/auth", method=RequestMethod.POST)
 	public void auth() {
-		
+
 	}
-	
+
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public void logout() {
-		
+
 	}
 
 }
