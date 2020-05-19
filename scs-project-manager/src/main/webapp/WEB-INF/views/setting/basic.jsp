@@ -45,7 +45,10 @@
         <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />        
 <script type="text/javascript">
-
+function shipAdd(){
+	console.log("shipAdd");
+	window.open('shipAdd','카테고리 추가/삭제','width=430,height=500,location=no,status=no,scrollbars=no');
+}
 </script>
 </head>
 <body>
@@ -224,7 +227,7 @@
                                                         <th>배송사</th>
                                                         <td colspan="2">
                                                             <button type="button" class="btn btn-secondary waves-effect btn-no2" 
-                                                            	onclick="window.open('categoryAdd','카테고리 추가/삭제','width=430,height=500,location=no,status=no,scrollbars=no');" style="background-color:#CBCBCB; border-color:white">추가/삭제</button>
+                                                            	onclick="shipAdd()" style="background-color:#CBCBCB; border-color:white">추가/삭제</button>
                                                         </td>
                                                         <th>배송비 정책</th>
                                                         <td colspan="2">

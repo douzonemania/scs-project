@@ -1,0 +1,20 @@
+<tr>
+	<th>배송사명</th>
+</tr>
+
+<%
+	console.log(data);
+	var count = 0 ;
+	for(var i = 0; i < data.length; i++) {
+		var vo = data[i];
+		count += 1;
+%>
+
+<tr data-no='<%= vo.no%>'>
+		<td><%= count%></td>
+		<td><%= vo.name%></td>
+		<td><button data-no='<%=vo.no%>'>삭제</button></td>
+</tr>
+<%
+	}
+%>

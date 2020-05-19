@@ -128,5 +128,5 @@ public class CeoVo {
 				+ faxNumber + ", cpNumber=" + cpNumber + ", address=" + address + ", siteName=" + siteName
 				+ ", coNumber=" + coNumber + ", cmNumber=" + cmNumber + "]";
 	}
-
+}
 
