@@ -16,6 +16,7 @@ public class JsonResult {
 	}
 	
 	public static JsonResult success(Object data) {
+		System.out.println(data);
 		return new JsonResult(data);
 	}
 	
