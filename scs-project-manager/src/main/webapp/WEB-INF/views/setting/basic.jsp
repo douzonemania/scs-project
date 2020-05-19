@@ -13,6 +13,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        
+        <!-- Sweet Alert-->
+        <link href="../assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
        
         <!-- Plugins css -->
         <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
@@ -235,7 +238,7 @@
 
                                             <!-- 수정 버튼 -->
                                             <div class="form-group mb-3 float-sm-right" style="margin-top: 10px;">
-                                                <button class="btn btn-secondary" type="submit"> 수정 </button>
+                                                <button class="btn btn-secondary" type="submit" id="sa-params"> 수정 </button>
                                             </div>
 
                                         </form>

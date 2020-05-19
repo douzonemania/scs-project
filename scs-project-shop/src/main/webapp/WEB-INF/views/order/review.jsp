@@ -1,28 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
+<html lang="UTF-8">
+<head>
+    <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <title></title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
             <meta content="Coderthemes" name="author" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <!-- App favicon -->
-            <link rel="shortcut icon" href="assets/images/favicon.ico">
+            <link rel="shortcut icon" href="../../assets/images/favicon.ico">
     
             <!-- Plugins css -->
-            <link href="assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+            <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
     
             <!-- App css -->
-            <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-            <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-            <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+            <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+            <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+            <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
     </head>
 <body>
     <!-- Navigation Bar-->
     <header id="topnav" style="background-color:#ffffff">
-        @@include('../shop-partials/shop-topbar.html')
+        <c:import url ='/WEB-INF/views/partials/topbar.jsp'/>
     </header>
 
 
@@ -85,7 +88,7 @@
                         <div class="card-columns">
 
                             <div class="card">
-                                <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
+                                <img class="card-img-top img-fluid" src="../assets/images/small/img-7.jpg" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title that wraps to a new line</h5>
                                     <p class="card-text">This is a longer card with supporting text below as a
@@ -95,7 +98,7 @@
                             </div>
 
                             <div class="card">
-                                <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
+                                <img class="card-img-top img-fluid" src="../assets/images/small/img-7.jpg" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title that wraps to a new line</h5>
                                     <p class="card-text">This is a longer card with supporting text below as a
@@ -105,7 +108,7 @@
                             </div>
                             
                             <div class="card">
-                                <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
+                                <img class="card-img-top img-fluid" src="../assets/images/small/img-7.jpg" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title that wraps to a new line</h5>
                                     <p class="card-text">This is a longer card with supporting text below as a
@@ -115,7 +118,7 @@
                             </div>
                             
                             <div class="card">
-                                <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
+                                <img class="card-img-top img-fluid" src="../assets/images/small/img-7.jpg" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title that wraps to a new line</h5>
                                     <p class="card-text">This is a longer card with supporting text below as a
@@ -125,7 +128,7 @@
                             </div>
 
                             <div class="card">
-                                <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
+                                <img class="card-img-top img-fluid" src="../assets/images/small/img-7.jpg" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title that wraps to a new line</h5>
                                     <p class="card-text">This is a longer card with supporting text below as a
@@ -135,7 +138,7 @@
                             </div>
 
                             <div class="card">
-                                <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
+                                <img class="card-img-top img-fluid" src="../assets/images/small/img-7.jpg" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title that wraps to a new line</h5>
                                     <p class="card-text">This is a longer card with supporting text below as a
@@ -225,7 +228,7 @@
 
                 <div class="review-group">
                     <div class="review-img">
-                       <img src="assets/images/review-img.PNG" alt=""/ class="rounded">
+                       <img src="../assets/images/review-img.PNG" alt=""/ class="rounded">
                     </div>
                     <div class="review-box">
                         <div class="pl-xl-3 mt-3 mt-xl-3">
@@ -250,7 +253,7 @@
 
                 <div class="review-group">
                     <div class="review-img">
-                       <img src="assets/images/review-img.PNG" alt=""/ class="rounded">
+                       <img src="../assets/images/review-img.PNG" alt=""/ class="rounded">
                     </div>
                     <div class="review-box">
                         <div class="pl-xl-3 mt-3 mt-xl-3">
@@ -303,7 +306,8 @@
     </div>
 
 
-  <!-- @@include('../shop-partials/shop-footer.html') -->
+    <!-- footer -->
+    	<c:import url ='/WEB-INF/views/partials/footer.jsp'/>
 
 </body>
 </html>

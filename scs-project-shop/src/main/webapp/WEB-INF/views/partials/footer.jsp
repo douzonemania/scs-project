@@ -1,3 +1,6 @@
+<html lang="UTF-8">
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <!-- Footer Start -->
 <div style="padding-top: 300px;"></div>
 <footer class="footer">
@@ -8,7 +11,7 @@
             <div class="footer-logo-box">
                <a href="index.html" class="logo text-center">
                    <span class="logo-lg">
-                       <img src="assets/images/logo-scs.png" alt="안녕하세요" height="112">
+                       <img src="../assets/images/logo-scs.png" alt="안녕하세요" height="112">
                        <!-- <span class="logo-lg-text-light">UBold</span> -->
                    </span>
                </a>
