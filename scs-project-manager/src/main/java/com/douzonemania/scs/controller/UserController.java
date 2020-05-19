@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.douzonemania.scs.repository.TestRepository;
 import com.douzonemania.scs.service.UserService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 
@@ -19,10 +20,17 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	TestRepository test;
 
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join(@ModelAttribute CeoVo ceoVo) {
-		return "user/signup";
+		System.out.println("START");
+		
+		System.out.println(test.getUserList());
+		
+		return "user/join";
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
