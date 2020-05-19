@@ -6,6 +6,7 @@ public class ShipCompanyVo {
 	private String id;
 
 	
+	
 	public int getNo() {
 		return no;
 	}
