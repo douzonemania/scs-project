@@ -6,8 +6,6 @@
 		<typeAlias alias="shipcompanyvo" type="com.douzonemania.scs.vo.ceo.ShipCompanyVo" />
 	</typeAliases>	
 	<mappers>
-		<mapper resource="mybatis/mappers/main.xml" />
-		<mapper resource="mybatis/mappers/first.xml" />
-		<mapper resource="mybatis/mappers/shipcompany.xml" />
+		<mapper resource="mybatis/mappers/user.xml" />
 	</mappers>
 </configuration>

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.douzonemania.scs.repository.TestRepository;
 import com.douzonemania.scs.service.UserService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 
@@ -18,53 +17,58 @@ import com.douzonemania.scs.vo.ceo.CeoVo;
 @RequestMapping("/user")
 public class UserController {
 
-	
 	@Autowired
 	UserService userService;
-	
-	@Autowired
-	TestRepository test;
 
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join(@ModelAttribute CeoVo ceoVo) {
-		System.out.println("START");
+		return "user/signup";
+	}
+
+	@RequestMapping(value="/join", method=RequestMethod.POST)
+	public String join(@ModelAttribute @Valid CeoVo ceoVo, BindingResult result,
+			Model model) {
+
 		
-		System.out.println(test.getUserList());
+		if(result.hasErrors()) {
+			model.addAllAttributes(result.getModel());
+			return "user/signup";
+		}
+		
+		model.addAllAttributes(result.getModel());
+
+		ceoVo.setAddress(ceoVo.getAddress1() + " " + ceoVo.getAddress2());
+
+		System.out.println(ceoVo.toString());
+		//userService.insert(ceoVo);
+
+//		String id = ceoVo.getId();
+//		userService.createDB(id);
+//		userService.createTable(id);
+//		userService.alterTable(id);
 		
 		return "user/join";
 	}
-	
-	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(@ModelAttribute @Valid CeoVo ceoVo, BindingResult result, Model model) {
 
-		model.addAllAttributes(result.getModel());
-		
-		userService.insert(ceoVo);
-		String id = ceoVo.getId();
-		userService.createDB(id);
-		
-		return "";
-	}
-	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
-		return "user/login";
+		return "redirect:/user/login";
 	}
-	
+
 	@RequestMapping(value = "/recover", method = RequestMethod.GET)
 	public String recover() {
 		return "user/recover";
 	}
-	
-	
+
+
 	@RequestMapping(value="/auth", method=RequestMethod.POST)
 	public void auth() {
-		
+
 	}
-	
+
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public void logout() {
-		
+
 	}
 
 }

@@ -2,16 +2,30 @@ package com.douzonemania.scs.vo.ceo;
 
 import java.sql.Timestamp;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class CeoVo {
+
+	@Length(min = 6, max = 10)
 	private String id;
+
 	private String name;
+
+	@NotEmpty
+	@Length(min = 4, max = 12)
 	private String password;
+
 	private String phoneNumber;
+
 	private String email;
+
 	private String companyName;
 	private Timestamp regDate;
 	private String faxNumber;
 	private String cpNumber;
+	private String address1;
+	private String address2;
 	private String address;
 	private String siteName;
 	private String coNumber;
@@ -89,6 +103,22 @@ public class CeoVo {
 		this.cpNumber = cpNumber;
 	}
 
+	public String getAddress1() {
+		return address1;
+	}
+
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+
+	public String getAddress2() {
+		return address2;
+	}
+
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+	
 	public String getAddress() {
 		return address;
 	}
@@ -125,8 +155,10 @@ public class CeoVo {
 	public String toString() {
 		return "CeoVo [id=" + id + ", name=" + name + ", password=" + password + ", phoneNumber=" + phoneNumber
 				+ ", email=" + email + ", companyName=" + companyName + ", regDate=" + regDate + ", faxNumber="
-				+ faxNumber + ", cpNumber=" + cpNumber + ", address=" + address + ", siteName=" + siteName
-				+ ", coNumber=" + coNumber + ", cmNumber=" + cmNumber + "]";
+				+ faxNumber + ", cpNumber=" + cpNumber + ", address1=" + address1 + ", address2=" + address2
+				+ ", address=" + address + ", siteName=" + siteName + ", coNumber=" + coNumber + ", cmNumber="
+				+ cmNumber + "]";
 	}
+
 }
 
