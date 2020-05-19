@@ -230,7 +230,6 @@ $(document).ready(function() {
 															동의합니다. <a href="javascript: void(0);" class="text-dark">
 														</a>
 														</label>
-														<!-- button : src\js\pages\sweet-alerts.init.js 66번째 줄 url-->
 														<button type="button"
 															class="btn btn-link btn-xs text-black-50 ml-1"
 															id="sa-long-content">약관보기</button>
