@@ -17,6 +17,7 @@ import com.douzonemania.scs.vo.ceo.CeoVo;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
 	
 	@Autowired
 	UserService userService;
