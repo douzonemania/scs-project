@@ -5,6 +5,7 @@ public class ShipCompanyVo {
 	private String name;
 	private String id;
 
+	
 	public int getNo() {
 		return no;
 	}
