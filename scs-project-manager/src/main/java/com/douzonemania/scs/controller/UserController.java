@@ -52,6 +52,7 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
+		System.out.println("바보야");
 		return "redirect:/user/login";
 	}
 
