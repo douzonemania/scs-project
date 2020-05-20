@@ -12,35 +12,35 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        <link rel="shortcut icon" href="<%=request.getContextPath() %>/assets/images/favicon.ico">
        
         <!-- Plugins css -->
-        <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
        
-        <link href="../assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
         
-        <link href="../assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
 
         <!-- third party css -->
-        <link href="../assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
         <!-- third party css end -->
 
         <!-- App css -->
-        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />        
+        <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />        
        
 </head>
 <body>
@@ -78,6 +78,7 @@
 			</div>
 			<!-- end page title -->
 
+			
 			<div class="row">
 				<div class="col-12">
 					<div class="card">
@@ -95,16 +96,55 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th>상품 노출</th>
-										<td colspan="2"><input type=radio name="pro-expo" checked>&nbsp노출<label
-											class="text-space"></label> <input type=radio name="pro-expo">&nbsp숨김
+								
+									<c:set var="isVisible" value="${vo.visible }" />
+									<c:choose>
+	 
+		  								  <c:when test="${isVisible eq false}">
+										        <th>상품 노출</th>
+												<td colspan="2">
+													<input type=radio name="pro-expo" value="visible">&nbsp노출<label class="text-space"></label> 
+													<input type=radio name="pro-expo" value="unvisible" checked>&nbsp숨김
+												</td>
+										  </c:when>								 
+										  
+										  <c:otherwise>					
+											<tr>
+												<th>상품 노출</th>
+												<td colspan="2">
+													<input type=radio name="pro-expo" value="visible" checked>&nbsp노출<label class="text-space"></label> 
+													<input type=radio name="pro-expo" value="unvisible">&nbsp숨김
+												</td>
+										 </c:otherwise>
+									 </c:choose>
+									 
+									 <c:set var="isBest" value="${vo.bestItem }" />
+									 <c:set var="isNew" value="${vo.newItem }" />
+											<th>상품 아이콘</th>
+											<td colspan="2">										
+											
+											<c:choose>
+												<c:when test="${isBest eq true}">
+													<input type='checkbox' id="item-best" value="best" checked/>
+												</c:when>
+												<c:otherwise>
+													<input type='checkbox' id="item-best" value="best"/>											
+												</c:otherwise>										
+											</c:choose>
+											
+												<span class="badge badge-danger">BEST</span><label class="text-space"></label> 
+											
+											<c:choose>
+												<c:when test="${isNew eq true }">
+													<input type='checkbox' id="item-new" value="new" checked/>
+												</c:when>
+												<c:otherwise>
+													<input type='checkbox' id="item-new" value="new"/>
+												</c:otherwise>	
+											</c:choose>
+										
+											<span class="badge badge-warning checkbox-space">NEW</span>
 										</td>
-
-										<th>상품 아이콘</th>
-										<td colspan="2"><input type='checkbox' /> <span
-											class="badge badge-danger">BEST</span><label
-											class="text-space"></label> <input type='checkbox' /> <span
-											class="badge badge-warning checkbox-space">NEW</label></td>
 									</tr>
 								</tbody>
 							</table>
@@ -121,19 +161,24 @@
 								<tbody>
 									<tr>
 										<th>상품 카테고리</th>
-										<td colspan="2">1차분류 <select class="form-control">
+										<td colspan="2">1차분류 
+										<select class="form-control">
 												<option>----</option>
 												<option>아우터</option>
 												<option>상의</option>
 												<option>하의</option>
 												<option>etc</option>
-										</select> <label class="text-space"></label> 2차분류 <select
-											class="form-control">
+										</select> 
+										<label class="text-space">
+										</label> 2차분류 
+											<select class="form-control">
 												<option>----</option>
 												<option>아우터</option>
 												<option>상의</option>
 												<option>하의</option>
-												<option>etc</option></td>
+												<option>etc</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<th>선택된 카테고리</th>
@@ -153,63 +198,65 @@
 									<col width="180">
 									<col width="*">
 								</colgroup>
+								
 								<tbody>
 									<tr>
-										<th></span>상품코드 <span style="color: #FF4040">*</span></th>
-										<td colspan="4"><input type="text" id=""
-											class="form-control product-info" id="simpleinput" /></td>
+										<th>상품코드 <span style="color: #FF4040">*</span></th>
+										<td colspan="4">
+											<input type="text" class="form-control product-info" id="item-code" value="${vo.code }" />
+										</td>
 									</tr>
 									<tr>
 										<th>상품명 <span style="color: #FF4040">*</span></th>
-										<td colspan="4"><input type="text" id=""
-											class="form-control product-info" /></td>
+										<td colspan="4">
+											<input type="text" class="form-control product-info" id="item-name" value="${vo.name }" />
+										</td>
 									</tr>
 									<tr>
-										<th>상품설명</th>
-										<td colspan="4"><textarea class="form-control txtb"
-												id="example-textarea" rows="3"></textarea></td>
+										<th>description</th>
+										<td colspan="4">
+											<textarea class="form-control txtb" id="item-des" rows="3">${vo.des }</textarea>
+										</td>
 									</tr>
 
 									<tr>
 										<th>판매정보 <span style="color: #FF4040">*</span></th>
-										<td colspan="4">공급가 <span style="color: #FF4040">*</span>
-											<input type="text" class="form-control product-info">&nbsp
-											정상가 <input type="text" id=""
-											class="form-control product-info">&nbsp 할인율 <input
-											type="text" id="" class="form-control product-info"><label
-											class="text-space"></label><label class="text-space"></label><label
-											class="text-space"></label> 판매가 <input type="text" id=""
-											class="form-control product-info" readonly>&nbsp 재고량
-											<span style="color: #FF4040">*</span> <input type="text"
-											id="" class="form-control product-info">
+										<td colspan="4">
+											공급가 <span style="color: #FF4040">*</span>
+											<input type="text" id="item-sup-price" class="form-control product-info" value="${vo.supPrice }">
+											&nbsp정상가 <input type="text" id="item-now-price" class="form-control product-info" value="${vo.nowPrice }">
+											&nbsp 할인율 <input type="text" id="item-sale" class="form-control product-info" value="${vo.sale }">
+											
+											<label class="text-space"></label><label class="text-space"></label><label class="text-space"></label> 
+											
+											판매가 <input type="text" id="item-sale-price" class="form-control product-info" readonly value="${salePrice }" >
+											&nbsp 재고량<span style="color: #FF4040">*</span><input type="text" id="item-stock" class="form-control product-info">
 										</td>
 									</tr>
 									<tr>
 										<th>배송사 <span style="color: #FF4040">*</span></th>
-										<td colspan="2"><select class="form-control"
-											style="min-width: 200px">
+										<td colspan="2">
+											<select class="form-control" style="min-width: 200px" id="ship-company-name">
 												<option>----</option>
 												<option>로젠택배</option>
 												<option>cj대한통운</option>
 												<option>현대택배</option>
 												<option>우체국택배</option>
-										</select></td>
+											</select>
+										</td>
+										
 										<th>배송비 <span style="color: #FF4040">*</span></th>
-										<td colspan="2"><input type=radio name="shipping-charge"
-											checked>&nbsp무료배송<label class="text-space"></label> <input
-											type=radio name="shipping-charge">&nbsp설정 배송비</td>
+										<td colspan="2">
+											<input type=radio name="shipping-charge" checked>&nbsp무료배송<label class="text-space"></label>
+											<input type=radio name="shipping-charge">&nbsp설정 배송비
+										</td>
 									</tr>
 									<!-- image 등록 -->
 									<tr class="img-reg">
 										<th>이미지 등록</th>
-
-
 										<td colspan="4">
-
-
 											<div class="img-section">
-												<form action="/" method="post" class="dropzone"
-													id="img-section">
+												<form action="/" method="post" class="dropzone"	id="img-section" name="image-main">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -218,8 +265,7 @@
 											</div>
 
 											<div class="img-section">
-												<form action="/" method="post" class="dropzone"
-													id="img-section">
+												<form action="/" method="post" class="dropzone"	id="img-section" name="image-sub">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -275,15 +321,13 @@
 										<th>상품옵션</th>
 										<td colspan="4">
 											<div>
-												<input type=radio name="pro-opt" checked>&nbsp옵션사용안함<label
-													class="text-space"></label> <input type=radio
-													name="pro-opt">&nbsp1차옵션사용<label class="text-space"></label>
+												<input type=radio name="pro-opt" checked>&nbsp옵션사용안함	<label class="text-space"></label> 
+												<input type=radio name="pro-opt">&nbsp1차옵션사용 <label class="text-space"></label>
 												<input type=radio name="pro-opt">&nbsp2차옵션사용
 											</div>
 											<div>옵션 영역</div>
 										</td>
 									</tr>
-
 								</tbody>
 
 							</table>
@@ -293,21 +337,21 @@
 							<!-- 상품 설명 시작-->
 							<h4 class="page-title">상품 설명</h4>
 
-							<div id="snow-editor" style="height: 300px;"></div>
+							<div id="snow-editor" style="height: 300px;" name="item-editor"></div>
 							<!--상품 설명 종료-->
 
 							<br>
 
 							<!-- 등록,목록 버튼-->
 							<div class="btn-submit-section">
-								<button type="button" class="btn btn-secondary waves-effect ">등록</button>
-								<button type="button" class="btn btn-secondary waves-effect ">목록</button>
+								<button type="submit" class="btn btn-secondary waves-effect" id="btn-reg">등록</button>
+								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">목록</button>
 							</div>
 
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>			
 		</div>
 		<!-- end container -->
 	</div>
