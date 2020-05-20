@@ -7,6 +7,8 @@ public class SiteVo {
 	private boolean itemReview;
 	private boolean itemBoard;
 	private int shipCharge;
+	private String logo;
+	private String pavicon;
 
 	public int getNo() {
 		return no;
@@ -56,10 +58,26 @@ public class SiteVo {
 		this.shipCharge = shipCharge;
 	}
 
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public String getPavicon() {
+		return pavicon;
+	}
+
+	public void setPavicon(String pavicon) {
+		this.pavicon = pavicon;
+	}
+
 	@Override
 	public String toString() {
 		return "SiteVo [no=" + no + ", ceo=" + ceo + ", id=" + id + ", itemReview=" + itemReview + ", itemBoard="
-				+ itemBoard + ", shipCharge=" + shipCharge + "]";
+				+ itemBoard + ", shipCharge=" + shipCharge + ", logo=" + logo + ", pavicon=" + pavicon + "]";
 	}
-	
+
 }
