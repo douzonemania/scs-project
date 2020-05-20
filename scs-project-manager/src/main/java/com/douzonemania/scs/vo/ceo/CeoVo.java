@@ -30,6 +30,15 @@ public class CeoVo {
 	private String siteName;
 	private String coNumber;
 	private String cmNumber;
+	private int shipCharge;
+
+	public int getShipCharge() {
+		return shipCharge;
+	}
+
+	public void setShipCharge(int shipCharge) {
+		this.shipCharge = shipCharge;
+	}
 
 	public String getId() {
 		return id;
@@ -157,7 +166,7 @@ public class CeoVo {
 				+ ", email=" + email + ", companyName=" + companyName + ", regDate=" + regDate + ", faxNumber="
 				+ faxNumber + ", cpNumber=" + cpNumber + ", address1=" + address1 + ", address2=" + address2
 				+ ", address=" + address + ", siteName=" + siteName + ", coNumber=" + coNumber + ", cmNumber="
-				+ cmNumber + "]";
+				+ cmNumber + ", shipCharge=" + shipCharge + "]";
 	}
 
 }
