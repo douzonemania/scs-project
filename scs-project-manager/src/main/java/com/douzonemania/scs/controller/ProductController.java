@@ -20,7 +20,6 @@ public class ProductController {
 	}
 	@RequestMapping(value = "/category-reg", method = RequestMethod.GET)
 	public String categoryReg() {
-		System.out.println("바보야");
 		return "product/category-reg";
 	}
 	
