@@ -9,7 +9,7 @@ public class SiteVo {
 	private int shipCharge;
 	private String logo;
 	private String pavicon;
- 
+   
 	public int getNo() {
 		return no;
 	}
