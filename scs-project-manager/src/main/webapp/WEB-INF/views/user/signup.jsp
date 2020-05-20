@@ -132,7 +132,7 @@ $(function() {
 		})
 		
 		$("#btn-checkid").click(function() {
-			var id = $("#id").val();
+			var id = $("#user_id").val();
 			if(id == '') {
 				return;
 			}
@@ -149,8 +149,8 @@ $(function() {
 						return;
 					}
 					if(response.data == true) {
-						alert('존재하는 이메일입니다.');
-						$("#email")
+						alert('존재하는 아이디입니다.');
+						$("#user_id")
 							.val('')
 							.focus();
 						return;
@@ -201,51 +201,52 @@ $(function() {
 													<label for="fullname">이름</label><a id="red-star">*</a>
 													<form:input path="name" class="form-control" type="text"
 														id="user_name" />
-													<form:errors path="name" />
-													<div class="check_font" id="id_check"></div>
+													<div class="check_font" id="id_check">
+														<form:errors path="name" />
+													</div>
 												</div>
 												<div class="form-group mb-3">
 													<label for="id2">아이디</label><a id="red-star">*</a>
 													<form:input path="id" class="form-control" type="text"
 														id="user_id" placeholder="아이디(6~10자)" />
-													<input type="button" class="btn btn-secondary btn-sm float-right" value="중복확인" style="margin-top: 5px;">
+													<input type="button" id="btn-checkid" class="btn btn-secondary btn-sm float-right" value="중복확인" style="margin-top: 5px;">
 													<img id='img-checkid' style='width: 30px; display: none;' src = '${ pageContext.request.contextPath }/assets/images/check.png' />
-													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+													<div class="check_font" id="id_check">
 														<form:errors path="id" />
-													</p>
+													</div>
 												</div>
 												<div class="form-group mb-3">
 													<label for="password2">비밀번호</label><a id="red-star">*</a>
 													<form:input path="password" class="form-control"
 														type="password" id="user_password"
 														placeholder="비밀번호(4~12자)" />
-													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+													<div class="check_font" id="id_check">
 														<form:errors path="password" />
-													</p>
+													</div>
 												</div>
 												<div class="form-group mb-3">
 													<label for="emailaddress2">이메일</label><a id="red-star">*</a>
 													<form:input path="email" class="form-control" type="email"
 														id="user_email" />
-													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+													<div class="check_font" id="email_check">
 														<form:errors path="email" />
-													</p>
+													</div>
 												</div>
 												<div class="form-group mb-3">
 													<label for="phonenum">휴대폰번호</label><a id="red-star">*</a>
 													<form:input path="phoneNumber" class="form-control"
 														type="text" id="user_phone" placeholder="-는 제외하고 입력하세요" />
-													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+													<div class="check_font" id="id_check">
 														<form:errors path="phoneNumber" />
-													</p>
+													</div>
 												</div>
 												<div class="form-group mb-3">
 													<label for="company">회사명</label><a id="red-star">*</a>
 													<form:input path="companyName" class="form-control"
 														type="text" id="user_company" />
-													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+													<div class="check-font" id="companyName_check">
 														<form:errors path="companyName" />
-													</p>
+													</div>
 												</div>
 											</div>
 										</div>

@@ -12,7 +12,6 @@ public class CeoVo {
 
 	private String name;
 
-	@NotEmpty
 	@Length(min = 4, max = 12)
 	private String password;
 
