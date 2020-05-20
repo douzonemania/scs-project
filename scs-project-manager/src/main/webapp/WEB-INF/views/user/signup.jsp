@@ -116,12 +116,14 @@ $(function() {
 				return ;
 			}
 			
-			if($("#agree-prov").is(":checked") == false) {
+/* 			if($("#agree-prov").is(":checked") == false) {
 				alert('약관 동의가 필요합니다.');
 				$("#agree-prov").focus();
 				
 				return ;
-			} 
+			}  */
+			
+			console.log("Test");
 			
 			this.submit();
 		});
@@ -140,7 +142,6 @@ $(function() {
 			$.ajax({
 				url: "${pageContext.request.contextPath }/api/user/checkid?id=" + id,
 				type: 'get',
-				// contextType : 'application/json'
 				data:'',
 				dataType: 'json',
 				success: function(response) {
@@ -201,7 +202,7 @@ $(function() {
 													<label for="fullname">이름</label><a id="red-star">*</a>
 													<form:input path="name" class="form-control" type="text"
 														id="user_name" />
-													<div class="check_font" id="id_check">
+													<div class="check_font" id="name_check">
 														<form:errors path="name" />
 													</div>
 												</div>

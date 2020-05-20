@@ -13,17 +13,15 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
-
 var shipAddTemplate = new EJS({
 	url:"${pageContext.request.contextPath }/assets/js/ejs/ship-item-add.ejs"
 });
-
 var shiplistTemplate = new EJS({
 	url:"${pageContext.request.contextPath }/assets/js/ejs/ship-list-template.ejs"
 });
 var fetchList = function(){
 	$.ajax({
-		url: '${pageContext.request.contextPath }/setting/api/shipAdd',
+		url: '${pageContext.request.contextPath }/api/setting/shipAdd',
 		async: true,
 		type: 'get',
 		dataType: 'json',
@@ -45,7 +43,6 @@ var fetchList = function(){
 		}
 	});	
 }
-
 $(function(){
  	
 	//입력폼 submit 이벤트
@@ -56,7 +53,7 @@ $(function(){
 		vo.name = $('#text-ship').val();
 		<!--vo.id = '${authUser.id}'; -->
 		$.ajax({
-			url: '${pageContext.request.contextPath }/setting/api/shipAdd/add',
+			url: '${pageContext.request.contextPath }/api/setting/shipAdd/add',
 			async: true,
 			type: 'post',
 			dataType: 'json',
@@ -94,7 +91,7 @@ $(function(){
 		
 		console.log("delete   " + no);
 		$.ajax({
-			url: '${pageContext.request.contextPath }/setting/api/shipAdd/delete/'+ no,
+			url: '${pageContext.request.contextPath }/api/setting/shipAdd/delete/'+ no,
 			async: true,
 			type: 'delete',
 			dataType: 'json',
@@ -122,7 +119,6 @@ $(function(){
 		
 	});
 	
-
 	
 });
 fetchList();
