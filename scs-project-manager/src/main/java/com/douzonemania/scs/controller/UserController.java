@@ -14,7 +14,7 @@ import com.douzonemania.scs.service.UserService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/{id:(?!assets).*}/user")
 public class UserController {
 
 	@Autowired
@@ -40,12 +40,12 @@ public class UserController {
 		ceoVo.setAddress(ceoVo.getAddress1() + " " + ceoVo.getAddress2());
 
 		System.out.println(ceoVo.toString());
-		//userService.insert(ceoVo);
+		userService.insert(ceoVo);
 
-//		String id = ceoVo.getId();
-//		userService.createDB(id);
-//		userService.createTable(id);
-//		userService.alterTable(id);
+		String id = ceoVo.getId();
+		userService.createDB(id);
+		userService.createTable(id);
+		userService.alterTable(id);
 		
 		return "user/join";
 	}
