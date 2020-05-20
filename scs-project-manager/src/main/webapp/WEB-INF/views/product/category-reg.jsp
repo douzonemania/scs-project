@@ -12,35 +12,71 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        <link rel="shortcut icon" href="<%=request.getContextPath() %>/assets/images/favicon.ico">
        
         <!-- Plugins css -->
-        <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
        
-        <link href="../assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
         
-        <link href="../assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
 
         <!-- third party css -->
-        <link href="../assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
         <!-- third party css end -->
 
         <!-- App css -->
-        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />        
+        <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />        
+
+<script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
+<script>
+var id = '${authUser.id}';
+var listItemTemplate = new EJS({
+	url: "${pageContext.request.contextPath }/assets/js/ejs/list-item-template.ejs"
+});
+var listTemplate = new EJS({
+	url: "${pageContext.request.contextPath }/assets/js/ejs/list-template.ejs"
+});
+
+$(document).on("click","#cate-add-button",function(e){
+	var categoryName = $('#category-name').val();
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath }/product/category-reg/add',
+		data: "categoryName=" + categoryName,
+		type: "POST",
+		success : function(data){
+			alert("성공")
+		},
+		error : function(){
+			alert("에러")		
+		}
+	
+	});
+	
+});
+
+</script>       
+       
        
 </head>
 <body>
@@ -102,7 +138,7 @@
 
                                 <!-- 카테고리 추가 시작-->
                                 <h4 class="page-title">카테고리 등록</h4>
-
+								<form id="add-cate">
                                 <table class="category-add">
                                     <tr>
                                         <td>
@@ -111,13 +147,14 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <button type="button" class="btn btn-secondary waves-effect textbox" id="cate-add-button" disabled>1차카테고리</button> 
-                                            <input type="text" class="form-control " id="category-name" style="width:200px; display:inline-block;">   
-                                            <button type="button" class="btn btn-secondary waves-effect " id="cate-add-button">추가</button>
+                                        <td>                                        	
+	                                        <button type="button" class="btn btn-secondary waves-effect textbox" id="cate-add-button" disabled>1차카테고리</button> 
+	                                        <input type="text" class="form-control " id="category-name" style="width:200px; display:inline-block;" value="">	                                        
+	                                        <button type="button" class="btn btn-secondary waves-effect " id="cate-add-button">추가</button>	                                                                                   
                                         </td>
                                     </tr>
                                 </table>
+                                </form>
                                 <!-- 카테고리 추가 종료-->
                                 </h4><label class="lspace"></label>
 
@@ -183,6 +220,9 @@
                         
                     </div>
                 </div>
+            </div>
+        </div>
+                
                 <!-- row, col-12 종료-->
 
     <!-- ============================================================== -->

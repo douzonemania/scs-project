@@ -1,8 +1,4 @@
 package com.douzonemania.scs.controller.api;
-<<<<<<< HEAD
-
-=======
->>>>>>> 88aca6f6547d434bdccf3658f73ce08d4f4aac9b
 
 import java.util.List;
 
@@ -58,8 +54,6 @@ public class SettingController {
 	public JsonResult shipListDelete(
 //			@PathVariable String id,
 			@PathVariable("no") Long no) {
-			
-			System.out.println("=========================================" + no);
 			
 			boolean result = false;
 			int count = shipCompanyService.shipCount("sjy8033");	//authUser처리

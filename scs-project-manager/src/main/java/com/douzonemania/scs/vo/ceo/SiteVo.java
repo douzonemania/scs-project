@@ -9,7 +9,7 @@ public class SiteVo {
 	private int shipCharge;
 	private String logo;
 	private String pavicon;
-   
+
 	public int getNo() {
 		return no;
 	}
@@ -79,5 +79,4 @@ public class SiteVo {
 		return "SiteVo [no=" + no + ", ceo=" + ceo + ", id=" + id + ", itemReview=" + itemReview + ", itemBoard="
 				+ itemBoard + ", shipCharge=" + shipCharge + ", logo=" + logo + ", pavicon=" + pavicon + "]";
 	}
-
 }
