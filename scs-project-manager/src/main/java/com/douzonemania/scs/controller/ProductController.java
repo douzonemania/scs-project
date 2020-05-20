@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/{id:(?!assets).*}/product")
 public class ProductController {
 	
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
