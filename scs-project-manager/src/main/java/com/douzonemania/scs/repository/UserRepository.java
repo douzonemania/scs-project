@@ -14,14 +14,9 @@ public class UserRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public int insert(CeoVo ceoVo) {
-		return sqlSession.insert("user.insert", ceoVo);
-	}
 
+	// create table
 	public void createTable(String id) {
-
-		// malltest에 아이디 넣어서 바꾸기
-
 		String itemReviewQry = "CREATE TABLE " + id + ".item_review(" + "   no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    rate INT UNSIGNED NOT NULL," + "    title VARCHAR(30)  NOT NULL," + "    content TEXT NOT NULL,"
 				+ "    image VARCHAR(50)  NULL," + "    item_no INT UNSIGNED NULL," + "    member_no INT UNSIGNED NULL,"
@@ -225,5 +220,17 @@ public class UserRepository {
 
 		sqlSession.update("alterTable", map);
 	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	public int insert(CeoVo ceoVo) {
+		return sqlSession.insert("user.insert", ceoVo);
+	}
 
+	public CeoVo findById(String id) {
+		return sqlSession.selectOne("user.findById", id);
+	}
+
+	
+	
 }

@@ -79,4 +79,8 @@ public class UserService {
 		userRepository.alterTable(id);
 	}
 	
+	public boolean existUser(String id) {
+		return userRepository.findById(id) != null;
+	}
+	
 }
