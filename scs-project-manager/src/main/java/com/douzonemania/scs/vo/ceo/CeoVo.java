@@ -20,6 +20,8 @@ public class CeoVo {
 	private String coNumber;
 	private String cmNumber;
 	private int shipCharge;
+	private String logo;
+	private String favicon;
 	
 	public int getShipCharge() {
 		return shipCharge;
@@ -118,12 +120,33 @@ public class CeoVo {
 	public void setCmNumber(String cmNumber) {
 		this.cmNumber = cmNumber;
 	}
+	public String getLogo() {
+		return logo;
+	}
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+	public String getFavicon() {
+		return favicon;
+	}
+	public void setFavicon(String favicon) {
+		this.favicon = favicon;
+	}
+	
 	@Override
 	public String toString() {
 		return "CeoVo [id=" + id + ", name=" + name + ", password=" + password + ", phoneNumber=" + phoneNumber
 				+ ", email=" + email + ", companyName=" + companyName + ", regDate=" + regDate + ", faxNumber="
 				+ faxNumber + ", cpNumber=" + cpNumber + ", address1=" + address1 + ", address2=" + address2
 				+ ", address=" + address + ", siteName=" + siteName + ", coNumber=" + coNumber + ", cmNumber="
-				+ cmNumber + ", shipCharge=" + shipCharge + "]";
+				+ cmNumber + ", shipCharge=" + shipCharge + ", logo=" + logo + ", favicon=" + favicon
+				+ ", getShipCharge()=" + getShipCharge() + ", getId()=" + getId() + ", getName()=" + getName()
+				+ ", getPassword()=" + getPassword() + ", getPhoneNumber()=" + getPhoneNumber() + ", getEmail()="
+				+ getEmail() + ", getCompanyName()=" + getCompanyName() + ", getRegDate()=" + getRegDate()
+				+ ", getFaxNumber()=" + getFaxNumber() + ", getCpNumber()=" + getCpNumber() + ", getAddress1()="
+				+ getAddress1() + ", getAddress2()=" + getAddress2() + ", getAddress()=" + getAddress()
+				+ ", getSiteName()=" + getSiteName() + ", getCoNumber()=" + getCoNumber() + ", getCmNumber()="
+				+ getCmNumber() + ", getLogo()=" + getLogo() + ", getFavicon()=" + getFavicon() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 }
