@@ -1,5 +1,7 @@
 package com.douzonemania.scs.vo.member;
 
+import java.sql.Timestamp;
+
 public class ItemVo {
 
 	private int no;
@@ -10,10 +12,30 @@ public class ItemVo {
 	private int sale; // 할인율 (% 단위)
 	private String mainImage;
 	private String subImage; // 부가이미지 (,로 구분지어 들어감)
-	private boolean visible;
-	private boolean bestItem;
-	private boolean newItem;
+	private boolean visible = true;
+	private boolean bestItem = false;
+	private boolean newItem = false;
 	private String editor;
+	private String des;
+	private Timestamp regDate;
+
+
+
+	public Timestamp getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(Timestamp regDate) {
+		this.regDate = regDate;
+	}
+
+	public String getDes() {
+		return des;
+	}
+
+	public void setDes(String des) {
+		this.des = des;
+	}
 
 	public int getNo() {
 		return no;
@@ -115,7 +137,8 @@ public class ItemVo {
 	public String toString() {
 		return "ItemVo [no=" + no + ", code=" + code + ", name=" + name + ", supPrice=" + supPrice + ", nowPrice="
 				+ nowPrice + ", sale=" + sale + ", mainImage=" + mainImage + ", subImage=" + subImage + ", visible="
-				+ visible + ", bestItem=" + bestItem + ", newItem=" + newItem + ", editor=" + editor + "]";
+				+ visible + ", bestItem=" + bestItem + ", newItem=" + newItem + ", editor=" + editor + ", des=" + des
+				+ ", regDate=" + regDate + "]";
 	}
 
 }

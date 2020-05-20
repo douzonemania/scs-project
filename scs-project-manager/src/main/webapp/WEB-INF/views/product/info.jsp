@@ -15,32 +15,32 @@
         <link rel="shortcut icon" href="../assets/images/favicon.ico">
        
         <!-- Plugins css -->
-        <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
        
-        <link href="../assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
         
-        <link href="../assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
 
         <!-- third party css -->
-        <link href="../assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
         <!-- third party css end -->
 
         <!-- App css -->
-        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />        
+        <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />        
        
 </head>
 <body>
@@ -168,7 +168,39 @@
 										</tr>
 									</thead>
 									<tbody>
+									<c:forEach var="vo" varStatus="status" items="${itemList }">										
 										<tr>
+											<td>
+												<div class="custom-control custom-checkbox">
+													<input type="checkbox" class="custom-control-input"
+														id="customCheck1"> <label
+														class="custom-control-label" for="customCheck1">&nbsp;</label>
+												</div>
+											</td>
+											<td class="table-user">${vo.no }</td>
+											<td><span class="badge bg-soft-danger text-danger">노출</span>
+											</td>
+											<td>${vo.code }</td>
+											<td><img
+												src='${pageContext.request.contextPath }/assets/images/${vo.mainImage}'
+												style="width: 90px; height: 90px"></td>
+											<td>${vo.name }</td>
+											<td> ${salePriceList[status.index]} </td>
+											<td>198</td>
+											<td>${vo.regDate }</td>
+											<td>
+												
+												<a href="${pageContext.request.contextPath }/product/modify-item/${vo.no}">
+													<input class="btn-secondary" style="height: 20px; font-size: 11px" type="button" value="수정"></a> 
+												<a href="">
+													<input class="btn-secondary" style="height: 20px; font-size: 11px" type="button" value="삭제"></a> 
+												<a href="">
+													<input class="btn-secondary" style="height: 20px; font-size: 11px" type="button" value="통계"></a>
+											</td>
+										</tr>
+									
+									</c:forEach>
+										<%-- <tr>
 											<td>
 												<div class="custom-control custom-checkbox">
 													<input type="checkbox" class="custom-control-input"
@@ -194,39 +226,7 @@
 													type="button" value="삭제"></a> <a href=""><input
 													class="btn-secondary" style="height: 20px; font-size: 11px"
 													type="button" value="통계"></a></td>
-										</tr>
-
-										<tr>
-											<td>
-												<div class="custom-control custom-checkbox">
-													<input type="checkbox" class="custom-control-input"
-														id="customCheck1"> <label
-														class="custom-control-label" for="customCheck1">&nbsp;</label>
-												</div>
-											</td>
-											<td class="table-user">16</td>
-											<td><span class="badge bg-soft-danger text-danger">노출</span>
-											</td>
-											<td>F7962-K6691-S4231</td>
-											<td><img
-												src='${pageContext.request.contextPath }/assets/images/kimchi.png'
-												style="width: 90px; height: 90px"></td>
-											<td>김치카지 리버시블 조끼</td>
-											<td>34,900</td>
-											<td>68</td>
-											<td>2020-05-08</td>
-											<td><a href=""><input
-													style="height: 20px; font-size: 11px" type="button"
-													value="수정"></a> <a href=""><input
-													style="height: 20px; font-size: 11px" type="button"
-													value="삭제"></a> <a href=""><input
-													style="height: 20px; font-size: 11px" type="button"
-													value="통계"></a></td>
-										</tr>
-										<!--                                            -->
-										<!--                                            -->
-										<!--                                            -->
-
+										</tr> --%>
 
 									</tbody>
 								</table>
