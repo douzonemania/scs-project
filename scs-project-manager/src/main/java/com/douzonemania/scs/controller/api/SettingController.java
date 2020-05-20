@@ -1,5 +1,8 @@
 package com.douzonemania.scs.controller.api;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 88aca6f6547d434bdccf3658f73ce08d4f4aac9b
 
 import java.util.List;
 
