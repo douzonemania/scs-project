@@ -230,7 +230,6 @@ public class UserRepository {
 	public CeoVo findById(String id) {
 		return sqlSession.selectOne("user.findById", id);
 	}
-
 	
 	
 }

@@ -24,7 +24,7 @@ public class UserController {
 	public String join(@ModelAttribute CeoVo ceoVo) {
 		return "user/signup";
 	}
-
+ 
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(@ModelAttribute @Valid CeoVo ceoVo, BindingResult result,
 			Model model) {

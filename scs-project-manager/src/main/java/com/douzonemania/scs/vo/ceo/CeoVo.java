@@ -3,7 +3,6 @@ package com.douzonemania.scs.vo.ceo;
 import java.sql.Timestamp;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class CeoVo {
 

@@ -82,5 +82,5 @@ public class UserService {
 	public boolean existUser(String id) {
 		return userRepository.findById(id) != null;
 	}
-	
+	 
 }

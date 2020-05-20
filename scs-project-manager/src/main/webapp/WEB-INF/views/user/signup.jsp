@@ -251,7 +251,7 @@ $(function() {
 											</div>
 										</div>
 										<!-- end col -->
-										​
+ 								
 										<div class="col-lg-6" style="margin-top: 15px">
 											<div class="p-sm-3 signup-right">
 												<div class="form-group mb-3">

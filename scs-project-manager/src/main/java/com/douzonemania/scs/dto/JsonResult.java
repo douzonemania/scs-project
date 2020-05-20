@@ -13,7 +13,7 @@ public class JsonResult {
 	private JsonResult(String message) {
 		result = "fail";
 		this.message= message;
-	}
+	} 
 	
 	public static JsonResult success(Object data) {
 		System.out.println(data);
