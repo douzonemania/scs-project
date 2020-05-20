@@ -8,6 +8,5 @@
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/shipcompany.xml" />
-		<mapper resource="mybatis/mappers/first.xml" />
 	</mappers>
 </configuration>

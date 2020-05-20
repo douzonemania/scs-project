@@ -1,4 +1,4 @@
-package com.douzonemania.scs.api;
+package com.douzonemania.scs.controller.api;
 
 
 import java.util.List;
@@ -19,7 +19,7 @@ import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 
 @RestController("SettingApiController")
-@RequestMapping("/setting/api")
+@RequestMapping("/api/setting")
 public class SettingController {
 	
 	@Autowired
