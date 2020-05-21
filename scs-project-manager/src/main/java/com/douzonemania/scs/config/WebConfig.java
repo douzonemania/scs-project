@@ -23,7 +23,7 @@ import com.douzonemania.security.LogoutInterceptor;
 public class WebConfig implements WebMvcConfigurer {
 	@Autowired
 	private Environment env;
-	
+
 	//Argument Resolver
 	@Bean
 	public HandlerMethodArgumentResolver authUserHandlerMethodArgumentResolver() {
@@ -51,21 +51,16 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry
-			.addInterceptor(loginInterceptor())
-			.addPathPatterns(env.getProperty("security.auth-url"));
-	
-		registry
-			.addInterceptor(logoutInterceptor())
-			.addPathPatterns(env.getProperty("security.logout-url"));
-	
+		.addInterceptor(loginInterceptor())
+		.addPathPatterns(env.getProperty("security.auth-url"));
+
 		registry
 		.addInterceptor(authInterceptor())
 		.addPathPatterns("/**")	
 		.excludePathPatterns("/assets/**")
 		.excludePathPatterns("/error/**");
-	
 	}
-	
+
 	// Mvc Resources(URL Magic Mapping)
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

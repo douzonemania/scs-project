@@ -76,7 +76,11 @@ public class UserService {
 	public boolean existUser(String id) {
 		return userRepository.findById(id) != null;
 	}
-	
+
+	public CeoVo getUser(CeoVo ceoVo) {
+		return userRepository.findByIdAndPassword(ceoVo);
+	}
+	 
 	public CeoVo findCeoById(String id) {
 		return userRepository.findById(id);
 	}
@@ -85,4 +89,3 @@ public class UserService {
 		return userRepository.findByIdJoin(id);
 	}
 }
-

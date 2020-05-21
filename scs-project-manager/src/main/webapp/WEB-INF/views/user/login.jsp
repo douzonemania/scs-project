@@ -45,15 +45,15 @@
                                         <div class="p-sm-3">
                                             <!-- title-->
                                             <h4 class="mt-0">로그인</h4>
-                                            <form action="#">
+                                            <form id="login-form" name="loginform" method="post" action="${ pageContext.request.contextPath }/user/auth">
                                                 <div class="form-group mb-3">
                                                     <label for="member-id">아이디</label>
-                                                    <input class="form-control" type="text" id="member-id" required="">
+                                                    <input class="form-control" type="text" id="member-id" name="id" required>
                                                 </div>
             
                                                 <div class="form-group mb-3">
                                                     <label for="password">비밀번호</label>
-                                                    <input class="form-control" type="password" required="" id="password">
+                                                    <input class="form-control" type="password" id="password" name="password" required>
                                                 </div>
                                                 <div class="col-12 text-center">
                                                     <p> 
@@ -66,6 +66,7 @@
                                                     <!-- <div class="custom-control custom-checkbox pt-1">
                                                         <input type="checkbox" class="custom-control-input" id="checkbox-signin" checked value="#ffffff">
                                                     </div> -->
+                                               	</div>
                                             </form>
                                         </div>
                                         
