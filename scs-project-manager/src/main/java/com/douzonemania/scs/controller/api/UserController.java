@@ -22,7 +22,6 @@ public class UserController {
 	public JsonResult checkEmail(
 		@RequestParam(value="id", required=true, defaultValue="") String id) {
 		boolean exist = userService.existUser(id);
-		
 		return JsonResult.success(exist);
 	}
 

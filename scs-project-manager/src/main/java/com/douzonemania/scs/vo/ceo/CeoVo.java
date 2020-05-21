@@ -1,21 +1,24 @@
 package com.douzonemania.scs.vo.ceo;
 
 import java.sql.Timestamp;
-import org.hibernate.validator.constraints.Length;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class CeoVo {
 
-	@Length(min = 6, max = 10)
+//	@NotEmpty
+//	@Length(min = 4, max = 10)
 	private String id;
 
 	private String name;
 
-	@Length(min = 4, max = 12)
+//	@Length(min = 4, max = 12)
 	private String password;
 
 	private String phoneNumber;
 	private String email;
 	private String companyName;
+
 	private Timestamp regDate;
 	private String faxNumber;
 	private String cpNumber;

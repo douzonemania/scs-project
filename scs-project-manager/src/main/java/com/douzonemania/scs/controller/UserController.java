@@ -14,7 +14,7 @@ import com.douzonemania.scs.service.UserService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 
 @Controller
-@RequestMapping("/{id:(?!assets).*}/user")
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
@@ -32,27 +32,27 @@ public class UserController {
 		
 		if(result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
+			System.out.println("######################error#################################");
 			return "user/signup";
 		}
 		
-		model.addAllAttributes(result.getModel());
+//		model.addAllAttributes(result.getModel());
 
 		ceoVo.setAddress(ceoVo.getAddress1() + " " + ceoVo.getAddress2());
 
-		System.out.println(ceoVo.toString());
 		userService.insert(ceoVo);
 
+		// 회원 DB와 table 생성
 		String id = ceoVo.getId();
 		userService.createDB(id);
 		userService.createTable(id);
 		userService.alterTable(id);
 		
-		return "user/join";
+		return "redirect:/index";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
-		System.out.println("바보야");
 		return "redirect:/user/login";
 	}
 

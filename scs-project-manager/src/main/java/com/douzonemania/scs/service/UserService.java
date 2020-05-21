@@ -25,11 +25,6 @@ public class UserService {
 	static final String USER = "scs2";
 	static final String PASS = "scs2";
 	
-	public boolean insert(CeoVo ceoVo) {
-		int count = userRepository.insert(ceoVo);
-		return count == 1;
-	}
-
 	public void createDB(String databaseName) {
 		Connection conn = null;
 		Statement stmt = null;
@@ -77,6 +72,13 @@ public class UserService {
 	
 	public void alterTable(String id) {
 		userRepository.alterTable(id);
+	}
+	
+	/////////////////////////////////////////////////////
+	
+	public boolean insert(CeoVo ceoVo) {
+		int count = userRepository.insert(ceoVo);
+		return count == 1;
 	}
 	
 	public boolean existUser(String id) {

@@ -1503,110 +1503,6 @@ Responsive Menu
   margin: 0 3px;
   border: none; }
 
-.scs-search {
-  width: 250px;
-  display: inline-block; }
-
-.scs-category {
-  width: 150px;
-  display: inline-block; }
-
-.scs-submit {
-  display: inline-block; }
-
-.row .col-lg-11 {
-  margin: 24px auto; }
-
-.form-inline.editableform .editable-input,
-.form-inline.editableform .editable-buttons {
-  display: inline-block; }
-
-.pagination-rounded {
-  margin: 0 auto;
-  position: absolute;
-  left: 40%; }
-
-.scs-search {
-  width: 250px;
-  display: inline-block; }
-
-.scs-category {
-  width: 150px;
-  display: inline-block; }
-
-.scs-submit {
-  display: inline-block; }
-
-.row .col-lg-11 {
-  margin: 24px auto; }
-
-.row .col-lg-11 .card-box .settle-list .mb-0 .thead-light {
-  margin: 0 auto;
-  text-align: center; }
-
-.row .col-lg-11 .card-box .settle-list .mb-0 .thead-light .settle-sum {
-  font-size: 1.5rem;
-  margin: 20px;
-  padding: 25px;
-  width: 300px; }
-
-/*
-파일 업로드
-*/
-.box {
-  width: 200px; }
-
-.filetype {
-  position: relative;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  vertical-align: top;
-  *margin-right: 4px; }
-
-.filetype * {
-  vertical-align: middle; }
-
-.filetype .file-select {
-  position: absolute;
-  top: -5px;
-  right: 0;
-  width: 80px;
-  margin-left: 38px;
-  z-index: 10;
-  overflow: hidden; }
-
-.filetype .file-select .input-file {
-  width: 80px;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  cursor: pointer;
-  height: 40px; }
-
-.row .col-sm-2 .avatar-sm {
-  margin: 20px; }
-
-.row .box .filetype {
-  margin: 0 auto;
-  text-align: center; }
-
-.table-form-category .box .filetype .btn-secondary {
-  margin: 10px 5px;
-  border-style: none;
-  background-color: #CDD3D4;
-  cursor: pointer; }
-
-.col-sm-2 .img-scs-logo {
-  width: 150px; }
-
-.col-lg-12 .card-box .nav-pills .nav-item .nav-title-color {
-  background-color: #ffffff;
-  color: #6C757D; }
-
-.col-lg-12 .card-box .nav-pills .nav-item .active {
-  background-color: #6C757D;
-  color: #ffffff; }
-
 .authentication-bg.enlarged {
   min-height: 100px; }
 
@@ -2363,59 +2259,6 @@ body.authentication-bg-pattern {
 .product-img-bg {
   background-color: #f1f5f7;
   text-align: center; }
-
-.p-sm-3 {
-  border: 2px solid #6C757D;
-  width: 100%; }
-
-.mt-0, .mt-3 {
-  font-weight: bold;
-  text-align: center; }
-
-.card-body, .bg-pattern {
-  width: 100%;
-  background-color: #FEFEFE; }
-
-.form-control:focus {
-  border-color: #000000; }
-
-.account-pages {
-  width: 100%;
-  height: 100%; }
-
-.signup-title {
-  text-align: left;
-  padding: 10px 0; }
-
-.signin-body {
-  border: 2px solid #6C757D; }
-
-.signup-left, .signup-right {
-  border: none; }
-
-.signup-right {
-  margin-top: 34px;
-  width: 100%; }
-
-.btn-success {
-  background-color: #C0C0C0;
-  border-color: #ACACAC; }
-
-.form-control:focus {
-  border-color: #000000; }
-
-.custom-control-input:checked {
-  background-color: #000000; }
-
-#red-star {
-  color: #FF0000; }
-
-.member-icon {
-  color: #000000;
-  font-size: 20px; }
-
-.custom-email-icon {
-  margin-left: 17px; }
 
 /*!
  * Waves v0.7.6
@@ -4159,6 +4002,174 @@ table[data-toggle="table"] {
 
 .datepicker-dropdown.datepicker-orient-top:after {
   border-top: 6px solid #fff; }
+
+/*
+파일 업로드
+*/
+.box {
+  width: 200px; }
+
+.filetype {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  vertical-align: top;
+  *margin-right: 4px; }
+
+.filetype * {
+  vertical-align: middle; }
+
+.filetype .file-select {
+  position: absolute;
+  top: -5px;
+  right: 0;
+  width: 80px;
+  margin-left: 38px;
+  z-index: 10;
+  overflow: hidden; }
+
+.filetype .file-select .input-file {
+  width: 80px;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  height: 40px; }
+
+.row .col-sm-2 .avatar-sm {
+  margin: 20px; }
+
+.row .box .filetype {
+  margin: 0 auto;
+  text-align: center; }
+
+.btn-secondary {
+  cursor: pointer; }
+
+.table-form-category .box .filetype .btn-secondary,
+.table-form-category .btn-secondary {
+  margin: 10px 5px;
+  border-style: none;
+  background-color: #CDD3D4; }
+
+.col-sm-2 .img-scs-logo {
+  width: 150px; }
+
+.filetype .file-select .input-file:hover {
+  cursor: pointer; }
+
+.col-lg-12 .card-box .nav-pills .nav-item .nav-title-color {
+  background-color: #ffffff;
+  color: #6C757D; }
+
+.col-lg-12 .card-box .nav-pills .nav-item .active {
+  background-color: #6C757D;
+  color: #ffffff; }
+
+.scs-search {
+  width: 250px;
+  display: inline-block; }
+
+.scs-category {
+  width: 150px;
+  display: inline-block; }
+
+.scs-submit {
+  display: inline-block; }
+
+.row .col-lg-11 {
+  margin: 24px auto; }
+
+.row .col-lg-11 .card-box .settle-list .mb-0 .thead-light {
+  margin: 0 auto;
+  text-align: center; }
+
+.row .col-lg-11 .card-box .settle-list .mb-0 .thead-light .settle-sum {
+  font-size: 1.5rem;
+  margin: 20px;
+  padding: 25px;
+  width: 300px; }
+
+.scs-search {
+  width: 250px;
+  display: inline-block; }
+
+.scs-category {
+  width: 150px;
+  display: inline-block; }
+
+.scs-submit {
+  display: inline-block; }
+
+.row .col-lg-11 {
+  margin: 24px auto; }
+
+.form-inline.editableform .editable-input,
+.form-inline.editableform .editable-buttons {
+  display: inline-block; }
+
+.pagination-rounded {
+  margin: 0 auto;
+  position: absolute;
+  left: 40%; }
+
+.p-sm-3 {
+  border: 2px solid #6C757D;
+  width: 100%; }
+
+.mt-0, .mt-3 {
+  font-weight: bold;
+  text-align: center; }
+
+.card-body, .bg-pattern {
+  width: 100%;
+  background-color: #FEFEFE; }
+
+.form-control:focus {
+  border-color: #000000; }
+
+.account-pages {
+  width: 100%;
+  height: 100%; }
+
+.signup-title {
+  text-align: left;
+  padding: 10px 0; }
+
+.signin-body {
+  border: 2px solid #6C757D; }
+
+.signup-left, .signup-right {
+  border: none; }
+
+.signup-right {
+  margin-top: 34px;
+  width: 100%; }
+
+.btn-success {
+  background-color: #C0C0C0;
+  border-color: #ACACAC; }
+
+.form-control:focus {
+  border-color: #000000; }
+
+.custom-control-input:checked {
+  background-color: #000000; }
+
+#red-star {
+  color: #FF0000; }
+
+.check-font {
+  font-weight: bold;
+  color: #f00;
+  text-align: left;
+  padding-left: 0; }
+
+.member-icon {
+  color: #000000;
+  font-size: 20px; }
+
+.custom-email-icon {
+  margin-left: 17px; }
 
 .txtb {
   min-width: 1000px;
