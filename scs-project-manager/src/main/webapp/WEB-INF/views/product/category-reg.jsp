@@ -42,37 +42,111 @@
         <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />        
 
-<script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
+	
 <script>
 var id = '${authUser.id}';
-var listItemTemplate = new EJS({
+/* var listItemTemplate = new EJS({
 	url: "${pageContext.request.contextPath }/assets/js/ejs/list-item-template.ejs"
 });
 var listTemplate = new EJS({
 	url: "${pageContext.request.contextPath }/assets/js/ejs/list-template.ejs"
+}); */
+
+$(function() {
+	
+	$("#cate-add-button").click(function() {
+		
+		var name = $('#category-name').val();
+		var no = null;		
+		var isParent = $('input[name="cate-n"]:checked').val();
+		
+		/* parentNo 구하기 1차:null 2차: 1*/
+		var parentNo;
+		
+		if(isParent=="parent")
+			parentNo = null;
+		else
+			parentNo = 1;		
+		
+		var vo={};
+		
+		vo.no = no;
+		vo.name = name;
+		vo.parentNo = parentNo;		
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/product/category-reg/add',
+			contentType: 'application/json',
+			data: JSON.stringify(vo),
+			type: "POST",
+			dataType: 'json',
+			success : function(response){
+				alert("성공")
+			},
+			error:
+				alert("실패")
+		});
+	});
 });
 
-$(document).on("click","#cate-add-button",function(e){
-	var categoryName = $('#category-name').val();
+
+$(function() {
 	
-	$.ajax({
-		url: '${pageContext.request.contextPath }/product/category-reg/add',
-		data: "categoryName=" + categoryName,
-		type: "POST",
-		success : function(data){
-			alert("성공")
-		},
-		error : function(){
-			alert("에러")		
-		}
-	
+	$("#cate-del-button").click(function() {
+					
+		//var isParent = $('input[name="cate-n"]:checked').val();
+		var name = $("#cate-select-del option:selected").text();		
+		
+		var vo={};
+		
+		vo.name = name;
+			
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/product/category-reg/del',
+			contentType: 'application/json',
+			data: JSON.stringify(vo),
+			type: "POST",
+			dataType: 'json',
+			success : function(response){
+				alert("성공")
+			},
+			error:
+				alert("실패")
+		});
 	});
+});
+
+$(function() {
 	
+	$("#cate-mod-button").click(function() {
+		
+		console.log("click!");
+		//var isParent = $('input[name="cate-n"]:checked').val();
+		var name = $("#cate-select-mod option:selected").text();
+		var afterName = $('#category-name-mod').val();		
+		
+		var vo={};
+		
+		vo.name = name;					// 카테고리 이름
+		vo.afterName = afterName;		// 변경할 카테고리 이름
+			
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/product/category-reg/mod/' + afterName,
+			contentType: 'application/json',
+			data: JSON.stringify(vo),
+			type: "POST",
+			dataType: 'json',
+			success : function(response){
+				alert("성공")
+			},
+			error:
+				alert("실패")
+		});
+	});
 });
 
 </script>       
@@ -142,13 +216,13 @@ $(document).on("click","#cate-add-button",function(e){
                                 <table class="category-add">
                                     <tr>
                                         <td>
-                                            <input type=radio name="cate-n" checked>&nbsp1차 카테고리 등록<label class="text-space"></label>
-                                            <input type=radio name="cate-n">&nbsp2차 카테고리 등록
+                                            <input type=radio name="cate-n" value="parent"checked >&nbsp1차 카테고리 등록<label class="text-space"></label>
+                                            <input type=radio name="cate-n" value="child" >&nbsp2차 카테고리 등록
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>                                        	
-	                                        <button type="button" class="btn btn-secondary waves-effect textbox" id="cate-add-button" disabled>1차카테고리</button> 
+	                                        <button type="button" class="btn btn-secondary waves-effect textbox" id="cate-add-button-text" disabled>1차카테고리</button> 
 	                                        <input type="text" class="form-control " id="category-name" style="width:200px; display:inline-block;" value="">	                                        
 	                                        <button type="button" class="btn btn-secondary waves-effect " id="cate-add-button">추가</button>	                                                                                   
                                         </td>
@@ -159,9 +233,9 @@ $(document).on("click","#cate-add-button",function(e){
                                 </h4><label class="lspace"></label>
 
 
-                                <h4 class="page-title">카테고리 삭제</h4>
-
                                 <!-- 카테고리 삭제 시작-->
+                                <h4 class="page-title">카테고리 삭제</h4>
+								<form id="del-cate">
                                 <table class="category-remove">
                                     <tr>
                                         <td>
@@ -171,18 +245,22 @@ $(document).on("click","#cate-add-button",function(e){
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-secondary waves-effect textbox " id="cate-del-button" disabled>1차카테고리</button> 
-                                            <select class="form-control" id="cate-select" style="display:inline-block">
-                                                <option>----</option>
-                                                <option>아우터</option>
-                                                <option>상의</option>
-                                                <option>하의</option>
-                                                <option>etc</option>                                                        
-                                            </select>                                            
+                                            <button type="button" class="btn btn-secondary waves-effect textbox " id="cate-del-button-text" disabled>1차카테고리</button> 
+                                            
+									
+									
+											<!-- 카테고리 이름 select box -->
+                                            <select class="form-control" id="cate-select-del" style="display:inline-block">
+	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
+	                                            	<option>${vo.name }</option>
+	                                            </c:forEach>                                                                                                      
+                                            </select> 
+                                                                                     
                                             <button type="button" class="btn btn-secondary waves-effect " id="cate-del-button">삭제</button>
                                         </td>
                                     </tr>
                                 </table>
+                                </form>
                                 <!-- 카테고리 삭제 종료-->
                                 <label class="lspace"></label>
 
@@ -198,20 +276,20 @@ $(document).on("click","#cate-add-button",function(e){
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-secondary waves-effect btn-submit-color textbox " id="cate-mod-button" disabled>1차카테고리</button> 
-                                            <select class="form-control" id="cate-select" style="display:inline-block">
-                                                <option>----</option>
-                                                <option>아우터</option>
-                                                <option>상의</option>
-                                                <option>하의</option>
-                                                <option>etc</option>                                                        
+                                            <button type="button" class="btn btn-secondary waves-effect btn-submit-color textbox " id="cate-mod-button-text" disabled>1차카테고리</button> 
+                                            <select class="form-control" id="cate-select-mod" style="display:inline-block">
+	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
+	                                            	<option>${vo.name }</option>
+	                                            </c:forEach>                                                                                                      
                                             </select>
-                                            <input type="text" class="form-control " id="category-name" style="width:200px; display:inline-block;">                                            
+                                            <input type="text" class="form-control " id="category-name-mod" style="width:200px; display:inline-block;">                                            
                                             <button type="button" class="btn btn-secondary waves-effect " id="cate-mod-button">수정</button>
                                         </td>
                                     </tr>
                                 </table>
                                 <!-- 카테고리 수정 종료-->
+                                
+                                
 
                             </div>
                         </div>
