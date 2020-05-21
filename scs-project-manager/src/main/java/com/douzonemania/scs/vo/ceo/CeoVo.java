@@ -19,11 +19,11 @@ public class CeoVo {
 	private String siteName;
 	private String coNumber;
 	private String cmNumber;
-	private int shipCharge;
+	private Integer shipCharge;
 	private String logo;
 	private String favicon;
 	
-	public int getShipCharge() {
+	public Integer getShipCharge() {
 		return shipCharge;
 	}
 	public void setShipCharge(int shipCharge) {

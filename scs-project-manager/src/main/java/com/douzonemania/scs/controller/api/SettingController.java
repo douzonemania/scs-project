@@ -18,7 +18,7 @@ import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 
 @RestController("SettingApiController")
-@RequestMapping("/api/setting")
+@RequestMapping("/{id}/api/setting")
 public class SettingController {
 	
 	@Autowired
