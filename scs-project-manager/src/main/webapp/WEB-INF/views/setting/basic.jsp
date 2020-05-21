@@ -14,64 +14,46 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="../assets/images/favicon.ico">
-        
-        <!-- Sweet Alert-->
-        <link href="../assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+        <link rel="shortcut icon" href="<%=request.getContextPath() %>/assets/images/favicon.ico">
        
         <!-- Plugins css -->
-        <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
        
-        <link href="../assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
         
-        <link href="../assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
 
         <!-- third party css -->
-        <link href="../assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
         <!-- third party css end -->
 
         <!-- App css -->
-        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />        
+        <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+<!-- 배송사 추가/삭제 팝업 -->            
 <script type="text/javascript">
-
 function shipAdd(){
 	console.log("shipAdd");
 	window.open('shipAdd','카테고리 추가/삭제','width=430,height=500,location=no,status=no,scrollbars=no');
 }
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- 파비콘 미리보기 -->
 <script type="text/javascript">
-function readURL(input) {
-    if (input.files && input.files[0]) {
-     var reader = new FileReader();
-     
-     reader.onload = function (e) {
-      $('#preview-logo').attr('src', e.target.result);  
-     }
-     
-     	reader.readAsDataURL(input.files[0]);
-     }
-   }
-     
-   $("#logo-img").change(function(){
-      readURL(this);
-   });
-</script>
-<script type="text/javascript">
+
 function readURL(input) {
     if (input.files && input.files[0]) {
      var reader = new FileReader();
@@ -84,29 +66,34 @@ function readURL(input) {
      }
    }
      
-$("#favicon-img").change(function(){
-   readURL(this);
-});
-
+   $("#favicon-img").change(function(){
+      readURL(this);
+   });
+   
 </script>
-
+<!-- 로고 미리보기 -->
 <script type="text/javascript"> 
-function readURL(input) {
-    if (input.files && input.files[0]) {
-     var reader = new FileReader();
-     
-     reader.onload = function (e) {
-      $('#preview-logo').attr('src', e.target.result);  
-     }
-     
-     	reader.readAsDataURL(input.files[0]);
-     }
-   }
-     
-$("#logo-img").change(function(){
-   readURL(this);
-});
 
+function preview(input, target) {
+	if(input.files && input.files[0]){
+  	var fileName= input.files[0].name;
+  	var ext=fileName.substr(fileName.length-3, fileName.length);
+  	var isCheck=false; 
+  		if(ext.toLowerCase()=='jpg' || ext.toLowerCase()=='gif' || ext.toLowerCase()=='png'){
+  		isCheck=true;               
+  	}
+  	if(isCheck==false){
+  		alert("이미지 파일 아님");
+  		jQuery(input).val("");
+  		return;
+  	}
+  	var reader = new FileReader();
+  	reader.readAsDataURL(input.files[0]);          
+  	reader.onload = function(e) {
+  	  jQuery(target).attr('src', e.target.result);
+  	}
+	}
+}
 </script>
 </head>
 <body>
@@ -143,7 +130,7 @@ $("#logo-img").change(function(){
                             	
                             	<!--  id 잡기 -->
 								<form:form
-									action="${pageContext.request.contextPath}/setting/basic/update"
+									action="${pageContext.request.contextPath}/{id}/setting/basic/update"
 									modelAttribute="ceoVo"
 									class="setting-form"
 									id="setting-form"
@@ -234,7 +221,6 @@ $("#logo-img").change(function(){
                                     </table>
                                     <!-- 사이트 기본 설정 종료-->
                                     <div class="lspace"></div>
-
                                         <!-- 이미지 관리 시작-->
                                         <h4 class="page-title">이미지 관리</h4>
                                         <table class="table-form-category">
@@ -246,14 +232,14 @@ $("#logo-img").change(function(){
                                                     <th>로고</th>
                                                         <td colspan="2">
 	                                                        <div class="col-sm-2">
-	                                                            <img id="preview-logo" src="${pageContext.request.contextPath}${logo }" alt="image"
-	                                                                    class="img-fluid rounded img-scs-logo"/>
+	                                                            <img id="preview-logo" src="${pageContext.request.contextPath}${ceoVo.logo }" alt="image"
+	                                                                    class="img-fluid rounded img-scs-logo" style="width:250px; height:80px;"/>
 	                                                        </div>
 	                                                        <div class="box">
 	                                                            <span class="filetype">
 	                                                                <button type="button" class="btn btn-secondary waves-effect btn-no2" >찾아보기
 		                                                                <span class="file-select">
-		                                                                	<input type="file" id="logo-img" name="logo-file" class="input-file" size="3"/>
+		                                                                	<input type="file" name="logo-file" onchange="preview(this, $('#preview-logo'));" class="input-file" size="3"/>
 		                                                               	</span>
 	                                                                </button>
 	                                                            </span>
@@ -262,14 +248,14 @@ $("#logo-img").change(function(){
                                                    <th>파비콘</th>
                                                     <td colspan="2">
                                                         <div class="col-sm-2">
-                                                            <img id="preview-favicon" src="${pageContext.request.contextPath}${favicon }" alt="image"
+                                                            <img id="preview-favicon" src="${pageContext.request.contextPath}${ceoVo.favicon}" alt="image"
                                                                 class="img-fluid avatar-sm rounded mt-2"/>
                                                         </div>
                                                         <div class="box">
                                                             <span class="filetype">
                                                                 <button type="button" class="btn btn-secondary waves-effect">찾아보기
                                                                     <span class="file-select">
-                                                                    	<input type="file" id="favicon-img" name="favicon-file" class="input-file" size="3"/>
+                                                                    	<input type="file" name="favicon-file"onchange="preview(this, $('#preview-favicon'));" class="input-file" size="3"/>
                                                                     </span>
                                                                 </button>
                                                             </span>
@@ -297,21 +283,9 @@ $("#logo-img").change(function(){
                                                             <button type="button" class="btn btn-secondary waves-effect btn-no2" 
                                                             	onclick="shipAdd()" style="background-color:#CBCBCB; border-color:white">추가/삭제</button>
                                                         </td>
-                                                        <th>배송비 정책</th>
+                                                        <th>배송비</th>
                                                         <td colspan="2" id="charge-change">
-                                                        <!-- c:choose if + 쿼리 null이면 checked input 두개 -->
-                                                        <c:choose>
-                                                        	<c:when test="${ceoVo.shipCharge ne null }">
-                                                        		<input type=radio name="shipping-charge" checked>&nbsp무료배송<label class="text-space" ></label>
-	                                                            <input type=radio name="shipping-charge" >
-	                                                            <form:input path="shipCharge" class="form-control product-info"/>원 이상 무료 배송
-                                                        	</c:when>
-                                                        	<c:otherwise>
-                                                        		<input type=radio name="shipping-charge" >&nbsp무료배송<label class="text-space"></label>
-	                                                            <input type=radio name="shipping-charge" checked >
-	                                                            <form:input path="shipCharge" class="form-control product-info"/>&nbsp원 이상 무료 배송
-                                                        	</c:otherwise>
-                                                        </c:choose> 
+                                                            <form:input path="shipCharge" class="form-control product-info"/>
                                                         </td>
                                                     </tr>
                                                     

@@ -206,7 +206,10 @@ public class UserRepository {
 	public CeoVo findByIdAndPassword(CeoVo ceoVo) {
 		return sqlSession.selectOne("user.findByIdAndPassword", ceoVo);
 	}
-	
+
+	public CeoVo findByIdJoin(String id) {
+		return sqlSession.selectOne("user.findByIdJoin", id);
+	}
 
 	
 }
