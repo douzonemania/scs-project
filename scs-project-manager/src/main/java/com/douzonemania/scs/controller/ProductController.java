@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.scs.service.ProductService;
+import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/{id}/product")
+
 public class ProductController {
 	
 	@Autowired
@@ -96,7 +98,10 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/category-reg", method = RequestMethod.GET)
-	public String categoryReg() {		
+	public String categoryReg(Model model) {
+		List<CategoryVo> categoryNameList = productService.getCategoryNameList();
+		System.err.println(categoryNameList);
+		model.addAttribute("categoryNameList", categoryNameList);
 		return "product/category-reg";
 	}
 	
@@ -107,4 +112,5 @@ public class ProductController {
 		System.err.println(categoryName + "!!!!");
 		return "product/category-reg";
 	}
+	
 }

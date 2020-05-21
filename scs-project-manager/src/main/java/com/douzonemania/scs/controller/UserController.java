@@ -24,7 +24,7 @@ public class UserController {
 	public String join(@ModelAttribute CeoVo ceoVo) {
 		return "user/signup";
 	}
-
+ 
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(@ModelAttribute @Valid CeoVo ceoVo, BindingResult result,
 			Model model) {
@@ -32,22 +32,23 @@ public class UserController {
 		
 		if(result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
+			System.out.println("######################error#################################");
 			return "user/signup";
 		}
 		
-		model.addAllAttributes(result.getModel());
+//		model.addAllAttributes(result.getModel());
 
 		ceoVo.setAddress(ceoVo.getAddress1() + " " + ceoVo.getAddress2());
 
-		System.out.println(ceoVo.toString());
-		//userService.insert(ceoVo);
+		userService.insert(ceoVo);
 
-//		String id = ceoVo.getId();
-//		userService.createDB(id);
-//		userService.createTable(id);
-//		userService.alterTable(id);
+		// 회원 DB와 table 생성
+		String id = ceoVo.getId();
+		userService.createDB(id);
+		userService.createTable(id);
+		userService.alterTable(id);
 		
-		return "user/join";
+		return "redirect:/index";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

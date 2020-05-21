@@ -8,12 +8,12 @@
 					select no, code, name, sup_price as 'supPrice', now_price as 'nowPrice', 
 						sale, main_image as 'mainImage', sub_image as 'subImage', 
 						visible, best_item as 'bestItem', new_item as 'newItem', editor, category_no,
-						des, reg_date as 'regDate'
+						description, reg_date as 'regDate'
 					from mall.item
 				]]>
 	</select>
 	
-		<select id="findItem" parameterType="integer" resultType="itemvo">		
+	<select id="findItem" parameterType="integer" resultType="itemvo">		
 				<![CDATA[
 					select no, code, name, sup_price as 'supPrice', now_price as 'nowPrice', 
 						sale, main_image as 'mainImage', sub_image as 'subImage', 
@@ -23,5 +23,6 @@
 					where no = #{no}
 				]]>
 	</select>
-
+	
 </mapper>
+
