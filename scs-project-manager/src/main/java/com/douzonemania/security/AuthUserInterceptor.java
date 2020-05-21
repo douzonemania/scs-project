@@ -6,9 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-
-
 public class AuthUserInterceptor extends HandlerInterceptorAdapter {
+
 
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
@@ -16,8 +15,6 @@ public class AuthUserInterceptor extends HandlerInterceptorAdapter {
 	 	String uri=request.getServletPath().toString();
 	 	
 	 	String[] strArr=uri.split("/");
-	 	
-	
 	 	
 	 	HttpSession session = request.getSession();
 	 	
