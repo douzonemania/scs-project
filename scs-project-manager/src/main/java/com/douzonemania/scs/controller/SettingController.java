@@ -34,12 +34,16 @@ public class SettingController {
 
 	// setting-basic
 	@RequestMapping(value = "/basic", method = RequestMethod.GET)
-	public String info(@ModelAttribute CeoVo ceoVo, Model model) {
+	public String info(@ModelAttribute CeoVo ceoVo,
+			Model model) {
 		System.out.println("info보여준다.");
 
-		ceoVo = userService.findCeoById("sjy8033");
-		model.addAttribute("ceoVo", ceoVo);
+		ceoVo = userService.findCeoByIdJoin("sjy8033");
+		
+		System.out.println("--------------------" + ceoVo);
 
+		model.addAttribute("ceoVo", ceoVo);
+		
 		return "setting/basic";
 	}
 
@@ -49,8 +53,8 @@ public class SettingController {
 		System.out.println("update get 보여준다.");
 
 		model.addAttribute("ceoVo", ceoVo);
-
-		return "/setting/basic";
+		
+		return "setting/basic";
 	}
 
 	// setting-basic update(post)
@@ -62,16 +66,22 @@ public class SettingController {
 			@RequestParam(value="favicon-file") MultipartFile multipartFile2,
 			Model model) {
 		System.out.println("update보여준다.");
-		System.out.println(multipartFile1 + " : " + multipartFile2);
-		model.addAllAttributes(result.getModel());
-		String logo = settingService.restoreLogo(ceoVo,multipartFile1);
-		String favicon = settingService.restoreFavicon(ceoVo,multipartFile2);
+		
+		// model.addAllAttributes(result.getModel());
+		
+		String logo = settingService.restore(ceoVo,multipartFile1);
+		ceoVo.setLogo(logo);
+		String favicon = settingService.restore(ceoVo,multipartFile2);
+		ceoVo.setFavicon(favicon);
+		
 		settingService.updateCeo(ceoVo);
-		model.addAttribute("logo", logo);
-		model.addAttribute("favicon", favicon);
+		
+		System.out.println(ceoVo);
+//		model.addAttribute("logo", logo);
+//		model.addAttribute("favicon", favicon);
 		model.addAttribute("ceoVo", ceoVo);
 
-		return "redirect:/setting/basic";
+		return "setting/basic";
 	}
 
 	// setting-policy
@@ -105,7 +115,7 @@ public class SettingController {
 		shipCompanyVo.setName(name);
 		shipCompanyService.insertShip(shipCompanyVo);
 
-		return "redirect:/setting/shipAdd"; // 경로 id추가
+		return "redirect:/{id}/setting/shipAdd"; // 경로 id추가
 
 	}
 
@@ -115,11 +125,10 @@ public class SettingController {
 //			@PathVariable String id,
 			@PathVariable("no") Long no, @ModelAttribute ShipCompanyVo shipCompanyVo) {
 
-		System.out.println("contrrolleerrr");
 		int count = shipCompanyService.shipCount("sjy8033"); // authUser 처리
 		if (count > 1) {
 			shipCompanyService.deleteShip(no);
 		}
-		return "redirect:/setting/shipAdd"; // 경로 id추가
+		return "redirect:/{id}setting/shipAdd"; // 경로 id추가
 	}
 }
