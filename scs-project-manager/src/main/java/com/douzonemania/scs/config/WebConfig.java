@@ -34,6 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
 		resolvers.add(authUserHandlerMethodArgumentResolver());
 	}
 
+	
 	// Interceptors
 	@Bean
 	public HandlerInterceptor loginInterceptor() {
@@ -62,7 +63,7 @@ public class WebConfig implements WebMvcConfigurer {
 		.addPathPatterns("/**")	
 		.excludePathPatterns("/assets/**")
 		.excludePathPatterns("/error/**");
-		
+
 	}
 
 	// Mvc Resources(URL Magic Mapping)
