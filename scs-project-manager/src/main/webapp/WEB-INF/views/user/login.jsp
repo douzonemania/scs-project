@@ -8,12 +8,12 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="<%=request.getContextPath() %>/assets/images/favicon.ico">
 
         <!-- App css -->
-        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
     </head>
 	
@@ -29,7 +29,7 @@
                                 
                                 <div class="text-center mb-4">
                                     <a href="index.html">
-                                        <span><img src="../assets/images/logo-scs.png" alt="" height="130"></span>
+                                        <span><img src="<%=request.getContextPath() %>/assets/images/logo-scs.png" alt="" height="130"></span>
                                     </a>
                                 </div>
 
@@ -90,10 +90,10 @@
         </footer>
 
         <!-- Vendor js -->
-        <script src="assets/js/vendor.min.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/js/vendor.min.js"></script>
 
         <!-- App js -->
-        <script src="assets/js/app.min.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/js/app.min.js"></script>
         
         <!-- Footer Start -->
         <footer class="footer">

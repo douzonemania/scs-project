@@ -20,16 +20,16 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("interceptor 들어왔다!!!!!!!!!!!!!!!!!!!!");
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
+		
+		
 		
 		CeoVo ceoVo = new CeoVo();
 		ceoVo.setId(id);
 		ceoVo.setPassword(password);
 		
 		CeoVo authUser = userService.getUser(ceoVo);
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~" + authUser);
 		
 		if(authUser == null) {
 			request.setAttribute("ceoVo", ceoVo);
@@ -43,7 +43,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		// session 처리
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
-		response.sendRedirect(request.getContextPath());
+		
+		response.sendRedirect(request.getContextPath()+"/"+authUser.getId() + "/main");
+		
 		
 		return false;
 	}

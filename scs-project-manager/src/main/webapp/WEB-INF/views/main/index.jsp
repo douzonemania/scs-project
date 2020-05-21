@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-        
+        <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+	    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+		<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+		<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	        
         <title>UBold - Responsive Admin Dashboard Template</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="<%=request.getContextPath() %>/assets/images/favicon.ico">
 
         <!-- Plugins css -->
-        <link href="assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
 
         <!-- App css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
     </head>
 
@@ -100,7 +103,7 @@
                     <div class="logo-box">
                         <a href="index.html" class="logo text-center">
                             <span class="logo-lg">
-                                <img src="assets/images/logo-scs.png" alt="안녕하세요" height="56">
+                                <img src="<%=request.getContextPath() %>/assets/images/logo-scs.png" alt="안녕하세요" height="56">
                                 <!-- <span class="logo-lg-text-light">UBold</span> -->
                             </span>
                             <span class="logo-sm">
@@ -375,7 +378,7 @@
                                     <tbody>
                                         <tr>
                                             <td style="width: 36px;">
-                                                <img src="assets/images/users/user-2.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
+                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-2.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
                                             </td>
 
                                             <td>
@@ -403,7 +406,7 @@
 
                                         <tr>
                                             <td style="width: 36px;">
-                                                <img src="assets/images/users/user-3.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
+                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-3.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
                                             </td>
 
                                             <td>
@@ -430,7 +433,7 @@
                                         </tr>
                                         <tr>
                                             <td style="width: 36px;">
-                                                <img src="assets/images/users/user-4.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
+                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-4.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
                                             </td>
 
                                             <td>
@@ -457,7 +460,7 @@
                                         </tr>
                                         <tr>
                                             <td style="width: 36px;">
-                                                <img src="assets/images/users/user-5.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
+                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-5.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
                                             </td>
 
                                             <td>
@@ -484,7 +487,7 @@
                                         </tr>
                                         <tr>
                                             <td style="width: 36px;">
-                                                <img src="assets/images/users/user-6.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
+                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-6.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
                                             </td>
 
                                             <td>
@@ -706,7 +709,7 @@
                 <!-- User box -->
                 <div class="user-box">
                     <div class="user-img">
-                        <img src="assets/images/users/user-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle img-fluid">
+                        <img src="<%=request.getContextPath() %>/assets/images/users/user-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle img-fluid">
                         <a href="javascript:void(0);" class="user-edit"><i class="mdi mdi-pencil"></i></a>
                     </div>
             
@@ -759,28 +762,28 @@
                 <div class="p-3">
                     <div class="inbox-widget">
                         <div class="inbox-item">
-                            <div class="inbox-item-img"><img src="assets/images/users/user-2.jpg" class="rounded-circle" alt=""></div>
+                            <div class="inbox-item-img"><img src="<%=request.getContextPath() %>/assets/images/users/user-2.jpg" class="rounded-circle" alt=""></div>
                             <p class="inbox-item-author"><a href="javascript: void(0);" class="text-dark">Tomaslau</a></p>
                             <p class="inbox-item-text">I've finished it! See you so...</p>
                         </div>
                         <div class="inbox-item">
-                            <div class="inbox-item-img"><img src="assets/images/users/user-3.jpg" class="rounded-circle" alt=""></div>
+                            <div class="inbox-item-img"><img src="<%=request.getContextPath() %>/assets/images/users/user-3.jpg" class="rounded-circle" alt=""></div>
                             <p class="inbox-item-author"><a href="javascript: void(0);" class="text-dark">Stillnotdavid</a></p>
                             <p class="inbox-item-text">This theme is awesome!</p>
                         </div>
                         <div class="inbox-item">
-                            <div class="inbox-item-img"><img src="assets/images/users/user-4.jpg" class="rounded-circle" alt=""></div>
+                            <div class="inbox-item-img"><img src="<%=request.getContextPath() %>/assets/images/users/user-4.jpg" class="rounded-circle" alt=""></div>
                             <p class="inbox-item-author"><a href="javascript: void(0);" class="text-dark">Kurafire</a></p>
                             <p class="inbox-item-text">Nice to meet you</p>
                         </div>
 
                         <div class="inbox-item">
-                            <div class="inbox-item-img"><img src="assets/images/users/user-5.jpg" class="rounded-circle" alt=""></div>
+                            <div class="inbox-item-img"><img src="<%=request.getContextPath() %>/assets/images/users/user-5.jpg" class="rounded-circle" alt=""></div>
                             <p class="inbox-item-author"><a href="javascript: void(0);" class="text-dark">Shahedk</a></p>
                             <p class="inbox-item-text">Hey! there I'm available...</p>
                         </div>
                         <div class="inbox-item">
-                            <div class="inbox-item-img"><img src="assets/images/users/user-6.jpg" class="rounded-circle" alt=""></div>
+                            <div class="inbox-item-img"><img src="<%=request.getContextPath() %>/assets/images/users/user-6.jpg" class="rounded-circle" alt=""></div>
                             <p class="inbox-item-author"><a href="javascript: void(0);" class="text-dark">Adhamdannaway</a></p>
                             <p class="inbox-item-text">This theme is awesome!</p>
                         </div>
@@ -795,24 +798,24 @@
         <div class="rightbar-overlay"></div>
 
         <!-- Vendor js -->
-        <script src="assets/js/vendor.min.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/js/vendor.min.js"></script>
 
         <!-- Plugins js-->
-        <script src="assets/libs/flatpickr/flatpickr.min.js"></script>
-        <script src="assets/libs/jquery-knob/jquery.knob.min.js"></script>
-        <script src="assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
-        <script src="assets/libs/flot-charts/jquery.flot.js"></script>
-        <script src="assets/libs/flot-charts/jquery.flot.resize.js"></script>
-        <script src="assets/libs/flot-charts/jquery.flot.time.js"></script>
-        <script src="assets/libs/flot-charts/jquery.flot.tooltip.min.js"></script>
-        <script src="assets/libs/flot-charts/jquery.flot.selection.js"></script>
-        <script src="assets/libs/flot-charts/jquery.flot.crosshair.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/libs/flatpickr/flatpickr.min.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/libs/jquery-knob/jquery.knob.min.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/libs/flot-charts/jquery.flot.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/libs/flot-charts/jquery.flot.resize.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/libs/flot-charts/jquery.flot.time.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/libs/flot-charts/jquery.flot.tooltip.min.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/libs/flot-charts/jquery.flot.selection.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/libs/flot-charts/jquery.flot.crosshair.js"></script>
 
         <!-- Dashboar 1 init js-->
-        <script src="assets/js/pages/dashboard-1.init.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/js/pages/dashboard-1.init.js"></script>
 
         <!-- App js-->
-        <script src="assets/js/app.min.js"></script>
+        <script src="<%=request.getContextPath() %>/assets/js/app.min.js"></script>
         
     </body>
 </html>
