@@ -18,7 +18,7 @@ import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 
 @RestController("SettingApiController")
-@RequestMapping("/api/setting")
+@RequestMapping("/{id}/api/setting")
 public class SettingController {
 	
 	@Autowired
@@ -54,8 +54,6 @@ public class SettingController {
 	public JsonResult shipListDelete(
 //			@PathVariable String id,
 			@PathVariable("no") Long no) {
-			
-			System.out.println("=========================================" + no);
 			
 			boolean result = false;
 			int count = shipCompanyService.shipCount("sjy8033");	//authUser처리

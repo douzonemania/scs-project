@@ -17,13 +17,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-//	@ResponseBody
-//	@RequestMapping(value="/checkemail", method = RequestMethod.GET)
-//	public JsonResult checkEmail(
-//		@RequestParam(value="email", required=true, defaultValue="") String email) {
-//		boolean exist = userService.existUser(email);
-//		
-//		return JsonResult.success(exist);
-//	}
+	@ResponseBody
+	@RequestMapping(value="/checkid", method = RequestMethod.GET)
+	public JsonResult checkEmail(
+		@RequestParam(value="id", required=true, defaultValue="") String id) {
+		boolean exist = userService.existUser(id);
+		return JsonResult.success(exist);
+	}
 
 }

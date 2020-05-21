@@ -1,7 +1,5 @@
 package com.douzonemania.scs.repository;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -10,34 +8,19 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
+import com.douzonemania.scs.vo.ceo.CeoVo;
+
 
 @Repository
-public class ShipCompanyRepository {
-	
+public class SettingRepository {
+
 	@Autowired
 	private SqlSession sqlSession;
-
-	public List<ShipCompanyVo> getList(String id) {
-		
-		return sqlSession.selectList("shipcompany.getList", id);
-	}
-
-	public int insertShip(ShipCompanyVo shipCompanyVo) {
 	
-		return sqlSession.insert("shipcompany.insertShip", shipCompanyVo);
+	public int updateCeo(CeoVo ceoVo) {
+		System.out.println("update한다?????");
+		return sqlSession.update("user.updateCeo",ceoVo);
 	}
-
-	public int shipCount(String id) {
-		
-		return sqlSession.selectOne("shipcompany.shipCount", "sjy8033");
-	}
-
-	public int deleteShip(Long no) {
-		
-		return sqlSession.delete("shipcompany.deleteShip", no);
-	}
-	
 	public String getSession() {
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
 		
@@ -48,4 +31,6 @@ public class ShipCompanyRepository {
 		
 		return id;
 	}
+
+
 }

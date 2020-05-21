@@ -38,6 +38,7 @@
 ​
 <script type="text/javascript">
 
+// 주소 api
 $(document).ready(function() {
 	$('#search_address').click(function openPostCode() {
         new daum.Postcode({
@@ -49,121 +50,215 @@ $(document).ready(function() {
 	});
 	
 	//Success Message
-    $('#sa-success').click(function(e) {
-    	e.preventdefault();
-        Swal.fire(
-            {
-                title: '가입되었습니다!',
-                text: '축하드립니다.',
-                type: 'success',
-                confirmButtonClass: 'btn btn-confirm mt-2'
-            }
-        )
-    });
+	$('#sa-success').click(function(e) {
+	    e.preventdefault();
+	    Swal.fire(
+	       {
+	            title: '가입되었습니다!',
+	            text: '축하드립니다.',
+	            type: 'success',
+	            confirmButtonClass: 'btn btn-confirm mt-2'
+	       }
+	    )
+	});
 	
 });
 
 
 // 유효성 검사
 $(function() {
-		$("#join-form").submit(function() {
-// 			e.preventDefault();
-			
-			if($("#user_name").val() == '') {
-				alert('이름이 비어 있습니다.');
-				$("#user_name").focus();
-				return ;
-			}
-			
- 			if($("#user_id").val() == '') {
-				alert('아이디가 비어 있습니다.');
-				$("#user_id").focus();
-				
-				return ;
-			}
-			
-			if($("#user_password").val() == '') {
-				alert('비밀번호가 비어 있습니다.');
-				$("#user_password").focus();
-				
-				return ;
-			}
-			
-			if($("#user_email").val() == '') {
-				alert('이메일이 비어 있습니다.');
-				$("#user_email").focus();
-				
-				return ;
-			}
-			
-			if($("#img-checkid").is(":hidden")) {
-				alert('아이디 중복 체크를 하지 않았습니다.');
-				
-				return ;
-			}
-			
-			if($("#user_phone").val() == '') {
-				alert('휴대폰번호가 비어 있습니다.');
-				$("#user_phone").focus();
-				
-				return ;
-			}
-			
-			if($("#user_company").val() == '') {
-				alert('회사명이 비어 있습니다.');
-				$("#user_company").focus();
-				
-				return ;
-			}
-			
-			if($("#agree-prov").is(":checked") == false) {
-				alert('약관 동의가 필요합니다.');
-				$("#agree-prov").focus();
-				
-				return ;
-			} 
-			
-			this.submit();
-		});
+	
+	$("#user_name").focusout(function() {
+		var name = $("#user_name").val();
 		
-		$('#id').change(function() {
-			$("#btn-checkid").show();
-			$("#img-checkid").hide();
-		})
+		if(name == '') {
+			$("#name_check").text("이름을 입력하세요.").show();
+			$("#user_name").focus();
+			return;
+		}
 		
-		$("#btn-checkid").click(function() {
-			var id = $("#id").val();
-			if(id == '') {
+ 		for (var i = 0; i< name.length; i++)  { 
+			var check = name.substring(i, i+1);
+			if(check.match(/[0-9]|[a-z]|[A-Z]/)) {
+				$("#name_check").text("형식에 맞게 입력하세요.").show();
+				$("#user_name").val('').focus();
 				return;
 			}
-				
-			$.ajax({
-				url: "${pageContext.request.contextPath }/api/user/checkid?id=" + id,
-				type: 'get',
-				// contextType : 'application/json'
-				data:'',
-				dataType: 'json',
-				success: function(response) {
-					if(response.result == 'fail') {
-						console.error(response.message);
-						return;
-					}
-					if(response.data == true) {
-						alert('존재하는 이메일입니다.');
-						$("#email")
-							.val('')
-							.focus();
-						return;
-					}
-					
-					$('#btn-checkid').hide();
-					$('#img-checkid').show();
-				},
-				error: function(XHR, status, e) {
-					console.error(status, ":" + e);
+		} 
+		
+		$("#name_check").hide();
+	});
+	
+	// 비밀번호 체크
+	$("#user_password").focusout(function() {
+		var password = $("#user_password").val();
+		if(password == '') {
+			$("#password_check").text("비밀번호를 입력하세요.").show();
+			$("#user_password").focus();
+			return;
+		}
+		else if(password.length < 4 || password.length > 12) {
+			$("#password_check").text("비밀번호는 4~12자 입니다.").show();
+			$("#user_password").focus();
+			return;
+		}
+		$("#password_check").hide();
+	});
+	
+	// 이메일 체크
+	$("#user_email").focusout(function() {
+		var email = $("#user_email").val();
+		var check = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+
+		if(email == '') {
+			$("#email_check").text("이메일을 입력하세요.").show();
+			$("#user_email").focus();
+			return;
+		}
+		else if(check.test(email) == false) {
+			$("#email_check").text("이메일 형식이 올바르지 않습니다.").show();
+			$("#user_email").focus();
+			return;
+		}
+		$("#email_check").hide();
+	});
+	
+	// 핸드폰번호 체크
+	$("#user_phone").focusout(function() {
+		var phone = $("#user_phone").val();
+		var check =/(01[016789])([1-9]{1}[0-9]{2,3})([0-9]{4})$/;
+
+		if(phone == '') {
+			$("#phone_check").text("핸드폰번호를 입력하세요.").show();
+			$("#user_phone").focus();
+			return;
+		}
+		if(check.test(phone) == false) {
+			$("#phone_check").text("핸드폰번호 형식이 올바르지 않습니다.").show();
+			$("#user_phone").focus();
+			return;
+		}
+		$("#phone_check").hide();
+	});
+	
+	// 회사명 체크
+	$("#user_company").focusout(function() {
+		var company = $("#user_company").val();
+
+		if(company == '') {
+			$("#company_check").text("회사명을 입력하세요.").show();
+			$("#user_company").focus();
+			return;
+		}
+		$("#company_check").hide();
+	});
+	
+	
+	// 아이디 체크
+	$('#user_id').change(function() {
+		$("#btn-checkid").show();
+		$("#img-checkid").hide();
+	});
+	
+	$("#btn-checkid").click(function() {
+		var id = $("#user_id").val();
+		if(id == '') {
+			return;
+		}
+		$.ajax({
+			url: "${pageContext.request.contextPath }/api/user/checkid?id=" + id,
+			type: 'get',
+			data:'',
+			dataType: 'json',
+			success: function(response) {
+				if(response.data == true) {
+					// 중복된 아이디일 경우
+					$("#id_check").text("이미 사용중인 아이디입니다.").show();
+					$("#user_id")
+						.val('')
+						.focus();
+					return;
 				}
-			});
+				else if(id.length < 4 || id.length > 10) {
+					$("#id_check").text("아이디는 4~10자 입니다").show();
+					$("#user_id")
+						.val('')
+						.focus();
+					return;
+				}
+				$('#btn-checkid').hide();
+				$('#img-checkid').show();
+				$("#id_check").hide();
+				
+			} ,
+			error: function(XHR, status, e) {
+				console.error(status, ":" + e);
+			}
 		});
+	});	
+	
+///////////////////////////////////////////////////////////////
+	
+	$("#join-form").submit(function() {
+		if($("#user_name").val() == '') {
+			alert('이름이 비어 있습니다.');
+			$("#user_name").focus();
+			console.log("1");
+			return ;
+		}
+		
+			if($("#user_id").val() == '') {
+			alert('아이디가 비어 있습니다.');
+			$("#user_id").focus();
+			
+			return ;
+		}
+		
+		if($("#user_password").val() == '') {
+			alert('비밀번호가 비어 있습니다.');
+			$("#user_password").focus();
+			
+			return ;
+		}
+		
+		if($("#user_email").val() == '') {
+			alert('이메일이 비어 있습니다.');
+			$("#user_email").focus();
+			
+			return ;
+		}
+		
+		if($("#img-checkid").is(":hidden")) {
+			alert('아이디 중복 체크를 하지 않았습니다.');
+			
+			return ;
+		}
+		
+		if($("#user_phone").val() == '') {
+			alert('휴대폰번호가 비어 있습니다.');
+			$("#user_phone").focus();
+			
+			return ;
+		}
+		
+		if($("#user_company").val() == '') {
+			alert('회사명이 비어 있습니다.');
+			$("#user_company").focus();
+			
+			return ;
+		}
+		
+/* 			if($("#agree-prov").is(":checked") == false) {
+			alert('약관 동의가 필요합니다.');
+			$("#agree-prov").focus();
+			
+			return ;
+		}  */
+		
+		
+		this.submit();
+	});
+
 });
 
 </script>
@@ -200,57 +295,58 @@ $(function() {
 												<div class="form-group mb-3">
 													<label for="fullname">이름</label><a id="red-star">*</a>
 													<form:input path="name" class="form-control" type="text"
-														id="user_name" />
-													<form:errors path="name" />
-													<div class="check_font" id="id_check"></div>
+														id="user_name" placeholder="이름(2자 이상)" />
+													<div class="check-font" id="name_check">
+														<form:errors path="name" />
+													</div>
 												</div>
 												<div class="form-group mb-3">
 													<label for="id2">아이디</label><a id="red-star">*</a>
 													<form:input path="id" class="form-control" type="text"
-														id="user_id" placeholder="아이디(6~10자)" />
-													<input type="button" class="btn btn-secondary btn-sm float-right" value="중복확인" style="margin-top: 5px;">
+														id="user_id" placeholder="아이디(4~10자)" />
+													<input type="button" id="btn-checkid" class="btn btn-secondary btn-sm float-right" value="중복확인" style="margin-top: 5px;">
 													<img id='img-checkid' style='width: 30px; display: none;' src = '${ pageContext.request.contextPath }/assets/images/check.png' />
-													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+													<div class="check-font" id="id_check">
 														<form:errors path="id" />
-													</p>
+													</div>
 												</div>
 												<div class="form-group mb-3">
 													<label for="password2">비밀번호</label><a id="red-star">*</a>
 													<form:input path="password" class="form-control"
 														type="password" id="user_password"
 														placeholder="비밀번호(4~12자)" />
-													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+													<div class="check-font" id="password_check">
 														<form:errors path="password" />
-													</p>
+													</div>
 												</div>
 												<div class="form-group mb-3">
 													<label for="emailaddress2">이메일</label><a id="red-star">*</a>
 													<form:input path="email" class="form-control" type="email"
 														id="user_email" />
-													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+													<div class="check-font" id="email_check">
 														<form:errors path="email" />
-													</p>
+													</div>
 												</div>
 												<div class="form-group mb-3">
 													<label for="phonenum">휴대폰번호</label><a id="red-star">*</a>
 													<form:input path="phoneNumber" class="form-control"
 														type="text" id="user_phone" placeholder="-는 제외하고 입력하세요" />
-													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+													<div class="check-font" id="phone_check">
 														<form:errors path="phoneNumber" />
-													</p>
+													</div>
 												</div>
 												<div class="form-group mb-3">
 													<label for="company">회사명</label><a id="red-star">*</a>
 													<form:input path="companyName" class="form-control"
 														type="text" id="user_company" />
-													<p style="font-weight:bold; color:#f00; text-align:left; padding-left:0">
+													<div class="check-font" id="company_check">
 														<form:errors path="companyName" />
-													</p>
+													</div>
 												</div>
 											</div>
 										</div>
 										<!-- end col -->
-										​
+ 								
 										<div class="col-lg-6" style="margin-top: 15px">
 											<div class="p-sm-3 signup-right">
 												<div class="form-group mb-3">
@@ -296,7 +392,7 @@ $(function() {
 												<div class="form-group mb-0">
 													<div class="custom-control custom-checkbox pt-1"
 														style="z-index: 0;">
-														<button type="submit"
+														<input type="submit"
 															class="btn btn-secondary btn-sm float-right btn-signup"
 															style="position: absolute; right: 0; bottom: 0; z-index: 10;">가입하기</button>
 														<input type="checkbox" class="custom-control-input"
