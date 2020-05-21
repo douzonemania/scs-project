@@ -2,9 +2,13 @@ package com.douzonemania.scs.repository;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.douzonemania.scs.vo.ceo.CeoVo;
 
@@ -224,7 +228,7 @@ public class UserRepository {
 		sqlSession.update("alterTable", map);
 	}
 	
-	///////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public int insert(CeoVo ceoVo) {
 		return sqlSession.insert("user.insert", ceoVo);
@@ -234,5 +238,22 @@ public class UserRepository {
 		return sqlSession.selectOne("user.findById", id);
 	}
 	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	
+	public String getSession() {
+		ServletRequestAttributes attr 
+			= (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
+		
+		HttpSession nowSession = attr.getRequest().getSession();
+		
+		String id =nowSession.getAttribute("name").toString();
+		
+		
+		return id;
+	}
+
+	public CeoVo findByIdAndPassword(CeoVo ceoVo) {
+		return sqlSession.selectOne("user.findByIdAndPassword", ceoVo);
+	}
 	
 }

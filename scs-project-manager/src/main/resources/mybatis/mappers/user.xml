@@ -26,6 +26,19 @@
 			select 
 				   id,
 				   name, 
+				   email, 
+				   reg_date as regDate, 
+		      from ceo 
+		     where id = #{id};
+			
+		]]>
+	</select>
+	
+	<select id="findByIdAndPassword" parameterType="ceovo" resultType="ceovo">
+		<![CDATA[
+			select 
+				   id,
+				   name, 
 				   password, 
 				   phone_number as phoneNumber, 
 				   email, 
@@ -38,8 +51,8 @@
 				   co_number as coNumber, 
 				   cm_number as cmNumber 
 		      from ceo 
-		     where id = #{id};
-			
+		     where id = #{id}
+		       and password = #{password};
 		]]>
 	</select>
 	
