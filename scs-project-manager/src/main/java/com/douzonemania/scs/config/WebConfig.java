@@ -61,7 +61,8 @@ public class WebConfig implements WebMvcConfigurer {
 		registry
 		.addInterceptor(authInterceptor())
 		.addPathPatterns("/**")	
-		.excludePathPatterns("/assets/**");		
+		.excludePathPatterns("/assets/**")
+		.excludePathPatterns("/error/**");
 	
 	}
 	

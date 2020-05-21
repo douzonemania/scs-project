@@ -17,7 +17,6 @@ public class AuthUserInterceptor extends HandlerInterceptorAdapter {
 	 	
 	 	String[] strArr=uri.split("/");
 	 	
-	 	System.out.println(strArr[1]);
 	
 	 	
 	 	HttpSession session = request.getSession();

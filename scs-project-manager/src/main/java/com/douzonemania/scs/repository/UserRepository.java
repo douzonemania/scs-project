@@ -179,6 +179,10 @@ public class UserRepository {
 		return sqlSession.selectOne("user.findById", id);
 	}
 	
+	public CeoVo findByIdJoin(String id) {
+		return sqlSession.selectOne("user.findByIdJoin", id);
+	}
+	
 	
 	
 }
