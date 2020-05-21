@@ -16,7 +16,7 @@
         <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
     </head>
-
+	
     <body class="authentication-bg authentication-bg-pattern" style="background-color: #ffffff;">
 
         <div class="account-pages mt-5 mb-5" >

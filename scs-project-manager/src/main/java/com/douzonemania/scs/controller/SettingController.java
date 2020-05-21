@@ -15,7 +15,7 @@ import com.douzonemania.scs.service.ShipCompanyService;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 
 @Controller
-@RequestMapping("/setting")
+@RequestMapping("/{id:(?!assets).*}/setting")
 public class SettingController {
 
 	@Autowired

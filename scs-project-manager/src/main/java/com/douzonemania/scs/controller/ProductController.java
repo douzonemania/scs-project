@@ -16,7 +16,7 @@ import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/{id:(?!assets).*}/product")
 public class ProductController {
 	
 	@Autowired
@@ -104,5 +104,12 @@ public class ProductController {
 		return "product/category-reg";
 	}
 	
-
+	@RequestMapping(value = "/category-reg/add", method = RequestMethod.POST)
+	public String addCategory(
+			@RequestParam(value= "category-name", defaultValue="true") String categoryName
+			) {
+		System.err.println(categoryName + "!!!!");
+		return "product/category-reg";
+	}
+	
 }
