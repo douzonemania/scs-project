@@ -16,7 +16,7 @@ import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/{id}/product")
 public class ProductController {
 	
 	@Autowired

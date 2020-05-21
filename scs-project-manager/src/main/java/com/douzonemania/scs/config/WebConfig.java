@@ -59,9 +59,7 @@ public class WebConfig implements WebMvcConfigurer {
 	
 		registry
 			.addInterceptor(authInterceptor())
-			.addPathPatterns("/**")
-			.excludePathPatterns(env.getProperty("security.auth-url"))
-			.excludePathPatterns(env.getProperty("security.logout-url"))
+			.addPathPatterns("/**")	
 			.excludePathPatterns("/assets/**");		
 	}
 	

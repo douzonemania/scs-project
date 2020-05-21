@@ -49,13 +49,7 @@
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 	
 <script>
-var id = '${authUser.id}';
-/* var listItemTemplate = new EJS({
-	url: "${pageContext.request.contextPath }/assets/js/ejs/list-item-template.ejs"
-});
-var listTemplate = new EJS({
-	url: "${pageContext.request.contextPath }/assets/js/ejs/list-template.ejs"
-}); */
+
 
 $(function() {
 	
@@ -64,6 +58,7 @@ $(function() {
 		var name = $('#category-name').val();
 		var no = null;		
 		var isParent = $('input[name="cate-n"]:checked').val();
+		var name2 = $("#cate-select-add option:selected").text();
 		
 		/* parentNo 구하기 1차:null 2차: 1*/
 		var parentNo;
@@ -123,17 +118,13 @@ $(function() {
 $(function() {
 	
 	$("#cate-mod-button").click(function() {
-		
-		console.log("click!");
-		//var isParent = $('input[name="cate-n"]:checked').val();
-		var name = $("#cate-select-mod option:selected").text();
-		var afterName = $('#category-name-mod').val();		
-		
-		var vo={};
-		
-		vo.name = name;					// 카테고리 이름
-		vo.afterName = afterName;		// 변경할 카테고리 이름
+				var name = $("#cate-select-mod option:selected").text();
+				var afterName = $('#category-name-mod').val();		
 			
+				var vo={};
+				
+				vo.name = name;					// 카테고리 이름
+				vo.afterName = afterName;		// 변경할 카테고리 이름
 		$.ajax({
 			url: '${pageContext.request.contextPath }/api/product/category-reg/mod/' + afterName,
 			contentType: 'application/json',
@@ -141,7 +132,7 @@ $(function() {
 			type: "POST",
 			dataType: 'json',
 			success : function(response){
-				alert("성공")
+				alert("성공")				
 			},
 			error:
 				alert("실패")
@@ -149,6 +140,56 @@ $(function() {
 	});
 });
 
+$(function() {
+	/* 카테고리 추가 라디오버튼 별 화면 뿌리기 */
+	$("input:radio[name=cate-n]").click(function(){
+        	
+        if($("input[name=cate-n]:checked").val() == "parent"){
+        	$('#cate-add-button-text').show();
+        	$('#cate-add-button-text2').hide();
+        	$('#cate-select-add').css('display','none');
+        	
+        }else if($("input[name=cate-n]:checked").val() == "child"){
+        	$('#cate-add-button-text').hide();
+        	$('#cate-add-button-text2').show();
+        	$('#cate-select-add').css('display','inline-block');        	
+        }
+	});
+});
+
+$(function() {
+	/* 카테고리 삭제 라디오버튼 별 화면 뿌리기 */
+	$("input:radio[name=cate-n-del]").click(function(){
+        	
+        if($("input[name=cate-n-del]:checked").val() == "parent"){
+        	$('#cate-del-button-text').show();
+        	$('#cate-del-button-text2').hide();
+        	$('#cate-select-del2').css('display','none');
+        	
+        }else if($("input[name=cate-n-del]:checked").val() == "child"){
+        	$('#cate-del-button-text').hide();
+        	$('#cate-del-button-text2').show();
+        	$('#cate-select-del2').css('display','inline-block');   	
+        }
+	});
+});
+
+$(function() {
+	/* 카테고리 수정 라디오버튼 별 화면 뿌리기 */
+	$("input:radio[name=cate-n-mod]").click(function(){
+        	
+        if($("input[name=cate-n-mod]:checked").val() == "parent"){
+        	$('#cate-mod-button-text').show();
+        	$('#cate-mod-button-text2').hide();
+        	$('#cate-select-mod2').css('display','none');
+        	
+        }else if($("input[name=cate-n-mod]:checked").val() == "child"){
+        	$('#cate-mod-button-text').hide();
+        	$('#cate-mod-button-text2').show();
+        	$('#cate-select-mod2').css('display','inline-block');   	
+        }
+	});
+});
 </script>       
        
        
@@ -216,22 +257,31 @@ $(function() {
                                 <table class="category-add">
                                     <tr>
                                         <td>
-                                            <input type=radio name="cate-n" value="parent"checked >&nbsp1차 카테고리 등록<label class="text-space"></label>
+                                            <input type=radio name="cate-n" value="parent" checked >&nbsp1차 카테고리 등록<label class="text-space"></label>
                                             <input type=radio name="cate-n" value="child" >&nbsp2차 카테고리 등록
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>                                        	
-	                                        <button type="button" class="btn btn-secondary waves-effect textbox" id="cate-add-button-text" disabled>1차카테고리</button> 
+	                                        <button type="button" class="btn btn-secondary waves-effect textbox" id="cate-add-button-text" disabled>1차카테고리</button>
+	                                        <button type="button" class="btn btn-secondary waves-effect textbox" id="cate-add-button-text2" disabled style="display:none">2차카테고리</button>
+	                                        
+	                                        <select class="form-control" id="cate-select-add" style="display:none">
+	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
+	                                            	<option>${vo.name }</option>
+	                                            </c:forEach>                                                                                                      
+                                            </select> 
+	                                         
 	                                        <input type="text" class="form-control " id="category-name" style="width:200px; display:inline-block;" value="">	                                        
 	                                        <button type="button" class="btn btn-secondary waves-effect " id="cate-add-button">추가</button>	                                                                                   
                                         </td>
                                     </tr>
+
                                 </table>
                                 </form>
                                 <!-- 카테고리 추가 종료-->
+                                
                                 </h4><label class="lspace"></label>
-
 
                                 <!-- 카테고리 삭제 시작-->
                                 <h4 class="page-title">카테고리 삭제</h4>
@@ -239,22 +289,27 @@ $(function() {
                                 <table class="category-remove">
                                     <tr>
                                         <td>
-                                            <input type=radio name="cate-n-del" checked>&nbsp1차 카테고리 삭제<label class="text-space"></label>
-                                            <input type=radio name="cate-n-del">&nbsp2차 카테고리 삭제
+                                            <input type=radio name="cate-n-del" value="parent" checked>&nbsp1차 카테고리 삭제<label class="text-space"></label>
+                                            <input type=radio name="cate-n-del" value="child">&nbsp2차 카테고리 삭제
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-secondary waves-effect textbox " id="cate-del-button-text" disabled>1차카테고리</button> 
-                                            
-									
+                                            <button type="button" class="btn btn-secondary waves-effect textbox " id="cate-del-button-text" disabled>1차카테고리</button>
+                                            <button type="button" class="btn btn-secondary waves-effect textbox " id="cate-del-button-text2" style="display:none" disabled>2차카테고리</button>       
 									
 											<!-- 카테고리 이름 select box -->
                                             <select class="form-control" id="cate-select-del" style="display:inline-block">
 	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
 	                                            	<option>${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
-                                            </select> 
+                                            </select>
+                                            
+                                            <select class="form-control" id="cate-select-del2" style="display:none">
+	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
+	                                            	<option>${vo.name }</option>
+	                                            </c:forEach>                                                                                                      
+                                            </select>  
                                                                                      
                                             <button type="button" class="btn btn-secondary waves-effect " id="cate-del-button">삭제</button>
                                         </td>
@@ -270,18 +325,27 @@ $(function() {
                                 <table class="category-modify">
                                     <tr>
                                         <td>
-                                            <input type=radio name="cate-n-mod" checked>&nbsp1차 카테고리 수정<label class="text-space"></label>
-                                            <input type=radio name="cate-n-mod">&nbsp2차 카테고리 수정
+                                            <input type=radio name="cate-n-mod" value="parent" checked>&nbsp1차 카테고리 수정<label class="text-space"></label>
+                                            <input type=radio name="cate-n-mod" value="child">&nbsp2차 카테고리 수정
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-secondary waves-effect btn-submit-color textbox " id="cate-mod-button-text" disabled>1차카테고리</button> 
+                                            <button type="button" class="btn btn-secondary waves-effect btn-submit-color textbox " id="cate-mod-button-text" disabled>1차카테고리</button>
+                                            <button type="button" class="btn btn-secondary waves-effect btn-submit-color textbox " id="cate-mod-button-text2" style="display:none" disabled>2차카테고리</button> 
+                                            
                                             <select class="form-control" id="cate-select-mod" style="display:inline-block">
 	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
 	                                            	<option>${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
                                             </select>
+                                            
+                                            <select class="form-control" id="cate-select-mod2" style="display:none">
+	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
+	                                            	<option>${vo.name }</option>
+	                                            </c:forEach>                                                                                                      
+                                            </select>
+                                            
                                             <input type="text" class="form-control " id="category-name-mod" style="width:200px; display:inline-block;">                                            
                                             <button type="button" class="btn btn-secondary waves-effect " id="cate-mod-button">수정</button>
                                         </td>

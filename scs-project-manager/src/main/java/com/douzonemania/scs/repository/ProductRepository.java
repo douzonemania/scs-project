@@ -4,9 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
@@ -51,7 +55,23 @@ public class ProductRepository {
 		map.put("afterName", afterName);
 		return sqlSession.update("category.updateCategory", map);
 	}
+
+	public List<CategoryVo> getCategory2NameList() {
+		return sqlSession.selectList("category.getCategory2NameList");
+	}
 	
 	
 	
+	
+	
+	public String getSession() {
+		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
+		
+		HttpSession nowSession = attr.getRequest().getSession();
+		
+		String id =nowSession.getAttribute("name").toString();
+		
+		
+		return id;
+	}
 }
