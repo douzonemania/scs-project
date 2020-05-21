@@ -80,8 +80,9 @@ public class UserService {
 	public CeoVo findCeoById(String id) {
 		return userRepository.findById(id);
 	}
-	
+
 	public CeoVo findCeoByIdJoin(String id) {
 		return userRepository.findByIdJoin(id);
 	}
 }
+
