@@ -20,8 +20,7 @@ import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 
 @Controller
-@RequestMapping("/{id}/setting")
-//@RequestMapping("/{id:(?!assets).*}/setting")
+@RequestMapping("/{id:(?!assets).*}/setting")
 public class SettingController {
 
 	@Autowired

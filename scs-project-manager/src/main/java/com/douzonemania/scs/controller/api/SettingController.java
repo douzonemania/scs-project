@@ -55,8 +55,6 @@ public class SettingController {
 //			@PathVariable String id,
 			@PathVariable("no") Long no) {
 			
-			System.out.println("=========================================" + no);
-			
 			boolean result = false;
 			int count = shipCompanyService.shipCount("sjy8033");	//authUser처리
 			if(count > 1) {

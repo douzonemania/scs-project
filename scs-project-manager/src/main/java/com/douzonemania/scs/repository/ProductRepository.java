@@ -1,11 +1,14 @@
 package com.douzonemania.scs.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 
 @Repository
@@ -24,6 +27,29 @@ public class ProductRepository {
 
 	public ItemVo findItem(int no) {
 		return sqlSession.selectOne("product.findItem", no);
+	}
+
+	public int addCategory(CategoryVo cVo) {
+		return sqlSession.insert("category.addCategory", cVo);
+	}
+
+	public CategoryVo findCategoryByName(String name) {
+		return sqlSession.selectOne("category.findCategoryByName", name);
+	}
+
+	public int delCategory(String name) {
+		return sqlSession.delete("category.delCategory", name);
+	}
+
+	public List<CategoryVo> getCategoryNameList() {
+		return sqlSession.selectList("category.getCategoryNameList");
+	}
+
+	public int updateCategory(String name, String afterName) {
+		Map<String, String> map = new HashMap<>();
+		map.put("name", name);
+		map.put("afterName", afterName);
+		return sqlSession.update("category.updateCategory", map);
 	}
 	
 	

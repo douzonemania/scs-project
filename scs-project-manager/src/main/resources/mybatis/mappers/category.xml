@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+	<insert id="addCategory" parameterType="categoryvo">
+				<![CDATA[
+					insert into mall.category values (null, #{name}, #{parentNo})
+				]]>
+	</insert>
+	
+	<select id="findCategoryByName" parameterType="String" resultType="categoryvo">
+				<![CDATA[
+					select name from mall.category where name = #{name}
+				]]>
+	</select>
+	
+	<delete id="delCategory" parameterType="String">
+				<![CDATA[
+					delete from mall.category where name = #{name}
+				]]>
+	</delete>
+	
+	<select id="getCategoryNameList" resultType="categoryvo">		
+				<![CDATA[
+					select no, name, parents_no as 'parentNo'
+					from mall.category
+				]]>
+	</select>
+	
+	<update id="updateCategory" parameterType="map">
+				<![CDATA[
+					update mall.category 
+					set name = #{afterName}
+					where name=#{name}
+				]]>		
+	</update>
+</mapper>
+

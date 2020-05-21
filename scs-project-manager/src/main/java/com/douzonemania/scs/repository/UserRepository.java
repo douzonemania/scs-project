@@ -8,6 +8,7 @@ import com.douzonemania.scs.vo.ceo.CeoVo;
 public class UserRepository {
 	@Autowired
 	private SqlSession sqlSession;
+  
 	// create table
 	public void createTable(String id) {
 		String itemReviewQry = "CREATE TABLE " + id + ".item_review(" + "   no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
@@ -59,7 +60,10 @@ public class UserRepository {
 				+ "    sale        INT UNSIGNED NOT NULL," + "    main_image  VARCHAR(100) NOT NULL,"
 				+ "    sub_image   VARCHAR(300) NULL," + "    visible     BOOLEAN      NOT NULL,"
 				+ "    best_item        BOOLEAN      NOT NULL," + "    new_item         BOOLEAN      NOT NULL,"
-				+ "    editor      TEXT         NULL," + "    category_no INT UNSIGNED NULL," + "    primary key(no)"
+				+ "    editor      TEXT         NULL," + "    category_no INT UNSIGNED NULL," 
+				+ "    description TEXT         NULL,"
+				+ "    reg_date    DATETIME     NOT NULL,"
+				+ "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8; ";
 		String shipAddressQry = "CREATE TABLE " + id + ".ship_address("
 				+ "    no           INT UNSIGNED NOT NULL AUTO_INCREMENT ," + "    ship_name   VARCHAR(30)  NOT NULL ,"
@@ -175,10 +179,13 @@ public class UserRepository {
 	public int insert(CeoVo ceoVo) {
 		return sqlSession.insert("user.insert", ceoVo);
 	}
+
 	public CeoVo findById(String id) {
 		return sqlSession.selectOne("user.findById", id);
 	}
 	
 	
+
 	
 }
+

@@ -47,11 +47,9 @@
 		<script type="text/javascript"
 			src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
-
 var shipAddTemplate = new EJS({
 	url:"${pageContext.request.contextPath }/assets/js/ejs/ship-item-add.ejs"
 });
-
 var shiplistTemplate = new EJS({
 	url:"${pageContext.request.contextPath }/assets/js/ejs/ship-list-template.ejs"
 });
@@ -79,7 +77,6 @@ var fetchList = function(){
 		}
 	});	
 }
-
 $(function(){
  	
 	//입력폼 submit 이벤트
@@ -157,7 +154,6 @@ $(function(){
 		
 	});
 	
-
 	
 });
 fetchList();
