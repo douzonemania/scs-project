@@ -61,7 +61,7 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value="/auth", method=RequestMethod.POST)
+	@RequestMapping(value="/auth")
 	public void auth() {
 
 	}
