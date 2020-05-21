@@ -8,10 +8,44 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <title>카테고리 추가/삭제</title>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
+<!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        
+        <!-- Sweet Alert-->
+        <link href="../assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+       
+        <!-- Plugins css -->
+        <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+       
+        <link href="../assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+        
+        <link href="../assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+
+        <!-- third party css -->
+        <link href="../assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <!-- third party css end -->
+
+        <!-- App css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        
+		<script type="text/javascript"
+			src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+		<script type="text/javascript"
+			src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
 var shipAddTemplate = new EJS({
 	url:"${pageContext.request.contextPath }/assets/js/ejs/ship-item-add.ejs"
@@ -34,7 +68,7 @@ var fetchList = function(){
 			}
 			console.log("response.data: " + response.data);
 			var html = shiplistTemplate.render(response);
-			$(".admin-cat").append(html);
+			$("#admin-cat").append(html);
 			
 			
 		},
@@ -69,10 +103,10 @@ $(function(){
 				}
 				// rendering
 				
-				var lastNo = $(".admin-cat").find('tr').length;
+				var lastNo = $("#admin-cat").find('tr').length;
 				response.data.lastNo = lastNo;
 				var html = shipAddTemplate.render(response.data);
-				$(".admin-cat tr").last().after(html);
+				$("#admin-cat tr").last().after(html);
 				
 				// form reset
 				$("#add-form")[0].reset();
@@ -85,9 +119,10 @@ $(function(){
 	});
 	
 	// 클릭시 삭제
-	$(document).on('click','.admin-cat tr td button',function(event){
+	$(document).on('click','#admin-cat tr td button',function(event){
 		event.preventDefault();			
 		var no = $(this).data('no');
+		$(this).parents('tr').remove();
 		
 		console.log("delete   " + no);
 		$.ajax({
@@ -112,9 +147,9 @@ $(function(){
 			}
 		});
 		
-		$(this).parents('tr').remove();
+		
 		console.log($(this).parents('tr'));
-		$('.admin-cat tr').remove();
+		$('#admin-cat tr').remove();
 		fetchList();
 		
 	});
@@ -126,16 +161,21 @@ fetchList();
 </head>
 <body>
 	<form id="add-form" action="" method="post">
-		<table id="admin-cat-add">
+		<table id="admin-cat-add" class="table-form-category">
+			<colgroup>
+	            <col width="180"><col width="*">
+	        </colgroup>
+           <tbody> 
 			<tr>
 				<td class="t">배송사</td>
 				<td><input type="text" id="text-ship" name="name"></td>
-				<td><input type="submit" value="배송사 추가"></td>
+				<td><input type="submit" value="배송사 추가" style="background-color:#CBCBCB; border-color:white"></td>
 			</tr>
+			</tbody>
 		</table>
 	</form>
 	
-   	<table class="admin-cat">
+   	<table id="admin-cat" class="table-form-category">
 
 	</table>
 </body>
