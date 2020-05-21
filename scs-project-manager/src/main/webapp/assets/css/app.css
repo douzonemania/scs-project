@@ -4313,6 +4313,11 @@ table[data-toggle="table"] {
   height: 38px;
   line-height: 14px;
   margin-bottom: 2px; }
+  
+#cate-add-button-text, #cate-del-button-text, #cate-mod-button-text {
+  height: 38px;
+  line-height: 14px;
+  margin-bottom: 2px; }
 
 .textbox:hover {
   cursor: default; }
