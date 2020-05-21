@@ -51,13 +51,17 @@ public class ProductService {
 	}
 	
 	/* 2차 카테고리 이름 리스트  */
-	public List<CategoryVo> getCategory2NameList() {		
-		return productRepository.getCategory2NameList();
+	public List<CategoryVo> getCategory2NameList(int ParentCategoryNo) {		
+		return productRepository.getCategory2NameList(ParentCategoryNo);
 	}
 
 	/* 카테고리 수정하기 */
 	public int updateCategory(String name, String afterName) {
 		return productRepository.updateCategory(name, afterName);
 		
+	}
+	/* 카테고리 추가시 카테고리 이름으로 부모 카테고리 번호 검색 */
+	public int getCategoryNoByName(String parentCategory) {
+		return productRepository.findCategoryNoByName(parentCategory);		
 	}
 }

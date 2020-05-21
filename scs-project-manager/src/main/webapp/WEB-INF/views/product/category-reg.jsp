@@ -58,7 +58,7 @@ $(function() {
 		var name = $('#category-name').val();
 		var no = null;		
 		var isParent = $('input[name="cate-n"]:checked').val();
-		var name2 = $("#cate-select-add option:selected").text();
+		var parentCategory = $("#cate-select-add option:selected").text();
 		
 		/* parentNo 구하기 1차:null 2차: 1*/
 		var parentNo;
@@ -74,7 +74,7 @@ $(function() {
 		vo.name = name;
 		vo.parentNo = parentNo;		
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/product/category-reg/add',
+			url: '${pageContext.request.contextPath }/api/product/category-reg/add/' + parentCategory ,
 			contentType: 'application/json',
 			data: JSON.stringify(vo),
 			type: "POST",
@@ -95,10 +95,22 @@ $(function() {
 					
 		//var isParent = $('input[name="cate-n"]:checked').val();
 		var name = $("#cate-select-del option:selected").text();		
+		var childCategoryName = $("#cate-select-del2 option:selected").text();
 		
+		// 카테고리 선택이 안되었을 때 return
+		if(name=="----"){
+			alert("카테고리를 선택하세요");
+			return;
+		}
 		var vo={};
 		
-		vo.name = name;
+		// 2차카테고리 입력 별 name 값 설정
+		if(childCategoryName==""){
+			vo.name = name;
+		}else{
+			vo.name = childCategoryName;
+		}
+		
 			
 		$.ajax({
 			url: '${pageContext.request.contextPath }/api/product/category-reg/del',
@@ -148,11 +160,15 @@ $(function() {
         	$('#cate-add-button-text').show();
         	$('#cate-add-button-text2').hide();
         	$('#cate-select-add').css('display','none');
+        	$("#cate-select-add").val("----").attr("selected", "selected");
+        	$('#category-name').val('');
         	
         }else if($("input[name=cate-n]:checked").val() == "child"){
         	$('#cate-add-button-text').hide();
         	$('#cate-add-button-text2').show();
-        	$('#cate-select-add').css('display','inline-block');        	
+        	$('#cate-select-add').css('display','inline-block');
+        	$('#category-name').val('');
+        	
         }
 	});
 });
@@ -165,11 +181,17 @@ $(function() {
         	$('#cate-del-button-text').show();
         	$('#cate-del-button-text2').hide();
         	$('#cate-select-del2').css('display','none');
+        	$("#cate-select-del").val("----").attr("selected", "selected");
+        	$("#cate-select-del2").val("----").attr("selected", "selected");
+        	$("select#cate-select-del2 option").remove();
+        	$('#cate-select-del2').append("<option value=''>----</option>");
         	
         }else if($("input[name=cate-n-del]:checked").val() == "child"){
         	$('#cate-del-button-text').hide();
         	$('#cate-del-button-text2').show();
-        	$('#cate-select-del2').css('display','inline-block');   	
+        	$('#cate-select-del2').css('display','inline-block');
+        	$("#cate-select-del").val("----").attr("selected", "selected");
+        	
         }
 	});
 });
@@ -182,14 +204,51 @@ $(function() {
         	$('#cate-mod-button-text').show();
         	$('#cate-mod-button-text2').hide();
         	$('#cate-select-mod2').css('display','none');
+        	$("#cate-select-mod2").val("----").attr("selected", "selected");
+        	$('#category-name-mod').val('');
         	
         }else if($("input[name=cate-n-mod]:checked").val() == "child"){
         	$('#cate-mod-button-text').hide();
         	$('#cate-mod-button-text2').show();
-        	$('#cate-select-mod2').css('display','inline-block');   	
+        	$('#cate-select-mod2').css('display','inline-block');
+        	$("#cate-select-mod").val("----").attr("selected", "selected");
+        	$("#cate-select-mod2").val("----").attr("selected", "selected");
+        	$('#category-name-mod').val('');
+        	
         }
 	});
 });
+
+$(function() {
+/* 1차 카테고리 별 2차 카테고리 이름 리스트 */
+	$('#cate-select-del').change(function(){
+				
+		var vo={};
+		vo.name = this.value;
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/product/category-reg/childCategoryList' ,
+			contentType: 'application/json',
+			data: JSON.stringify(vo),
+			type: "POST",
+			dataType: 'json',
+			success : function(response){				
+				if(($("input[name=cate-n-del]:checked").val() == "child")){
+					
+					for( var key in response.data){
+						var data = response.data[key];	
+						if(data.name!=null)
+							$('#cate-select-del2').append("<option value='" + data.name + "'>" + data.name + "</option>");
+					}
+				}
+			},
+			error:
+				console.log("왜 실패냐고")
+		});
+		$("select#cate-select-del2 option").remove();
+	});
+});
+
 </script>       
        
        
@@ -222,6 +281,9 @@ $(function() {
                                 </ol>
                             </div>
                             <h4 class="page-title">카테고리등록</h4>
+                                                <c:forEach var="vo" varStatus="status" items="${childCategoryNameList }">
+	                                            	${vo.name }=
+	                                            </c:forEach>                                                                                                      
                         </div>
                     </div>
                 </div>     
@@ -267,6 +329,7 @@ $(function() {
 	                                        <button type="button" class="btn btn-secondary waves-effect textbox" id="cate-add-button-text2" disabled style="display:none">2차카테고리</button>
 	                                        
 	                                        <select class="form-control" id="cate-select-add" style="display:none">
+	                                        		<option>----</option>
 	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
 	                                            	<option>${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
@@ -300,13 +363,15 @@ $(function() {
 									
 											<!-- 카테고리 이름 select box -->
                                             <select class="form-control" id="cate-select-del" style="display:inline-block">
+	                                            	<option>----</option>
 	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
 	                                            	<option>${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
                                             </select>
                                             
                                             <select class="form-control" id="cate-select-del2" style="display:none">
-	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
+	                                            	<option>----</option>
+	                                            <c:forEach var="vo" varStatus="status" items="${childCategoryNameList }">
 	                                            	<option>${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
                                             </select>  
@@ -335,12 +400,14 @@ $(function() {
                                             <button type="button" class="btn btn-secondary waves-effect btn-submit-color textbox " id="cate-mod-button-text2" style="display:none" disabled>2차카테고리</button> 
                                             
                                             <select class="form-control" id="cate-select-mod" style="display:inline-block">
+	                                            	<option>----</option>
 	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
 	                                            	<option>${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
                                             </select>
                                             
                                             <select class="form-control" id="cate-select-mod2" style="display:none">
+	                                            	<option>----</option>
 	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
 	                                            	<option>${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
