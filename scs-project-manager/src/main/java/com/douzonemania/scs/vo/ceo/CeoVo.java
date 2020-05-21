@@ -28,11 +28,11 @@ public class CeoVo {
 	private String siteName;
 	private String coNumber;
 	private String cmNumber;
-	private int shipCharge;
+	private Integer shipCharge;
 	private String logo;
 	private String favicon;
+	public Integer getShipCharge() {
 
-	public int getShipCharge() {
 		return shipCharge;
 	}
 

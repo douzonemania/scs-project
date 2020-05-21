@@ -1,5 +1,4 @@
 package com.douzonemania.scs.service;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,17 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.douzonemania.scs.repository.UserRepository;
 import com.douzonemania.scs.vo.ceo.CeoVo;
-
 @Service
 public class UserService {
-
 	@Autowired
 	private UserRepository userRepository;
-
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://192.168.1.58:3306";
-
 	// Database credentials
 	static final String USER = "scs2";
 	static final String PASS = "scs2";
@@ -31,15 +26,12 @@ public class UserService {
 		try {
 			// STEP 2: Register JDBC driver
 			Class.forName("org.mariadb.jdbc.Driver");
-
 			// STEP 3: Open a connection
 			System.out.println("Connecting to database...");
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-
 			// STEP 4: Execute a query
 			System.out.println("Creating database...");
 			stmt = conn.createStatement();
-
 			String sql = "CREATE DATABASE " + databaseName;
 			stmt.executeUpdate(sql);
 			System.out.println("Database created successfully...");
@@ -89,4 +81,11 @@ public class UserService {
 		return userRepository.findByIdAndPassword(ceoVo);
 	}
 	 
+	public CeoVo findCeoById(String id) {
+		return userRepository.findById(id);
+	}
+	
+	public CeoVo findCeoByIdJoin(String id) {
+		return userRepository.findByIdJoin(id);
+	}
 }
