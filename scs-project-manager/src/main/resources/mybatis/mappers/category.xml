@@ -24,6 +24,15 @@
 				<![CDATA[
 					select no, name, parents_no as 'parentNo'
 					from mall.category
+					where parents_no is null
+				]]>
+	</select>
+	
+	<select id="getCategory2NameList" resultType="categoryvo">		
+				<![CDATA[
+					select no, name, parents_no as 'parentNo'
+					from mall.category
+					where parents_no is not null
 				]]>
 	</select>
 	

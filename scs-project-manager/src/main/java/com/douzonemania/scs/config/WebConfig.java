@@ -59,10 +59,11 @@ public class WebConfig implements WebMvcConfigurer {
 			.addPathPatterns(env.getProperty("security.logout-url"));
 	
 		registry
-		.addInterceptor(authInterceptor())
-		.addPathPatterns("/**")	
-		.excludePathPatterns("/assets/**");		
-	
+
+			.addInterceptor(authInterceptor())
+			.addPathPatterns("/**")	
+			.excludePathPatterns("/assets/**");		
+
 	}
 	
 	// Mvc Resources(URL Magic Mapping)
