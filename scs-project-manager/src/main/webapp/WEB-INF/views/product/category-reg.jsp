@@ -49,16 +49,28 @@
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 	
 <script>
-
+function initial(){
+	$("#cate-select-del2").prepend("<option>----</option>");
+	$("#cate-select-mod2").prepend("<option>----</option>");
+	$('#category-name-add').val('');
+	$('#category-name-del').val('');
+	$('#category-name-mod').val('');
+	$("#cate-select-del2").attr('disabled',true);
+	$("#cate-select-mod2").attr('disabled',true);
+	$("#cate-select-del option:eq(0)").prop("selected", true);
+	$("#cate-select-mod option:eq(0)").prop("selected", true);
+	$("#cate-select-del2 option:eq(0)").prop("selected", true);
+	$("#cate-select-mod2 option:eq(0)").prop("selected", true);
+}
 
 $(function() {
 	
 	$("#cate-add-button").click(function() {
-		
+		 
 		var name = $('#category-name').val();
 		var no = null;		
 		var isParent = $('input[name="cate-n"]:checked').val();
-		var parentCategory = $("#cate-select-add option:selected").text();
+		var parentCategory = $("#cate-select-add option:selected").text();	
 		
 		/* parentNo 구하기 1차:null 2차: 1*/
 		var parentNo;
@@ -72,7 +84,9 @@ $(function() {
 		
 		vo.no = no;
 		vo.name = name;
-		vo.parentNo = parentNo;		
+		vo.parentNo = parentNo;
+		
+		if(parentNo==null){
 		$.ajax({
 			url: '${pageContext.request.contextPath }/api/product/category-reg/add/' + parentCategory ,
 			contentType: 'application/json',
@@ -80,11 +94,42 @@ $(function() {
 			type: "POST",
 			dataType: 'json',
 			success : function(response){
-				alert("성공")
+				$("select#cate-select-add option, select#cate-select-del option, select#cate-select-mod option").remove();
+				$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value=''>----</option>");
+				for( var key in response.data){
+					var data = response.data[key];	
+					if(data.name!=null)
+						$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.name + "'>" + data.name + "</option>");
+				}
 			},
 			error:
 				alert("실패")
 		});
+		} else {
+			$.ajax({
+				url: '${pageContext.request.contextPath }/api/product/category-reg/add/' + parentCategory ,
+				contentType: 'application/json',
+				data: JSON.stringify(vo),
+				type: "POST",
+				dataType: 'json',
+				success : function(response){
+					$("select#cate-select-del2 option, select#cate-select-mod2 option").remove();
+					$('#cate-select-del2,#cate-select-mod2').append("<option value=''>----</option>");
+					for( var key in response.data){
+						var data = response.data[key];	
+						if(data.name!=null)
+							$('#cate-select-del2,#cate-select-mod2').append("<option value='" + data.name + "'>" + data.name + "</option>");							
+						initial();
+					}
+				},
+				error:
+					alert("실패")
+			});			
+		}
+		/* $("input:radio[name=cate-n-del][value=" + 'parent' + "]").attr("checked",true); */
+
+
+		
 	});
 });
 
@@ -92,8 +137,9 @@ $(function() {
 $(function() {
 	
 	$("#cate-del-button").click(function() {
-					
-		//var isParent = $('input[name="cate-n"]:checked').val();
+		
+		var no = null;
+		var isParent = $('input[name="cate-n-del"]:checked').val();
 		var name = $("#cate-select-del option:selected").text();		
 		var childCategoryName = $("#cate-select-del2 option:selected").text();
 		
@@ -103,27 +149,36 @@ $(function() {
 			return;
 		}
 		var vo={};
+
+		if(isParent=="parent")
+			parentNo = null;
+		else
+			parentNo = 99;
+		vo.parentNo = parentNo;
+		vo.no = no;
+		console.log("parentNo : " + parentNo +"isParent : " + isParent);
 		
 		// 2차카테고리 입력 별 name 값 설정
-		if(childCategoryName==""){
-			vo.name = name;
+		if(parentNo == null){
+			vo.name = name;			
 		}else{
-			vo.name = childCategoryName;
-		}
+			vo.name = childCategoryName;			
+		}	
+			$.ajax({
+				url: '${pageContext.request.contextPath }/api/product/category-reg/del',
+				contentType: 'application/json',
+				data: JSON.stringify(vo),
+				type: "POST",
+				dataType: 'json',
+				success : function(response){
+					initial();
+				},
+				error:
+					alert("실패")
+			});
 		
 			
-		$.ajax({
-			url: '${pageContext.request.contextPath }/api/product/category-reg/del',
-			contentType: 'application/json',
-			data: JSON.stringify(vo),
-			type: "POST",
-			dataType: 'json',
-			success : function(response){
-				alert("성공")
-			},
-			error:
-				alert("실패")
-		});
+		
 	});
 });
 
@@ -131,12 +186,23 @@ $(function() {
 	
 	$("#cate-mod-button").click(function() {
 				var name = $("#cate-select-mod option:selected").text();
+				var childCategoryName = $("#cate-select-mod2 option:selected").text();
 				var afterName = $('#category-name-mod').val();		
 			
+				// 카테고리 선택이 안되었을 때 return
+				if(name=="----"){
+					alert("카테고리를 선택하세요");
+					return;
+				}
 				var vo={};
-				
-				vo.name = name;					// 카테고리 이름
 				vo.afterName = afterName;		// 변경할 카테고리 이름
+				// 2차카테고리 입력 별 name 값 설정
+				if(childCategoryName==""){
+					vo.name = name;
+				}else{
+					vo.name = childCategoryName;
+				}				
+				
 		$.ajax({
 			url: '${pageContext.request.contextPath }/api/product/category-reg/mod/' + afterName,
 			contentType: 'application/json',
@@ -144,7 +210,7 @@ $(function() {
 			type: "POST",
 			dataType: 'json',
 			success : function(response){
-				alert("성공")				
+				initial();			
 			},
 			error:
 				alert("실패")
@@ -160,7 +226,7 @@ $(function() {
         	$('#cate-add-button-text').show();
         	$('#cate-add-button-text2').hide();
         	$('#cate-select-add').css('display','none');
-        	$("#cate-select-add").val("----").attr("selected", "selected");
+        	/* $("#cate-select-del option:eq(0)").prop("selected", true); */
         	$('#category-name').val('');
         	
         }else if($("input[name=cate-n]:checked").val() == "child"){
@@ -180,17 +246,23 @@ $(function() {
         if($("input[name=cate-n-del]:checked").val() == "parent"){
         	$('#cate-del-button-text').show();
         	$('#cate-del-button-text2').hide();
-        	$('#cate-select-del2').css('display','none');
-        	$("#cate-select-del").val("----").attr("selected", "selected");
-        	$("#cate-select-del2").val("----").attr("selected", "selected");
+        	$('#cate-select-del2').css('display','none');        	
         	$("select#cate-select-del2 option").remove();
         	$('#cate-select-del2').append("<option value=''>----</option>");
+        	$("#cate-select-del2 option:eq(2)").prop("selected", true);
+        	$("#cate-select-del option:eq(0)").prop("selected", true);
+			
+        	
         	
         }else if($("input[name=cate-n-del]:checked").val() == "child"){
         	$('#cate-del-button-text').hide();
         	$('#cate-del-button-text2').show();
         	$('#cate-select-del2').css('display','inline-block');
-        	$("#cate-select-del").val("----").attr("selected", "selected");
+        	$("#cate-select-del option:eq(0)").prop("selected", true);
+        	if( $("#cate-select-del option:selected").text() =="----"){
+        		$("#cate-select-del2").attr('disabled',true);        		
+        	}
+        	
         	
         }
 	});
@@ -203,17 +275,23 @@ $(function() {
         if($("input[name=cate-n-mod]:checked").val() == "parent"){
         	$('#cate-mod-button-text').show();
         	$('#cate-mod-button-text2').hide();
-        	$('#cate-select-mod2').css('display','none');
-        	$("#cate-select-mod2").val("----").attr("selected", "selected");
+        	$('#cate-select-mod2').css('display','none');        	
+        	$("select#cate-select-mod2 option").remove();
+        	$('#cate-select-mod2').append("<option value=''>----</option>");
         	$('#category-name-mod').val('');
+        	
+        	$("#cate-select-mod option:eq(0)").prop("selected", true);
+        	$("#cate-select-mod2 option:eq(1)").prop("selected", true); 
         	
         }else if($("input[name=cate-n-mod]:checked").val() == "child"){
         	$('#cate-mod-button-text').hide();
         	$('#cate-mod-button-text2').show();
-        	$('#cate-select-mod2').css('display','inline-block');
-        	$("#cate-select-mod").val("----").attr("selected", "selected");
-        	$("#cate-select-mod2").val("----").attr("selected", "selected");
+        	$('#cate-select-mod2').css('display','inline-block');        	
         	$('#category-name-mod').val('');
+        	$("#cate-select-mod option:eq(0)").prop("selected", true);
+        	if( $("#cate-select-mod option:selected").text() =="----"){
+        		$("#cate-select-mod2").attr('disabled',true);        		
+        	}
         	
         }
 	});
@@ -221,8 +299,14 @@ $(function() {
 
 $(function() {
 /* 1차 카테고리 별 2차 카테고리 이름 리스트 */
-	$('#cate-select-del').change(function(){
-				
+	$('#cate-select-del').change(function(){		
+    	
+    	$("#cate-select-del2").removeAttr("disabled");
+    	if( $("#cate-select-del option:selected").text() =="----"){
+    		$("#cate-select-del2").attr('disabled',true);
+    		console.log("여기로 안와져?");
+    	}
+    	
 		var vo={};
 		vo.name = this.value;
 		
@@ -248,6 +332,45 @@ $(function() {
 		$("select#cate-select-del2 option").remove();
 	});
 });
+
+$(function() {
+	/* 1차 카테고리 별 2차 카테고리 이름 리스트 */
+		$('#cate-select-mod').change(function(){
+			
+			console.log("오우오우오우");
+	    	$("#cate-select-mod2").removeAttr("disabled");
+	    	if( $("#cate-select-mod option:selected").text() =="----"){
+	    		$("#cate-select-mod2").attr('disabled',true);        		
+	    	}
+	    	/* 1차 카테고리 선택 안해도 2차 카테고리 갱신되는것 방지 */
+					
+			var vo={};
+			vo.name = this.value;
+			
+			$.ajax({
+				url: '${pageContext.request.contextPath }/api/product/category-reg/childCategoryList' ,
+				contentType: 'application/json',
+				data: JSON.stringify(vo),
+				type: "POST",
+				dataType: 'json',
+				success : function(response){				
+					if(($("input[name=cate-n-mod]:checked").val() == "child")){
+						
+						for( var key in response.data){
+							var data = response.data[key];	
+							if(data.name!=null)
+								$('#cate-select-mod2').append("<option value='" + data.name + "'>" + data.name + "</option>");
+						}
+					}
+				},
+				error:
+					console.log("왜 실패냐고")
+			});
+			$("select#cate-select-mod2 option").remove();
+		});
+});
+
+
 
 </script>       
        
@@ -281,9 +404,7 @@ $(function() {
                                 </ol>
                             </div>
                             <h4 class="page-title">카테고리등록</h4>
-                                                <c:forEach var="vo" varStatus="status" items="${childCategoryNameList }">
-	                                            	${vo.name }=
-	                                            </c:forEach>                                                                                                      
+                                                                                                                                                  
                         </div>
                     </div>
                 </div>     
@@ -408,7 +529,7 @@ $(function() {
                                             
                                             <select class="form-control" id="cate-select-mod2" style="display:none">
 	                                            	<option>----</option>
-	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
+	                                            <c:forEach var="vo" varStatus="status" items="${childCategoryNameList }">
 	                                            	<option>${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
                                             </select>

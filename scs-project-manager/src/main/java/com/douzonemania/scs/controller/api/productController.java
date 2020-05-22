@@ -31,12 +31,13 @@ public class productController {
 			){
 		
 		if("----".equals(parentCategory)) {
-			if ( productService.findCategoryByName(cVo.getName()) == null ) // 카테고리 이름 중복 방지
-				productService.addCategory(cVo);
-			else
+			if ( productService.findCategoryByName(cVo.getName()) == null ) { // 카테고리 이름 중복 방지
+				productService.addCategory(cVo);				
+			}
+			else 
 				System.err.println("중복된 카테고리 명입니다.");
 				
-			return JsonResult.success(cVo);
+			return JsonResult.success(productService.getCategoryNameList());
 		} else {					
 			int parentCategoryNo = productService.getCategoryNoByName(parentCategory); // 부모 카테고리 번호
 			
@@ -47,7 +48,7 @@ public class productController {
 			else
 				System.err.println("중복된 카테고리 명입니다.");
 			
-			return JsonResult.success(cVo);	
+			return JsonResult.success(productService.getCategory2NameList(parentCategoryNo));	
 		}
 			
 	}
@@ -58,7 +59,7 @@ public class productController {
 			@RequestBody CategoryVo cVo
 			) {
 			productService.delCategory(cVo.getName());
-		return JsonResult.success(cVo);
+			return JsonResult.success(productService.getCategoryNameList());
 	}
 	
 	// 카테고리 수정
@@ -75,15 +76,13 @@ public class productController {
 	@RequestMapping(value="/category-reg/childCategoryList", method = RequestMethod.POST)
 	public JsonResult childcategoryList(
 			@RequestBody CategoryVo cVo
-			) {
-			System.err.println("2차카테고리 : " + cVo.getName());
+			) {			
 			String name = cVo.getName();
 			int parentCategoryNo = productService.getCategoryNoByName(name);
 			
 			List<CategoryVo> childCategoryNameList = productService.getCategory2NameList(parentCategoryNo);
-			System.err.println("2차카테고리: " + childCategoryNameList);
-			
 			
 		return JsonResult.success(childCategoryNameList);
 	}
+
 }
