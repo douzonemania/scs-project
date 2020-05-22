@@ -10,11 +10,10 @@
 	<div class="navbar-custom">
     <div class="container-fluid">
         <ul class="list-unstyled topnav-menu float-right mb-0">
-
-            <li class="dropdown notification-list">
+        <li class="dropdown notification-list">
                 <!-- Mobile menu toggle-->
                 <a class="navbar-toggle nav-link">
-                    <div class="lines">
+                <div class="lines">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -27,7 +26,7 @@
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <span class="pro-user-name ml-1">
-                        ${authUser.id}님 안녕하세요<i class="mdi mdi-chevron-down"></i> 
+                        ${authUser.name}님 안녕하세요<i class="mdi mdi-chevron-down"></i> 
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
