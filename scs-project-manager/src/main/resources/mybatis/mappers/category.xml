@@ -28,11 +28,11 @@
 				]]>
 	</select>
 	
-	<select id="getCategory2NameList" resultType="categoryvo">		
+	<select id="getCategory2NameList" parameterType="Integer" resultType="categoryvo">		
 				<![CDATA[
 					select no, name, parents_no as 'parentNo'
 					from mall.category
-					where parents_no is not null
+					where parents_no= #{ParentCategoryNo}
 				]]>
 	</select>
 	
@@ -43,5 +43,11 @@
 					where name=#{name}
 				]]>		
 	</update>
+	
+	<select id="getCategoryNoByName" parameterType="String" resultType="Integer">
+				<![CDATA[
+					select no from mall.category where name = #{name}
+				]]>
+	</select>
 </mapper>
 
