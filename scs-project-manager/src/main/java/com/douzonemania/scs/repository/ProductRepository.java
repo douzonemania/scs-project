@@ -56,10 +56,13 @@ public class ProductRepository {
 		return sqlSession.update("category.updateCategory", map);
 	}
 
-	public List<CategoryVo> getCategory2NameList() {
-		return sqlSession.selectList("category.getCategory2NameList");
+	public List<CategoryVo> getCategory2NameList(int ParentCategoryNo) {
+		return sqlSession.selectList("category.getCategory2NameList",ParentCategoryNo);
 	}
 	
+	public int findCategoryNoByName(String parentCategory) {
+		return sqlSession.selectOne("category.getCategoryNoByName", parentCategory);
+	}
 	
 	
 	
@@ -74,4 +77,5 @@ public class ProductRepository {
 		
 		return id;
 	}
+
 }

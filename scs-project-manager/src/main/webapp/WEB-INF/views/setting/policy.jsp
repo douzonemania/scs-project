@@ -55,7 +55,7 @@
      <!-- ============================================================== -->
      <!-- Start Page Content here -->
      <!-- ============================================================== -->
-
+	
     <div class="wrapper">
         <div class="container-fluid">
             <!-- start page title -->
@@ -97,6 +97,7 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane show active" id="home1">   
+
                                 <div id="snow-editor" style="height: 300px;">
                                 	<h1>${agreementVo.id }</h1>
                                 	1. ${agreementVo.firstAgree } ++ 2. ${agreementVo.secondAgree } ++ 3, ${agreementVo.thirdAgree }
@@ -113,6 +114,7 @@
                 	<!-- end card-box-->
             	</div>
             	<!-- end col -->
+
             </div>
             <!-- end row -->
         </div>

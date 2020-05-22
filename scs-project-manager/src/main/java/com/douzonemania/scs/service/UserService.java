@@ -77,11 +77,11 @@ public class UserService {
       return userRepository.findById(id) != null;
    }
 
-   public CeoVo getUser(CeoVo ceoVo) {
-      return userRepository.findByIdAndPassword(ceoVo);
-   }
-    
-   public CeoVo findCeoByIdJoin(String id) {
-      return userRepository.findByIdJoin(id);
-   }
+	public CeoVo getUser(CeoVo ceoVo) {
+		return userRepository.findByIdAndPassword(ceoVo);
+	}
+	 
+	public CeoVo findCeoByIdJoin(String id) {
+		return userRepository.findByIdJoin(id);
+	}
 }

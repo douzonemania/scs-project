@@ -1,0 +1,213 @@
+!SESSION 2020-05-18 14:36:35.094 -----------------------------------------------
+eclipse.buildId=M20090211-1700
+java.version=1.8.0_60
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ko_KR
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:37.051
+!MESSAGE NLS unused message: OpenResourceDialog_openButton_text in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:37.052
+!MESSAGE NLS unused message: OpenResourceDialog_openWithMenu_label in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:37.052
+!MESSAGE NLS unused message: OpenResourceDialog_openWithButton_toolTip in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:37.053
+!MESSAGE NLS unused message: CleanDialog_cleanSelectedTaskName in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:37.054
+!MESSAGE NLS unused message: RecentWorkspacesPreferencePage_PromptAtStartup_label in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:37.055
+!MESSAGE NLS unused message: RecentWorkspacesPreferencePage_RemoveButton_label in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:47.243
+!MESSAGE NLS unused message: url_couldNotResolve_projectDoesNotExist in: org.eclipse.core.internal.utils.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:47.430
+!MESSAGE NLS unused message: Shortcuts_shortcutTab in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:47.431
+!MESSAGE NLS unused message: Shortcuts_selectShortcutsLabel in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:47.431
+!MESSAGE NLS unused message: Shortcuts_availableMenus in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:47.432
+!MESSAGE NLS unused message: Shortcuts_availableCategories in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:47.433
+!MESSAGE NLS unused message: Shortcuts_allShortcuts in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:47.433
+!MESSAGE NLS unused message: Util_listNull in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:47.434
+!MESSAGE NLS unused message: OpenBrowserHandler_NoInfoDialogTitle in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:36:47.434
+!MESSAGE NLS unused message: AboutFeaturesDialog_SimpleTitle in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:38:30.637
+!MESSAGE NLS unused message: DeleteResourcesWizard_label_multi_projects in: org.eclipse.ltk.internal.ui.refactoring.RefactoringUIMessages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:38:30.637
+!MESSAGE NLS unused message: DeleteResourcesWizard_label_single_project in: org.eclipse.ltk.internal.ui.refactoring.RefactoringUIMessages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:38:30.670
+!MESSAGE NLS unused message: DeleteResourcesProcessor_warning_unsaved_file in: org.eclipse.ltk.internal.core.refactoring.RefactoringCoreMessages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:38:37.227
+!MESSAGE NLS unused message: BinaryDumpHandler_1 in: com.tomato.exerd.handler.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:38:37.228
+!MESSAGE NLS unused message: ConvertToXMLHandler_1 in: com.tomato.exerd.handler.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:38:37.229
+!MESSAGE NLS unused message: SelectHandler_11 in: com.tomato.exerd.handler.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:38:37.229
+!MESSAGE NLS unused message: ToggleColumnVisibilityHandler_4 in: com.tomato.exerd.handler.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-18 14:38:37.230
+!MESSAGE NLS unused message: ToggleColumnVisibilityHandler_5 in: com.tomato.exerd.handler.messages
+!SESSION 2020-05-21 13:22:26.659 -----------------------------------------------
+eclipse.buildId=M20090211-1700
+java.version=1.8.0_60
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ko_KR
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:29.088
+!MESSAGE NLS unused message: url_couldNotResolve_projectDoesNotExist in: org.eclipse.core.internal.utils.messages
+
+!ENTRY org.eclipse.core.resources 2 10035 2020-05-21 13:22:29.162
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:29.699
+!MESSAGE NLS unused message: Shortcuts_shortcutTab in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:29.699
+!MESSAGE NLS unused message: Shortcuts_selectShortcutsLabel in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:29.700
+!MESSAGE NLS unused message: Shortcuts_availableMenus in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:29.700
+!MESSAGE NLS unused message: Shortcuts_availableCategories in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:29.701
+!MESSAGE NLS unused message: Shortcuts_allShortcuts in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:29.702
+!MESSAGE NLS unused message: Util_listNull in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:29.702
+!MESSAGE NLS unused message: OpenBrowserHandler_NoInfoDialogTitle in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:29.703
+!MESSAGE NLS unused message: AboutFeaturesDialog_SimpleTitle in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:30.036
+!MESSAGE NLS unused message: OpenResourceDialog_openButton_text in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:30.037
+!MESSAGE NLS unused message: OpenResourceDialog_openWithMenu_label in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:30.038
+!MESSAGE NLS unused message: OpenResourceDialog_openWithButton_toolTip in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:30.038
+!MESSAGE NLS unused message: CleanDialog_cleanSelectedTaskName in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:30.039
+!MESSAGE NLS unused message: RecentWorkspacesPreferencePage_PromptAtStartup_label in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:30.039
+!MESSAGE NLS unused message: RecentWorkspacesPreferencePage_RemoveButton_label in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:33.474
+!MESSAGE NLS unused message: BinaryDumpHandler_1 in: com.tomato.exerd.handler.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:33.475
+!MESSAGE NLS unused message: ConvertToXMLHandler_1 in: com.tomato.exerd.handler.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:33.476
+!MESSAGE NLS unused message: SelectHandler_11 in: com.tomato.exerd.handler.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:33.476
+!MESSAGE NLS unused message: ToggleColumnVisibilityHandler_4 in: com.tomato.exerd.handler.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 13:22:33.477
+!MESSAGE NLS unused message: ToggleColumnVisibilityHandler_5 in: com.tomato.exerd.handler.messages
+!SESSION 2020-05-21 15:51:59.888 -----------------------------------------------
+eclipse.buildId=M20090211-1700
+java.version=1.8.0_60
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ko_KR
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:01.958
+!MESSAGE NLS unused message: url_couldNotResolve_projectDoesNotExist in: org.eclipse.core.internal.utils.messages
+
+!ENTRY org.eclipse.core.resources 2 10035 2020-05-21 15:52:02.031
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.444
+!MESSAGE NLS unused message: Shortcuts_shortcutTab in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.444
+!MESSAGE NLS unused message: Shortcuts_selectShortcutsLabel in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.445
+!MESSAGE NLS unused message: Shortcuts_availableMenus in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.445
+!MESSAGE NLS unused message: Shortcuts_availableCategories in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.446
+!MESSAGE NLS unused message: Shortcuts_allShortcuts in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.447
+!MESSAGE NLS unused message: Util_listNull in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.447
+!MESSAGE NLS unused message: OpenBrowserHandler_NoInfoDialogTitle in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.448
+!MESSAGE NLS unused message: AboutFeaturesDialog_SimpleTitle in: org.eclipse.ui.internal.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.703
+!MESSAGE NLS unused message: OpenResourceDialog_openButton_text in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.704
+!MESSAGE NLS unused message: OpenResourceDialog_openWithMenu_label in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.704
+!MESSAGE NLS unused message: OpenResourceDialog_openWithButton_toolTip in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.705
+!MESSAGE NLS unused message: CleanDialog_cleanSelectedTaskName in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.705
+!MESSAGE NLS unused message: RecentWorkspacesPreferencePage_PromptAtStartup_label in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:02.706
+!MESSAGE NLS unused message: RecentWorkspacesPreferencePage_RemoveButton_label in: org.eclipse.ui.internal.ide.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:05.572
+!MESSAGE NLS unused message: BinaryDumpHandler_1 in: com.tomato.exerd.handler.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:05.573
+!MESSAGE NLS unused message: ConvertToXMLHandler_1 in: com.tomato.exerd.handler.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:05.574
+!MESSAGE NLS unused message: SelectHandler_11 in: com.tomato.exerd.handler.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:05.574
+!MESSAGE NLS unused message: ToggleColumnVisibilityHandler_4 in: com.tomato.exerd.handler.messages
+
+!ENTRY org.eclipse.osgi 2 1 2020-05-21 15:52:05.575
+!MESSAGE NLS unused message: ToggleColumnVisibilityHandler_5 in: com.tomato.exerd.handler.messages
