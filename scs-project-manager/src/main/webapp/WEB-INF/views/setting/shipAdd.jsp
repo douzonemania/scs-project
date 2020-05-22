@@ -9,38 +9,35 @@
 
 <title>카테고리 추가/삭제</title>
 <!-- App favicon -->
-        <link rel="shortcut icon" href="../assets/images/favicon.ico">
-        
-        <!-- Sweet Alert-->
-        <link href="../assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+        <link rel="shortcut icon" href="<%=request.getContextPath() %>/assets/images/favicon.ico">
        
         <!-- Plugins css -->
-        <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
        
-        <link href="../assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
         
-        <link href="../assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
 
         <!-- third party css -->
-        <link href="../assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
         <!-- third party css end -->
 
         <!-- App css -->
-        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />     
         
 		<script type="text/javascript"
 			src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
@@ -55,7 +52,7 @@ var shiplistTemplate = new EJS({
 });
 var fetchList = function(){
 	$.ajax({
-		url: '${pageContext.request.contextPath }/api/setting/shipAdd',
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd',
 		async: true,
 		type: 'get',
 		dataType: 'json',
@@ -87,7 +84,7 @@ $(function(){
 		vo.name = $('#text-ship').val();
 		<!--vo.id = '${authUser.id}'; -->
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/setting/shipAdd/add',
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd/add',
 			async: true,
 			type: 'post',
 			dataType: 'json',
@@ -126,7 +123,7 @@ $(function(){
 		
 		console.log("delete   " + no);
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/setting/shipAdd/delete/'+ no,
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd/delete/'+ no,
 			async: true,
 			type: 'delete',
 			dataType: 'json',
@@ -147,10 +144,6 @@ $(function(){
 			}
 		});
 		
-		
-		console.log($(this).parents('tr'));
-		$('#admin-cat tr').remove();
-		fetchList();
 		
 	});
 	

@@ -1,13 +1,18 @@
 package com.douzonemania.scs.repository;
 import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 @Repository
 public class UserRepository {
-	@Autowired
-	private SqlSession sqlSession;
+   @Autowired
+   private SqlSession sqlSession;
   
 	// create table
 	public void createTable(String id) {
@@ -31,6 +36,7 @@ public class UserRepository {
 				+ "    name VARCHAR(30)  NOT NULL," + "    primary key(no)" + ") engine=InnoDB character set=utf8;";
 		String memberQry = "CREATE TABLE " + id + ".member ("
 				+ "    no           INT UNSIGNED  NOT NULL AUTO_INCREMENT," + "    id           VARCHAR(20)   NOT NULL,"
+				+ "    name         VARCHAR(20)   NOT NULL,"
 				+ "    password     VARCHAR(50)   NOT NULL," + "    phone_number VARCHAR(30)   NOT NULL,"
 				+ "    email        VARCHAR(50)   NOT NULL," + "    reg_date     DATETIME          NOT NULL,"
 				+ "    type         ENUM('카카오', '구글', '네이버', '일반') NOT NULL," + "    primary key(no)\r\n"
@@ -174,18 +180,36 @@ public class UserRepository {
 		sqlSession.update("alterTable", map);
 	}
 	
-	///////////////////////////////////////////////////////////////////////////
-	
-	public int insert(CeoVo ceoVo) {
-		return sqlSession.insert("user.insert", ceoVo);
-	}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   public int insert(CeoVo ceoVo) {
+      return sqlSession.insert("user.insert", ceoVo);
+   }
 
 	public CeoVo findById(String id) {
 		return sqlSession.selectOne("user.findById", id);
 	}
 	
-	
+	public CeoVo findByIdAndPassword(CeoVo ceoVo) {
+		return sqlSession.selectOne("user.findByIdAndPassword", ceoVo);
+	}
 
+	public CeoVo findByIdJoin(String id) {
+		return sqlSession.selectOne("user.findByIdJoin", id);
+	}
 	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	
+	public String getSession() {
+		ServletRequestAttributes attr 
+			= (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
+		
+		HttpSession nowSession = attr.getRequest().getSession();
+		
+		String id =nowSession.getAttribute("name").toString();
+		
+		
+		return id;
+	}
+
 }
-

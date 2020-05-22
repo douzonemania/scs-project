@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 
 @Controller
+@RequestMapping("/{id:(?!assets).*}")
 public class MainController {
 	
 //	@Autowired

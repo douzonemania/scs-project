@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.douzonemania.scs.dto.JsonResult;
-import com.douzonemania.scs.service.ShipCompanyService;
-import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.service.SettingService;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 
 @RestController("SettingApiController")
@@ -22,14 +21,14 @@ import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 public class SettingController {
 	
 	@Autowired
-	private ShipCompanyService shipCompanyService;
+	private SettingService settingService;
 	
 	@GetMapping("/shipAdd")
 	public JsonResult shipList(
 			// @AuthUser CeoVo authUser,
 			@ModelAttribute ShipCompanyVo shipCompanyVo){
 			shipCompanyVo.setId("sjy8033");	// authUser처리
-			List<ShipCompanyVo> shipCompanylist = shipCompanyService.getShipList(shipCompanyVo.getId());
+			List<ShipCompanyVo> shipCompanylist = settingService.getShipList(shipCompanyVo.getId());
 		
 		return JsonResult.success(shipCompanylist);
 	}
@@ -39,14 +38,14 @@ public class SettingController {
 			// @PathVariable String id
 			@RequestBody ShipCompanyVo shipCompanyVo){
 		
-			List<ShipCompanyVo> shipCompanylist = shipCompanyService.getShipList(shipCompanyVo.getId());
+			List<ShipCompanyVo> shipCompanylist = settingService.getShipList(shipCompanyVo.getId());
 			for(ShipCompanyVo vo : shipCompanylist) {
 				if(shipCompanyVo.getName().equals(vo.getName())) {
 					shipCompanyVo.setNo(vo.getNo());
 					System.out.println(shipCompanyVo.getNo());
 				}
 			}
-			shipCompanyService.insertShip(shipCompanyVo);
+			settingService.insertShip(shipCompanyVo);
 		return JsonResult.success(shipCompanyVo);
 	}
 	
@@ -56,9 +55,9 @@ public class SettingController {
 			@PathVariable("no") Long no) {
 			
 			boolean result = false;
-			int count = shipCompanyService.shipCount("sjy8033");	//authUser처리
+			int count = settingService.shipCount("sjy8033");	//authUser처리
 			if(count > 1) {
-				result = shipCompanyService.deleteShip(no);
+				result = settingService.deleteShip(no);
 			}
 			return JsonResult.success(result? no : -1);
 	}

@@ -29,10 +29,9 @@ public class UserController {
 	public String join(@ModelAttribute @Valid CeoVo ceoVo, BindingResult result,
 			Model model) {
 
-		
+		// properties 안넣으면 에러가 안들어가요ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
 		if(result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
-			System.out.println("######################error#################################");
 			return "user/signup";
 		}
 		
@@ -53,7 +52,7 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
-		return "redirect:/user/login";
+		return "user/login";
 	}
 
 	@RequestMapping(value = "/recover", method = RequestMethod.GET)
@@ -62,7 +61,7 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value="/auth", method=RequestMethod.POST)
+	@RequestMapping(value="/auth")
 	public void auth() {
 
 	}

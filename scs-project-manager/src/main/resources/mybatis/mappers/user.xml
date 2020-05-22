@@ -26,6 +26,19 @@
 			select 
 				   id,
 				   name, 
+				   email, 
+				   reg_date as regDate, 
+		      from ceo 
+		     where id = #{id};
+			
+		]]>
+	</select>
+	
+	<select id="findByIdAndPassword" parameterType="ceovo" resultType="ceovo">
+		<![CDATA[
+			select 
+				   id,
+				   name, 
 				   password, 
 				   phone_number as phoneNumber, 
 				   email, 
@@ -36,9 +49,34 @@
 				   address, 
 				   site_name as siteName, 
 				   co_number as coNumber, 
-				   cm_number as cmNumber 
+				   cm_number as cmNumber
+				   
 		      from ceo 
-		     where id = #{id};
+		     where id = #{id}
+		       and password = #{password};
+		]]>
+	</select>
+	<select id="findByIdJoin" parameterType="string" resultType="ceovo">
+		<![CDATA[
+			select 
+				   c.id as id,
+				   c.name, 
+				   c.password, 
+				   c.phone_number as phoneNumber, 
+				   c.email, 
+				   c.company_name as companyName,
+				   c.reg_date as regDate, 
+				   c.fax_number as faxNumber, 
+				   c.cp_number as cpNumber, 
+				   c.address, 
+				   c.site_name as siteName, 
+				   c.co_number as coNumber, 
+				   c.cm_number as cmNumber,
+				   s.logo,
+				   s.favicon,
+				   s.ship_charge as shipCharge
+		      from ceo c,site s
+		     where c.id = s.id and c.id = #{id}
 			
 		]]>
 	</select>

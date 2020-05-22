@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,18 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.douzonemania.scs.service.SettingService;
-import com.douzonemania.scs.service.ShipCompanyService;
 import com.douzonemania.scs.service.UserService;
+import com.douzonemania.scs.vo.ceo.AgreementVo;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
+import com.douzonemania.security.AuthUser;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}/setting")
 public class SettingController {
 
-	@Autowired
-	private ShipCompanyService shipCompanyService;
-
+	
 	@Autowired
 	private SettingService settingService;
 
@@ -34,60 +32,75 @@ public class SettingController {
 
 	// setting-basic
 	@RequestMapping(value = "/basic", method = RequestMethod.GET)
-	public String info(@ModelAttribute CeoVo ceoVo, Model model) {
+	public String info(@AuthUser CeoVo authUser,
+			@ModelAttribute CeoVo ceoVo,
+			Model model) {
+		
 		System.out.println("info보여준다.");
-
-		ceoVo = userService.findCeoById("sjy8033");
+		ceoVo = userService.findCeoByIdJoin(authUser.getId());
 		model.addAttribute("ceoVo", ceoVo);
-
+		
 		return "setting/basic";
 	}
 
 	// setting-basic update(get)
 	@RequestMapping(value = "/basic/update", method = RequestMethod.GET)
-	public String update(@ModelAttribute CeoVo ceoVo, Model model) {
+	public String update(@ModelAttribute CeoVo ceoVo,
+			@AuthUser CeoVo authUser,
+			Model model) {
 		System.out.println("update get 보여준다.");
-
+		ceoVo.setId(authUser.getId());
+		
 		model.addAttribute("ceoVo", ceoVo);
-
-		return "/setting/basic";
+		
+		return "setting/basic";
 	}
 
 	// setting-basic update(post)
 	@RequestMapping(value = "/basic/update", method = RequestMethod.POST)
-	public String update(
-			@ModelAttribute CeoVo ceoVo,
-			BindingResult result,
+	public String update(@ModelAttribute CeoVo ceoVo,
+			@AuthUser CeoVo authUser,
 			@RequestParam(value="logo-file") MultipartFile multipartFile1,
 			@RequestParam(value="favicon-file") MultipartFile multipartFile2,
 			Model model) {
+		
 		System.out.println("update보여준다.");
-		System.out.println(multipartFile1 + " : " + multipartFile2);
-		model.addAllAttributes(result.getModel());
-		String logo = settingService.restoreLogo(ceoVo,multipartFile1);
-		String favicon = settingService.restoreFavicon(ceoVo,multipartFile2);
+		String logo = settingService.restore(ceoVo,multipartFile1);
+		ceoVo.setLogo(logo);
+		String favicon = settingService.restore(ceoVo,multipartFile2);
+		ceoVo.setFavicon(favicon);
 		settingService.updateCeo(ceoVo);
-		model.addAttribute("logo", logo);
-		model.addAttribute("favicon", favicon);
+		
 		model.addAttribute("ceoVo", ceoVo);
 
-		return "redirect:/setting/basic";
+		return "setting/basic";
 	}
 
 	// setting-policy
 	@RequestMapping(value = "/policy", method = RequestMethod.GET)
-	public String reg() {
+	public String reg(@AuthUser CeoVo authUser,
+			@PathVariable String id,
+			@ModelAttribute AgreementVo agreementVo,
+			Model model) {
+		
+		System.out.println("policy보여준다.");
+		agreementVo = settingService.findAgreementById(id);	//authUser 처리
+		System.out.println(id);
+		System.out.println("--------------------------" + 	agreementVo);
+		model.addAttribute("agreementVo", agreementVo);
+
+		
 		return "setting/policy";
 	}
 
 	// 배송사 리스트
 	@RequestMapping(value = "/shipAdd", method = RequestMethod.GET)
-	public String shipList(
-//			@AuthUser CeoVo authUser,
-			@ModelAttribute ShipCompanyVo shipCompanyVo, Model model) {
+	public String shipList(@ModelAttribute ShipCompanyVo shipCompanyVo,
+			@AuthUser CeoVo authUser,
+			 Model model) {
 
-		shipCompanyVo.setId("sjy8033"); // authUser처리
-		List<ShipCompanyVo> shipCompanylist = shipCompanyService.getShipList(shipCompanyVo.getId());
+		shipCompanyVo.setId(authUser.getId()); // authUser처리
+		List<ShipCompanyVo> shipCompanylist = settingService.getShipList(shipCompanyVo.getId());
 		model.addAttribute("shipCompanylist", shipCompanylist);
 
 		return "setting/shipAdd";
@@ -95,31 +108,28 @@ public class SettingController {
 
 	// 배송사 추가
 	@RequestMapping(value = "/shipAdd/add", method = RequestMethod.POST)
-	public String shipListInsert(
-//			@PathVariable String id,
-//			@AuthUser CeoVo authUser,
+	public String shipListInsert(@AuthUser CeoVo authUser,
 			@RequestParam(value = "name") String name, Model model) {
 
 		ShipCompanyVo shipCompanyVo = new ShipCompanyVo();
-		shipCompanyVo.setId("sjy8033"); // authUser 처리
+		shipCompanyVo.setId(authUser.getId()); // authUser 처리
 		shipCompanyVo.setName(name);
-		shipCompanyService.insertShip(shipCompanyVo);
+		settingService.insertShip(shipCompanyVo);
 
-		return "redirect:/setting/shipAdd"; // 경로 id추가
+		return "redirect:/"+authUser.getId()+"/setting/shipAdd"; // 경로 id추가
 
 	}
 
 	// 배송사 삭제
 	@RequestMapping(value = "/shipAdd/delete/{no }", method = RequestMethod.GET)
 	public String shipListDelete(
-//			@PathVariable String id,
+			@AuthUser CeoVo authUser,
 			@PathVariable("no") Long no, @ModelAttribute ShipCompanyVo shipCompanyVo) {
 
-		System.out.println("contrrolleerrr");
-		int count = shipCompanyService.shipCount("sjy8033"); // authUser 처리
+		int count = settingService.shipCount(authUser.getId()); // authUser 처리
 		if (count > 1) {
-			shipCompanyService.deleteShip(no);
+			settingService.deleteShip(no);
 		}
-		return "redirect:/setting/shipAdd"; // 경로 id추가
+		return "redirect:/"+authUser.getId()+"/setting/shipAdd"; // 경로 id추가
 	}
 }
