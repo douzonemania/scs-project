@@ -49,6 +49,32 @@
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 	
 <script>
+function createCategoryTable(){
+	var vo ={};
+	
+	$.ajax({
+		
+		url: '${pageContext.request.contextPath }/api/product/category-reg/createTable',
+		contentType: 'application/json',
+		data: JSON.stringify(vo),
+		type: "POST",
+		dataType: 'json',
+		success : function(response){
+			for( var key in response.data){
+				var data = response.data[key];
+				console.log(data.name);
+			}
+		},
+		error:
+			alert("실패")
+	});
+	
+	
+	
+}
+
+//$(document).ready(createCategoryTable());
+
 function initial(){
 	$("#cate-select-del2").prepend("<option>----</option>");
 	$("#cate-select-mod2").prepend("<option>----</option>");
@@ -427,8 +453,36 @@ $(function() {
                                 <h4 class="page-title">현재 카테고리</h4>
                                 <!-- 카테고리 리스트 시작-->
 
-                                <div class="category-list">
-                                    
+                                <div class="category-list" style="overflow:auto">
+                                
+<!--                                   <table>
+	                                    	<tr>
+	                                    		<th>아우터</th>
+	                                    		<td>블레이져</td>
+	                                    		<td>자켓</td>
+	                                    		<td>가디건</td>
+	                                    	</tr>
+	                                    </table> 
+-->
+	
+									<c:forEach var="vo" varStatus="status" items="${categoryNameList }">
+									
+									<table class="category-table">
+										<tr>
+											<th style="min-width:100px;">${vo.name }</th>
+											
+											<c:forEach var="vo2" varStatus="status" items="${category2NameList }">
+												<c:if test="${vo.no == vo2.parentNo }">
+													<td style="min-width:100px; max-width:200px;">${vo2.name}</td>
+												</c:if>
+											</c:forEach>
+										</tr>
+									</table>
+									
+									</c:forEach>
+									
+									
+                                
                                 </div>
                                 <!-- 카테고리 리스트 종료-->
                                 <label class="lspace"></label>

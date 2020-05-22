@@ -84,5 +84,13 @@ public class productController {
 			
 		return JsonResult.success(childCategoryNameList);
 	}
+	
+	// 전체 리스트 테이블
+	@RequestMapping(value="/category-reg/createTable", method = RequestMethod.POST)
+	public JsonResult createTable(
+			@RequestBody CategoryVo cVo			
+			) {			
+		return JsonResult.success(productService.getCategoryNameList());
+	}
 
 }

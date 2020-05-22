@@ -50,11 +50,15 @@ public class ProductService {
 		return productRepository.getCategoryNameList();
 	}
 	
-	/* 2차 카테고리 이름 리스트  */
+	/* 2차 카테고리 부모카테고리번호 별 이름 리스트  */
 	public List<CategoryVo> getCategory2NameList(int ParentCategoryNo) {		
 		return productRepository.getCategory2NameList(ParentCategoryNo);
 	}
-
+	/* 2차 카테고리 전체 이름 리스트 */ 
+	public List<CategoryVo> getCategory2NameList() {
+		return productRepository.getCategory2NameList();
+	}
+	
 	/* 카테고리 수정하기 */
 	public int updateCategory(String name, String afterName) {
 		return productRepository.updateCategory(name, afterName);
@@ -64,4 +68,5 @@ public class ProductService {
 	public int getCategoryNoByName(String parentCategory) {
 		return productRepository.findCategoryNoByName(parentCategory);		
 	}
+
 }
