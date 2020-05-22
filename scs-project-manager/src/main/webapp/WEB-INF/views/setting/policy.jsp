@@ -64,8 +64,8 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">SCS</a></li>
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">환경설정</a></li>
+                                <li class="breadcrumb-item"><a href="<%=request.getContextPath() %>">SCS</a></li>
+                                <li class="breadcrumb-item"><a href="<%=request.getContextPath() %>/{id}/setting/basic">환경설정</a></li>
                                 <li class="breadcrumb-item active">약관 및 정책 설정</li>
                             </ol>
                         </div>
@@ -83,17 +83,17 @@
                         <ul class="nav nav-pills navtab-bg nav-justified">
                             <li class="nav-item">
                                 <a href="#home1" data-toggle="tab" aria-expanded="true" class="nav-link active nav-title-color">
-                                    이용 약관
+                                   	 이용 약관
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#home1" data-toggle="tab" aria-expanded="false" class="nav-link nav-title-color">
-                                    개인정보처리방침
+                                <a href="#home2" data-toggle="tab" aria-expanded="false" class="nav-link nav-title-color">
+                                   	개인정보처리방침
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#home1" data-toggle="tab" aria-expanded="false" class="nav-link nav-title-color">
-                                    개인정보 수집 및 이용동의
+                                <a href="#home3" data-toggle="tab" aria-expanded="false" class="nav-link nav-title-color">
+                                   	개인정보 수집 및 이용동의
                                 </a>
                             </li>
                         </ul>

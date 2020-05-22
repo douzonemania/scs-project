@@ -52,7 +52,7 @@ var shiplistTemplate = new EJS({
 });
 var fetchList = function(){
 	$.ajax({
-		url: '${pageContext.request.contextPath }/{id}/api/setting/shipAdd',
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd',
 		async: true,
 		type: 'get',
 		dataType: 'json',
@@ -84,7 +84,7 @@ $(function(){
 		vo.name = $('#text-ship').val();
 		<!--vo.id = '${authUser.id}'; -->
 		$.ajax({
-			url: '${pageContext.request.contextPath }/{id}/api/setting/shipAdd/add',
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd/add',
 			async: true,
 			type: 'post',
 			dataType: 'json',
@@ -123,7 +123,7 @@ $(function(){
 		
 		console.log("delete   " + no);
 		$.ajax({
-			url: '${pageContext.request.contextPath }/{id}/api/setting/shipAdd/delete/'+ no,
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd/delete/'+ no,
 			async: true,
 			type: 'delete',
 			dataType: 'json',

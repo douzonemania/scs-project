@@ -11,8 +11,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 @Repository
 public class UserRepository {
-	@Autowired
-	private SqlSession sqlSession;
+   @Autowired
+   private SqlSession sqlSession;
   
 	// create table
 	public void createTable(String id) {
@@ -181,10 +181,10 @@ public class UserRepository {
 	}
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	public int insert(CeoVo ceoVo) {
-		return sqlSession.insert("user.insert", ceoVo);
-	}
+   
+   public int insert(CeoVo ceoVo) {
+      return sqlSession.insert("user.insert", ceoVo);
+   }
 
 	public CeoVo findById(String id) {
 		return sqlSession.selectOne("user.findById", id);
@@ -213,4 +213,3 @@ public class UserRepository {
 	}
 
 }
-
