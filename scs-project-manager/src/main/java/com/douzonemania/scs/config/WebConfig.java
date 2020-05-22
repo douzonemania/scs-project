@@ -63,7 +63,6 @@ public class WebConfig implements WebMvcConfigurer {
 		.addPathPatterns("/**")	
 		.excludePathPatterns("/assets/**")
 		.excludePathPatterns("/error/**");
-	
 	}
 	
 	// Mvc Resources(URL Magic Mapping)

@@ -232,7 +232,7 @@ function preview(input, target) {
                             	
                             	<!--  id 잡기 -->
 								<form:form
-									action="${pageContext.request.contextPath}/{id}/setting/basic/update"
+									action="${pageContext.request.contextPath}/${authUser.id }/setting/basic/update"
 									modelAttribute="ceoVo"
 									class="setting-form"
 									id="setting-form"
