@@ -128,13 +128,13 @@
                                 <i class="fe-gift"></i>상품관리<div class="arrow-down"></div></a>
                             <ul class="submenu">
                                 <li>
-                                    <a href="${pageContext.request.contextPath }/{id}/product/info">상품 정보</a>
+                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/product/info">상품 정보</a>
                                 </li>
                                 <li>
-                                    <a href="${pageContext.request.contextPath }/product/reg">상품 등록</a>
+                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/product/reg">상품 등록</a>
                                 </li>
                                 <li>
-                                    <a href="${pageContext.request.contextPath }/product/category-reg">카테고리 등록</a>
+                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/product/category-reg">카테고리 등록</a>
                                 </li>
                             </ul>
                         </li>                   
@@ -143,13 +143,13 @@
                             <a href="#"> <i class="fe-user"></i>회원관리 <div class="arrow-down"></div></a>
                             <ul class="submenu">
                                 <li>
-                                    <a href="${pageContext.request.contextPath }/member/list">회원 관리</a>
+                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/member/list">회원 관리</a>
                                 </li>
                                 <li>
-                                    <a href="${pageContext.request.contextPath }/member/send-mail">메일 발송</a>
+                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/member/send-mail">메일 발송</a>
                                 </li>
                                 <li>
-                                    <a href="${pageContext.request.contextPath }/member/board">문의 게시판 관리</a>
+                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/member/board">문의 게시판 관리</a>
                                 </li>  
                             </ul>
                         </li>            
@@ -158,10 +158,10 @@
                             <a href="#"> <i class="fe-truck"></i>주문 관리 <div class="arrow-down"></div></a>
                                 <ul class="submenu">
                                     <li>
-                                        <a href="${pageContext.request.contextPath }/order/delivery">주문/배송 관리</a>
+                                        <a href="${pageContext.request.contextPath }/${ authUser.id }/order/delivery">주문/배송 관리</a>
                                     </li>
                                     <li>
-                                        <a href="${pageContext.request.contextPath }/order/settle">정산 관리</a>
+                                        <a href="${pageContext.request.contextPath }/${ authUser.id }/order/settle">정산 관리</a>
                                     </li>                            
                                 </ul>
                         </li>
