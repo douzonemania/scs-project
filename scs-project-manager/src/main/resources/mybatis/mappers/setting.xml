@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="shipcompany">
+<mapper namespace="setting">
 
 	<select id="getList" parameterType="string" resultType="shipcompanyvo">
 		<![CDATA[
@@ -9,6 +9,14 @@
 			  from ship_company as shipcompany
 			 where id = #{id }
 		
+		]]>
+	</select>
+	
+	<select id="findAgreementById" parameterType="string" resultType="agreementvo">
+		<![CDATA[
+			select first_agree as firstAgree, second_agree as secondAgree, third_agree as thirdAgree
+			  from agreement
+			 where id = #{id }
 		]]>
 	</select>
 	

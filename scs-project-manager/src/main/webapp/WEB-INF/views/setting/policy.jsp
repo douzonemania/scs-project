@@ -76,10 +76,8 @@
             <!-- end page title -->
             <!-- start row -->
             <div class="row">
-
                 <div class="col-lg-12">
                     <div class="card-box">
-
                         <ul class="nav nav-pills navtab-bg nav-justified">
                             <li class="nav-item">
                                 <a href="#home1" data-toggle="tab" aria-expanded="true" class="nav-link active nav-title-color">
@@ -99,22 +97,25 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane show active" id="home1">   
-                                <div id="snow-editor" style="height: 300px;"> edit </div>
-
-                        </div>
-                        <div class="col-lg-12 scs-submit">
-                            <div id="#test" class="p-4" style="float: right; margin-left:40px;">
-                                <button type= "button" class="btn btn-secondary waves-effect">저장</button>
-                                <button type= "button" class="btn btn-secondary waves-effect">취소</button>
-                            </div>
-                        </div>
-                    </div> <!-- end card-box-->
-                    
-                </div> <!-- end col -->
+                                <div id="snow-editor" style="height: 300px;">
+                                	<h1>${agreementVo.id }</h1>
+                                	1. ${agreementVo.firstAgree } ++ 2. ${agreementVo.secondAgree } ++ 3, ${agreementVo.thirdAgree }
+                                </div>
+                        	</div>
+	                        <div class="col-lg-12 scs-submit">
+	                            <div id="#test" class="p-4" style="float: right; margin-left:40px;">
+	                                <button type= "button" class="btn btn-secondary waves-effect">저장</button>
+	                                <button type= "button" class="btn btn-secondary waves-effect">취소</button>
+	                            </div>
+	                        </div>
+                    	</div> 
+                	</div>
+                	<!-- end card-box-->
+            	</div>
+            	<!-- end col -->
             </div>
             <!-- end row -->
-            
-        </div> 
+        </div>
         <!-- end container -->
     </div>
     <!-- end wrapper -->

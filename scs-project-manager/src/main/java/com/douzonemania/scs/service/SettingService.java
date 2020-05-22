@@ -4,13 +4,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.douzonemania.scs.repository.SettingRepository;
+import com.douzonemania.scs.vo.ceo.AgreementVo;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 
 @Service
 public class SettingService {
@@ -21,13 +24,40 @@ public class SettingService {
 	private SettingRepository settingRepository;
 	
 	
+	/*
+	 * basic 
+	 * 
+	 */
+	
 	// ceo 업로드
 	public int updateCeo(CeoVo ceoVo) {
 		return settingRepository.updateCeo(ceoVo);
 	}
 	
+	public List<ShipCompanyVo> getShipList(String id) {
+		List<ShipCompanyVo> list = settingRepository.getList(id);
+		return list;
+	}
+
+
+	public int insertShip(ShipCompanyVo shipCompanyVo) {
+		
+		return settingRepository.insertShip(shipCompanyVo);
+		
+	}
+
+
+	public int shipCount(String id) {
+		//	id처리
+		return settingRepository.shipCount("syj8033");
+	}
+
+
+	public boolean deleteShip(Long no) {
+		return settingRepository.deleteShip(no) == 1;
+	}
 	
-	// 파일 업로드
+	// 파일 업로드 시작
 	public String restore(CeoVo ceoVo, MultipartFile multipartFile) {
 		String url = "";
 		try {
@@ -72,5 +102,16 @@ public class SettingService {
 		filename += ("." + extName);
 
 		return filename;
+	}
+	// 파일 업로드 끝
+	
+	/*
+	 * policy 
+	 * 
+	 */
+	
+	public AgreementVo findAgreementById(String id) {
+		
+		return settingRepository.findAgreementById(id);
 	}
 }
