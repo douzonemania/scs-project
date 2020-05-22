@@ -81,10 +81,6 @@ public class UserService {
 		return userRepository.findByIdAndPassword(ceoVo);
 	}
 	 
-	public CeoVo findCeoById(String id) {
-		return userRepository.findById(id);
-	}
-	
 	public CeoVo findCeoByIdJoin(String id) {
 		return userRepository.findByIdJoin(id);
 	}

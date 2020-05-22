@@ -15,32 +15,32 @@
         <link rel="shortcut icon" href="../assets/images/favicon.ico">
        
         <!-- Plugins css -->
-        <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
        
-        <link href="../assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
         
-        <link href="../assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
 
         <!-- third party css -->
-        <link href="../assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
         <!-- third party css end -->
 
         <!-- App css -->
-        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />        
+        <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />        
        
 </head>
 <body>
@@ -55,7 +55,7 @@
      <!-- ============================================================== -->
      <!-- Start Page Content here -->
      <!-- ============================================================== -->
-
+	
     <div class="wrapper">
         <div class="container-fluid">
             <!-- start page title -->
@@ -100,7 +100,7 @@
                         <div class="tab-content">
                             <div class="tab-pane show active" id="home1">   
                                 <div id="snow-editor" style="height: 300px;"> edit </div>
-
+		
                         </div>
                         <div class="col-lg-12 scs-submit">
                             <div id="#test" class="p-4" style="float: right; margin-left:40px;">

@@ -36,6 +36,7 @@ public class UserRepository {
 				+ "    name VARCHAR(30)  NOT NULL," + "    primary key(no)" + ") engine=InnoDB character set=utf8;";
 		String memberQry = "CREATE TABLE " + id + ".member ("
 				+ "    no           INT UNSIGNED  NOT NULL AUTO_INCREMENT," + "    id           VARCHAR(20)   NOT NULL,"
+				+ "    name         VARCHAR(20)   NOT NULL,"
 				+ "    password     VARCHAR(50)   NOT NULL," + "    phone_number VARCHAR(30)   NOT NULL,"
 				+ "    email        VARCHAR(50)   NOT NULL," + "    reg_date     DATETIME          NOT NULL,"
 				+ "    type         ENUM('카카오', '구글', '네이버', '일반') NOT NULL," + "    primary key(no)\r\n"
@@ -189,6 +190,14 @@ public class UserRepository {
 		return sqlSession.selectOne("user.findById", id);
 	}
 	
+	public CeoVo findByIdAndPassword(CeoVo ceoVo) {
+		return sqlSession.selectOne("user.findByIdAndPassword", ceoVo);
+	}
+
+	public CeoVo findByIdJoin(String id) {
+		return sqlSession.selectOne("user.findByIdJoin", id);
+	}
+	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	public String getSession() {
@@ -203,14 +212,5 @@ public class UserRepository {
 		return id;
 	}
 
-	public CeoVo findByIdAndPassword(CeoVo ceoVo) {
-		return sqlSession.selectOne("user.findByIdAndPassword", ceoVo);
-	}
-
-	public CeoVo findByIdJoin(String id) {
-		return sqlSession.selectOne("user.findByIdJoin", id);
-	}
-
-	
 }
 

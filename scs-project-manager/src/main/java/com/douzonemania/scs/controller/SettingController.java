@@ -18,6 +18,7 @@ import com.douzonemania.scs.service.ShipCompanyService;
 import com.douzonemania.scs.service.UserService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
+import com.douzonemania.security.AuthUser;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}/setting")
@@ -34,14 +35,13 @@ public class SettingController {
 
 	// setting-basic
 	@RequestMapping(value = "/basic", method = RequestMethod.GET)
-	public String info(@ModelAttribute CeoVo ceoVo,
+	public String info(@AuthUser CeoVo authUser,
+			@ModelAttribute CeoVo ceoVo,
 			Model model) {
-		System.out.println("info보여준다.");
-
-		ceoVo = userService.findCeoByIdJoin("sjy8033");
 		
+		System.out.println("info보여준다.");
+		ceoVo = userService.findCeoByIdJoin(authUser.getId());
 		System.out.println("--------------------" + ceoVo);
-
 		model.addAttribute("ceoVo", ceoVo);
 		
 		return "setting/basic";
@@ -49,9 +49,12 @@ public class SettingController {
 
 	// setting-basic update(get)
 	@RequestMapping(value = "/basic/update", method = RequestMethod.GET)
-	public String update(@ModelAttribute CeoVo ceoVo, Model model) {
+	public String update(@ModelAttribute CeoVo ceoVo,
+			@AuthUser CeoVo authUser,
+			Model model) {
 		System.out.println("update get 보여준다.");
-
+		ceoVo.setId(authUser.getId());
+		
 		model.addAttribute("ceoVo", ceoVo);
 		
 		return "setting/basic";
@@ -59,26 +62,19 @@ public class SettingController {
 
 	// setting-basic update(post)
 	@RequestMapping(value = "/basic/update", method = RequestMethod.POST)
-	public String update(
-			@ModelAttribute CeoVo ceoVo,
-			BindingResult result,
+	public String update(@ModelAttribute CeoVo ceoVo,
+			@AuthUser CeoVo authUser,
 			@RequestParam(value="logo-file") MultipartFile multipartFile1,
 			@RequestParam(value="favicon-file") MultipartFile multipartFile2,
 			Model model) {
+		
 		System.out.println("update보여준다.");
-		
-		// model.addAllAttributes(result.getModel());
-		
 		String logo = settingService.restore(ceoVo,multipartFile1);
 		ceoVo.setLogo(logo);
 		String favicon = settingService.restore(ceoVo,multipartFile2);
 		ceoVo.setFavicon(favicon);
-		
 		settingService.updateCeo(ceoVo);
 		
-		System.out.println(ceoVo);
-//		model.addAttribute("logo", logo);
-//		model.addAttribute("favicon", favicon);
 		model.addAttribute("ceoVo", ceoVo);
 
 		return "setting/basic";
@@ -86,17 +82,18 @@ public class SettingController {
 
 	// setting-policy
 	@RequestMapping(value = "/policy", method = RequestMethod.GET)
-	public String reg() {
+	public String reg(@AuthUser CeoVo authUser) {
+		
 		return "setting/policy";
 	}
 
 	// 배송사 리스트
 	@RequestMapping(value = "/shipAdd", method = RequestMethod.GET)
-	public String shipList(
-//			@AuthUser CeoVo authUser,
-			@ModelAttribute ShipCompanyVo shipCompanyVo, Model model) {
+	public String shipList(@ModelAttribute ShipCompanyVo shipCompanyVo,
+			@AuthUser CeoVo authUser,
+			 Model model) {
 
-		shipCompanyVo.setId("sjy8033"); // authUser처리
+		shipCompanyVo.setId(authUser.getId()); // authUser처리
 		List<ShipCompanyVo> shipCompanylist = shipCompanyService.getShipList(shipCompanyVo.getId());
 		model.addAttribute("shipCompanylist", shipCompanylist);
 
@@ -105,30 +102,28 @@ public class SettingController {
 
 	// 배송사 추가
 	@RequestMapping(value = "/shipAdd/add", method = RequestMethod.POST)
-	public String shipListInsert(
-//			@PathVariable String id,
-//			@AuthUser CeoVo authUser,
+	public String shipListInsert(@AuthUser CeoVo authUser,
 			@RequestParam(value = "name") String name, Model model) {
 
 		ShipCompanyVo shipCompanyVo = new ShipCompanyVo();
-		shipCompanyVo.setId("sjy8033"); // authUser 처리
+		shipCompanyVo.setId(authUser.getId()); // authUser 처리
 		shipCompanyVo.setName(name);
 		shipCompanyService.insertShip(shipCompanyVo);
 
-		return "redirect:/{id}/setting/shipAdd"; // 경로 id추가
+		return "redirect:/"+authUser.getId()+"/setting/shipAdd"; // 경로 id추가
 
 	}
 
 	// 배송사 삭제
 	@RequestMapping(value = "/shipAdd/delete/{no }", method = RequestMethod.GET)
 	public String shipListDelete(
-//			@PathVariable String id,
+			@AuthUser CeoVo authUser,
 			@PathVariable("no") Long no, @ModelAttribute ShipCompanyVo shipCompanyVo) {
 
-		int count = shipCompanyService.shipCount("sjy8033"); // authUser 처리
+		int count = shipCompanyService.shipCount(authUser.getId()); // authUser 처리
 		if (count > 1) {
 			shipCompanyService.deleteShip(no);
 		}
-		return "redirect:/{id}setting/shipAdd"; // 경로 id추가
+		return "redirect:/"+authUser.getId()+"/setting/shipAdd"; // 경로 id추가
 	}
 }
