@@ -9,8 +9,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 public class AuthUserInterceptor extends HandlerInterceptorAdapter {
 
 
+
 	@Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
     {
 	 	String uri=request.getServletPath().toString();
 	 	
@@ -24,4 +25,5 @@ public class AuthUserInterceptor extends HandlerInterceptorAdapter {
 	 	
         return true;
     }
+
 }
