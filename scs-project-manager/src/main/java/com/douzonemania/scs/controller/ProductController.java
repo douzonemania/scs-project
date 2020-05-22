@@ -109,7 +109,7 @@ public class ProductController {
 	public String addCategory(
 			@RequestParam(value= "category-name", defaultValue="true") String categoryName
 			) {
-		System.err.println(categoryName + "!!!!");
+		
 		return "product/category-reg";
 	}
 	

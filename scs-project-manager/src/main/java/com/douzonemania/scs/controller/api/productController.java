@@ -1,11 +1,12 @@
 package com.douzonemania.scs.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,16 +24,32 @@ public class productController {
 	
 	// 카테고리 등록
 	@ResponseBody	
-	@RequestMapping(value="/category-reg/add", method = RequestMethod.POST)
+	@RequestMapping(value="/category-reg/add/{parentCategory}", method = RequestMethod.POST)
 	public JsonResult categoryAdd(			
-			@RequestBody CategoryVo cVo			
-			){		
-		if ( productService.findCategoryByName(cVo.getName()) == null ) // 카테고리 이름 중복 방지
-			productService.addCategory(cVo);
-		else
-			System.err.println("중복된 카테고리 명입니다.");
+			@RequestBody CategoryVo cVo,
+			@PathVariable(value = "parentCategory") String parentCategory
+			){
+		
+		if("----".equals(parentCategory)) {
+			if ( productService.findCategoryByName(cVo.getName()) == null ) // 카테고리 이름 중복 방지
+				productService.addCategory(cVo);
+			else
+				System.err.println("중복된 카테고리 명입니다.");
+				
+			return JsonResult.success(cVo);
+		} else {					
+			int parentCategoryNo = productService.getCategoryNoByName(parentCategory); // 부모 카테고리 번호
 			
-		return JsonResult.success(cVo);
+			if ( productService.findCategoryByName(cVo.getName()) == null ) { // 카테고리 이름 중복 방지
+				cVo.setParentNo(parentCategoryNo);
+				productService.addCategory(cVo);
+			}
+			else
+				System.err.println("중복된 카테고리 명입니다.");
+			
+			return JsonResult.success(cVo);	
+		}
+			
 	}
 	
 	// 카테고리 삭제
@@ -52,5 +69,21 @@ public class productController {
 			) {
 			productService.updateCategory(cVo.getName(),afterName);
 		return JsonResult.success(cVo);
+	}
+	
+	// 2차카테고리 이름 리스트
+	@RequestMapping(value="/category-reg/childCategoryList", method = RequestMethod.POST)
+	public JsonResult childcategoryList(
+			@RequestBody CategoryVo cVo
+			) {
+			System.err.println("2차카테고리 : " + cVo.getName());
+			String name = cVo.getName();
+			int parentCategoryNo = productService.getCategoryNoByName(name);
+			
+			List<CategoryVo> childCategoryNameList = productService.getCategory2NameList(parentCategoryNo);
+			System.err.println("2차카테고리: " + childCategoryNameList);
+			
+			
+		return JsonResult.success(childCategoryNameList);
 	}
 }
