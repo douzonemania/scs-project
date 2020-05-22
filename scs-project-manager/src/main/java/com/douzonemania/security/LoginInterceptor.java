@@ -23,8 +23,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		
-		
-		
 		CeoVo ceoVo = new CeoVo();
 		ceoVo.setId(id);
 		ceoVo.setPassword(password);

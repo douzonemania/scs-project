@@ -55,7 +55,7 @@
      <!-- ============================================================== -->
      <!-- Start Page Content here -->
      <!-- ============================================================== -->
-
+	
     <div class="wrapper">
         <div class="container-fluid">
             <!-- start page title -->
@@ -100,7 +100,7 @@
                         <div class="tab-content">
                             <div class="tab-pane show active" id="home1">   
                                 <div id="snow-editor" style="height: 300px;"> edit </div>
-
+		
                         </div>
                         <div class="col-lg-12 scs-submit">
                             <div id="#test" class="p-4" style="float: right; margin-left:40px;">
