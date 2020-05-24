@@ -166,7 +166,7 @@ $(function() {
 			return;
 		}
 		$.ajax({
-			url: "${pageContext.request.contextPath }/api/user/checkid?id=" + id,
+			url: "${pageContext.request.contextPath }/user/checkid?id=" + id,
 			type: 'get',
 			data:'',
 			dataType: 'json',
@@ -392,7 +392,7 @@ $(function() {
 												<div class="form-group mb-0">
 													<div class="custom-control custom-checkbox pt-1"
 														style="z-index: 0;">
-														<input type="submit"
+														<button type="submit"
 															class="btn btn-secondary btn-sm float-right btn-signup"
 															style="position: absolute; right: 0; bottom: 0; z-index: 10;">가입하기</button>
 														<input type="checkbox" class="custom-control-input"

@@ -10,11 +10,10 @@
 	<div class="navbar-custom">
     <div class="container-fluid">
         <ul class="list-unstyled topnav-menu float-right mb-0">
-
-            <li class="dropdown notification-list">
+        <li class="dropdown notification-list">
                 <!-- Mobile menu toggle-->
                 <a class="navbar-toggle nav-link">
-                    <div class="lines">
+                <div class="lines">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -27,7 +26,7 @@
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <span class="pro-user-name ml-1">
-                        ${authUser.id}님 안녕하세요<i class="mdi mdi-chevron-down"></i> 
+                        ${authUser.name}님 안녕하세요<i class="mdi mdi-chevron-down"></i> 
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -57,7 +56,7 @@
                     <div class="dropdown-divider"></div>
     
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="${pageContext.request.contextPath }/user/logout" class="dropdown-item notify-item">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
@@ -75,7 +74,7 @@
     
         <!-- LOGO -->
         <div class="logo-box">
-            <a href="index.html" class="logo text-center">
+            <a href="<%=request.getContextPath() %>/${ authUser.id }" class="logo text-center">
                 <span class="logo-lg">
                     <img src="<%=request.getContextPath() %>/assets/images/logo-scs.png" alt="ìëíì¸ì" height="56">
                     <!-- <span class="logo-lg-text-light">UBold</span> -->
@@ -96,8 +95,7 @@
                 <div id="navigation">
                     <!-- Navigation Menu-->
                     <ul class="navigation-menu">
-        ​
-                        <li class="has-submenu">
+                    	<li class="has-submenu">
                             <a href="#">
                                 <i class="fe-settings"></i>환경설정 <div class="arrow-down"></div></a>
                             <ul class="submenu">
@@ -109,7 +107,6 @@
                                 </li>
                             </ul>
                         </li>
-        ​
                         <li class="has-submenu">
                             <a href="#">
                                 <i class="fe-edit"></i>디자인<div class="arrow-down"></div></a>
@@ -137,8 +134,7 @@
                                     <a href="${pageContext.request.contextPath }/${ authUser.id }/product/category-reg">카테고리 등록</a>
                                 </li>
                             </ul>
-                        </li>                   
-        ​
+                        </li>
                         <li class="has-submenu">
                             <a href="#"> <i class="fe-user"></i>회원관리 <div class="arrow-down"></div></a>
                             <ul class="submenu">
@@ -153,7 +149,7 @@
                                 </li>  
                             </ul>
                         </li>            
-                
+                 
                         <li class="has-submenu">
                             <a href="#"> <i class="fe-truck"></i>주문 관리 <div class="arrow-down"></div></a>
                                 <ul class="submenu">
@@ -166,7 +162,6 @@
                                 </ul>
                         </li>
                     <!-- End navigation menu -->
-        ​
                     <div class="clearfix"></div>
                 </div>
                 <!-- end #navigation -->

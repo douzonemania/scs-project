@@ -23,13 +23,11 @@
 
 	<select id="findById" parameterType="string" resultType="ceovo">
 		<![CDATA[
-			select 
-				   id,
-				   name, 
-				   email, 
-				   reg_date as regDate, 
-		      from ceo 
-		     where id = #{id};
+			select id,
+			 	   name,
+				   email 
+			  from ceo 
+			 where id = #{id};
 			
 		]]>
 	</select>
@@ -50,7 +48,6 @@
 				   site_name as siteName, 
 				   co_number as coNumber, 
 				   cm_number as cmNumber
-				   
 		      from ceo 
 		     where id = #{id}
 		       and password = #{password};

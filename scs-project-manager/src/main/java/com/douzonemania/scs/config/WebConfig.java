@@ -58,7 +58,10 @@ public class WebConfig implements WebMvcConfigurer {
 		.addInterceptor(authInterceptor())
 		.addPathPatterns("/**")	
 		.excludePathPatterns("/assets/**")
-		.excludePathPatterns("/error/**");
+		.excludePathPatterns("/error/**")
+		.excludePathPatterns("/main/index")
+		.excludePathPatterns("/user/recover")
+		.excludePathPatterns("/user/signup");
 	}
 
 	// Mvc Resources(URL Magic Mapping)
