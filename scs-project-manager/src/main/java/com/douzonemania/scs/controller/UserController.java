@@ -9,7 +9,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.UserService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 
@@ -19,7 +22,17 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-
+	
+	
+	// 아이디 중복 검사
+	@ResponseBody
+	@RequestMapping(value="/checkid", method = RequestMethod.GET)
+	public JsonResult checkId(
+		@RequestParam(value="id", required=true, defaultValue="") String id) {
+		boolean exist = userService.existUser(id);
+		return JsonResult.success(exist);
+	}
+	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join(@ModelAttribute CeoVo ceoVo) {
 		return "user/signup";

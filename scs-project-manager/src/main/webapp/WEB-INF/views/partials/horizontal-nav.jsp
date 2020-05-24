@@ -56,7 +56,7 @@
                     <div class="dropdown-divider"></div>
     
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="${pageContext.request.contextPath }/user/logout" class="dropdown-item notify-item">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
@@ -74,7 +74,7 @@
     
         <!-- LOGO -->
         <div class="logo-box">
-            <a href="index.html" class="logo text-center">
+            <a href="<%=request.getContextPath() %>/${ authUser.id }" class="logo text-center">
                 <span class="logo-lg">
                     <img src="<%=request.getContextPath() %>/assets/images/logo-scs.png" alt="ìëíì¸ì" height="56">
                     <!-- <span class="logo-lg-text-light">UBold</span> -->
@@ -95,8 +95,7 @@
                 <div id="navigation">
                     <!-- Navigation Menu-->
                     <ul class="navigation-menu">
-        ​
-                        <li class="has-submenu">
+                    	<li class="has-submenu">
                             <a href="#">
                                 <i class="fe-settings"></i>환경설정 <div class="arrow-down"></div></a>
                             <ul class="submenu">
@@ -108,7 +107,6 @@
                                 </li>
                             </ul>
                         </li>
-        ​
                         <li class="has-submenu">
                             <a href="#">
                                 <i class="fe-edit"></i>디자인<div class="arrow-down"></div></a>
@@ -136,8 +134,7 @@
                                     <a href="${pageContext.request.contextPath }/${ authUser.id }/product/category-reg">카테고리 등록</a>
                                 </li>
                             </ul>
-                        </li>                   
-        ​
+                        </li>
                         <li class="has-submenu">
                             <a href="#"> <i class="fe-user"></i>회원관리 <div class="arrow-down"></div></a>
                             <ul class="submenu">
@@ -152,7 +149,7 @@
                                 </li>  
                             </ul>
                         </li>            
-                
+                 
                         <li class="has-submenu">
                             <a href="#"> <i class="fe-truck"></i>주문 관리 <div class="arrow-down"></div></a>
                                 <ul class="submenu">
@@ -165,7 +162,6 @@
                                 </ul>
                         </li>
                     <!-- End navigation menu -->
-        ​
                     <div class="clearfix"></div>
                 </div>
                 <!-- end #navigation -->
