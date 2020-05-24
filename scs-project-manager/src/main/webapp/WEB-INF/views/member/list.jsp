@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="UTF-8">
 <head>
-    <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+   <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
     
-        <title></title>
+        <title>회원 설정</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -45,6 +47,102 @@
         <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />        
        
+
+		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
+     
+     	<script src="https://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
+	<script type="text/JavaScript"
+		src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+       
+<script type="text/javascript">
+var listTemplate = new EJS({
+	url: "${pageContext.request.contextPath }/assets/js/ejs/member-list.ejs"
+});
+
+var list = function() {
+	
+		$.ajax({
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/member/list',
+			async: true,
+			type: 'get',
+			dataType: 'json',
+			data: '',
+			success: function(response) {
+				if(response.result != "success") {
+					console.error(response.message);
+					return;
+				}
+				response.contextPath = "${ pageContext.request.contextPath }";
+				response.id = "${authUser.id}";
+				var html = listTemplate.render(response);
+				$("#member-list-table").append(html);
+			},
+			error: function(xhr, status, e) {
+				console.error(status + ":" + e);
+			}
+		});
+}
+
+/* var removeCheck = function() {
+	 if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
+		 console.log("네네네");
+		 event.preventDefault();
+			var no = $(this).data('no');
+			
+				$.ajax({
+					url: '${pageContext.request.contextPath }/${authUser.id}/admin/api/category/delete/' + no,
+					async: true,
+					type: 'delete',
+					dataType: 'json',
+					data: '',
+					success: function(response) {
+
+						console.log(tdCount+":"+trCount);
+
+						if(response.data != -1){
+					          console.log(response.data);
+					            
+								var tdCount = $('.admin-cat').find('tr td').length;
+								var trCount = $('.admin-cat').find('tr').length;
+								
+								for(var i = tdCount - 5, j = 1; i >= 0; i -= 5, j++) {
+									console.log(i, $('.admin-cat tr td')[i]);
+									if($('.admin-cat tr td')[i].innerText == j) {
+										continue;
+									} else {
+										console.log("find: " + $('.admin-cat tr td')[i].innerText);
+										$('.admin-cat tr td')[i].innerText = j;
+									}
+								}
+					          
+					          return;
+					    }
+
+						
+					},
+					error: function(xhr, status, e) {
+						console.error(status + ":" + e);
+					}
+				});
+	 }
+	 else {   //취소
+		 console.log("아니오오오오");
+		 event.preventDefault();
+	     return;
+	 }
+} */
+
+$(function() {
+
+		
+	list();
+
+});
+
+</script>
+
 </head>
 <body>
 
@@ -104,53 +202,18 @@
                                 </div>
                             </div>
 
-                            <table class="table table-striped mb-0">
-                                <thead>
+                            <table id="member-list-table" class="table table-striped mb-0">
                                 <tr>
-                                    <th>번호</th>
-                                    <th data-sort-initial="true" data-toggle="true">아이디</th>
-                                    <th>이메일</th>
-                                    <th data-hide="phone">성명</th>
-                                    <th data-sort-ignore="true" data-hide="phone, tablet">휴대폰번호</th>
-                                    <th data-sort-ignore="true" class="min-width">탈퇴</th>
-                                    <th data-sort-ignore="true" data-hide="phone, tablet">메일발송</th>
+                                	<th>번호</th>
+									<th>아이디</th>
+									<th>이메일</th>
+									<th>성명</th>
+									<th>휴대폰번호</th>
+									<th>탈퇴</th>
+									<th>메일발송</th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>sjy8033</td>
-                                    <td>sjy8033@naver.com</td>
-                                    <td>신정은</td>
-                                    <td>01039027775</td>
-                                    <td class="icon-wrap"><button type="button" class="btn btn-xs sa-warning"><i class="fe-x-square member-icon"></i></button></td>
-                
-                                    <!-- 메일 발송 -->
-                                   <td class="icon-wrap">
-                                       <a href="<%=request.getContextPath() %>/${authUser.id}/member/email">
-                                           <i class="fe-mail member-icon custom-email-icon"></i>  
-                                       </a>
-                                   </td>
-                                </tr>
-                                <tr>
-
-                                    <td>2</td>
-                                    <td>Jhona</td>
-                                    <td>Woldt</td>
-                                    <td>Airline Transport Pilot</td>
-                                    <td>3 Oct 1981</td>
-                                    <td class="icon-wrap"><button type="button" class="btn btn-xs sa-warning"><i class="fe-x-square member-icon"></i></button></td>
-                
-                                     <!-- 메일 발송 -->
-                                    <td class="icon-wrap">
-                                        <a href="email-compose.html">
-                                            <i class="fe-mail member-icon custom-email-icon"></i>  
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-
                             </table>
+                            
                             <nav>
                                 <ul class="pagination pagination-rounded justify-content-center">
                                     <li class="page-item">
