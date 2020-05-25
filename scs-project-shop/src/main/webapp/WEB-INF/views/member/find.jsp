@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="UTF-8">
-<head>
-    <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<!DOCTYPE html>
+<html lang="utf-8">
+<head>
+    <meta charset="utf-8" />
         <title></title>
+		<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+		<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+		<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+		<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -15,26 +17,24 @@
         <link rel="shortcut icon" href="../assets/images/favicon.ico">
 
         <!-- Plugins css -->
-        <link href="assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
 
         <!-- App css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
     <!-- Navigation Bar-->
-    <header id="topnav" style="background-color:#ffffff">
-        <c:import url ='/WEB-INF/views/partials/topbar.jsp'/>
-    </header>
+    <c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import>
      
 
     <div class="wrapper">
         <div class="container-fluid">
             <div class="join-group">
                 <div class="join-contents">find</div>
-
+                <div class="mobile-margin-box"></div>
                 <div class="col-xl-12">
                         <div class="card-box">
                             <h4 class="header-title mb-4"></h4>
@@ -87,8 +87,8 @@
             </div>
         </div>
     </div>
-    <!-- footer -->
-    	<c:import url ='/WEB-INF/views/partials/footer.jsp'/>
+   <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
+
    <!-- Vendor js -->
    <script src="../assets/js/vendor.min.js"></script>
 

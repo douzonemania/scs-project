@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="order">
+		
+		<resultMap id="itemList" type="itemvo">
+		   <result property="no" column="no"/>
+		   <result property="code" column="code" />
+		   <result property="name" column="name" />
+		   <result property="supPrice" column="sup_price" />
+		   <result property="nowPrice" column="now_price" />
+		   <result property="sale" column="sale" />
+		   <result property="mainImage" column="main_image" />
+		   <result property="subImage" column="sub_image" /> 
+		   <result property="visible" column="visible" />
+		   <result property="bestItem" column="best_item" />
+		   <result property="newItem" column="new_item" />
+		   <result property="editor" column="editor" />
+		   <result property="categoryNo" column="category_no" />
+		   <result property="des" column="description" />
+		   <result property="regDate" column="regDate" />
+ 		</resultMap>
+		
+		<select id="totalCount" resultType="int" parameterType="map" >
+			<choose>
+				<when test='subCategory==null or subCategory==""'>
+					<![CDATA[
+					select count(*)
+					from ${db}.item a , ${db}.category b
+					where a.category_no=b.no and b.parents_no=#{category}
+					]]>	
+				</when>
+				<otherwise>
+					<![CDATA[
+					select count(*) 
+					from ${db}.item a , ${db}.category b
+					where a.category_no=b.no and b.no=#{subCategory};
+					]]>	
+				</otherwise>
+			</choose>
+	</select>
+
+	<select id="find" parameterType ="map" resultMap="itemList">	
+			<choose>
+				<when test='subCategory==null or subCategory=="0"'>
+					<![CDATA[
+					select *
+					from ${db}.item a , ${db}.category b
+					where a.category_no=b.no and b.parents_no=#{category}
+					]]>	
+				</when>
+				<otherwise>
+					<![CDATA[
+					select* 
+					from ${db}.item a , ${db}.category b
+					where a.category_no=b.no and b.no=#{subCategory};
+					]]>	
+				</otherwise>
+			</choose>
+	</select>
+	
+	<select id="findCategoryList" parameterType="map" resultType="categoryvo">
+			<![CDATA[
+				select b.no as no , b.name as name, b.parents_no as parentsNo 
+				from 
+					${db}.category a,${db}.category b 
+				where 
+					a.no=b.parents_no and
+					a.no=#{category} 
+			]]>
+	</select>
+	
+	<select id="calReviewAvg" parameterType="map" resultType="double">
+			<![CDATA[	
+				select ifnull(avg(b.rate),0) 
+				from ${db}.item a, ${db}.item_review b 
+				where a.no = b.item_no and a.no =#{no};
+			]]>	
+	</select>
+
+</mapper>
