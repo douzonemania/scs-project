@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/order")
+@RequestMapping("/{id:(?!assets).*}/order")
 public class OrderController {
 
 	@RequestMapping(value = "/delivery", method = RequestMethod.GET)

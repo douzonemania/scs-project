@@ -82,7 +82,7 @@ $(function(){
 		
 		var vo = {};
 		vo.name = $('#text-ship').val();
-		<!--vo.id = '${authUser.id}'; -->
+		vo.id = '${authUser.id}';
 		$.ajax({
 			url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd/add',
 			async: true,

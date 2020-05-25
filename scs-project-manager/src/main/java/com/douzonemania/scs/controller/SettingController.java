@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,17 +79,34 @@ public class SettingController {
 
 	// setting-policy
 	@RequestMapping(value = "/policy", method = RequestMethod.GET)
-	public String reg(@AuthUser CeoVo authUser,
+	public String reg(
+			@AuthUser CeoVo authUser,
 			@PathVariable String id,
 			@ModelAttribute AgreementVo agreementVo,
 			Model model) {
 		
 		System.out.println("policy보여준다.");
-		agreementVo = settingService.findAgreementById(id);	//authUser 처리
-		System.out.println(id);
+		agreementVo.setId(authUser.getId());
+		agreementVo = settingService.findAgreementById(authUser.getId());	//authUser 처리
 		System.out.println("--------------------------" + 	agreementVo);
 		model.addAttribute("agreementVo", agreementVo);
 
+		
+		return "setting/policy";
+	}
+	
+	// setting-policy update
+	@RequestMapping(value = "/policy/update", method = RequestMethod.POST)
+	public String updatePolicy(
+			@AuthUser CeoVo authUser,
+			@RequestBody String html,
+			@ModelAttribute AgreementVo agreementVo,
+			Model model) {
+			
+		System.out.println("policy(update)보여준다.");
+		agreementVo.setId(authUser.getId());
+		settingService.updatePolicy(html, authUser.getId(), 1);
+		model.addAttribute("agreementVo",agreementVo);
 		
 		return "setting/policy";
 	}
