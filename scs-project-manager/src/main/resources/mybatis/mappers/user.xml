@@ -23,13 +23,11 @@
 
 	<select id="findById" parameterType="string" resultType="ceovo">
 		<![CDATA[
-			select 
-				   id,
-				   name, 
-				   email, 
-				   reg_date as regDate, 
-		      from ceo 
-		     where id = #{id};
+			select id,
+			 	   name,
+				   email 
+			  from ceo 
+			 where id = #{id}
 			
 		]]>
 	</select>
@@ -50,10 +48,9 @@
 				   site_name as siteName, 
 				   co_number as coNumber, 
 				   cm_number as cmNumber
-				   
 		      from ceo 
 		     where id = #{id}
-		       and password = #{password};
+		       and password = #{password}
 		]]>
 	</select>
 	<select id="findByIdJoin" parameterType="string" resultType="ceovo">
@@ -102,7 +99,7 @@
 						    s.logo = #{logo },
 						    s.favicon = #{favicon }
 					where c.id=s.id and
-						  c.id ='sjy8033';
+						  c.id ='sjy8033'
 				]]>
 			</when>
 			<otherwise>
@@ -124,7 +121,7 @@
 						    s.logo = #{logo },
 						    s.favicon = #{favicon }
 					where c.id=s.id and
-						  c.id ='sjy8033';
+						  c.id ='sjy8033'
 				]]>
 			</otherwise>
 		</choose>
