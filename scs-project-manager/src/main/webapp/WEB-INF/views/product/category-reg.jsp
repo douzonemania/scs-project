@@ -50,29 +50,30 @@
 	
 <script>
 function changeTable(no,name){
+	console.log(no + "사랑찾아 :" + name);
 	vo={};
 	vo.name = name;
 	$.ajax({
-		url: '${pageContext.request.contextPath }/api/product/category-reg/createTable1' ,
+		url: '${pageContext.request.contextPath }/api/product/category-reg/createTable' ,
 		contentType: 'application/json',
 		data: JSON.stringify(vo),
 		type: "POST",
 		dataType: 'json',
 		success : function(response){
-			$(".category-list").append("<table class='category-table' id='category-table-"+response.data+"' style='margin-left:20px'>" + "<tr id='category-table-tr-"+response.data+"'><th style='min-width:100px' id='category-table-th-"+response.data+"'>"+ name +"</th><td style='min-width:150px;' id='category-table-td-"+response.data+"'>준비해라</td></tr></table>" );
+			$(".category-list").append("<table class='category-table' id='category-table-"+response.data+"' style='margin-left:20px'>" + "<tr id='category-table-tr-"+response.data+"'><th style='min-width:100px' id='category-table-th-"+response.data+"'>"+ name +"</th><td style='min-width:150px;' id='category-table-td-"+response.data+"'></td></tr></table>" );
 		},
 		error:
 			console.log("왜 실패냐고")
 	});
 }
 function changeTable2(no){
-	console.log("멍청이 " + no);
+	
 	$("table#category-table-"+no+" td#category-table-td-"+no).remove();
 	var vo={};
 	vo.parentNo = no;
 	
 	$.ajax({
-		url: '${pageContext.request.contextPath }/api/product/category-reg/createTable' ,
+		url: '${pageContext.request.contextPath }/api/product/category-reg/createTable2' ,
 		contentType: 'application/json',
 		data: JSON.stringify(vo),
 		type: "POST",
@@ -88,7 +89,8 @@ function changeTable2(no){
 		error:
 			console.log("왜 실패냐고")
 	});
-}	
+}
+
 	
 //$(document).ready(createCategoryTable());
 function initial(){
@@ -184,7 +186,6 @@ $(function() {
 	
 	$("#cate-del-button").click(function() {
 		
-		var no = null;
 		var isParent = $('input[name="cate-n-del"]:checked').val();
 		var name = $("#cate-select-del option:selected").text();		
 		var childCategoryName = $("#cate-select-del2 option:selected").text();
@@ -201,8 +202,7 @@ $(function() {
 		else
 			parentNo = 99;
 		vo.parentNo = parentNo;
-		vo.no = no;
-		console.log("parentNo : " + parentNo +"isParent : " + isParent);
+		vo.no = no;		
 		
 		// 2차카테고리 입력 별 name 값 설정
 		if(parentNo == null){
@@ -230,8 +230,15 @@ $(function() {
 				error:
 					alert("실패")
 			});
+			if(parentNo==99)
+				changeTable2(no);
+			else{ //1차카테고리일때 테이블 삭제
+				var name = $("#cate-select-del option:selected").text();
+				var no = $("#cate-select-del option:selected").val();
+				
+				$("table#category-table-"+no).remove();				
+			}
 			initial();
-			changeTable2(no);	
 	});
 });
 $(function() {
@@ -269,14 +276,23 @@ $(function() {
 				for( var key in response.data){
 					var data = response.data[key];	
 					if(data.name!=null)
-						$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.name + "'>" + data.name + "</option>");
+						$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.no + "'>" + data.name + "</option>");
 					initial();
 				}
 			},
 			error:
 				alert("실패")
 		});
-		changeTable2(no);
+		if(childCategoryName=""){
+			changeTable2(no);
+		}
+		else{		
+			var no = $("#cate-select-mod option:selected").val();
+			console.log(no + "no<- " + afterName + "after");
+			$("#category-table-th-"+no).html(afterName);
+			initial();
+			
+		}
 	});
 });
 $(function() {
@@ -401,9 +417,9 @@ $(function() {
 	    		$("#cate-select-mod2").attr('disabled',true);        		
 	    	}
 	    	/* 1차 카테고리 선택 안해도 2차 카테고리 갱신되는것 방지 */
-					
+			var name =  $("#cate-select-mod option:selected").text();		
 			var vo={};
-			vo.name = this.value;
+			vo.name = name;
 			
 			$.ajax({
 				url: '${pageContext.request.contextPath }/api/product/category-reg/childCategoryList' ,
@@ -569,14 +585,14 @@ $(function() {
                                             <select class="form-control" id="cate-select-del" style="display:inline-block">
 	                                            	<option>----</option>
 	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
-	                                            	<option>${vo.name }</option>
+	                                            	<option value="${vo.no }">${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
                                             </select>
                                             
                                             <select class="form-control" id="cate-select-del2" style="display:none">
 	                                            	<option>----</option>
 	                                            <c:forEach var="vo" varStatus="status" items="${childCategoryNameList }">
-	                                            	<option>${vo.name }</option>
+	                                            	<option value="${vo.no }">${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
                                             </select>  
                                                                                      
@@ -606,14 +622,14 @@ $(function() {
                                             <select class="form-control" id="cate-select-mod" style="display:inline-block">
 	                                            	<option>----</option>
 	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
-	                                            	<option>${vo.name }</option>
+	                                            	<option value="${vo.no }">${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
                                             </select>
                                             
                                             <select class="form-control" id="cate-select-mod2" style="display:none">
 	                                            	<option>----</option>
 	                                            <c:forEach var="vo" varStatus="status" items="${childCategoryNameList }">
-	                                            	<option>${vo.name }</option>
+	                                            	<option value="${vo.no }">${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
                                             </select>
                                             

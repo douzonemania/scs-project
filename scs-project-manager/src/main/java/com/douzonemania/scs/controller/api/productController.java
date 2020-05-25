@@ -86,18 +86,18 @@ public class productController {
 	}
 	
 	// 1차 카테고리이름 테이블
-	@RequestMapping(value="/category-reg/createTable1", method = RequestMethod.POST)
+	@RequestMapping(value="/category-reg/createTable", method = RequestMethod.POST)
 	public JsonResult createTable1(
 			@RequestBody CategoryVo cVo			
 			) {
 		productService.getCategoryNoByName( cVo.getName());
-		System.err.println(cVo);
+		System.err.println(cVo.getName());
 		
 		return JsonResult.success(productService.getCategoryNoByName(cVo.getName()));
 	}
 	
 	// 2차 카테고리이름 테이블 
-	@RequestMapping(value="/category-reg/createTable", method = RequestMethod.POST)
+	@RequestMapping(value="/category-reg/createTable2", method = RequestMethod.POST)
 	public JsonResult createTable(
 			@RequestBody CategoryVo cVo			
 			) {			
