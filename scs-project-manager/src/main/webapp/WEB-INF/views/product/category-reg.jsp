@@ -49,15 +49,61 @@
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 	
 <script>
-
+function changeTable(no){
 	
+	$("table#category-table-"+no+" td#category-table-th-"+no).remove();
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath }/api/product/category-reg/createTable' ,
+		contentType: 'application/json',
+		data: JSON.stringify(vo),
+		type: "POST",
+		dataType: 'json',
+		success : function(response){				
+				for( var key in response.data){
+					var data = response.data[key];
+					console.log(data.no + data.name + data.parentName);
+					
+					$("#category-table-tr-"+no).append("<th style='min-width:100px;' id='category-table-th-"+no+"'> " +data.name +"</td>");					
+				}			
+		},
+		error:
+			console.log("왜 실패냐고")
+	});
+}
+
+function changeTable2(no){
+	
+	$("table#category-table-"+no+" td#category-table-td-"+no).remove();
+	var vo={};
+	vo.parentNo = no;
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath }/api/product/category-reg/createTable' ,
+		contentType: 'application/json',
+		data: JSON.stringify(vo),
+		type: "POST",
+		dataType: 'json',
+		success : function(response){				
+				for( var key in response.data){
+					var data = response.data[key];
+					console.log(data.no + data.name + data.parentName);
+					
+					$("#category-table-tr-"+no).append("<td style='min-width:150px;' id='category-table-td-"+no+"'> " +data.name +"</td>");					
+				}			
+		},
+		error:
+			console.log("왜 실패냐고")
+	});
+
+}	
 	
 
 //$(document).ready(createCategoryTable());
 function initial(){
 	$("#cate-select-del2").prepend("<option>----</option>");
 	$("#cate-select-mod2").prepend("<option>----</option>");
-	$('#category-name-add').val('');
+	$('#category-name').val('');
 	$('#category-name-del').val('');
 	$('#category-name-mod').val('');
 	$("#cate-select-del2").attr('disabled',true);
@@ -72,9 +118,10 @@ $(function() {
 	$("#cate-add-button").click(function() {
 		 
 		var name = $('#category-name').val();
-		var no = null;		
+		var no= null;
 		var isParent = $('input[name="cate-n"]:checked').val();
-		var parentCategory = $("#cate-select-add option:selected").text();	
+		var parentCategory = $("#cate-select-add option:selected").text();
+		
 		
 		/* parentNo 구하기 1차:null 2차: 1*/
 		var parentNo;
@@ -89,6 +136,8 @@ $(function() {
 		vo.no = no;
 		vo.name = name;
 		vo.parentNo = parentNo;
+		
+
 		
 		if(parentNo==null){
 		$.ajax({
@@ -124,14 +173,21 @@ $(function() {
 						var data = response.data[key];	
 						if(data.name!=null)
 							$('#cate-select-del2,#cate-select-mod2').append("<option value='" + data.name + "'>" + data.name + "</option>");							
-						initial();
+						
 					}
+					var no = $("#cate-select-add option:selected").val();
+					console.log(vo.no + "누가날생각예vo.no~");
+					console.log(vo.name + "누가날생각예vo.name~");
+					console.log(vo.parentNo + "누가날생각예vo.parentNo~");
+					changeTable2(no);
+					initial();
 				},
 				error:
 					alert("실패")
 			});			
 		}
 		/* $("input:radio[name=cate-n-del][value=" + 'parent' + "]").attr("checked",true); */
+		
 		
 	});
 });
@@ -143,6 +199,7 @@ $(function() {
 		var isParent = $('input[name="cate-n-del"]:checked').val();
 		var name = $("#cate-select-del option:selected").text();		
 		var childCategoryName = $("#cate-select-del2 option:selected").text();
+		var no = $("#cate-select-del2 option:selected").val();
 		
 		// 카테고리 선택이 안되었을 때 return
 		if(name=="----"){
@@ -176,16 +233,15 @@ $(function() {
 					for( var key in response.data){
 						var data = response.data[key];	
 						if(data.name!=null)
-							$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.name + "'>" + data.name + "</option>");
+							$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.no + "'>" + data.name + "</option>");
 						initial();
+						
 					}
 				},
 				error:
 					alert("실패")
 			});
-		
-			
-		
+			changeTable2(no);	
 	});
 });
 $(function() {
@@ -194,6 +250,8 @@ $(function() {
 				var name = $("#cate-select-mod option:selected").text();
 				var childCategoryName = $("#cate-select-mod2 option:selected").text();
 				var afterName = $('#category-name-mod').val();		
+				var no = $("#cate-select-mod2 option:selected").val();
+				//createTable에 사용
 			
 				// 카테고리 선택이 안되었을 때 return
 				if(name=="----"){
@@ -228,6 +286,7 @@ $(function() {
 			error:
 				alert("실패")
 		});
+		changeTable2(no);
 	});
 });
 $(function() {
@@ -330,8 +389,8 @@ $(function() {
 					
 					for( var key in response.data){
 						var data = response.data[key];	
-						if(data.name!=null)
-							$('#cate-select-del2').append("<option value='" + data.name + "'>" + data.name + "</option>");
+						if(data.name!=null)							
+							$('#cate-select-del2').append("<option value='" + data.parentNo + "'>" + data.name + "</option>");
 					}
 				}
 			},
@@ -367,7 +426,7 @@ $(function() {
 						for( var key in response.data){
 							var data = response.data[key];	
 							if(data.name!=null)
-								$('#cate-select-mod2').append("<option value='" + data.name + "'>" + data.name + "</option>");
+								$('#cate-select-mod2').append("<option value='" + data.parentNo + "'>" + data.name + "</option>");
 						}
 					}
 				},
@@ -447,8 +506,8 @@ $(function() {
 									<c:forEach var="vo" varStatus="status" items="${categoryNameList }">
 									
 									<table class="category-table" id="category-table-${vo.no }" style="margin-left:20px;">
-										<tr>
-											<th style="min-width:100px;">${vo.name }</th>
+										<tr id="category-table-tr-${vo.no}">
+											<th style="min-width:100px;" id="category-table-th-${vo.no }">${vo.name }</th>
 											
 											<c:forEach var="vo2" varStatus="status" items="${category2NameList }">
 												<c:if test="${vo.no == vo2.parentNo }">
@@ -485,7 +544,7 @@ $(function() {
 	                                        <select class="form-control" id="cate-select-add" style="display:none">
 	                                        		<option>----</option>
 	                                            <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
-	                                            	<option>${vo.name }</option>
+	                                            	<option value="${vo.no }">${vo.name }</option>
 	                                            </c:forEach>                                                                                                      
                                             </select> 
 	                                         

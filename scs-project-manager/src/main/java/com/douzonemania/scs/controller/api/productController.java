@@ -90,7 +90,7 @@ public class productController {
 	public JsonResult createTable(
 			@RequestBody CategoryVo cVo			
 			) {			
-		return JsonResult.success(productService.getCategoryNameList());
+		return JsonResult.success(productService.getCategory2NameList(cVo.getParentNo()));
 	}
 
 }
