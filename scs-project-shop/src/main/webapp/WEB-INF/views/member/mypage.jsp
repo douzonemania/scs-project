@@ -1,49 +1,46 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
-<html lang="UTF-8">
-<head>
-    <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<html lang="utf-8">
+    <head>
+        <meta charset="utf-8" />
             <title></title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
             <meta content="Coderthemes" name="author" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <!-- App favicon -->
-            <link rel="shortcut icon" href="../assets/images/favicon.ico">
+            <link rel="shortcut icon" href="${ pageContext.request.contextPath }/assets/images/favicon.ico">
     
             <!-- Plugins css -->
-            <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+            <link href="${ pageContext.request.contextPath }/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
     
             <!-- App css -->
-            <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-            <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-            <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+            <link href="${ pageContext.request.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+            <link href="${ pageContext.request.contextPath }/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+            <link href="${ pageContext.request.contextPath }/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
     </head>
 <body>
     <!-- Navigation Bar-->
-    <header id="topnav" style="background-color:#ffffff">
-        <c:import url ='/WEB-INF/views/partials/topbar.jsp'/>
-    </header>
-
+     <c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import>
     <div class="wrapper">
         <div class="container-fluid">
             <div class="mypage-order-group">
                 
                 <div class="recipient-info">
                     <span >주문 내역</span> 
+                    <span class="mypage-main-order float-right"> 전체</span>
                 </div>
 
                 <div class="mypage-main-order-list">
-                    <a href="#"><span class="mypage-order-list-category">입금/결제:&nbsp; 0</span></a>
-                    <a href="#"><span class="mypage-order-list-category">배송중:&nbsp 0</span></a>
-                    <a href="#"><span class="mypage-order-list-category">배송완료:0</span></a>
-                    <a href="#"><span class="mypage-order-list-category">교환:0</span></a>
-                    <a href="#"><span class="mypage-order-list-category">환불:0</span></a>
-                    <a href="#"><span class="mypage-order-list-category">환불완료:0</span></a>
+                    <a href="#" class="mobile-visible"><span class="mypage-order-list-category ">입금/결제:&nbsp; 0</span></a>
+                    <a href="#" class="mobile-visible"><span class="mypage-order-list-category">배송중:&nbsp; 0</span></a>
+                    <a href="#" class="mobile-visible"><span class="mypage-order-list-category">배송완료:&nbsp;0</span></a>
+                    <a href="#" class="mobile-none"><span class="mypage-order-list-category ">교환:&nbsp;0</span></a>
+                    <a href="#" class="mobile-none"><span class="mypage-order-list-category ">환불:&nbsp;0</span></a>
+                    <a href="#" class="mobile-none"><span class="mypage-order-list-category ">환불완료:&nbsp;0</span></a>
 
                     <a class="float-right"href="#"><span class="mypage-order-list-all ">전체</span></a>
                 
@@ -76,7 +73,7 @@
                                 <tr>
                                     <td class="mypage-main-order-table-product-info">
                                         <div class="product-info-imagebox">
-                                            <img src="../assets/images/review-img.PNG" alt="" class="rounded ">
+                                            <img src="${ pageContext.request.contextPath }/assets/images/review-img.PNG" alt="" class="rounded ">
                                         </div>
                                         
                                         <div class="product-info-desbox">     
@@ -101,7 +98,7 @@
                                 <tr>
                                     <td class="mypage-main-order-table-product-info">
                                         <div class="product-info-imagebox">
-                                            <img src="../assets/images/review-img.PNG" alt="" class="rounded">
+                                            <img src="${ pageContext.request.contextPath }/assets/images/review-img.PNG" alt="" class="rounded">
                                         </div>
                                         
                                         <div class="product-info-desbox">     
@@ -126,7 +123,7 @@
                                 <tr>
                                     <td class="mypage-main-order-table-product-info">
                                         <div class="product-info-imagebox">
-                                            <img src="../assets/images/review-img.PNG" alt="" class="rounded">
+                                            <img src="${ pageContext.request.contextPath }/assets/images/review-img.PNG" alt="" class="rounded">
                                         </div>
                                         
                                         <div class="product-info-desbox">     
@@ -151,7 +148,7 @@
                                 <tr>
                                     <td class="mypage-main-order-table-product-info">
                                         <div class="product-info-imagebox">
-                                            <img src="../assets/images/review-img.PNG" alt="" class="rounded">
+                                            <img src="${ pageContext.request.contextPath }/assets/images/review-img.PNG" alt="" class="rounded">
                                         </div>
                                         
                                         <div class="product-info-desbox">     
@@ -177,16 +174,114 @@
                            </div>
                        </div>
                     </div>
+
+                    <div class="mobile-order">
+                        <!-- <div class="mobile-cart-list rounded">
+                            <div class="mobile-cart-list-img">
+                                <img src="assets/images/review-img.png" alt="d" height="80" class="rounded">
+                            </div>
+        
+                            <div class="mobile-cart-list-box ">
+                                <div class="mobile-cart-list-product-title">
+                                    S/S WHALE GRAP TEE WHITE
+                                </div>
+                                <div class="mobile-cart-list-product-option float-left">
+                                    옵션 : RED XL
+                                </div>
+                                <div class="mobile-cart-list-product-price float-right">
+                                    39,000원
+                                </div>
+        
+                                <div class="mobile-cart-count-btn">
+                                    <button class="btn btn-dark waves-effect "><i class="fe-plus"></i></button>
+                                    <input type="text" class="form-control " id="validationCustom01"  value="1" required>
+                                    <button class="btn btn-dark waves-effect "><i class="fe-minus"></i></button>
+                                </div>
+                            </div> 
+                        </div>-->
+                        
+                        <div class="mobile-order-box rounded">
+                            <div class="mobile-order-no">
+                                주문번호 : 213121323123
+                            </div>
+                            <div class="mobile-order-date">
+                                주문날짜 : 20.05.13
+                            </div>
+                            
+                            <div style="margin-top: 8px;  border-bottom: 1px solid #000000;"></div>
+                        
+                            <div class="mobile-cart-list rounded">
+                                <div class="mobile-cart-list-img">
+                                    <img src="${ pageContext.request.contextPath }/assets/images/review-img.png" alt="d" height="80" class="rounded">
+                                </div>
+
+                                <div class="mobile-cart-list-box">
+                                    <div class="mobile-cart-list-product-title">
+                                        S/S WHALE GRAP TEE WHITE
+                                    </div>
+                                    <div class="mobile-cart-list-product-option float-left">
+                                        옵션 : RED XL
+                                    </div>
+                                    <div class="mobile-cart-list-product-price float-right">
+                                        39,000원
+                                    </div>
+            
+                                    <div class="mobile-order-state float-right">
+                                        구매확정
+                                    </div>
+                                </div> 
+                            </div>
+
+                           
+                        </div>
+
+                        <div class="mobile-order-box rounded">
+                            <div class="mobile-order-no">
+                                주문번호 : 213121323123
+                            </div>
+                            <div class="mobile-order-date">
+                                주문날짜 : 20.05.13
+                            </div>
+                            
+                            <div style="margin-top: 8px;  border-bottom: 1px solid #000000;"></div>
+                        
+                            <div class="mobile-cart-list rounded">
+                                <div class="mobile-cart-list-img">
+                                    <img src="${ pageContext.request.contextPath }/assets/images/review-img.png" alt="d" height="80" class="rounded">
+                                </div>
+
+                                <div class="mobile-cart-list-box">
+                                    <div class="mobile-cart-list-product-title">
+                                        S/S WHALE GRAP TEE WHITE
+                                    </div>
+                                    <div class="mobile-cart-list-product-option float-left">
+                                        옵션 : RED XL
+                                    </div>
+                                    <div class="mobile-cart-list-product-price float-right">
+                                        39,000원
+                                    </div>
+            
+                                    <div class="mobile-order-state float-right">
+                                        구매확정
+                                    </div>
+                                </div> 
+                            </div>
+
+                           
+                        </div>
+                    </div>   
+
                 </div>
 
-                <div style="margin-top: 90px;"></div>
+
+                <div class="mypage-main-gap"></div>
                 
                 <div class="recipient-info">
                     <span >장바구니</span> 
                     <span class="mypage-main-cart float-right"> 전체</span>
                 </div>
                 
-                <div class="col-lg-12"> 
+                <div class="col-lg-12 mobile-none"> 
                     <div class="table-responsive">
                         <table class="table mb-0 order-table-custom" style="margin : 0 auto; text-align: center;">
                             <colgroup>
@@ -219,7 +314,7 @@
                                     </div>
                                 </td>
                                 <td style="padding-top:15px">
-                                    <img src="../assets/images/review-img.png" alt="d" height="64" class="rounded cart-img">
+                                    <img src="${ pageContext.request.contextPath }/assets/images/review-img.png" alt="d" height="64" class="rounded cart-img">
                                     <div class = "order-custom-product-name"> 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 오호라 베스트 콜렉숀 네일 아트 세트 제품명을 </div>
                                 </td>   
                                 <td>
@@ -240,32 +335,125 @@
                     </div> <!-- end table-responsive-->   
 
             </div> <!-- end col -->
-            <div style="margin-top: 80px;"></div>
+            <div class="mobile-cart-group"> 
+                <div class="moblie-cart-all-selector">
+                
+                </div>
+          
+           
+                <div class="mobile-cart ">
+                    <div class="moblie-cart-all-group">
+                        
+                        <div class="mobile-cart-list ">
+                            <div class="mobile-cart-list-img">
+                                <img src="${ pageContext.request.contextPath }/assets/images/review-img.png" alt="d" height="80" class="rounded">
+                            </div>
+        
+                            <div class="mobile-cart-list-box ">
+                                <div class="mobile-cart-list-product-title">
+                                    S/S WHALE GRAP TEE WHITE
+                                </div>
+                                <div class="mobile-cart-list-product-option float-left">
+                                    옵션 : RED XL
+                                </div>
+                                <div class="mobile-cart-list-product-price float-right">
+                                    39,000원
+                                </div>
+        
+                                <div class="mobile-cart-count-btn">
+                                    <button class="btn btn-dark waves-effect "><i class="fe-plus"></i></button>
+                                    <input type="text" class="form-control " id="validationCustom01"  value="1" required>
+                                    <button class="btn btn-dark waves-effect "><i class="fe-minus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                <div class="mobile-cart ">
+                    <div class="moblie-cart-all-group">
+                        
+                        <div class="mobile-cart-list ">
+                            <div class="mobile-cart-list-img">
+                                <img src="${ pageContext.request.contextPath }/assets/images/review-img.png" alt="d" height="80" class="rounded">
+                            </div>
+        
+                            <div class="mobile-cart-list-box ">
+                                <div class="mobile-cart-list-product-title">
+                                    S/S WHALE GRAP TEE WHITE
+                                </div>
+                                <div class="mobile-cart-list-product-option float-left">
+                                    옵션 : RED XL
+                                </div>
+                                <div class="mobile-cart-list-product-price float-right">
+                                    39,000원
+                                </div>
+        
+                                <div class="mobile-cart-count-btn">
+                                    <button class="btn btn-dark waves-effect "><i class="fe-plus"></i></button>
+                                    <input type="text" class="form-control " id="validationCustom01"  value="1" required>
+                                    <button class="btn btn-dark waves-effect "><i class="fe-minus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mypage-main-gap"></div>
             <div class="recipient-info">
                 <span >상품문의</span> 
                 <span class="mypage-main-cart float-right"> 전체</span>
             </div>
+            <div class="mypage-product-qna">
+                <div class="mypage-product-qna-title">
+                    상품 문의 입니다.
+                </div>
+                <div class="mypage-product-qna-date">
+                    20.05.14 19:16
+                </div>
+            </div>
+            <div class="mypage-product-qna">
+                <div class="mypage-product-qna-title">
+                    상품 문의 입니다.
+                </div>
+                <div class="mypage-product-qna-date">
+                    20.05.14 19:16
+                </div>
+            </div>
 
-            <div style="margin-top: 80px;"></div>
+
+            <div class="mypage-main-gap"></div>
             <div class="recipient-info">
                 <span >1:1문의</span> 
                 <span class="mypage-main-cart float-right"> 전체</span>
             </div>
-
+            <div class="mypage-product-qna">
+                <div class="mypage-product-qna-title">
+                    상품 문의 입니다.
+                </div>
+                <div class="mypage-product-qna-date">
+                    20.05.14 19:16
+                </div>
+            </div>
+            <div class="mypage-product-qna">
+                <div class="mypage-product-qna-title">
+                    상품 문의 입니다.
+                </div>
+                <div class="mypage-product-qna-date">
+                    20.05.14 19:16
+                </div>
+            </div>
 
             
-            <div style="margin-top: 80px;"></div>
-            <div class="recipient-info">
-                <span >구매후기</span> 
-                <span class="mypage-main-cart float-right"> 전체</span>
-            </div>
-            </div>
         </div>
     </div>
 
-    <!-- footer -->
-    	<c:import url ='/WEB-INF/views/partials/footer.jsp'/>
-    
+	 <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
+    <!-- Vendor js -->
+   <script src="${ pageContext.request.contextPath }/assets/js/vendor.min.js"></script>
+
+   <!-- App js-->
+   <script src="${ pageContext.request.contextPath }/assets/js/app.min.js"></script>
 
 </body>
 </html>

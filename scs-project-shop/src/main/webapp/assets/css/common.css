@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.product-group:hover{
+    cursor: pointer;
+}
+.mobile-product-list{
+	cursor:pointer;
+}
+
+
+.dropdown.d-none.d-lg-block>a:hover{
+	border-bottom: 1px solid #000000;
+}
+
+.product-list-custom{
+	padding:0px;
+	margin:0px;
+	height : 30px;
+	
+}
+
+.product-list-custom{
+	width:80%;
+	display:inline-block;
+}
+
+.list-span-custom{
+	margin:0;
+	padding:0;
+	width:80%;
+	
+}
+
+.product-button{
+	border: 1px solid #000000;
+	height:40px;
+	padding:0px;
+}
+#product-sort-button2{
+	margin:0px;
+	padding:10px;
+	font-size:1em;
+}

@@ -8,5 +8,29 @@
 				select * from member where no=1
 			]]>
 	</select>	
+	
+	<select id="getMainMenu" resultType="mainmenuvo">
+			<![CDATA[
+				select * 
+				from main_menu
+				where id=#{db}
+			]]>
+	</select>	
+	
+	<select id="getCategoryList" resultType="categoryvo">
+			<![CDATA[
+				select no,name,parents_no as parentsNo
+				from ${db}.category
+				where parents_no is null
+			]]>	
+	</select>
+	
+	<select id="getCartCnt" resultType="int" parameterType="map">
+			<![CDATA[
+				select count(*) 
+				from ${db}.cart a
+				where a.member_no=#{no}
+			]]>
+	</select>
 
 </mapper>
