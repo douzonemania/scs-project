@@ -49,31 +49,24 @@
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 	
 <script>
-function changeTable(no){
-	
-	$("table#category-table-"+no+" td#category-table-th-"+no).remove();
-	
+function changeTable(no,name){
+	vo={};
+	vo.name = name;
 	$.ajax({
-		url: '${pageContext.request.contextPath }/api/product/category-reg/createTable' ,
+		url: '${pageContext.request.contextPath }/api/product/category-reg/createTable1' ,
 		contentType: 'application/json',
 		data: JSON.stringify(vo),
 		type: "POST",
 		dataType: 'json',
-		success : function(response){				
-				for( var key in response.data){
-					var data = response.data[key];
-					console.log(data.no + data.name + data.parentName);
-					
-					$("#category-table-tr-"+no).append("<th style='min-width:100px;' id='category-table-th-"+no+"'> " +data.name +"</td>");					
-				}			
+		success : function(response){
+			$(".category-list").append("<table class='category-table' id='category-table-"+response.data+"' style='margin-left:20px'>" + "<tr id='category-table-tr-"+response.data+"'><th style='min-width:100px' id='category-table-th-"+response.data+"'>"+ name +"</th><td style='min-width:150px;' id='category-table-td-"+response.data+"'>준비해라</td></tr></table>" );
 		},
 		error:
 			console.log("왜 실패냐고")
 	});
 }
-
 function changeTable2(no){
-	
+	console.log("멍청이 " + no);
 	$("table#category-table-"+no+" td#category-table-td-"+no).remove();
 	var vo={};
 	vo.parentNo = no;
@@ -95,10 +88,8 @@ function changeTable2(no){
 		error:
 			console.log("왜 실패냐고")
 	});
-
 }	
 	
-
 //$(document).ready(createCategoryTable());
 function initial(){
 	$("#cate-select-del2").prepend("<option>----</option>");
@@ -137,7 +128,6 @@ $(function() {
 		vo.name = name;
 		vo.parentNo = parentNo;
 		
-
 		
 		if(parentNo==null){
 		$.ajax({
@@ -152,9 +142,10 @@ $(function() {
 				for( var key in response.data){
 					var data = response.data[key];	
 					if(data.name!=null)
-						$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.name + "'>" + data.name + "</option>");
-					initial();
+						$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.no + "'>" + data.name + "</option>");
 				}
+				changeTable(vo.no, vo.name);
+				initial();
 			},
 			error:
 				alert("실패")
@@ -172,13 +163,11 @@ $(function() {
 					for( var key in response.data){
 						var data = response.data[key];	
 						if(data.name!=null)
-							$('#cate-select-del2,#cate-select-mod2').append("<option value='" + data.name + "'>" + data.name + "</option>");							
+							$('#cate-select-del2,#cate-select-mod2').append("<option value='" + data.no + "'>" + data.name + "</option>");							
 						
 					}
 					var no = $("#cate-select-add option:selected").val();
-					console.log(vo.no + "누가날생각예vo.no~");
-					console.log(vo.name + "누가날생각예vo.name~");
-					console.log(vo.parentNo + "누가날생각예vo.parentNo~");
+					console.log("시벌엔오" + no);
 					changeTable2(no);
 					initial();
 				},
@@ -234,13 +223,14 @@ $(function() {
 						var data = response.data[key];	
 						if(data.name!=null)
 							$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.no + "'>" + data.name + "</option>");
-						initial();
+						
 						
 					}
 				},
 				error:
 					alert("실패")
 			});
+			initial();
 			changeTable2(no);	
 	});
 });
@@ -374,9 +364,10 @@ $(function() {
     		$("#cate-select-del2").attr('disabled',true);
     		console.log("여기로 안와져?");
     	}
-    	
+    	var name =  $("#cate-select-del option:selected").text();
 		var vo={};
-		vo.name = this.value;
+		vo.name = name;
+		console.log(vo.name + "웃어요")
 		
 		$.ajax({
 			url: '${pageContext.request.contextPath }/api/product/category-reg/childCategoryList' ,

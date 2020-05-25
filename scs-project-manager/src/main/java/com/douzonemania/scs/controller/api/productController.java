@@ -85,12 +85,24 @@ public class productController {
 		return JsonResult.success(childCategoryNameList);
 	}
 	
-	// 전체 리스트 테이블
+	// 1차 카테고리이름 테이블
+	@RequestMapping(value="/category-reg/createTable1", method = RequestMethod.POST)
+	public JsonResult createTable1(
+			@RequestBody CategoryVo cVo			
+			) {
+		productService.getCategoryNoByName( cVo.getName());
+		System.err.println(cVo);
+		
+		return JsonResult.success(productService.getCategoryNoByName(cVo.getName()));
+	}
+	
+	// 2차 카테고리이름 테이블 
 	@RequestMapping(value="/category-reg/createTable", method = RequestMethod.POST)
 	public JsonResult createTable(
 			@RequestBody CategoryVo cVo			
 			) {			
 		return JsonResult.success(productService.getCategory2NameList(cVo.getParentNo()));
 	}
+	
 
 }
