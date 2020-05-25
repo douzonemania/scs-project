@@ -46,25 +46,6 @@
 <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
-<script type="text/JavaScript"
-	src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-​
-<script type="text/javascript">
-$(document).ready(function(){
-	$('#test-btn').click(function(){
-		var myEditor = document.querySelector('#snow-editor');
-		var html = myEditor.children[0].innerHTML;
-		
-		console.log(html);
-	});
-	
-});
-
-</script>
-
 </head>
 <body>
 
@@ -101,36 +82,15 @@ $(document).ready(function(){
 			<!--header 종료-->
 
 			<!-- mail-info 시작-->
-			<form:form 
-				method="post"
-				action="${pageContext.request.contextPath }/${authUser.id}/member/email/post">
 				<div class="col-lg-12"
-					style="background-color: #FFFFFF; padding: 40px;">
-					<div class="email-info">
-						<span style="margin-right: 20px;"> 받는사람 </span> <input type="text"
-							class="form-control mail-custom" name="memberEmail" value="${memberEmail}">
-					</div>
-	
-					<div class="email-info">
-						<span style="margin-right: 60px"> 제목 </span> <input type="text"
-							class="form-control mail-custom" placeholder="(제목 없음)" name="title">
-					</div>
-					<!-- mail info 종료-->
-	
-					<div style="margin-top: 30px;"></div>
-					
-					
-					<textarea name="contents" style="width: 1000px; height: 300px;"></textarea>
-	
-					<!-- Editor -->
-					<div id="snow-editor" style="height: 300px;"></div>
-	
-					<div class="btn-submit-section" style="margin-top: 30px;">
-					<button type="button" id="test-btn">editor</button>
-						<button type="submit" class="btn btn-secondary waves-effect ">전송</button>
-					</div>
+					style="background-color: #FFFFFF; padding: 40px; width: 800px; height: 500px; margin: 0 auto; margin-top: 50px;">
+						<br/>
+						<h1 class="fe-mail mt-3" style="font-size: 100px; margin-bottom: 20px"></h1>
+						<h2 class="mt-3 mt-lg-0">메일 발송이 완료되었습니다.</h2>
+						<br/><br/><br/><br/><br/><br/>
+                        <p class="mt-3 mt-lg-0"><a href="${pageContext.request.contextPath }/${ authUser.id }/member/email">메일 발송 페이지로 돌아가기</a></p>
+                        <p class="mt-3 mt-lg-0"><a href="${pageContext.request.contextPath }/${ authUser.id }/api/user/main">메인으로 돌아가기</a></p>
 				</div>
-			</form:form>
 		</div>
 		<!-- end container -->
 	</div>

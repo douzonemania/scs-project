@@ -28,7 +28,7 @@
                             <div class="card-body p-4">
                                 
                                 <div class="text-center mb-4">
-                                    <a href="index.html">
+                                    <a href="${ pageContext.request.contextPath }/main">
                                         <span><img src="<%=request.getContextPath() %>/assets/images/logo-scs.png" alt="" height="130"></span>
                                     </a>
                                 </div>
