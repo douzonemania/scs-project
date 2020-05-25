@@ -17,32 +17,32 @@
 <link rel="shortcut icon" href="../assets/images/favicon.ico">
 
 <!-- Plugins css -->
-<link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
 
-<link href="../assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
-<link href="../assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
 
-<link href="../assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
-<link href="../assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
-<link href="../assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
-<link href="../assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
-<link href="../assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
-<link href="../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
-<link href="../assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
-<link href="../assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
-<link href="../assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
 
 <!-- third party css -->
-<link href="../assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
-<link href="../assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
-<link href="../assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
-<link href="../assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
 <!-- third party css end -->
 
 <!-- App css -->
-<link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-<link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -80,28 +80,30 @@
 			<!--header 종료-->
 
 			<!-- mail-info 시작-->
-			<div class="col-lg-12"
-				style="background-color: #FFFFFF; padding: 40px;">
-				<div class="email-info">
-					<span style="margin-right: 20px;"> 받는사람 </span> <input type="text"
-						class="form-control mail-custom">
+			<form>
+				<div class="col-lg-12"
+					style="background-color: #FFFFFF; padding: 40px;">
+					<div class="email-info">
+						<span style="margin-right: 20px;"> 받는사람 </span> <input type="text"
+							class="form-control mail-custom" name="memberEmail" value="${memberEmail}">
+					</div>
+	
+					<div class="email-info">
+						<span style="margin-right: 60px"> 제목 </span> <input type="text"
+							class="form-control mail-custom" placeholder="(제목 없음)" name="title">
+					</div>
+					<!-- mail info 종료-->
+	
+					<div style="margin-top: 30px;"></div>
+	
+					<!-- Editor -->
+					<div id="snow-editor" style="height: 300px;" name="editor"></div>
+	
+					<div class="btn-submit-section" style="margin-top: 30px;">
+						<button type="button" class="btn btn-secondary waves-effect ">전송</button>
+					</div>
 				</div>
-
-				<div class="email-info">
-					<span style="margin-right: 60px"> 제목 </span> <input type="text"
-						class="form-control mail-custom" placeholder="(제목 없음)">
-				</div>
-				<!-- mail info 종료-->
-
-				<div style="margin-top: 30px;"></div>
-
-				<!-- Editor -->
-				<div id="snow-editor" style="height: 300px;"></div>
-
-				<div class="btn-submit-section" style="margin-top: 30px;">
-					<button type="button" class="btn btn-secondary waves-effect ">전송</button>
-				</div>
-			</div>
+			</form>
 		</div>
 		<!-- end container -->
 	</div>
