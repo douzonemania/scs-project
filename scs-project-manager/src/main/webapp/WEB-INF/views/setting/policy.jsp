@@ -41,8 +41,92 @@
         <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />        
-       
+		<script type="text/javascript"
+			src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 </head>
+<script type="text/javascript">
+
+var fetchList = function(){
+
+	$.ajax({
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/policy',
+		async: true,
+		type: 'get',
+		dataType: 'json',
+		data: '',
+		success: function(response){
+			
+			console.log(response.data);
+			if(response.result != "success"){
+				console.error(response.message);
+				return;
+			}
+			
+			$('#nav-item1').click(function(){
+				quill.setContents([
+				  { insert: response.data.firstAgree },
+				  { insert: "\n" }
+				], 'user');
+				
+			});
+			
+			$('#nav-item2').click(function(){
+				quill.setContents([
+				  { insert: response.data.secondAgree },
+				  { insert: "\n" }
+				], 'user');
+
+			});
+			
+			$('#nav-item3').click(function(){
+				quill.setContents([
+				  { insert: response.data.thirdAgree },
+				  { insert: "\n" }
+				], 'user');
+			});
+		},
+		error: function(xhr, status, e){
+			console.error(status + " : " + e);
+		}
+	});
+};
+
+function submitPolicy(){
+	
+	event.preventDefault();
+	
+	var html = quill.getContents();
+	console.log(html);
+	$.ajax({
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/policy/update',
+		async: true,
+		type: 'post',
+		dataType: 'json',
+		contentType: 'application/json',
+		data: JSON.stringify(html),
+		success: function(response){
+			
+			if(response.result != "success"){
+				console.error(response.message);
+				return;
+			}
+					
+			
+			console.log(response);
+			
+			
+		},
+		error: function(xhr, status, e){
+			console.error(status + " : " + e);
+		}
+	});
+}
+
+
+fetchList();
+
+
+</script>
 <body>
 
   	<header>
@@ -79,37 +163,39 @@
                 <div class="col-lg-12">
                     <div class="card-box">
                         <ul class="nav nav-pills navtab-bg nav-justified">
-                            <li class="nav-item">
+                            <li class="nav-item" id="nav-item1">
                                 <a href="#home1" data-toggle="tab" aria-expanded="true" class="nav-link active nav-title-color">
                                    	 이용 약관
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" id="nav-item2">
                                 <a href="#home2" data-toggle="tab" aria-expanded="false" class="nav-link nav-title-color">
                                    	개인정보처리방침
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" id="nav-item3">
                                 <a href="#home3" data-toggle="tab" aria-expanded="false" class="nav-link nav-title-color">
                                    	개인정보 수집 및 이용동의
                                 </a>
                             </li>
                         </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane show active" id="home1">   
-
-                                <div id="snow-editor" style="height: 300px;">
-                                	<h1>${agreementVo.id }</h1>
-                                	1. ${agreementVo.firstAgree } ++ 2. ${agreementVo.secondAgree } ++ 3, ${agreementVo.thirdAgree }
-                                </div>
-                        	</div>
-	                        <div class="col-lg-12 scs-submit">
-	                            <div id="#test" class="p-4" style="float: right; margin-left:40px;">
-	                                <button type= "button" class="btn btn-secondary waves-effect">저장</button>
-	                                <button type= "button" class="btn btn-secondary waves-effect">취소</button>
-	                            </div>
-	                        </div>
-                    	</div> 
+                        <form id="update-form" action="${pageContext.request.contextPath }/${authUser.id}/setting/policy/update" method="post">
+	                        <div class="tab-content">
+	                            <div class="tab-pane show active" id="home1">
+	                                <div id="snow-editor" class="editor-class" style="height: 300px;" contentEditable="true">
+	                                	Default
+	                                </div> 
+	                           </div>	
+		                     
+		                        <div class="col-lg-12 scs-submit">
+		                            <div id="#test" class="p-4" style="float: right; margin-left:40px;">
+		                                <input type= "button" id="save-btn" value="저장" class="btn btn-secondary waves-effect" onclick="submitPolicy()">
+		                                <input type= "button" value="취소"class="btn btn-secondary waves-effect">
+		                            </div>
+		                        </div>
+                    		</div>
+                    	</form>
+                    	<!-- end tab-content -->
                 	</div>
                 	<!-- end card-box-->
             	</div>
