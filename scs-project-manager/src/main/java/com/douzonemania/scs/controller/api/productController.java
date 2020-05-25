@@ -69,7 +69,7 @@ public class productController {
 			@PathVariable(value = "afterName") String afterName
 			) {
 			productService.updateCategory(cVo.getName(),afterName);
-		return JsonResult.success(cVo);
+			return JsonResult.success(productService.getCategoryNameList());
 	}
 	
 	// 2차카테고리 이름 리스트

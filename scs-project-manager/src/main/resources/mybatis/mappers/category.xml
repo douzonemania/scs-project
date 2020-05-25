@@ -10,7 +10,7 @@
 	
 	<select id="findCategoryByName" parameterType="String" resultType="categoryvo">
 				<![CDATA[
-					select name from mall.category where name = #{name}
+					select no, name from mall.category where name = #{name}
 				]]>
 	</select>
 	

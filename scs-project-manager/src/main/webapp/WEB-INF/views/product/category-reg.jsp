@@ -49,32 +49,11 @@
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 	
 <script>
-function createCategoryTable(){
-	var vo ={};
-	
-	$.ajax({
-		
-		url: '${pageContext.request.contextPath }/api/product/category-reg/createTable',
-		contentType: 'application/json',
-		data: JSON.stringify(vo),
-		type: "POST",
-		dataType: 'json',
-		success : function(response){
-			for( var key in response.data){
-				var data = response.data[key];
-				console.log(data.name);
-			}
-		},
-		error:
-			alert("실패")
-	});
+
 	
 	
-	
-}
 
 //$(document).ready(createCategoryTable());
-
 function initial(){
 	$("#cate-select-del2").prepend("<option>----</option>");
 	$("#cate-select-mod2").prepend("<option>----</option>");
@@ -88,7 +67,6 @@ function initial(){
 	$("#cate-select-del2 option:eq(0)").prop("selected", true);
 	$("#cate-select-mod2 option:eq(0)").prop("selected", true);
 }
-
 $(function() {
 	
 	$("#cate-add-button").click(function() {
@@ -126,6 +104,7 @@ $(function() {
 					var data = response.data[key];	
 					if(data.name!=null)
 						$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.name + "'>" + data.name + "</option>");
+					initial();
 				}
 			},
 			error:
@@ -153,13 +132,9 @@ $(function() {
 			});			
 		}
 		/* $("input:radio[name=cate-n-del][value=" + 'parent' + "]").attr("checked",true); */
-
-
 		
 	});
 });
-
-
 $(function() {
 	
 	$("#cate-del-button").click(function() {
@@ -175,7 +150,6 @@ $(function() {
 			return;
 		}
 		var vo={};
-
 		if(isParent=="parent")
 			parentNo = null;
 		else
@@ -197,7 +171,14 @@ $(function() {
 				type: "POST",
 				dataType: 'json',
 				success : function(response){
-					initial();
+					$("select#cate-select-add option, select#cate-select-del option, select#cate-select-mod option").remove();
+					$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value=''>----</option>");
+					for( var key in response.data){
+						var data = response.data[key];	
+						if(data.name!=null)
+							$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.name + "'>" + data.name + "</option>");
+						initial();
+					}
 				},
 				error:
 					alert("실패")
@@ -207,7 +188,6 @@ $(function() {
 		
 	});
 });
-
 $(function() {
 	
 	$("#cate-mod-button").click(function() {
@@ -236,14 +216,20 @@ $(function() {
 			type: "POST",
 			dataType: 'json',
 			success : function(response){
-				initial();			
+				$("select#cate-select-add option, select#cate-select-del option, select#cate-select-mod option").remove();
+				$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value=''>----</option>");
+				for( var key in response.data){
+					var data = response.data[key];	
+					if(data.name!=null)
+						$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.name + "'>" + data.name + "</option>");
+					initial();
+				}
 			},
 			error:
 				alert("실패")
 		});
 	});
 });
-
 $(function() {
 	/* 카테고리 추가 라디오버튼 별 화면 뿌리기 */
 	$("input:radio[name=cate-n]").click(function(){
@@ -264,7 +250,6 @@ $(function() {
         }
 	});
 });
-
 $(function() {
 	/* 카테고리 삭제 라디오버튼 별 화면 뿌리기 */
 	$("input:radio[name=cate-n-del]").click(function(){
@@ -293,7 +278,6 @@ $(function() {
         }
 	});
 });
-
 $(function() {
 	/* 카테고리 수정 라디오버튼 별 화면 뿌리기 */
 	$("input:radio[name=cate-n-mod]").click(function(){
@@ -322,7 +306,6 @@ $(function() {
         }
 	});
 });
-
 $(function() {
 /* 1차 카테고리 별 2차 카테고리 이름 리스트 */
 	$('#cate-select-del').change(function(){		
@@ -358,7 +341,6 @@ $(function() {
 		$("select#cate-select-del2 option").remove();
 	});
 });
-
 $(function() {
 	/* 1차 카테고리 별 2차 카테고리 이름 리스트 */
 		$('#cate-select-mod').change(function(){
@@ -395,9 +377,6 @@ $(function() {
 			$("select#cate-select-mod2 option").remove();
 		});
 });
-
-
-
 </script>       
        
        
@@ -467,13 +446,13 @@ $(function() {
 	
 									<c:forEach var="vo" varStatus="status" items="${categoryNameList }">
 									
-									<table class="category-table">
+									<table class="category-table" id="category-table-${vo.no }" style="margin-left:20px;">
 										<tr>
 											<th style="min-width:100px;">${vo.name }</th>
 											
 											<c:forEach var="vo2" varStatus="status" items="${category2NameList }">
 												<c:if test="${vo.no == vo2.parentNo }">
-													<td style="min-width:100px; max-width:200px;">${vo2.name}</td>
+													<td id="category-table-td-${vo.no }" style="min-width:150px; ">${vo2.name}</td>
 												</c:if>
 											</c:forEach>
 										</tr>
