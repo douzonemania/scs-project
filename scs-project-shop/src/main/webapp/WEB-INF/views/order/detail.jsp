@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="UTF-8">
-<head>
-    <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
             <title></title>
+            <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+			<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+			<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+			<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
             <meta content="Coderthemes" name="author" />
@@ -24,9 +26,7 @@
     </head>
 <body>
     <!-- Navigation Bar-->
-    <header id="topnav" style="background-color:#ffffff">
-        <c:import url ='/WEB-INF/views/partials/topbar.jsp'/>
-    </header>
+    <c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import>
 
     <div class="wrapper">
         <div class="container-fluid">
@@ -44,38 +44,38 @@
                                 <!--제품 이미지-->
                                 <div class="tab-content pt-3">
                                     <div class="tab-pane active show" id="product-1-item">
-                                        <img src="../assets/images/products/product-9.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                        <img src="assets/images/products/product-9.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                     </div>
                                     <div class="tab-pane" id="product-2-item">
-                                        <img src="../assets/images/products/product-10.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                        <img src="assets/images/products/product-10.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                     </div>
                                     <div class="tab-pane" id="product-3-item">
-                                        <img src="../assets/images/products/product-11.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                        <img src="assets/images/products/product-11.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                     </div>
                                     <div class="tab-pane" id="product-4-item">
-                                        <img src="../assets/images/products/product-12.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                        <img src="assets/images/products/product-12.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                     </div>
                                 </div>
 
                                 <ul class="nav nav-pills nav-justified">
                                     <li class="nav-item">
                                         <a href="#product-1-item" data-toggle="tab" aria-expanded="false" class="nav-link product-thumb active show">
-                                            <img src="../assets/images/products/product-9.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                            <img src="assets/images/products/product-9.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#product-2-item" data-toggle="tab" aria-expanded="true" class="nav-link product-thumb">
-                                            <img src="../assets/images/products/product-10.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                            <img src="assets/images/products/product-10.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#product-3-item" data-toggle="tab" aria-expanded="false" class="nav-link product-thumb">
-                                            <img src="../assets/images/products/product-11.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                            <img src="assets/images/products/product-11.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#product-4-item" data-toggle="tab" aria-expanded="false" class="nav-link product-thumb">
-                                            <img src="../assets/images/products/product-12.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                            <img src="assets/images/products/product-12.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                         </a>
                                     </li>
                                 </ul>
@@ -134,6 +134,41 @@
                                     </div>
                                 </div>
                             </div> <!-- end col -->
+
+                            <div class="mobile-product-detail-box">
+                                <div class="mobile-product-detail-name">
+                                    <span>쫀쫀한 무지티</span>
+                                </div>
+
+                                <p class="text-muted ml-2">
+                                    <span class="mdi mdi-star "></span>
+                                    <span class="mdi mdi-star "></span>
+                                    <span class="mdi mdi-star "></span>
+                                    <span class="mdi mdi-star "></span>
+                                    <span class="mdi mdi-star"></span>
+                                    <span>10reviews</span>
+                                </p>
+                                <div class="mobile-product-detail-quantity-name">
+                                    Quantity
+                                </div>
+                                <div class="mobile-product-detail-quantity-btn float-right">
+                                    <div class="order-custom-count ">
+                                        <button class="btn btn-dark waves-effect "><i class="fe-plus"></i></button>
+                                        <input type="text" class="form-control" id="validationCustom01"  value="1" required>
+                                        <button class="btn btn-dark waves-effect "><i class="fe-minus"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="mobile-product-detail-order-btn">
+                                    <button type="button" class="btn btn-dark waves-effect waves-light">
+                                        장바구니
+                                    </button>
+                                    <button type="button" class="btn btn-outline-dark waves-effect waves-light">
+                                        구매 하기
+                                    </button>
+                                </div>
+                                
+                            </div>
                         </div>
                         <!-- end row -->
                     </div> <!-- end card-->
@@ -163,12 +198,7 @@
                         </div>
 
                         <div class="info-detail">
-                            <img src="../assets/images/detail-image.png"/>
-                            <img src="../assets/images/detail-image.png"/>
-                            <img src="../assets/images/detail-image.png"/>
-                            <img src="../assets/images/detail-image.png"/>
-                            <img src="../assets/images/detail-image.png"/>
-                            <img src="../assets/images/detail-image.png"/>
+                            <img src="assets/images/detail-image.PNG" alt=""/ class="rounded">
                         </div>
 
                         <div class="info-review">
@@ -177,7 +207,7 @@
                             
                             <div class="review-group">
                                 <div class="review-img">
-                                   <img src="../assets/images/review-img.PNG" alt=""/ class="rounded">
+                                   <img src="assets/images/review-img.PNG" alt=""/ class="rounded">
                                 </div>
                                 <div class="review-box">
                                     <div class="pl-xl-3 mt-3 mt-xl-3">
@@ -202,7 +232,7 @@
 
                             <div class="review-group">
                                 <div class="review-img">
-                                   <img src="../assets/images/review-img.PNG" alt=""/ class="rounded">
+                                   <img src="assets/images/review-img.PNG" alt=""/ class="rounded">
                                 </div>
                                 <div class="review-box">
                                     <div class="pl-xl-3 mt-3 mt-xl-3">
@@ -290,15 +320,12 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
+   <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
+    <!-- Vendor js -->
+   <script src="../assets/js/vendor.min.js"></script>
 
-    <!-- footer -->
-    	<c:import url ='/WEB-INF/views/partials/footer.jsp'/>
-    	
-     <!-- Vendor js -->
-     <script src="../assets/js/vendor.min.js"></script>
-
-     <!-- App js-->
-     <script src="../assets/js/app.min.js"></script>
+   <!-- App js-->
+   <script src="../assets/js/app.min.js"></script>
 
 </body>
 </html>

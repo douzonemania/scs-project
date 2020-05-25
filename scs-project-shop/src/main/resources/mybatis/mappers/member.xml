@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="member">
+	
+	<select id="existUser" resultType="int" parameterType="map" >
+		<![CDATA[
+			select count(*) 
+			from ${db}.member a
+			where  a.id like #{id}
+		]]>
+	</select>
+	
+	<insert id="insertUser" parameterType="map">
+		insert 
+			into ${db}.member 
+		values(
+			null,#{vo.id},#{vo.password},#{vo.phoneNumber},
+			#{vo.email},now(),'일반',#{vo.name})
+	</insert> 
+
+	<select id="findUser" parameterType = "map" resultType = "int">
+				<![CDATA[
+				select count(*)
+				from ${db}.member
+				where id like #{vo.id} and password like #{vo.password}
+				]]>
+	</select>
+
+
+	<select id="find" parameterType = "map" resultType = "itemvo">
+				<![CDATA[
+				select * 
+				from ${id}.item a, ${id}.item b
+				
+				]]>
+	</select>
+
+</mapper>
