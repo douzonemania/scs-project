@@ -51,7 +51,7 @@ public class SettingService {
 
 	public int shipCount(String id) {
 		//	id처리
-		return settingRepository.shipCount("syj8033");
+		return settingRepository.shipCount(id);
 	}
 
 
