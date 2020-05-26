@@ -5,6 +5,8 @@ public class OptionVo {
 	int no;
 	String name;
 	String type;
+	int stock;
+	
 	public int getNo() {
 		return no;
 	}
@@ -24,11 +26,18 @@ public class OptionVo {
 		this.type = type;
 	}
 	
-	
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
 	@Override
 	public String toString() {
-		return "OptionVo [no=" + no + ", name=" + name + ", type=" + type + "]";
+		return "OptionVo [no=" + no + ", name=" + name + ", type=" + type + ", stock=" + stock + "]";
 	}
+	
+	
 	
 	
 	

@@ -96,5 +96,13 @@ public class OrderService {
 		
 		return list;
 	}
+
+	public List<OptionVo> findSecondOption(int no, int option) {
+	
+		List<OptionVo> list = orderRepository.findSecondOption(no,option);
+		
+		return list;
+		
+	}
 	
 }

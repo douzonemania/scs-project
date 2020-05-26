@@ -114,15 +114,24 @@ public class OrderRepository {
 		map.put("no",no);
 		
 		List<OptionVo> list = sqlSession.selectList("order.findOptionList",map);
+	
 		
-		for (OptionVo optionVo : list) {
-			System.out.println(optionVo);
-		}
+		return list;
+	}
+
+	public List<OptionVo> findSecondOption(int no, int option) {
+		String db = getSession();
+		map.put("db",db);
+		map.put("no",no);
+		map.put("option",option);
+		
+		List<OptionVo> list = sqlSession.selectList("order.findSecondOption",map);
 		
 		return list;
 	}
 
 
+	
 	
 	public String getSession() {
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
@@ -134,6 +143,7 @@ public class OrderRepository {
 	}
 
 
+	
 
 	
 

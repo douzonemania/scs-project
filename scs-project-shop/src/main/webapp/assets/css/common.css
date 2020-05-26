@@ -49,5 +49,20 @@
 }
 
 
+.order-title{
+	margin-top:40px;
+}
 
+/* .mobile-product-detail-option{
+	display:none;
+} */
+
+@media(max-width:991px){
+	.mobile-product-detail-option{
+		
+	}
+	.mobile-product-label{
+		font-size: 1em;
+	}
+}
 

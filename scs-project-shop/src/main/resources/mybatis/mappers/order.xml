@@ -94,11 +94,19 @@
 
 	<select id="findOptionList" parameterType="map" resultType="optionvo">
 		<![CDATA[
-			select b.no,b.name,b.type 
+			select sum(stock) as stock,b.no,b.name,b.type 
 			from ${db}.stock a, ${db}.option b
-			where a.first_option=b.no and item_no=1;
+			where a.first_option=b.no and item_no=#{no}
+			group by b.no;
 		]]>
 	</select>
 
+	<select id="findSecondOption" parameterType="map" resultType="optionvo">
+		<![CDATA[
+			select b.no,b.name,b.type,a.stock 
+			from ${db}.stock a, ${db}.option b
+			where a.second_option = b.no and item_no= #{no} and first_option=#{option};
+		]]>
+	</select>
 	
 </mapper>
