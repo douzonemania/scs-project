@@ -50,7 +50,7 @@
 	
 <script>
 function changeTable(no,name){
-	console.log(no + "사랑찾아 :" + name);
+	
 	vo={};
 	vo.name = name;
 	$.ajax({
@@ -60,10 +60,10 @@ function changeTable(no,name){
 		type: "POST",
 		dataType: 'json',
 		success : function(response){
-			$(".category-list").append("<table class='category-table' id='category-table-"+response.data+"' style='margin-left:20px'>" + "<tr id='category-table-tr-"+response.data+"'><th style='min-width:100px' id='category-table-th-"+response.data+"'>"+ name +"</th><td style='min-width:150px;' id='category-table-td-"+response.data+"'></td></tr></table>" );
+			$(".category-list").append("<table class='category-table' id='category-table-"+response.data+"' style='margin-left:20px; margin-top:20px;'>" + "<tr id='category-table-tr-"+response.data+"'><th style='min-width:100px' id='category-table-th-"+response.data+"'>"+ name +"</th><td style='min-width:150px;' id='category-table-td-"+response.data+"'></td></tr></table>" );
 		},
 		error:
-			console.log("왜 실패냐고")
+			console.log("")
 	});
 }
 function changeTable2(no){
@@ -81,13 +81,12 @@ function changeTable2(no){
 		success : function(response){				
 				for( var key in response.data){
 					var data = response.data[key];
-					console.log(data.no + data.name + data.parentName);
-					
+										
 					$("#category-table-tr-"+no).append("<td style='min-width:150px;' id='category-table-td-"+no+"'> " +data.name +"</td>");					
 				}			
 		},
 		error:
-			console.log("왜 실패냐고")
+			console.log("")
 	});
 }
 
@@ -169,7 +168,7 @@ $(function() {
 						
 					}
 					var no = $("#cate-select-add option:selected").val();
-					console.log("시벌엔오" + no);
+					
 					changeTable2(no);
 					initial();
 				},
@@ -288,7 +287,7 @@ $(function() {
 		}
 		else{		
 			var no = $("#cate-select-mod option:selected").val();
-			console.log(no + "no<- " + afterName + "after");
+			
 			$("#category-table-th-"+no).html(afterName);
 			initial();
 			
@@ -378,12 +377,11 @@ $(function() {
     	$("#cate-select-del2").removeAttr("disabled");
     	if( $("#cate-select-del option:selected").text() =="----"){
     		$("#cate-select-del2").attr('disabled',true);
-    		console.log("여기로 안와져?");
+    		
     	}
     	var name =  $("#cate-select-del option:selected").text();
 		var vo={};
-		vo.name = name;
-		console.log(vo.name + "웃어요")
+		vo.name = name;		
 		
 		$.ajax({
 			url: '${pageContext.request.contextPath }/api/product/category-reg/childCategoryList' ,
@@ -402,7 +400,7 @@ $(function() {
 				}
 			},
 			error:
-				console.log("왜 실패냐고")
+				console.log("")
 		});
 		$("select#cate-select-del2 option").remove();
 	});
@@ -411,7 +409,6 @@ $(function() {
 	/* 1차 카테고리 별 2차 카테고리 이름 리스트 */
 		$('#cate-select-mod').change(function(){
 			
-			console.log("오우오우오우");
 	    	$("#cate-select-mod2").removeAttr("disabled");
 	    	if( $("#cate-select-mod option:selected").text() =="----"){
 	    		$("#cate-select-mod2").attr('disabled',true);        		
@@ -438,7 +435,7 @@ $(function() {
 					}
 				},
 				error:
-					console.log("왜 실패냐고")
+					console.log("")
 			});
 			$("select#cate-select-mod2 option").remove();
 		});
@@ -480,14 +477,6 @@ $(function() {
                     </div>
                 </div>     
 
-                <!-- <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box" id="search-form-text"> 
-                            <h4 class="page-title">&nbsp</h4>
-                        </div>
-                    </div>
-                </div>      -->
-
                 <!-- row, col-12 시작-->
                 <div class="row">
                     <div class="col-12">
@@ -498,21 +487,11 @@ $(function() {
                                 <h4 class="page-title">현재 카테고리</h4>
                                 <!-- 카테고리 리스트 시작-->
 
-                                <div class="category-list" style="overflow:auto">
-                                
-<!--                                   <table>
-	                                    	<tr>
-	                                    		<th>아우터</th>
-	                                    		<td>블레이져</td>
-	                                    		<td>자켓</td>
-	                                    		<td>가디건</td>
-	                                    	</tr>
-	                                    </table> 
--->
-	
+                                <div class="category-list" style="overflow:auto">                      
+
 									<c:forEach var="vo" varStatus="status" items="${categoryNameList }">
 									
-									<table class="category-table" id="category-table-${vo.no }" style="margin-left:20px;">
+									<table class="category-table" id="category-table-${vo.no }" style="margin-left:20px; margin-top:20px;">
 										<tr id="category-table-tr-${vo.no}">
 											<th style="min-width:100px;" id="category-table-th-${vo.no }">${vo.name }</th>
 											
