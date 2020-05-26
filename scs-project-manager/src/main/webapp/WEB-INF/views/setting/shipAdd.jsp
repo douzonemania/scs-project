@@ -8,22 +8,51 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <title>카테고리 추가/삭제</title>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
-<script>
+<!-- App favicon -->
+        <link rel="shortcut icon" href="<%=request.getContextPath() %>/assets/images/favicon.ico">
+       
+        <!-- Plugins css -->
+        <link href="<%=request.getContextPath() %>/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+       
+        <link href="<%=request.getContextPath() %>/assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+        
+        <link href="<%=request.getContextPath() %>/assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/multiselect/multi-select.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
 
+        <!-- third party css -->
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <!-- third party css end -->
+
+        <!-- App css -->
+        <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />     
+        
+		<script type="text/javascript"
+			src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+		<script type="text/javascript"
+			src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
+<script>
 var shipAddTemplate = new EJS({
 	url:"${pageContext.request.contextPath }/assets/js/ejs/ship-item-add.ejs"
 });
-
 var shiplistTemplate = new EJS({
 	url:"${pageContext.request.contextPath }/assets/js/ejs/ship-list-template.ejs"
 });
 var fetchList = function(){
 	$.ajax({
-		url: '${pageContext.request.contextPath }/api/setting/shipAdd',
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd',
 		async: true,
 		type: 'get',
 		dataType: 'json',
@@ -36,7 +65,7 @@ var fetchList = function(){
 			}
 			console.log("response.data: " + response.data);
 			var html = shiplistTemplate.render(response);
-			$(".admin-cat").append(html);
+			$("#admin-cat").append(html);
 			
 			
 		},
@@ -45,7 +74,6 @@ var fetchList = function(){
 		}
 	});	
 }
-
 $(function(){
  	
 	//입력폼 submit 이벤트
@@ -54,9 +82,9 @@ $(function(){
 		
 		var vo = {};
 		vo.name = $('#text-ship').val();
-		<!--vo.id = '${authUser.id}'; -->
+		vo.id = '${authUser.id}';
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/setting/shipAdd/add',
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd/add',
 			async: true,
 			type: 'post',
 			dataType: 'json',
@@ -72,10 +100,10 @@ $(function(){
 				}
 				// rendering
 				
-				var lastNo = $(".admin-cat").find('tr').length;
+				var lastNo = $("#admin-cat").find('tr').length;
 				response.data.lastNo = lastNo;
 				var html = shipAddTemplate.render(response.data);
-				$(".admin-cat tr").last().after(html);
+				$("#admin-cat tr").last().after(html);
 				
 				// form reset
 				$("#add-form")[0].reset();
@@ -88,19 +116,20 @@ $(function(){
 	});
 	
 	// 클릭시 삭제
-	$(document).on('click','.admin-cat tr td button',function(event){
+	$(document).on('click','#admin-cat tr td button',function(event){
 		event.preventDefault();			
 		var no = $(this).data('no');
+		$(this).parents('tr').remove();
 		
 		console.log("delete   " + no);
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/setting/shipAdd/delete/'+ no,
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd/delete/'+ no,
 			async: true,
 			type: 'delete',
 			dataType: 'json',
 			data: '',
 			success: function(response){
-				console.log("delete response:" + response);
+				console.log("delete response:" + response.data);
 				if(response.result != "success"){
 					console.error(response.message);
 					return;
@@ -115,14 +144,9 @@ $(function(){
 			}
 		});
 		
-		$(this).parents('tr').remove();
-		console.log($(this).parents('tr'));
-		$('.admin-cat tr').remove();
-		fetchList();
 		
 	});
 	
-
 	
 });
 fetchList();
@@ -130,16 +154,21 @@ fetchList();
 </head>
 <body>
 	<form id="add-form" action="" method="post">
-		<table id="admin-cat-add">
+		<table id="admin-cat-add" class="table-form-category">
+			<colgroup>
+	            <col width="180"><col width="*">
+	        </colgroup>
+           <tbody> 
 			<tr>
 				<td class="t">배송사</td>
 				<td><input type="text" id="text-ship" name="name"></td>
-				<td><input type="submit" value="배송사 추가"></td>
+				<td><input type="submit" value="배송사 추가" style="background-color:#CBCBCB; border-color:white"></td>
 			</tr>
+			</tbody>
 		</table>
 	</form>
 	
-   	<table class="admin-cat">
+   	<table id="admin-cat" class="table-form-category">
 
 	</table>
 </body>

@@ -7,34 +7,42 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.douzonemania.scs.service.UserService;
+import com.douzonemania.scs.vo.ceo.CeoVo;
+
 
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
-//	@Autowired
-//	private UserService userService;
+	@Autowired
+	private UserService userService;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		String email = request.getParameter("email");
+		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		
-//		UserVo vo = new UserVo();
-//		vo.setEmail(email);
-//		vo.setPassword(password);
-//		
-//		UserVo authUser = userService.getUser(vo);
-//		if(authUser == null) {
-//			request.setAttribute("userVo", vo);
-//			request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
-//			return false;
-//		}
+		CeoVo ceoVo = new CeoVo();
+		ceoVo.setId(id);
+		ceoVo.setPassword(password);
 		
-//		System.out.println("-------->authUser:" + authUser);
-//		// session 처리
-//		HttpSession session = request.getSession(true);
-//		session.setAttribute("authUser", authUser);
-//		response.sendRedirect(request.getContextPath());
+		CeoVo authUser = userService.getUser(ceoVo);
+		
+		if(authUser == null) {
+			request.setAttribute("ceoVo", ceoVo);
+			request
+				.getRequestDispatcher("/WEB-INF/views/user/login.jsp")
+				.forward(request, response);
+			return false;
+		}
+		
+		
+		// session 처리
+		HttpSession session = request.getSession(true);
+		session.setAttribute("authUser", authUser);
+		
+		response.sendRedirect(request.getContextPath()+"/"+authUser.getId() + "/api/user/main");
 		
 		
 		return false;

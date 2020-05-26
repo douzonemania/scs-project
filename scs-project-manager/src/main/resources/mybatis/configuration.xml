@@ -3,10 +3,18 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="ceovo" type="com.douzonemania.scs.vo.ceo.CeoVo"/>
+		<typeAlias alias="itemvo" type="com.douzonemania.scs.vo.member.ItemVo"/>
+		<typeAlias alias="categoryvo" type="com.douzonemania.scs.vo.member.CategoryVo" />		
 		<typeAlias alias="shipcompanyvo" type="com.douzonemania.scs.vo.ceo.ShipCompanyVo" />
+		<typeAlias alias="agreementvo" type="com.douzonemania.scs.vo.ceo.AgreementVo" />
+		<typeAlias alias="membervo" type="com.douzonemania.scs.vo.member.MemberVo" />
 	</typeAliases>	
 	<mappers>
+		<mapper resource="mybatis/mappers/main.xml" />
+		<mapper resource="mybatis/mappers/product.xml" />
 		<mapper resource="mybatis/mappers/user.xml" />
-		<mapper resource="mybatis/mappers/shipcompany.xml" />
+		<mapper resource="mybatis/mappers/setting.xml" />
+		<mapper resource="mybatis/mappers/category.xml" />
+		<mapper resource="mybatis/mappers/member.xml" />
 	</mappers>
 </configuration>

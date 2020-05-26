@@ -1,0 +1,17 @@
+.dropzone{
+	padding:0px;
+	
+}
+
+.dz-preview.dz-processing.dz-error.dz-complete.dz-image-preview{
+	margin:13px;
+	padding:0px;
+}
+
+
+.dz-error-message,
+.dz-success-mark,
+.dz-error-mark{
+	width:0%	
+	display:none;
+}

@@ -40,8 +40,70 @@
         <!-- App css -->
         <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />        
-       
+        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/common.css" rel="stylesheet" type="text/css" />        
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
+<script>
+
+$(function() {
+	/* 1차 카테고리 별 2차 카테고리 이름 리스트 */
+		$('#first-category').change(function(){		
+			//$("#first-category option:eq(0)").remove();
+			var no = $("#first-category option:selected").val();
+			var name = $("#first-category option:selected").text();
+			
+			var vo={};
+			vo.no = no;
+			vo.name = name;			
+			
+			$.ajax({
+				url: '${pageContext.request.contextPath }/api/product/category-reg/childCategoryList',
+				contentType: 'application/json',
+				data: JSON.stringify(vo),
+				type: "POST",
+				dataType: 'json',
+				success :function(response){
+					$('#seconds-category').append("<option value='----'>----</option>");
+					for( var key in response.data){
+						var data = response.data[key];	
+						if(data.name!=null)							
+							$('#seconds-category').append("<option value='" + data.parentNo + "'>" + data.name + "</option>");
+					}					
+				}, 			
+				error:
+					console.log("")
+			});			
+			//document.getElementById("selected-category-text").value = name;
+			$("select#seconds-category option").remove();
+			
+		});
+});	
+
+$(function() {
+		
+	/* 선택된 카테고리 텍스트 뿌리기 */
+		$('#seconds-category').change(function(){
+
+			if($('#seconds-category option:selected').text()=="----")
+				return;
+			
+			var category1Name = $("#first-category option:selected").text();
+			document.getElementById("selected-category-text").value = category1Name;
+			
+			var category2Name = $("#seconds-category option:selected").text();
+			document.getElementById("selected-category-text").value += "  >  " + category2Name;
+		});
+		
+});	
+	
+
+
+</script>
 </head>
 <body>
 
@@ -161,28 +223,24 @@
 								<tbody>
 									<tr>
 										<th>상품 카테고리</th>
-										<td colspan="2">1차분류 
-										<select class="form-control">
-												<option>----</option>
-												<option>아우터</option>
-												<option>상의</option>
-												<option>하의</option>
-												<option>etc</option>
-										</select> 
+										<td colspan="2">　1차분류 
+											<select class="form-control" id="first-category">
+	                                       		<option>----</option>
+	                                        <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
+	                                           	<option value="${vo.no }">${vo.name }</option>
+	                                        </c:forEach>                                                                                                      
+                                            </select> 
+										
 										<label class="text-space">
 										</label> 2차분류 
-											<select class="form-control">
+											<select class="form-control" id="seconds-category">
 												<option>----</option>
-												<option>아우터</option>
-												<option>상의</option>
-												<option>하의</option>
-												<option>etc</option>
 											</select>
 										</td>
 									</tr>
 									<tr>
 										<th>선택된 카테고리</th>
-										<td colspan="2"><input type="text" class="no-outline"
+										<td colspan="2"><input type="text" class="form-control" id="selected-category-text"
 											readonly></td>
 									</tr>
 								</tbody>
@@ -256,7 +314,7 @@
 										<th>이미지 등록</th>
 										<td colspan="4">
 											<div class="img-section">
-												<form action="/" method="post" class="dropzone"	id="img-section" name="image-main">
+												<form action="/" method="post" class="dropzone"	id="img-section-main" name="image-main">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -265,7 +323,7 @@
 											</div>
 
 											<div class="img-section">
-												<form action="/" method="post" class="dropzone"	id="img-section" name="image-sub">
+												<form action="/" method="post" class="dropzone"	id="img-section-sub" name="image-sub">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -275,7 +333,7 @@
 
 											<div class="img-section">
 												<form action="/" method="post" class="dropzone"
-													id="img-section">
+													id="img-section-sub2">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -285,7 +343,7 @@
 
 											<div class="img-section">
 												<form action="/" method="post" class="dropzone"
-													id="img-section">
+													id="img-section-sub3">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -295,7 +353,7 @@
 
 											<div class="img-section">
 												<form action="/" method="post" class="dropzone"
-													id="img-section">
+													id="img-section-sub4">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -305,7 +363,7 @@
 
 											<div class="img-section">
 												<form action="/" method="post" class="dropzone"
-													id="img-section">
+													id="img-section-sub5">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -351,7 +409,8 @@
 						</div>
 					</div>
 				</div>
-			</div>			
+			</div>
+			</form>			
 		</div>
 		<!-- end container -->
 	</div>

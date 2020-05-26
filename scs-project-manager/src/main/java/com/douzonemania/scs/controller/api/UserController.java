@@ -1,26 +1,20 @@
-import org.springframework.beans.factory.annotation.Autowired;
+package com.douzonemania.scs.controller.api;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.douzonemania.scs.service.UserService;
+import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.security.AuthUser;
 
 @Controller("apiUserController")
-@RequestMapping("/api/user")
+@RequestMapping("{id}/api/user")
 public class UserController {
 	
-	@Autowired
-	private UserService userService;
-	
-	@ResponseBody
-	@RequestMapping(value="/checkemail", method = RequestMethod.GET)
-	public JsonResult checkEmail(
-		@RequestParam(value="email", required=true, defaultValue="") String email) {
-		boolean exist = userService.existUser(email);
+	@RequestMapping({"","/main"})
+	public String main(@AuthUser CeoVo authUser) {
 		
-		return JsonResult.success(exist);
+		return "user/main";
 	}
+	
 
 }

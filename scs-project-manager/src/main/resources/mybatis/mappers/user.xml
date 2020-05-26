@@ -23,6 +23,17 @@
 
 	<select id="findById" parameterType="string" resultType="ceovo">
 		<![CDATA[
+			select id,
+			 	   name,
+				   email 
+			  from ceo 
+			 where id = #{id}
+			
+		]]>
+	</select>
+	
+	<select id="findByIdAndPassword" parameterType="ceovo" resultType="ceovo">
+		<![CDATA[
 			select 
 				   id,
 				   name, 
@@ -36,11 +47,86 @@
 				   address, 
 				   site_name as siteName, 
 				   co_number as coNumber, 
-				   cm_number as cmNumber 
+				   cm_number as cmNumber
 		      from ceo 
-		     where id = #{id};
+		     where id = #{id}
+		       and password = #{password}
+		]]>
+	</select>
+	<select id="findByIdJoin" parameterType="string" resultType="ceovo">
+		<![CDATA[
+			select 
+				   c.id as id,
+				   c.name, 
+				   c.password, 
+				   c.phone_number as phoneNumber, 
+				   c.email, 
+				   c.company_name as companyName,
+				   c.reg_date as regDate, 
+				   c.fax_number as faxNumber, 
+				   c.cp_number as cpNumber, 
+				   c.address, 
+				   c.site_name as siteName, 
+				   c.co_number as coNumber, 
+				   c.cm_number as cmNumber,
+				   s.logo,
+				   s.favicon,
+				   s.ship_charge as shipCharge
+		      from ceo c,site s
+		     where c.id = s.id and c.id = #{id}
 			
 		]]>
 	</select>
+	
+	<update id="updateCeo" parameterType="ceovo">
+		<choose>
+			<when test="shipCharge eq null">
+				<![CDATA[
+					update ceo c, site s
+					   set c.name = #{name },
+							c.password = #{password },
+						    c.phone_number = #{phoneNumber },
+						    c.email = #{email },
+						    c.company_name = #{companyName },
+						    c.fax_number = #{faxNumber },
+						    c.cp_number = #{cpNumber },
+						    c.address = #{address },
+							c.site_name = #{email },
+						    c.co_number = #{coNumber },
+						    c.cm_number = #{cmNumber },
+						    s.ceo = #{name },
+						    s.ship_charge = 0,
+						    s.logo = #{logo },
+						    s.favicon = #{favicon }
+					where c.id=s.id and
+						  c.id ='sjy8033'
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					update ceo c, site s
+					   set c.name = #{name },
+							c.password = #{password },
+						    c.phone_number = #{phoneNumber },
+						    c.email = #{email },
+						    c.company_name = #{companyName },
+						    c.fax_number = #{faxNumber },
+						    c.cp_number = #{cpNumber },
+						    c.address = #{address },
+							c.site_name = #{email },
+						    c.co_number = #{coNumber },
+						    c.cm_number = #{cmNumber },
+						    s.ceo = #{name },
+						    s.ship_charge = #{shipCharge },
+						    s.logo = #{logo },
+						    s.favicon = #{favicon }
+					where c.id=s.id and
+						  c.id ='sjy8033'
+				]]>
+			</otherwise>
+		</choose>
+
+	</update>
+	
 	
 </mapper>

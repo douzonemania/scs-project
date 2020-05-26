@@ -1,5 +1,8 @@
 package com.douzonemania.scs.service;
 
+
+import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +16,10 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,6 +89,9 @@ public class MemberService {
 		return memberRepository.getMemberEmail(id, no);
 	}
 
+
+	// 페이징
+
 	public Map<String,Object> find(String id, int currentPage,String keyword,String option){
 		
 		Map<String, Object> map = new HashMap<>();
@@ -131,6 +141,34 @@ public class MemberService {
 		return map;
 		
 	}
+
+	
+	public void jsonPassing(String jsonData) {
+	
+			
+			// JSONParse에 json데이터를 넣어 파싱한 다음 JSONObject로 변환한다.
+			JSONObject jObject = new JSONObject(jsonData);
+			
+			JSONArray jArray = jObject.getJSONArray("ops");
+
+			String contents = "";
+			
+			for(int i = 0; i < jArray.length(); i++) {
+				JSONObject obj = jArray.getJSONObject(i);
+				
+				contents += obj.getString("insert");
+				
+			}
+			
+			String email = jObject.getString("email");
+			String title = jObject.getString("title");
+			
+			
+			// 메일 발송
+			gmailSend(email, title, contents);
+		
+	}
+
 
 
 }

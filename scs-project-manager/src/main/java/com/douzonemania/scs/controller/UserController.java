@@ -9,7 +9,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.UserService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 
@@ -19,40 +22,50 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-
+	
+	
+	// 아이디 중복 검사
+	@ResponseBody
+	@RequestMapping(value="/checkid", method = RequestMethod.GET)
+	public JsonResult checkId(
+		@RequestParam(value="id", required=true, defaultValue="") String id) {
+		boolean exist = userService.existUser(id);
+		return JsonResult.success(exist);
+	}
+	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join(@ModelAttribute CeoVo ceoVo) {
 		return "user/signup";
 	}
-
+ 
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(@ModelAttribute @Valid CeoVo ceoVo, BindingResult result,
 			Model model) {
 
-		
+		// properties 안넣으면 에러가 안들어가요ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
 		if(result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
 			return "user/signup";
 		}
 		
-		model.addAllAttributes(result.getModel());
+//		model.addAllAttributes(result.getModel());
 
 		ceoVo.setAddress(ceoVo.getAddress1() + " " + ceoVo.getAddress2());
 
-		System.out.println(ceoVo.toString());
-		//userService.insert(ceoVo);
+		userService.insert(ceoVo);
 
-//		String id = ceoVo.getId();
-//		userService.createDB(id);
-//		userService.createTable(id);
-//		userService.alterTable(id);
+		// 회원 DB와 table 생성
+		String id = ceoVo.getId();
+		userService.createDB(id);
+		userService.createTable(id);
+		userService.alterTable(id);
 		
-		return "user/join";
+		return "redirect:/index";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
-		return "redirect:/user/login";
+		return "user/login";
 	}
 
 	@RequestMapping(value = "/recover", method = RequestMethod.GET)
@@ -61,7 +74,7 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value="/auth", method=RequestMethod.POST)
+	@RequestMapping(value="/auth")
 	public void auth() {
 
 	}

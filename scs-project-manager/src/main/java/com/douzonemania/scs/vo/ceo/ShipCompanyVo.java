@@ -1,6 +1,7 @@
 package com.douzonemania.scs.vo.ceo;
 
 public class ShipCompanyVo {
+	
 	private int no;
 	private String name;
 	private String id;

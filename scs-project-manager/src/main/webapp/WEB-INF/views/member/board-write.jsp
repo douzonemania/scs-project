@@ -54,60 +54,11 @@
 ​
 <script type="text/javascript">
 $(document).ready(function(){
-	
 	$('#test-btn').click(function(){
- 		var email = $('#email').val();
-		var title = $('#title').val();
-		var html = quill.getContents(); 
-		
-		html.email=email;
-		html.title=title;
+		var myEditor = document.querySelector('#snow-editor');
+		var html = myEditor.children[0].innerHTML;
 		
 		console.log(html);
-		console.log(html[0]);
-		console.log(html[1]);
-		console.log(html[2]);
-		
-/* 		const email = {"email": $('#email').val()};
-		const title = {"title": $('#title').val()};
-		const contents = {"contents": JSON.stringify(quill.getContents())};
-	
-		let map = new Set();
-		map.add(email);
-		map.add(title);
-		map.add(contents);
-		
-		console.log(contents);
-		
-		console.log("+++++++++++",map); */
-	});
-	
-	$('#submit-btn').click(function(){
-		var html = quill.getContents();
-		var email=$('#email').val();
-		var title=$('#title').val();
-		html.email=email;
-		html.title=title;
- 		$.ajax({
-			url: '${pageContext.request.contextPath }/${authUser.id}/member/email/post',
-			async: true,
-			type: 'post',
-			dataType: 'json',
-			contentType: 'application/json',
-			data: JSON.stringify(html),
-			success: function(response){
-				if(response.result != "success"){
-					console.error(response.message);
-					return;
-				}
-				console.log(response);
-			},
-			error: function(xhr, status, e){
-				console.error(status + " : " + e);
-			}
-			
-		}); 
-		
 	});
 	
 });
@@ -150,31 +101,36 @@ $(document).ready(function(){
 			<!--header 종료-->
 
 			<!-- mail-info 시작-->
-			<form>
+			<form:form 
+				method="post"
+				action="${pageContext.request.contextPath }/${authUser.id}/member/email/post">
 				<div class="col-lg-12"
 					style="background-color: #FFFFFF; padding: 40px;">
 					<div class="email-info">
 						<span style="margin-right: 20px;"> 받는사람 </span> <input type="text"
-							class="form-control mail-custom" id="email" name="memberEmail" value="${memberEmail}">
+							class="form-control mail-custom" name="memberEmail" value="${memberEmail}">
 					</div>
 	
 					<div class="email-info">
 						<span style="margin-right: 60px"> 제목 </span> <input type="text"
-							class="form-control mail-custom" id="title" placeholder="(제목 없음)" name="title">
+							class="form-control mail-custom" placeholder="(제목 없음)" name="title">
 					</div>
 					<!-- mail info 종료-->
 	
 					<div style="margin-top: 30px;"></div>
 					
+					
+					<textarea name="contents" style="width: 1000px; height: 300px;"></textarea>
+	
 					<!-- Editor -->
 					<div id="snow-editor" style="height: 300px;"></div>
 	
 					<div class="btn-submit-section" style="margin-top: 30px;">
-						<button type="submit" id="submit-btn" class="btn btn-secondary waves-effect">전송</button>
-						<button type="button" id="test-btn">test</button>
+					<button type="button" id="test-btn">editor</button>
+						<button type="submit" class="btn btn-secondary waves-effect ">전송</button>
 					</div>
 				</div>
-			</form>
+			</form:form>
 		</div>
 		<!-- end container -->
 	</div>

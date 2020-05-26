@@ -10,6 +10,7 @@ public class MemberVo {
 	private String phoneNumber;
 	private String email;
 	private Timestamp regDate;
+	private String name;
 
 	public int getNo() {
 		return no;
@@ -59,10 +60,18 @@ public class MemberVo {
 		this.regDate = regDate;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberVo [no=" + no + ", id=" + id + ", password=" + password + ", phoneNumber=" + phoneNumber
-				+ ", email=" + email + ", regDate=" + regDate + "]";
+				+ ", email=" + email + ", regDate=" + regDate + ", name=" + name + "]";
 	}
 
 }

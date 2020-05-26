@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.scs.service.ProductService;
+import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/{id}/product")
+
 public class ProductController {
 	
 	@Autowired
@@ -40,29 +42,30 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/reg", method = RequestMethod.GET)
-	public String reg() {			
-		
+	public String reg(Model model) {			
+		List<CategoryVo> categoryNameList = productService.getCategoryNameList();
+		model.addAttribute("categoryNameList",categoryNameList);
 		return "product/reg";
 	}
 
 	@RequestMapping(value = "/regItem", method = RequestMethod.POST)
 	public String regItem(
-			@RequestParam(value = "pro-expo", defaultValue = "true") String visible,
-			@RequestParam(value = "item-best", defaultValue = "true") String bestItem,
-			@RequestParam(value = "item-new", defaultValue = "true") String newItem,
-			@RequestParam(value = "item-code", defaultValue = "true") String code,
-			@RequestParam(value = "item-name", defaultValue = "true") String name,
-			@RequestParam(value = "item-des", defaultValue = "true") String des,
-			@RequestParam(value = "item-sup-price", defaultValue = "true") int supPrice,
-			@RequestParam(value = "item-now-price", defaultValue = "true") int nowPrice,
-			@RequestParam(value = "item-sale", defaultValue = "true") int sale,
-			@RequestParam(value = "item-sale-price", defaultValue = "true") int salePrice,
-			@RequestParam(value = "item-stock", defaultValue = "true") String stock,
-			@RequestParam(value = "ship-company-name", defaultValue = "true") String shipCompany,
-			@RequestParam(value = "shipping-charge", defaultValue = "true") String shipCharge,
-			@RequestParam(value = "image-main", defaultValue = "true") String mainImage,
-			@RequestParam(value = "image-sub", defaultValue = "true") String subImage,
-			@RequestParam(value = "item-editor", defaultValue = "true") String editor,
+			@RequestParam(value = "pro-expo", required=true, defaultValue = "true") String visible,
+			@RequestParam(value = "item-best", required=true, defaultValue = "false") String bestItem,
+			@RequestParam(value = "item-new", required=true, defaultValue = "false") String newItem,
+			@RequestParam(value = "item-code", required=true, defaultValue = "") String code,
+			@RequestParam(value = "item-name", required=true, defaultValue = "") String name,
+			@RequestParam(value = "item-des", required=false, defaultValue = "false") String des,
+			@RequestParam(value = "item-sup-price", required=true, defaultValue = "") int supPrice,
+			@RequestParam(value = "item-now-price", required=false,defaultValue = "false") int nowPrice,
+			@RequestParam(value = "item-sale", required=false,defaultValue = "false") int sale,
+			@RequestParam(value = "item-sale-price", required=false, defaultValue = "false") int salePrice,
+			@RequestParam(value = "item-stock", required=true, defaultValue = "") String stock,
+			@RequestParam(value = "ship-company-name", required=true, defaultValue = "") String shipCompany,
+			@RequestParam(value = "shipping-charge", required=true, defaultValue = "") String shipCharge,
+			@RequestParam(value = "image-main", required=true, defaultValue = "") String mainImage,
+			@RequestParam(value = "image-sub", required=false, defaultValue = "true") String subImage,
+			@RequestParam(value = "item-editor", required=false, defaultValue = "true") String editor,
 			ItemVo iVo
 			) {				
 		if(visible=="visible") iVo.setVisible(true);		
@@ -96,7 +99,11 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/category-reg", method = RequestMethod.GET)
-	public String categoryReg() {		
+	public String categoryReg(Model model) {
+		List<CategoryVo> categoryNameList = productService.getCategoryNameList();
+		List<CategoryVo> category2NameList = productService.getCategory2NameList();
+		model.addAttribute("categoryNameList", categoryNameList);
+		model.addAttribute("category2NameList", category2NameList);
 		return "product/category-reg";
 	}
 	
@@ -104,7 +111,8 @@ public class ProductController {
 	public String addCategory(
 			@RequestParam(value= "category-name", defaultValue="true") String categoryName
 			) {
-		System.err.println(categoryName + "!!!!");
+		
 		return "product/category-reg";
 	}
+	
 }
