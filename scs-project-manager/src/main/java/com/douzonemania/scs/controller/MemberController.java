@@ -2,13 +2,17 @@ package com.douzonemania.scs.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzonemania.scs.service.MemberService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
@@ -54,11 +58,26 @@ public class MemberController {
 		return "member/send-mail";
 	}
 	
+//	@RequestMapping(value = "/email/post", method=RequestMethod.POST)
+//	public String sendEmail(@AuthUser CeoVo authUser, @RequestParam("memberEmail") String memberEmail,
+//			@RequestParam("title") String title, @RequestParam("contents") String contents) {
+//		
+//		memberService.gmailSend(memberEmail, title, contents);
+//		
+//		return "member/send-mail-success";
+//	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/email/post", method=RequestMethod.POST)
-	public String sendEmail(@AuthUser CeoVo authUser, @RequestParam("memberEmail") String memberEmail,
-			@RequestParam("title") String title, @RequestParam("contents") String contents) {
+	public String sendEmail(@AuthUser CeoVo authUser, @RequestBody String html) {
 		
-		memberService.gmailSend(memberEmail, title, contents);
+//		  String email = request.getParameter("memberEmail"); 
+//		  String title = request.getParameter("title");
+		 
+		System.out.println("html:"+html);
+		memberService.jsonPassing(html);
+		
+//		memberService.gmailSend(memberEmail, title, contents);
 		
 		return "member/send-mail-success";
 	}
