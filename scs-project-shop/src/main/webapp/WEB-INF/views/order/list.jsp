@@ -153,7 +153,6 @@
                                     <div class="text-warning font-16">
                              				<c:forEach begin="1" end="${vo.intRevAvg }">
                              					<i class="mdi mdi-star"></i>
-                             					
                              				</c:forEach>
                              				<c:choose>
                              					<c:when test="${vo.douRevAvg>=0.5 }">
@@ -168,7 +167,6 @@
                              						</c:forEach>
                              					</c:otherwise>
                              				</c:choose>
-                             				
                                     </div>
                                 </div>
                                 <div class="col-auto">

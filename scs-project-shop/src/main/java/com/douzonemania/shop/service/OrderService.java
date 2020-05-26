@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.douzonemania.shop.repository.OrderRepository;
 import com.douzonemania.shop.vo.CategoryVo;
 import com.douzonemania.shop.vo.ItemVo;
+import com.douzonemania.shop.vo.OptionVo;
 
 
 @Service
@@ -72,6 +73,28 @@ public class OrderService {
 		
 		return map;
 		
+	}
+
+	public Map<String, Object> findProduct(Integer no) {
+		
+		ItemVo vo = orderRepository.findProduct(no);
+		
+		if(vo.getSale()!=0) {
+			vo.setTotalPrice((int) ((int)vo.getNowPrice()-(vo.getNowPrice()*(0.01*vo.getSale()))));
+		}
+		Map<String,Object> map=new HashMap<String, Object>();
+		
+		map.put("product", vo);
+		
+		
+		return map;
+	}
+
+	public List<OptionVo> findOptionList(Integer no) {
+		
+		List<OptionVo> list = orderRepository.findOptionList(no);
+		
+		return list;
 	}
 	
 }

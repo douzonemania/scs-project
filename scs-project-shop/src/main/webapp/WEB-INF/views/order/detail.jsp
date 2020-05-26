@@ -13,17 +13,24 @@
             <meta content="Coderthemes" name="author" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <!-- App favicon -->
-            <link rel="shortcut icon" href="../assets/images/favicon.ico">
+            <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.ico">
     
             <!-- Plugins css -->
-            <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
     
             <!-- App css -->
-            <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-            <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-            <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css" />
+
+			<script>
+				
+			</script>
+			
 
     </head>
+    
 <body>
     <!-- Navigation Bar-->
     <c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import>
@@ -32,7 +39,7 @@
         <div class="container-fluid">
 
             <div class="order-title">
-                <span> Product </span>상품</div>
+                <span> Product </span>상품 </div>
             <div class="recipient-info">
                 <span style="Font-size:24px; font-weight:Bold; color:#323A46;">Product</span> 상품 정보
             </div>
@@ -44,10 +51,10 @@
                                 <!--제품 이미지-->
                                 <div class="tab-content pt-3">
                                     <div class="tab-pane active show" id="product-1-item">
-                                        <img src="assets/images/products/product-9.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                        <img src="${pageContext.request.contextPath}/assets/images/products/product-9.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                     </div>
                                     <div class="tab-pane" id="product-2-item">
-                                        <img src="assets/images/products/product-10.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                        <img src="${pageContext.request.contextPath}/assets/images/products/product-10.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                     </div>
                                     <div class="tab-pane" id="product-3-item">
                                         <img src="assets/images/products/product-11.jpg" alt="" class="img-fluid mx-auto d-block rounded">
@@ -60,51 +67,71 @@
                                 <ul class="nav nav-pills nav-justified">
                                     <li class="nav-item">
                                         <a href="#product-1-item" data-toggle="tab" aria-expanded="false" class="nav-link product-thumb active show">
-                                            <img src="assets/images/products/product-9.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                            <img src="${pageContext.request.contextPath}/assets/images/products/product-9.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#product-2-item" data-toggle="tab" aria-expanded="true" class="nav-link product-thumb">
-                                            <img src="assets/images/products/product-10.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                            <img src="${pageContext.request.contextPath}/assets/images/products/product-10.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#product-3-item" data-toggle="tab" aria-expanded="false" class="nav-link product-thumb">
-                                            <img src="assets/images/products/product-11.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                            <img src="${pageContext.request.contextPath}/assets/images/products/product-11.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#product-4-item" data-toggle="tab" aria-expanded="false" class="nav-link product-thumb">
-                                            <img src="assets/images/products/product-12.jpg" alt="" class="img-fluid mx-auto d-block rounded">
+                                            <img src="${pageContext.request.contextPath}/assets/images/products/product-12.jpg" alt="" class="img-fluid mx-auto d-block rounded">
                                         </a>
                                     </li>
                                 </ul>
                             </div> <!-- end col -->
                             <div class="col-xl-7">
-                                <div class="pl-xl-3 mt-3 mt-xl-3">
-                                    <a href="#" class="text-primary">카테고리(2차)</a>
-                                    <h4 class="mb-3 title">Jack & Jones Men's T-shirt (Blue)</h4>
+                                <div class="pl-xl-3 mt-3 mt-xl-3" style="width:100%">
+                                    <h4 class="mb-3 title">${map.product.name }</h4>
+                                     <div class="text-warning font-16">
+                                  	<c:forEach begin="1" end="${map.product.intRevAvg }">
+                             					<i class="mdi mdi-star"></i>	
+                             		</c:forEach>
+                             				<c:choose>
+                             					<c:when test="${map.product.douRevAvg>=0.5 }">
+                             						<i class="mdi mdi-star-half"></i>
+                             						<c:forEach begin="2"  end="${5-map.product.intRevAvg }">
+                             							<i class="mdi mdi-star-outline"></i>
+                             						</c:forEach>
+                             					</c:when>
+                             					<c:otherwise>
+                             						<c:forEach begin="1"  end="${5-map.product.intRevAvg }">
+                             							<i class="mdi mdi-star-outline"></i>
+                             						</c:forEach>
+                             					</c:otherwise>
+                             				</c:choose>
+                             				</div>
+                                    <p class="mb-4"><a href="" class="text-muted">( ${map.product.cnt } Customer Reviews )</a></p>
                                     
-                                    <!--리뷰 별-->
-                                    <p class="text-muted float-left mr-3">
-                                        <span class="mdi mdi-star text-warning"></span>
-                                        <span class="mdi mdi-star text-warning"></span>
-                                        <span class="mdi mdi-star text-warning"></span>
-                                        <span class="mdi mdi-star text-warning"></span>
-                                        <span class="mdi mdi-star"></span>
-                                    </p>
-                                    <p class="mb-4"><a href="" class="text-muted">( 36 Customer Reviews )</a></p>
+                                    <c:choose>
+                                    	<c:when test="${map.product.sale !=0 }">
+                                    		<h6 class="text-danger text-uppercase sale-info">${map.product.sale } % Off</h6>
+                                 		    <h4 class="mb-4 price-info">Price : 
+                                 		    <span class="text-muted mr-2 del-info">
+                                 		    <del>￦${map.product.nowPrice}</del>
+                                 		    </span> 
+                                 		    <b>￦${map.product.totalPrice}</b>
+                                 		    </h4>
                                     
-                                    <h6 class="text-danger text-uppercase sale-info">20 % Off</h6>
+                                    	</c:when>
+                                    	<c:otherwise>
+                                    		 <b>￦${map.product.nowPrice}</b>
+                                    	</c:otherwise>
+                                    </c:choose>
                                     
-                                    <h4 class="mb-4 price-info">Price : <span class="text-muted mr-2 del-info"><del>$80 USD</del></span> <b>$64 USD</b></h4>
-                                    
-                                    <h4><span class="badge bg-soft-success text-success mb-4">구매가능</span></h4>
-                                    <p class="text-muted mb-4 des-info">The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.</p>
+                                    <p class="text-muted mb-4 des-info">${map.product.des }</p>
                                    
                                     <form class="form-inline mb-4">
-                                        <label class="my-1 mr-2 label-info" for="quantityinput">Quantity</label>
-                                        <select class="custom-select my-1 mr-sm-3" id="quantityinput">
+										<div style="width:100%; display: inline-flex;">
+											<label class="my-1 mr-2 label-info" for="quantityinput" style="width:20%; justify-content: left">Quantity</label>
+                                        	<select class="custom-select my-1 mr-sm-3" id="quantityinput" style="width:30%">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -113,23 +140,25 @@
                                             <option value="6">6</option>
                                             <option value="7">7</option>
                                         </select>
+										</div>
 
-                                        <label class="my-1 mr-2 label-info" for="sizeinput">Size</label>
-                                        <select class="custom-select my-1 mr-sm-3" id="sizeinput">
-                                            <option selected>Small</option>
-                                            <option value="1">Medium</option>
-                                            <option value="2">Large</option>
-                                            <option value="3">X-large</option>
-                                        </select>
+                                        <div style="width:100%; display:inline-flex; ">
+                                        	 <label class="my-1 mr-2 label-info" for="sizeinput" style="width:20%; justify-content: left	">Option</label>
+                                      		  <select class="custom-select my-1 mr-sm-3" id="sizeinput" style="width:30%">
+                                          	  <c:forEach items="${option }" var="vo">
+                                           			<option value="${vo.no }">${vo.name }</option>
+                                           		</c:forEach>
+                                       		 </select>
+                                        </div>
                                     </form>
 
-                                    <div>
+                                    <div style="board:1px solid red; margin-top: 100px;">
                                         <button type="button" class="btn btn-dark waves-effect waves-light detail-custom-btn ">
-                                            장바구니
+                                      		      장바구니
                                         </button>
 
-                                        <button type="button" class="btn btn-outline-dark waves-effect waves-light detail-custom-btn">
-                                            구매 하기
+                                        <button type="button" class="btn btn-outline-dark waves-effect waves-light detail-order-btn">
+                                        		    구매 하기
                                         </button>
                                     </div>
                                 </div>
@@ -198,7 +227,7 @@
                         </div>
 
                         <div class="info-detail">
-                            <img src="assets/images/detail-image.PNG" alt=""/ class="rounded">
+                            <img src="a${pageContext.request.contextPath}/ssets/images/detail-image.PNG" alt=""/ class="rounded">
                         </div>
 
                         <div class="info-review">
@@ -232,7 +261,7 @@
 
                             <div class="review-group">
                                 <div class="review-img">
-                                   <img src="assets/images/review-img.PNG" alt=""/ class="rounded">
+                                   <img src="${pageContext.request.contextPath}/assets/images/review-img.PNG" alt=""/ class="rounded">
                                 </div>
                                 <div class="review-box">
                                     <div class="pl-xl-3 mt-3 mt-xl-3">
@@ -322,10 +351,10 @@
     <!-- end wrapper -->
    <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
     <!-- Vendor js -->
-   <script src="../assets/js/vendor.min.js"></script>
+   <script src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>
 
    <!-- App js-->
-   <script src="../assets/js/app.min.js"></script>
+   <script src="${pageContext.request.contextPath}/assets/js/app.min.js"></script>
 
 </body>
 </html>

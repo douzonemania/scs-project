@@ -22,8 +22,33 @@ public class ItemVo {
 	private String categoryNo;
 	private int intRevAvg;
 	private double douRevAvg;
+	private int cnt;
+	private double rate;
+	int totalPrice;
 
-	
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
+	public double getRate() {
+		return rate;
+	}
+
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
 
 	public int getIntRevAvg() {
 		return intRevAvg;
