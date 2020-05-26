@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,38 +51,12 @@ public class ProductController {
 
 	@RequestMapping(value = "/regItem", method = RequestMethod.POST)
 	public String regItem(
-			@RequestParam(value = "pro-expo", required=true, defaultValue = "true") String visible,
-			@RequestParam(value = "item-best", required=true, defaultValue = "false") String bestItem,
-			@RequestParam(value = "item-new", required=true, defaultValue = "false") String newItem,
-			@RequestParam(value = "item-code", required=true, defaultValue = "") String code,
-			@RequestParam(value = "item-name", required=true, defaultValue = "") String name,
-			@RequestParam(value = "item-des", required=false, defaultValue = "false") String des,
-			@RequestParam(value = "item-sup-price", required=true, defaultValue = "") int supPrice,
-			@RequestParam(value = "item-now-price", required=false,defaultValue = "false") int nowPrice,
-			@RequestParam(value = "item-sale", required=false,defaultValue = "false") int sale,
-			@RequestParam(value = "item-sale-price", required=false, defaultValue = "false") int salePrice,
-			@RequestParam(value = "item-stock", required=true, defaultValue = "") String stock,
-			@RequestParam(value = "ship-company-name", required=true, defaultValue = "") String shipCompany,
-			@RequestParam(value = "shipping-charge", required=true, defaultValue = "") String shipCharge,
-			@RequestParam(value = "image-main", required=true, defaultValue = "") String mainImage,
-			@RequestParam(value = "image-sub", required=false, defaultValue = "true") String subImage,
-			@RequestParam(value = "item-editor", required=false, defaultValue = "true") String editor,
-			ItemVo iVo
+
+			@RequestBody ItemVo iVo
 			) {				
-		if(visible=="visible") iVo.setVisible(true);		
-		if(bestItem=="best") iVo.setBestItem(true);		
-		if(newItem=="new") iVo.setNewItem(true);		
-		iVo.setCode(code);
-		iVo.setName(name);
-		iVo.setDes(des);
-		iVo.setSupPrice(supPrice);
-		iVo.setNowPrice(nowPrice);
-		iVo.setSale(sale);
-		iVo.setMainImage(mainImage);
-		iVo.setSubImage(subImage);
-		iVo.setEditor(editor);
+		System.err.println(iVo);
 		
-		productService.regItem(iVo);
+		//productService.regItem(iVo);
 		
 		return "product/reg";
 	}	

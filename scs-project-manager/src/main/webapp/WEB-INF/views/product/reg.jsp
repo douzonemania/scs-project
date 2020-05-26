@@ -50,6 +50,67 @@
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
 
+$(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
+	var no = null;
+	var code = document.getElementById("item-code").value;
+	var name = document.getElementById("item-name").value;
+	var supPrice = document.getElementById("item-sup-price").value;
+	var nowPrice = document.getElementById("item-now-price").value;
+	var sale = document.getElementById("item-sale").value;
+	var mainImage = "abcd";
+	var subImage = "abcd";
+	if($('input[name="pro-expo"]:checked').val()!=true)
+		var visible = false;
+	if($("input:checkbox[id='item-best']").is(":checked") == true)	
+		var bestItem=true;
+	if($("input:checkbox[id='item-new']").is(":checked") == true)
+		var newItem=true;
+	var editor = "abcd";
+	var des = "abcd";
+	var regDate = null;
+	var categoryName1 = $("#first-category option:selected").text();
+	var categoryName2 = $("#seconds-category option:selected").text();
+	var shipCompany = $("#ship-company-name option:selected").text();
+	
+	if($('input[name="shipping-charge"]:checked').val()=="free")
+		var shippingCharge=0;
+	else
+		var shippingCharge=3000; // 설정 배송비 나중에 수정할것
+	
+	var vo={};
+	vo.no = no;
+	vo.code = code;
+	vo.name = name;
+	vo.supPrice = supPrice;
+	vo.nowPrice = nowPrice;
+	vo.sale = sale;
+	vo.mainImage = mainImage;
+	vo.subImage = subImage;
+	vo.visible = visible;
+	vo.bestItem = bestItem;
+	vo.newItem = newItem;
+	vo.editor = editor;
+	vo.des = des;
+	vo.regDate = regDate;
+	vo.categoryName1 = categoryName1;
+	vo.categoryName2 = categoryName2;
+	vo.shipCompany = shipCompany;
+	vo.shippingCharge = shippingCharge;
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath }/id/product/regItem',
+		contentType: 'application/json',
+		data: JSON.stringify(vo),
+		type: "POST",
+		dataType: 'json',
+		success : function(response){
+			alert("성공")
+		},
+		error:
+			alert("실패")
+	});			
+});
+
 $(function() {
 	/* 1차 카테고리 별 2차 카테고리 이름 리스트 */
 		$('#first-category').change(function(){		
@@ -78,7 +139,7 @@ $(function() {
 				error:
 					console.log("")
 			});			
-			//document.getElementById("selected-category-text").value = name;
+			
 			$("select#seconds-category option").remove();
 			
 		});
@@ -271,7 +332,7 @@ $(function() {
 										</td>
 									</tr>
 									<tr>
-										<th>description</th>
+										<th>부가설명</th>
 										<td colspan="4">
 											<textarea class="form-control txtb" id="item-des" rows="3">${vo.des }</textarea>
 										</td>
@@ -280,15 +341,16 @@ $(function() {
 									<tr>
 										<th>판매정보 <span style="color: #FF4040">*</span></th>
 										<td colspan="4">
-											공급가 <span style="color: #FF4040">*</span>
-											<input type="text" id="item-sup-price" class="form-control product-info" value="${vo.supPrice }">
-											&nbsp정상가 <input type="text" id="item-now-price" class="form-control product-info" value="${vo.nowPrice }">
+											</label> 공급가 <span style="color: #FF4040">*</span>
+											<input type="text" id="item-sup-price" class="form-control product-info" value="${vo.supPrice }"><label class="text-space"></label> 
+											&nbsp정상가 <input type="text" id="item-now-price" class="form-control product-info" value="${vo.nowPrice }"><label class="text-space"></label> 
 											&nbsp 할인율 <input type="text" id="item-sale" class="form-control product-info" value="${vo.sale }">
 											
-											<label class="text-space"></label><label class="text-space"></label><label class="text-space"></label> 
+											<label class="text-space"></label><label class="text-space"></label><label class="text-space"></label>
+											<label class="text-space"></label><label class="text-space"></label><label class="text-space"></label>  
 											
 											판매가 <input type="text" id="item-sale-price" class="form-control product-info" readonly value="${salePrice }" >
-											&nbsp 재고량<span style="color: #FF4040">*</span><input type="text" id="item-stock" class="form-control product-info">
+											<!-- &nbsp 재고량<span style="color: #FF4040">*</span><input type="text" id="item-stock" class="form-control product-info"> -->
 										</td>
 									</tr>
 									<tr>
@@ -305,8 +367,8 @@ $(function() {
 										
 										<th>배송비 <span style="color: #FF4040">*</span></th>
 										<td colspan="2">
-											<input type=radio name="shipping-charge" checked>&nbsp무료배송<label class="text-space"></label>
-											<input type=radio name="shipping-charge">&nbsp설정 배송비
+											<input type=radio name="shipping-charge" value="free" checked>&nbsp무료배송<label class="text-space"></label>
+											<input type=radio name="shipping-charge" value="basic-charge">&nbsp설정 배송비
 										</td>
 									</tr>
 									<!-- image 등록 -->
@@ -402,7 +464,7 @@ $(function() {
 
 							<!-- 등록,목록 버튼-->
 							<div class="btn-submit-section">
-								<button type="submit" class="btn btn-secondary waves-effect" id="btn-reg">등록</button>
+								<button type="button" class="btn btn-secondary waves-effect" id="btn-reg">등록</button>
 								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">목록</button>
 							</div>
 
@@ -410,7 +472,7 @@ $(function() {
 					</div>
 				</div>
 			</div>
-			</form>			
+					
 		</div>
 		<!-- end container -->
 	</div>
