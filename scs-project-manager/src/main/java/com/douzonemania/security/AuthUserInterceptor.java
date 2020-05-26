@@ -15,11 +15,11 @@ public class AuthUserInterceptor extends HandlerInterceptorAdapter {
 	 	String uri=request.getServletPath().toString();
 	 	
 	 	String[] strArr=uri.split("/");
-	 	System.out.println("NOW :"+strArr[1]);
+//	 	System.out.println("NOW :"+strArr[1]);
 	
 	 	HttpSession session = request.getSession();
 	 	
-		System.out.println("A :"+session.getAttribute("id"));
+//		System.out.println("A :"+session.getAttribute("id"));
 		
 	 	
 	 	if(session.getAttribute("id")==null) {

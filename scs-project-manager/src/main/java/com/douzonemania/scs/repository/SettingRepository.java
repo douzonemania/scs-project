@@ -1,6 +1,7 @@
 package com.douzonemania.scs.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,6 +34,11 @@ public class SettingRepository {
 		return sqlSession.selectOne("setting.findAgreementById", id);
 	}
 	
+	// html로 policy 업데이트
+	public int updatePolicy(Map<String, Object> map) {
+		return sqlSession.update("setting.updatePolicy", map);
+	}
+	
 	public String getSession() {
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
 		
@@ -43,26 +49,32 @@ public class SettingRepository {
 		
 		return id;
 	}
-
+	
+	// 배송사 리스트
 	public List<ShipCompanyVo> getList(String id) {
 		
 		return sqlSession.selectList("setting.getList", id);
 	}
 
+	// 배송사 추가
 	public int insertShip(ShipCompanyVo shipCompanyVo) {
 	
 		return sqlSession.insert("setting.insertShip", shipCompanyVo);
 	}
-
+	
+	// 배송사 갯수
 	public int shipCount(String id) {
 		
-		return sqlSession.selectOne("setting.shipCount", "sjy8033");
+		return sqlSession.selectOne("setting.shipCount", id);
 	}
 
+	// 배송사 삭제
 	public int deleteShip(Long no) {
 		
 		return sqlSession.delete("setting.deleteShip", no);
 	}
+
+
 
 
 }

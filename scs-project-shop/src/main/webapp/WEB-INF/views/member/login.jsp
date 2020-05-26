@@ -1,32 +1,30 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
-<html lang="UTF-8">
+<html lang="utf-8">
 <head>
-    <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    <meta charset="utf-8" />
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.ico">
 
         <!-- Plugins css -->
         <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
 
         <!-- App css -->
-        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="${pageContext.request.contextPath}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="${pageContext.request.contextPath}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
-        <!-- Navigation Bar-->
-        <header id="topnav" style="background-color:#ffffff">
-            <c:import url ='/WEB-INF/views/partials/topbar.jsp'/>
-        </header>
+         <c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import>
 
         <div class="wrapper" style="background-color: rgba(245, 246, 248);">
             <div class="container-fluid">
@@ -34,17 +32,19 @@
                 <div class="login-group">
                     <div class="login-contents">login</div>
                     <div style="margin-top:100px;"></div>
-                    <div class="login-input">
-                        <input class ="input--text" type="text" placeholder="아이디">
+                    <form method="post" action="${ pageContext.request.contextPath }/${db }/member/login">
+                    	<div class="login-input">
+                        <input class ="input--text" type="text" placeholder="아이디" name="id">
                         <div class="login-border"></div>
-                        <input class ="input--text" type="password" placeholder="패스워드">
+                        <input class ="input--text" type="password" placeholder="패스워드" name="password">
                         <div class="login-border"></div>
                     </div>
                     
                     <div style="margin-top: 50px;"></div>
 
-                    <button type="button" class="btn btn-dark waves-effect waves-light custom-login">로그인</button>
-                    
+                        <button type="submit" class="btn btn-dark waves-effect waves-light custom-login">로그인</button>
+                    </form>
+                 
 
                     <div style="margin-top: 30px;"></div>
 
@@ -72,17 +72,20 @@
                     </div>
                     <div style="margin-top: 30px;"></div>
                     <div>
-                    	<a href = "${pageContext.request.contextPath }/member/join">
-                        	<button type="button" class="btn btn-dark waves-effect waves-light custom-login">회원가입</button>
-                        </a>
+                        <button type="button" class="btn btn-dark waves-effect waves-light custom-login">회원가입</button>
                     </div>
                 </div><!-- END LOGIN FORM-->
 
             </div>
         </div>
 
-            <!-- footer -->
-    	<c:import url ='/WEB-INF/views/partials/footer.jsp'/>
+        <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
+        
+         <!-- Vendor js -->
+	   <script src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>
+	
+	   <!-- App js-->
+	   <script src="${pageContext.request.contextPath}/assets/js/app.min.js"></script>
 
 </body>
 </html>

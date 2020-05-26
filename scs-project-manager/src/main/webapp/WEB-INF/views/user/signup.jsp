@@ -20,15 +20,15 @@
 
 ​
 <!-- Sweet Alert-->
-<link href="../assets/libs/sweetalert2/sweetalert2.min.css"
+<link href="<%=request.getContextPath() %>/assets/libs/sweetalert2/sweetalert2.min.css"
 	rel="stylesheet" type="text/css" />
 
 <!-- App css -->
-<link href="../assets/css/bootstrap.min.css" rel="stylesheet"
+<link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
-<link href="../assets/css/icons.min.css" rel="stylesheet"
+<link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet"
 	type="text/css" />
-<link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
@@ -276,8 +276,8 @@ $(function() {
 						​
 						<div class="card-body p-4">
 							<div class="text-center mb-4">
-								<a href="index.html"> <span><img
-										src="../assets/images/logo-scs.png" alt="" height="130"></span>
+								<a href="${ pageContext.request.contextPath }/main"> <span><img
+										src="<%=request.getContextPath() %>/assets/images/logo-scs.png" alt="" height="130"></span>
 								</a>
 							</div>
 							<div class="signin-body">

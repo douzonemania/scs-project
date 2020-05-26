@@ -13,7 +13,43 @@
 				   type,
 				   name
 			  from ${db}.member
+			 limit ${size} offset #{offset}
 		]]>
+	</select>
+	
+	<select id="findSearchList" parameterType="map" resultType="membervo">
+		<![CDATA[
+			select no,
+				   id,
+				   password,
+				   phone_number as phoneNumber,
+				   email,
+				   reg_date as regDate,
+				   type,
+				   name
+			  from ${db}.member
+			 where ${option} like '%${keyword}%'
+			 limit ${size} offset #{offset}
+		]]>
+	</select>
+	
+	<select id="listCount" parameterType="map" resultType="int">
+			<choose>
+				<when test='option==""'>
+					<![CDATA[
+						select count(*)
+						  from ${db}.member
+					]]>
+				</when>
+				<otherwise>
+					<![CDATA[
+						select count(*)
+						  from ${db}.member
+						 where ${option} like '%${keyword}%'
+					]]>
+				</otherwise>
+			</choose>
+			
 	</select>
 	
 	<select id="getMemberEmail" parameterType="map" resultType="string">

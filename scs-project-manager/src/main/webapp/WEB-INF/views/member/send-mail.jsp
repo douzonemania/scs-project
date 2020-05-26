@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="UTF-8">
 <head>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -6,6 +6,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <title></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,6 +46,25 @@
 <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
+<script type="text/JavaScript"
+	src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+​
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#test-btn').click(function(){
+		var myEditor = document.querySelector('#snow-editor');
+		var html = myEditor.children[0].innerHTML;
+		
+		console.log(html);
+	});
+	
+});
+
+</script>
+
 </head>
 <body>
 
@@ -80,7 +101,9 @@
 			<!--header 종료-->
 
 			<!-- mail-info 시작-->
-			<form>
+			<form:form 
+				method="post"
+				action="${pageContext.request.contextPath }/${authUser.id}/member/email/post">
 				<div class="col-lg-12"
 					style="background-color: #FFFFFF; padding: 40px;">
 					<div class="email-info">
@@ -95,15 +118,19 @@
 					<!-- mail info 종료-->
 	
 					<div style="margin-top: 30px;"></div>
+					
+					
+					<textarea name="contents" style="width: 1000px; height: 300px;"></textarea>
 	
 					<!-- Editor -->
-					<div id="snow-editor" style="height: 300px;" name="editor"></div>
+					<div id="snow-editor" style="height: 300px;"></div>
 	
 					<div class="btn-submit-section" style="margin-top: 30px;">
-						<button type="button" class="btn btn-secondary waves-effect ">전송</button>
+					<button type="button" id="test-btn">editor</button>
+						<button type="submit" class="btn btn-secondary waves-effect ">전송</button>
 					</div>
 				</div>
-			</form>
+			</form:form>
 		</div>
 		<!-- end container -->
 	</div>
