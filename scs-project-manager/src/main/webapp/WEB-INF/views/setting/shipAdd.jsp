@@ -129,7 +129,7 @@ $(function(){
 			dataType: 'json',
 			data: '',
 			success: function(response){
-				console.log("delete response:" + response);
+				console.log("delete response:" + response.data);
 				if(response.result != "success"){
 					console.error(response.message);
 					return;
