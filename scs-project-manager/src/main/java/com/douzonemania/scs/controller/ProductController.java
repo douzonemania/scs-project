@@ -100,8 +100,9 @@ public class ProductController {
 	@RequestMapping(value = "/category-reg", method = RequestMethod.GET)
 	public String categoryReg(Model model) {
 		List<CategoryVo> categoryNameList = productService.getCategoryNameList();
-		System.err.println(categoryNameList);
+		List<CategoryVo> category2NameList = productService.getCategory2NameList();
 		model.addAttribute("categoryNameList", categoryNameList);
+		model.addAttribute("category2NameList", category2NameList);
 		return "product/category-reg";
 	}
 	

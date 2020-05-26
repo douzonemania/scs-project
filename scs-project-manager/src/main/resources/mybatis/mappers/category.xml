@@ -10,7 +10,7 @@
 	
 	<select id="findCategoryByName" parameterType="String" resultType="categoryvo">
 				<![CDATA[
-					select name from mall.category where name = #{name}
+					select no, name from mall.category where name = #{name}
 				]]>
 	</select>
 	
@@ -28,11 +28,19 @@
 				]]>
 	</select>
 	
-	<select id="getCategory2NameList" parameterType="Integer" resultType="categoryvo">		
+	<select id="getCategory2NameListByNo" parameterType="Integer" resultType="categoryvo">		
 				<![CDATA[
 					select no, name, parents_no as 'parentNo'
 					from mall.category
 					where parents_no= #{ParentCategoryNo}
+				]]>
+	</select>
+	
+	<select id="getCategory2NameList" resultType="categoryvo">		
+				<![CDATA[
+					select no, name, parents_no as 'parentNo'
+					from mall.category
+					where parents_no is not null
 				]]>
 	</select>
 	

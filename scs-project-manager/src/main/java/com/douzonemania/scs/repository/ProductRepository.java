@@ -57,7 +57,11 @@ public class ProductRepository {
 	}
 
 	public List<CategoryVo> getCategory2NameList(int ParentCategoryNo) {
-		return sqlSession.selectList("category.getCategory2NameList",ParentCategoryNo);
+		return sqlSession.selectList("category.getCategory2NameListByNo",ParentCategoryNo);
+	}
+	
+	public List<CategoryVo> getCategory2NameList() {
+		return sqlSession.selectList("category.getCategory2NameList");
 	}
 	
 	public int findCategoryNoByName(String parentCategory) {
@@ -77,5 +81,6 @@ public class ProductRepository {
 		
 		return id;
 	}
+
 
 }
