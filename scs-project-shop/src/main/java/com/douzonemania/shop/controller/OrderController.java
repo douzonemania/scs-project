@@ -1,5 +1,6 @@
 package com.douzonemania.shop.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.shop.service.OrderService;
+import com.douzonemania.shop.vo.OptionVo;
 
 @Controller
 @RequestMapping("/{db}/order")
@@ -36,7 +38,19 @@ public class OrderController {
 		return "order/list";
 	}
 	
-	
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String detail(@RequestParam(value="no", required = true,defaultValue = "0") Integer no,Model model) {
+		
+		
+		Map<String,Object> map= orderService.findProduct(no);
+		
+		List<OptionVo> optionList= orderService.findOptionList(no);
+		
+		model.addAttribute("map",map);
+		model.addAttribute("option",optionList);
+		
+		return "order/detail";
+	}
 	
 	
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
@@ -49,10 +63,7 @@ public class OrderController {
 		return "order/complete";
 	}
 	
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail() {
-		return "order/detail";
-	}
+	
 	
 	
 	@RequestMapping(value = "/review", method = RequestMethod.GET)

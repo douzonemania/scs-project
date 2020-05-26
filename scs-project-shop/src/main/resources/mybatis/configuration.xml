@@ -6,6 +6,7 @@
 		<typeAlias alias="itemvo" type="com.douzonemania.shop.vo.ItemVo"/>
 		<typeAlias alias="mainmenuvo" type="com.douzonemania.shop.vo.MainMenuVo"/>
 		<typeAlias alias="categoryvo" type="com.douzonemania.shop.vo.CategoryVo"/>
+		<typeAlias alias="optionvo" type="com.douzonemania.shop.vo.OptionVo"/>
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/order.xml" />
