@@ -42,7 +42,7 @@
             <div class="order-title" style="margin-top:20px">
                 <span> Product </span>상품</div>
             <div class="recipient-info">
-                <span style="Font-size:24px; font-weight:Bold; color:#323A46;">Category</span> 카테고리
+                <span style="Font-size:24px; font-weight:Bold; color:#323A46;">CategoryTEST</span> 카테고리
             </div>
 
             <div class="row">
