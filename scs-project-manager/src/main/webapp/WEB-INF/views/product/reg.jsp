@@ -49,6 +49,12 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
+$(function() {
+	/* 옵션 추가 등록 팝업 */
+		$('#option-add').click(function(){		
+			window.open('optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
+		});
+});
 
 $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	var no = null;
@@ -110,7 +116,6 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 			alert("실패")
 	});			
 });
-
 $(function() {
 	/* 1차 카테고리 별 2차 카테고리 이름 리스트 */
 		$('#first-category').change(function(){		
@@ -144,12 +149,10 @@ $(function() {
 			
 		});
 });	
-
 $(function() {
 		
 	/* 선택된 카테고리 텍스트 뿌리기 */
 		$('#seconds-category').change(function(){
-
 			if($('#seconds-category option:selected').text()=="----")
 				return;
 			
@@ -162,8 +165,6 @@ $(function() {
 		
 });	
 	
-
-
 </script>
 </head>
 <body>
@@ -440,12 +441,33 @@ $(function() {
 									<tr class="pro-op">
 										<th>상품옵션</th>
 										<td colspan="4">
-											<div>
+<!-- 											<div>
 												<input type=radio name="pro-opt" checked>&nbsp옵션사용안함	<label class="text-space"></label> 
 												<input type=radio name="pro-opt">&nbsp1차옵션사용 <label class="text-space"></label>
 												<input type=radio name="pro-opt">&nbsp2차옵션사용
 											</div>
-											<div>옵션 영역</div>
+											<div>옵션 영역</div> -->
+											<div style="width:1000px; display:inline-block">
+												1차 옵션
+												<select class="form-control" id="colorOption">												
+		                                       		<option>----</option>
+		                                        <c:forEach var="vo" varStatus="status" items="${sizeOptionList }">
+		                                           	<option value="${vo.no }">${vo.name }</option>
+		                                        </c:forEach>
+												</select><label class="text-space"></label>
+												2차 옵션
+												<select class="form-control" id="sizeOption">
+		                                       		<option>----</option>
+		                                        <c:forEach var="vo" varStatus="status" items="${colorOptionList }">
+		                                           	<option value="${vo.no }">${vo.name }</option>
+		                                        </c:forEach>											
+												</select><label class="text-space"></label>
+												
+												재고량 <input type="text" class="form-control product-info" id="input-stock" value="" />
+												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">등록</button>
+											</div>
+											<button type="button" id="option-add" class="btn btn-secondary waves-effect">옵션추가</button>
+											
 										</td>
 									</tr>
 								</tbody>

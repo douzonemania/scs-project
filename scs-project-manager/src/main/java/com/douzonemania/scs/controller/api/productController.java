@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.ProductService;
+import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
+import com.douzonemania.security.AuthUser;
 
 
 @RestController("ProductApiController")
@@ -25,30 +27,31 @@ public class productController {
 	// 카테고리 등록
 	@ResponseBody	
 	@RequestMapping(value="/category-reg/add/{parentCategory}", method = RequestMethod.POST)
-	public JsonResult categoryAdd(			
+	public JsonResult categoryAdd(
+			@AuthUser CeoVo authUser,
 			@RequestBody CategoryVo cVo,
 			@PathVariable(value = "parentCategory") String parentCategory
 			){
-		
+		String id = authUser.getId();
 		if("----".equals(parentCategory)) {
-			if ( productService.findCategoryByName(cVo.getName()) == null ) { // 카테고리 이름 중복 방지
-				productService.addCategory(cVo);				
+			if ( productService.findCategoryByName(id,cVo.getName()) == null ) { // 카테고리 이름 중복 방지
+				productService.addCategory(id, cVo);				
 			}
 			else 
 				System.err.println("중복된 카테고리 명입니다.");
 				
-			return JsonResult.success(productService.getCategoryNameList());
+			return JsonResult.success(productService.getCategoryNameList(id));
 		} else {					
-			int parentCategoryNo = productService.getCategoryNoByName(parentCategory); // 부모 카테고리 번호
+			int parentCategoryNo = productService.getCategoryNoByName(id, parentCategory); // 부모 카테고리 번호
 			
-			if ( productService.findCategoryByName(cVo.getName()) == null ) { // 카테고리 이름 중복 방지
+			if ( productService.findCategoryByName(id, cVo.getName()) == null ) { // 카테고리 이름 중복 방지
 				cVo.setParentNo(parentCategoryNo);
-				productService.addCategory(cVo);
+				productService.addCategory(id, cVo);
 			}
 			else
 				System.err.println("중복된 카테고리 명입니다.");
 			
-			return JsonResult.success(productService.getCategory2NameList(parentCategoryNo));	
+			return JsonResult.success(productService.getCategory2NameList(id, parentCategoryNo));	
 		}
 			
 	}
@@ -56,31 +59,37 @@ public class productController {
 	// 카테고리 삭제
 	@RequestMapping(value="/category-reg/del", method = RequestMethod.POST)
 	public JsonResult categoryDelete(
+			@AuthUser CeoVo authUser,
 			@RequestBody CategoryVo cVo
 			) {
-			productService.delCategory(cVo.getName());
-			return JsonResult.success(productService.getCategoryNameList());
+		String id = authUser.getId();	
+		productService.delCategory(id, cVo.getName());
+		return JsonResult.success(productService.getCategoryNameList(id));
 	}
 	
 	// 카테고리 수정
 	@RequestMapping(value="/category-reg/mod/{afterName}", method = RequestMethod.POST)
 	public JsonResult categoryUpdate(
+			@AuthUser CeoVo authUser,
 			@RequestBody CategoryVo cVo,
 			@PathVariable(value = "afterName") String afterName
 			) {
-			productService.updateCategory(cVo.getName(),afterName);
-			return JsonResult.success(productService.getCategoryNameList());
+			String id = authUser.getId();	
+			productService.updateCategory(id, cVo.getName(),afterName);
+			return JsonResult.success(productService.getCategoryNameList(id));
 	}
 	
 	// 2차카테고리 이름 리스트
 	@RequestMapping(value="/category-reg/childCategoryList", method = RequestMethod.POST)
 	public JsonResult childcategoryList(
+			@AuthUser CeoVo authUser,
 			@RequestBody CategoryVo cVo
-			) {			
+			) {
+			String id = authUser.getId();
 			String name = cVo.getName();
-			int parentCategoryNo = productService.getCategoryNoByName(name);
+			int parentCategoryNo = productService.getCategoryNoByName(id, name);
 			
-			List<CategoryVo> childCategoryNameList = productService.getCategory2NameList(parentCategoryNo);
+			List<CategoryVo> childCategoryNameList = productService.getCategory2NameList(id, parentCategoryNo);
 			
 		return JsonResult.success(childCategoryNameList);
 	}
@@ -88,21 +97,37 @@ public class productController {
 	// 1차 카테고리이름 테이블
 	@RequestMapping(value="/category-reg/createTable", method = RequestMethod.POST)
 	public JsonResult createTable1(
+			@AuthUser CeoVo authUser,
 			@RequestBody CategoryVo cVo			
 			) {
-		productService.getCategoryNoByName( cVo.getName());
+		String id = authUser.getId();
+		productService.getCategoryNoByName(id, cVo.getName());
 		System.err.println(cVo.getName());
 		
-		return JsonResult.success(productService.getCategoryNoByName(cVo.getName()));
+		return JsonResult.success(productService.getCategoryNoByName(id, cVo.getName()));
 	}
 	
 	// 2차 카테고리이름 테이블 
 	@RequestMapping(value="/category-reg/createTable2", method = RequestMethod.POST)
 	public JsonResult createTable(
+			@AuthUser CeoVo authUser,
 			@RequestBody CategoryVo cVo			
-			) {			
-		return JsonResult.success(productService.getCategory2NameList(cVo.getParentNo()));
+			) {
+		String id = authUser.getId();
+		return JsonResult.success(productService.getCategory2NameList(id, cVo.getParentNo()));
 	}
+	
+	// 옵션 추가 팝업
+	/*
+	 * @RequestMapping(value="/category-reg/addOption", method = RequestMethod.POST)
+	 * public JsonResult addOption(
+	 * 
+	 * @AuthUser CeoVo authUser,
+	 * 
+	 * @RequestBody CategoryVo cVo ) { String id = authUser.getId(); return
+	 * JsonResult.success(productService.getCategory2NameList(id,
+	 * cVo.getParentNo())); }
+	 */
 	
 
 }
