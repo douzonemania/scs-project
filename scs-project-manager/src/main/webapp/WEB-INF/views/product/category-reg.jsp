@@ -63,7 +63,9 @@ function changeTable(no,name){
 			$(".category-list").append("<table class='category-table' id='category-table-"+response.data+"' style='margin-left:20px; margin-top:20px;'>" + "<tr id='category-table-tr-"+response.data+"'><th style='min-width:100px' id='category-table-th-"+response.data+"'>"+ name +"</th><td style='min-width:150px;' id='category-table-td-"+response.data+"'></td></tr></table>" );
 		},
 		error:
-			console.log("")
+			function(xhr, status, e){
+				console.error(status + " : " + e);
+			}
 	});
 }
 function changeTable2(no){
@@ -86,7 +88,9 @@ function changeTable2(no){
 				}			
 		},
 		error:
-			console.log("")
+			 function(xhr, status, e){
+				console.error(status + " : " + e);
+			}
 	});
 }
 
@@ -148,8 +152,9 @@ $(function() {
 				changeTable(vo.no, vo.name);
 				initial();
 			},
-			error:
-				alert("실패")
+				error: function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
 		});
 		} else {
 			$.ajax({
@@ -172,8 +177,9 @@ $(function() {
 					changeTable2(no);
 					initial();
 				},
-				error:
-					alert("실패")
+					error: function(xhr, status, e){
+						console.error(status + " : " + e);
+					}
 			});			
 		}
 		/* $("input:radio[name=cate-n-del][value=" + 'parent' + "]").attr("checked",true); */
@@ -226,8 +232,9 @@ $(function() {
 						
 					}
 				},
-				error:
-					alert("실패")
+					error: function(xhr, status, e){
+						console.error(status + " : " + e);
+					}
 			});
 			if(parentNo==99)
 				changeTable2(no);
@@ -280,14 +287,18 @@ $(function() {
 				}
 			},
 			error:
-				alert("실패")
+				 function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
 		});
-		if(childCategoryName=""){
+		
+		
+		if(childCategoryName!=""){
 			changeTable2(no);
+			
 		}
 		else{		
 			var no = $("#cate-select-mod option:selected").val();
-			
 			$("#category-table-th-"+no).html(afterName);
 			initial();
 			
@@ -400,7 +411,9 @@ $(function() {
 				}
 			},
 			error:
-				console.log("")
+				function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
 		});
 		$("select#cate-select-del2 option").remove();
 	});
@@ -435,7 +448,9 @@ $(function() {
 					}
 				},
 				error:
-					console.log("")
+					function(xhr, status, e){
+						console.error(status + " : " + e);
+					}
 			});
 			$("select#cate-select-mod2 option").remove();
 		});

@@ -15,3 +15,39 @@
 	width:0%	
 	display:none;
 }
+
+.option-add-table{
+	display:inline-block;
+	
+	text-align:center;
+	margin:5px;
+}
+
+.option-add-table th {
+	border:2px solid;
+	background-color:#CDD3D4;
+	height:40px;
+}
+.option-add-table tr,.option-add-table td {
+	border:2px solid;
+	text-align:center;
+	height:30px; 
+}
+
+.option-add-table.border-right{
+	border-right:solid 1px transparent;
+}
+#size-add, #color-add{
+width:54px; 
+height:28px; 
+font-size:5px; 
+margin:2px 0
+}
+
+#color-option-name, #size-option-name{
+	display:inline-block;
+	width:100px; 
+	height:28px;
+	padding-top:0.3em;
+	border-right:solid 1px transparent;	
+}

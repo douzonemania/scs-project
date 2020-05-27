@@ -3,24 +3,24 @@
 
 <mapper namespace="product">
 	
-	<select id="getList" resultType="itemvo">		
+	<select id="getList" parameterType="map" resultType="itemvo">		
 				<![CDATA[
 					select no, code, name, sup_price as 'supPrice', now_price as 'nowPrice', 
 						sale, main_image as 'mainImage', sub_image as 'subImage', 
 						visible, best_item as 'bestItem', new_item as 'newItem', editor, category_no,
 						description, reg_date as 'regDate'
-					from mall.item
+					from ${db}.item
 				]]>
 	</select>
 	
-	<select id="findItem" parameterType="integer" resultType="itemvo">		
+	<select id="findItem" parameterType="map" resultType="itemvo">		
 				<![CDATA[
 					select no, code, name, sup_price as 'supPrice', now_price as 'nowPrice', 
 						sale, main_image as 'mainImage', sub_image as 'subImage', 
 						visible, best_item as 'bestItem', new_item as 'newItem', editor, category_no,
 						des, reg_date as 'regDate'
-					from mall.item
-					where no = #{no}
+					from ${db}.item
+					where no = #{iVo.no}
 				]]>
 	</select>
 	
