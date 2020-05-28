@@ -40,8 +40,132 @@
         <!-- App css -->
         <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />        
-       
+        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath() %>/assets/css/common.css" rel="stylesheet" type="text/css" />        
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
+<script>
+$(function() {
+	/* 옵션 추가 등록 팝업 */
+		$('#option-add').click(function(){		
+			window.open('optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
+		});
+});
+
+$(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
+	var no = null;
+	var code = document.getElementById("item-code").value;
+	var name = document.getElementById("item-name").value;
+	var supPrice = document.getElementById("item-sup-price").value;
+	var nowPrice = document.getElementById("item-now-price").value;
+	var sale = document.getElementById("item-sale").value;
+	var mainImage = "abcd";
+	var subImage = "abcd";
+	if($('input[name="pro-expo"]:checked').val()!=true)
+		var visible = false;
+	if($("input:checkbox[id='item-best']").is(":checked") == true)	
+		var bestItem=true;
+	if($("input:checkbox[id='item-new']").is(":checked") == true)
+		var newItem=true;
+	var editor = "abcd";
+	var des = "abcd";
+	var regDate = null;
+	var categoryName1 = $("#first-category option:selected").text();
+	var categoryName2 = $("#seconds-category option:selected").text();
+	var shipCompany = $("#ship-company-name option:selected").text();
+	
+	if($('input[name="shipping-charge"]:checked').val()=="free")
+		var shippingCharge=0;
+	else
+		var shippingCharge=3000; // 설정 배송비 나중에 수정할것
+	
+	var vo={};
+	vo.no = no;
+	vo.code = code;
+	vo.name = name;
+	vo.supPrice = supPrice;
+	vo.nowPrice = nowPrice;
+	vo.sale = sale;
+	vo.mainImage = mainImage;
+	vo.subImage = subImage;
+	vo.visible = visible;
+	vo.bestItem = bestItem;
+	vo.newItem = newItem;
+	vo.editor = editor;
+	vo.des = des;
+	vo.regDate = regDate;
+	vo.categoryName1 = categoryName1;
+	vo.categoryName2 = categoryName2;
+	vo.shipCompany = shipCompany;
+	vo.shippingCharge = shippingCharge;
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath }/id/product/regItem',
+		contentType: 'application/json',
+		data: JSON.stringify(vo),
+		type: "POST",
+		dataType: 'json',
+		success : function(response){
+			alert("성공")
+		},
+		error:
+			alert("실패")
+	});			
+});
+$(function() {
+	/* 1차 카테고리 별 2차 카테고리 이름 리스트 */
+		$('#first-category').change(function(){		
+			//$("#first-category option:eq(0)").remove();
+			var no = $("#first-category option:selected").val();
+			var name = $("#first-category option:selected").text();
+			
+			var vo={};
+			vo.no = no;
+			vo.name = name;			
+			
+			$.ajax({
+				url: '${pageContext.request.contextPath }/api/product/category-reg/childCategoryList',
+				contentType: 'application/json',
+				data: JSON.stringify(vo),
+				type: "POST",
+				dataType: 'json',
+				success :function(response){
+					$('#seconds-category').append("<option value='----'>----</option>");
+					for( var key in response.data){
+						var data = response.data[key];	
+						if(data.name!=null)							
+							$('#seconds-category').append("<option value='" + data.parentNo + "'>" + data.name + "</option>");
+					}					
+				}, 			
+				error:
+					console.log("")
+			});			
+			
+			$("select#seconds-category option").remove();
+			
+		});
+});	
+$(function() {
+		
+	/* 선택된 카테고리 텍스트 뿌리기 */
+		$('#seconds-category').change(function(){
+			if($('#seconds-category option:selected').text()=="----")
+				return;
+			
+			var category1Name = $("#first-category option:selected").text();
+			document.getElementById("selected-category-text").value = category1Name;
+			
+			var category2Name = $("#seconds-category option:selected").text();
+			document.getElementById("selected-category-text").value += "  >  " + category2Name;
+		});
+		
+});	
+	
+</script>
 </head>
 <body>
 
@@ -161,28 +285,24 @@
 								<tbody>
 									<tr>
 										<th>상품 카테고리</th>
-										<td colspan="2">1차분류 
-										<select class="form-control">
-												<option>----</option>
-												<option>아우터</option>
-												<option>상의</option>
-												<option>하의</option>
-												<option>etc</option>
-										</select> 
+										<td colspan="2">　1차분류 
+											<select class="form-control" id="first-category">
+	                                       		<option>----</option>
+	                                        <c:forEach var="vo" varStatus="status" items="${categoryNameList }">
+	                                           	<option value="${vo.no }">${vo.name }</option>
+	                                        </c:forEach>                                                                                                      
+                                            </select> 
+										
 										<label class="text-space">
 										</label> 2차분류 
-											<select class="form-control">
+											<select class="form-control" id="seconds-category">
 												<option>----</option>
-												<option>아우터</option>
-												<option>상의</option>
-												<option>하의</option>
-												<option>etc</option>
 											</select>
 										</td>
 									</tr>
 									<tr>
 										<th>선택된 카테고리</th>
-										<td colspan="2"><input type="text" class="no-outline"
+										<td colspan="2"><input type="text" class="form-control" id="selected-category-text"
 											readonly></td>
 									</tr>
 								</tbody>
@@ -213,7 +333,7 @@
 										</td>
 									</tr>
 									<tr>
-										<th>description</th>
+										<th>부가설명</th>
 										<td colspan="4">
 											<textarea class="form-control txtb" id="item-des" rows="3">${vo.des }</textarea>
 										</td>
@@ -222,15 +342,16 @@
 									<tr>
 										<th>판매정보 <span style="color: #FF4040">*</span></th>
 										<td colspan="4">
-											공급가 <span style="color: #FF4040">*</span>
-											<input type="text" id="item-sup-price" class="form-control product-info" value="${vo.supPrice }">
-											&nbsp정상가 <input type="text" id="item-now-price" class="form-control product-info" value="${vo.nowPrice }">
+											</label> 공급가 <span style="color: #FF4040">*</span>
+											<input type="text" id="item-sup-price" class="form-control product-info" value="${vo.supPrice }"><label class="text-space"></label> 
+											&nbsp정상가 <input type="text" id="item-now-price" class="form-control product-info" value="${vo.nowPrice }"><label class="text-space"></label> 
 											&nbsp 할인율 <input type="text" id="item-sale" class="form-control product-info" value="${vo.sale }">
 											
-											<label class="text-space"></label><label class="text-space"></label><label class="text-space"></label> 
+											<label class="text-space"></label><label class="text-space"></label><label class="text-space"></label>
+											<label class="text-space"></label><label class="text-space"></label><label class="text-space"></label>  
 											
 											판매가 <input type="text" id="item-sale-price" class="form-control product-info" readonly value="${salePrice }" >
-											&nbsp 재고량<span style="color: #FF4040">*</span><input type="text" id="item-stock" class="form-control product-info">
+											<!-- &nbsp 재고량<span style="color: #FF4040">*</span><input type="text" id="item-stock" class="form-control product-info"> -->
 										</td>
 									</tr>
 									<tr>
@@ -247,8 +368,8 @@
 										
 										<th>배송비 <span style="color: #FF4040">*</span></th>
 										<td colspan="2">
-											<input type=radio name="shipping-charge" checked>&nbsp무료배송<label class="text-space"></label>
-											<input type=radio name="shipping-charge">&nbsp설정 배송비
+											<input type=radio name="shipping-charge" value="free" checked>&nbsp무료배송<label class="text-space"></label>
+											<input type=radio name="shipping-charge" value="basic-charge">&nbsp설정 배송비
 										</td>
 									</tr>
 									<!-- image 등록 -->
@@ -256,7 +377,7 @@
 										<th>이미지 등록</th>
 										<td colspan="4">
 											<div class="img-section">
-												<form action="/" method="post" class="dropzone"	id="img-section" name="image-main">
+												<form action="/" method="post" class="dropzone"	id="img-section-main" name="image-main">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -265,7 +386,7 @@
 											</div>
 
 											<div class="img-section">
-												<form action="/" method="post" class="dropzone"	id="img-section" name="image-sub">
+												<form action="/" method="post" class="dropzone"	id="img-section-sub" name="image-sub">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -275,7 +396,7 @@
 
 											<div class="img-section">
 												<form action="/" method="post" class="dropzone"
-													id="img-section">
+													id="img-section-sub2">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -285,7 +406,7 @@
 
 											<div class="img-section">
 												<form action="/" method="post" class="dropzone"
-													id="img-section">
+													id="img-section-sub3">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -295,7 +416,7 @@
 
 											<div class="img-section">
 												<form action="/" method="post" class="dropzone"
-													id="img-section">
+													id="img-section-sub4">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -305,7 +426,7 @@
 
 											<div class="img-section">
 												<form action="/" method="post" class="dropzone"
-													id="img-section">
+													id="img-section-sub5">
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -320,12 +441,33 @@
 									<tr class="pro-op">
 										<th>상품옵션</th>
 										<td colspan="4">
-											<div>
+<!-- 											<div>
 												<input type=radio name="pro-opt" checked>&nbsp옵션사용안함	<label class="text-space"></label> 
 												<input type=radio name="pro-opt">&nbsp1차옵션사용 <label class="text-space"></label>
 												<input type=radio name="pro-opt">&nbsp2차옵션사용
 											</div>
-											<div>옵션 영역</div>
+											<div>옵션 영역</div> -->
+											<div style="width:1000px; display:inline-block">
+												1차 옵션
+												<select class="form-control" id="colorOption">												
+		                                       		<option>----</option>
+		                                        <c:forEach var="vo" varStatus="status" items="${sizeOptionList }">
+		                                           	<option value="${vo.no }">${vo.name }</option>
+		                                        </c:forEach>
+												</select><label class="text-space"></label>
+												2차 옵션
+												<select class="form-control" id="sizeOption">
+		                                       		<option>----</option>
+		                                        <c:forEach var="vo" varStatus="status" items="${colorOptionList }">
+		                                           	<option value="${vo.no }">${vo.name }</option>
+		                                        </c:forEach>											
+												</select><label class="text-space"></label>
+												
+												재고량 <input type="text" class="form-control product-info" id="input-stock" value="" />
+												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">등록</button>
+											</div>
+											<button type="button" id="option-add" class="btn btn-secondary waves-effect">옵션추가</button>
+											
 										</td>
 									</tr>
 								</tbody>
@@ -344,14 +486,15 @@
 
 							<!-- 등록,목록 버튼-->
 							<div class="btn-submit-section">
-								<button type="submit" class="btn btn-secondary waves-effect" id="btn-reg">등록</button>
+								<button type="button" class="btn btn-secondary waves-effect" id="btn-reg">등록</button>
 								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">목록</button>
 							</div>
 
 						</div>
 					</div>
 				</div>
-			</div>			
+			</div>
+					
 		</div>
 		<!-- end container -->
 	</div>

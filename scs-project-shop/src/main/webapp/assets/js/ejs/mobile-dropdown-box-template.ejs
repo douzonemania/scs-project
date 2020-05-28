@@ -1,0 +1,19 @@
+
+<select class="custom-select my-1 mr-sm-3" style="width:73%">
+
+	<%
+	for(var i=0; i<data.length; i++){
+		var vo = data[i];	
+	%>
+	
+	<% if(vo.stock==0) { %>
+		<option value="0">
+			<%=vo.name%>품절
+		</option>
+	<% } %>
+		<option value="<%=vo.no%>"><%=vo.name%></option>
+	<%
+	}
+	%>	
+</select>
+

@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<title>카테고리 추가/삭제</title>
+<title>옵션 추가</title>
 <!-- App favicon -->
         <link rel="shortcut icon" href="<%=request.getContextPath() %>/assets/images/favicon.ico">
        
@@ -38,21 +38,19 @@
         <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />     
+        <link href="<%=request.getContextPath() %>/assets/css/common.css" rel="stylesheet" type="text/css" /> 
         
 		<script type="text/javascript"
 			src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 		<script type="text/javascript"
 			src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
-var shipAddTemplate = new EJS({
-	url:"${pageContext.request.contextPath }/assets/js/ejs/ship-item-add.ejs"
-});
-var shiplistTemplate = new EJS({
-	url:"${pageContext.request.contextPath }/assets/js/ejs/ship-list-template.ejs"
+var optionlistTemplate = new EJS({
+	url:"${pageContext.request.contextPath }/assets/js/ejs/option-list-template.ejs"
 });
 var fetchList = function(){
 	$.ajax({
-		url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd',
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/proudct/addOption',
 		async: true,
 		type: 'get',
 		dataType: 'json',
@@ -64,8 +62,8 @@ var fetchList = function(){
 				return;
 			}
 			console.log("response.data: " + response.data);
-			var html = shiplistTemplate.render(response);
-			$("#admin-cat").append(html);
+			var html = optionlistTemplate.render(response);
+			$("#option-list").after(html);
 			
 			
 		},
@@ -129,7 +127,7 @@ $(function(){
 			dataType: 'json',
 			data: '',
 			success: function(response){
-				console.log("delete response:" + response.data);
+				console.log("delete response:" + response);
 				if(response.result != "success"){
 					console.error(response.message);
 					return;
@@ -153,23 +151,72 @@ fetchList();
 </script>
 </head>
 <body>
-	<form id="add-form" action="" method="post">
-		<table id="admin-cat-add" class="table-form-category">
-			<colgroup>
-	            <col width="180"><col width="*">
-	        </colgroup>
-           <tbody> 
-			<tr>
-				<td class="t">배송사</td>
-				<td><input type="text" id="text-ship" name="name"></td>
-				<td><input type="submit" value="배송사 추가" style="background-color:#CBCBCB; border-color:white"></td>
-			</tr>
-			</tbody>
-		</table>
-	</form>
-	
-   	<table id="admin-cat" class="table-form-category">
-
+	<div style="display:flex">
+	<table class="option-add-table">
+		<colgroup>
+			<col width="165px">
+			<col width="55px">			
+		</colgroup>
+		<tr id="">
+			<th colspan="2">SIZE</th>
+		</tr>
+		
+		<c:forEach var="vo" varStatus="status" items="${sizeOptionList }">
+			
+			<c:if test="${vo.name!=null }">	<!-- name이 null이면 td 안붙임 -->
+				<tr>
+			    	<td class="border-right">
+						${vo.name}	
+					</td>
+					<td>
+						<button type="button" id="color-add" class="btn btn-secondary waves-effect">삭제</button>
+					</td>
+				</tr>
+			</c:if>
+		</c:forEach>
+		<tr>
+			<td style="text-align:center; border-right:solid 1px transparent;">
+				<input type="text" class="form-control" id="color-option-name" value="" />
+			</td>
+			<td>
+				<button type="button" id="size-add" class="btn btn-secondary waves-effect">추가</button>
+			</td>
+		</tr>		
 	</table>
+		<table class="option-add-table">
+		<colgroup>
+			<col width="155px">
+			<col width="55px">			
+		</colgroup>
+		<tr id="">
+			<th colspan="2">COLOR</th>
+		</tr>
+		
+		<c:forEach var="vo" varStatus="status" items="${colorOptionList }">
+			
+			<c:if test="${vo.name!=null }">	<!-- name이 null이면 td 안붙임 -->
+				<tr>
+			    	<td class="border-right">
+						${vo.name}	
+					</td>
+					<td>
+						<button type="button" id="size-add" class="btn btn-secondary waves-effect">삭제</button>
+					</td>
+				</tr>
+			</c:if>
+		</c:forEach>
+		<tr>
+			<td style="text-align:center; border-right:solid 1px transparent;">
+				<input type="text" class="form-control" id="color-option-name" value="" />
+			</td>
+			<td>
+				<button type="button" id="size-add" class="btn btn-secondary waves-effect">추가</button>
+			</td>
+		</tr>		
+	</table>
+	</div>
+	
+	
+  
 </body>
 </html>

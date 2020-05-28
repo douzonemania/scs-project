@@ -14,6 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.douzonemania.shop.vo.CategoryVo;
 import com.douzonemania.shop.vo.ItemVo;
+import com.douzonemania.shop.vo.OptionVo;
 
 @Repository
 public class OrderRepository {
@@ -85,7 +86,53 @@ public class OrderRepository {
 		return list;
 	}
 	
+	public ItemVo findProduct(Integer no) {
 		
+		String db=getSession();
+		map.put("db",db);
+		map.put("no",no);
+		
+		ItemVo vo =sqlSession.selectOne("order.findProduct",map);
+		
+		double reviewAvg = vo.getRate();
+		int conReviewAvg=(int) Math.floor(reviewAvg);
+		double douRevAvg = reviewAvg-conReviewAvg;
+		
+		vo.setIntRevAvg(conReviewAvg);
+		vo.setDouRevAvg(douRevAvg);
+		
+
+		return vo;
+		
+		
+	}
+	
+	public List<OptionVo> findOptionList(Integer no) {
+		
+		String db=getSession();
+		map.put("db",db);
+		map.put("no",no);
+		
+		List<OptionVo> list = sqlSession.selectList("order.findOptionList",map);
+	
+		
+		return list;
+	}
+
+	public List<OptionVo> findSecondOption(int no, int option) {
+		String db = getSession();
+		map.put("db",db);
+		map.put("no",no);
+		map.put("option",option);
+		
+		List<OptionVo> list = sqlSession.selectList("order.findSecondOption",map);
+		
+		return list;
+	}
+
+
+	
+	
 	public String getSession() {
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
 		
@@ -95,6 +142,8 @@ public class OrderRepository {
 		return id;
 	}
 
+
+	
 
 	
 

@@ -1,5 +1,6 @@
 <tr>
-	<th>배송사명</th>
+	<td>1</td>
+	<td>2</td>
 </tr>
 
 <%
@@ -10,10 +11,9 @@
 		count += 1;
 %>
 
-<tr>
+<tr data-no='<%= vo.no%>'>
 		<td><%= count%></td>
-		<td><%= vo.name%></td>
-		<td><button data-no='<%=vo.no%>'>삭제</button></td>
+		<td><%= vo.name%></td>		
 </tr>
 <%
 	}

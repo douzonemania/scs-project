@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.douzonemania.scs.repository.ProductRepository;
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
+import com.douzonemania.scs.vo.member.OptionVo;
 
 @Service
 public class ProductService {
@@ -16,52 +17,65 @@ public class ProductService {
 	private ProductRepository productRepository;
 
 	/* 상품 리스트 가져오기 */
-	public List<ItemVo> getItemList() {
-		return productRepository.getItemList();
+	public List<ItemVo> getItemList(String id) {
+		return productRepository.getItemList(id);
 	}
 
 	/* 상품 등록*/
-	public int regItem(ItemVo iVo) {
-		return productRepository.regItem(iVo);		
+	public int regItem(String id, ItemVo iVo) {
+		return productRepository.regItem(id, iVo);		
 	}
 	
 	/* 해당 no 상품 검색 */
-	public ItemVo findItem(int no) {
-		return productRepository.findItem(no);
+	public ItemVo findItem(String id, int no) {
+		return productRepository.findItem(id, no);
 	}
 
 	/* 카테고리 추가하기 */
-	public int addCategory(CategoryVo cVo) {		
-		return productRepository.addCategory(cVo);		
+	public int addCategory(String id, CategoryVo cVo) {		
+		return productRepository.addCategory(id, cVo);		
 	}
 
 	/* 카테고리 이름으로 검색 */
-	public CategoryVo findCategoryByName(String name) {
-		return productRepository.findCategoryByName(name);
+	public CategoryVo findCategoryByName(String id, String name) {
+		return productRepository.findCategoryByName(id, name);
 		}
 
 	/* 카테고리 삭제하기 */
-	public int delCategory(String name) {
-		return productRepository.delCategory(name);		
+	public int delCategory(String id, String name) {
+		return productRepository.delCategory(id, name);		
 	}
 
 	/* 1차 카테고리 이름 리스트  */
-	public List<CategoryVo> getCategoryNameList() {		
-		return productRepository.getCategoryNameList();
+	public List<CategoryVo> getCategoryNameList(String id) {		
+		return productRepository.getCategoryNameList(id);
 	}
 	
-	/* 2차 카테고리 이름 리스트  */
-	public List<CategoryVo> getCategory2NameList(int ParentCategoryNo) {		
-		return productRepository.getCategory2NameList(ParentCategoryNo);
+	/* 2차 카테고리 부모카테고리번호 별 이름 리스트  */
+	public List<CategoryVo> getCategory2NameList(String id, int parentCategoryNo) {		
+		return productRepository.getCategory2NameList(id, parentCategoryNo);
 	}
-
+	/* 2차 카테고리 전체 이름 리스트 */ 
+	public List<CategoryVo> getCategory2NameList(String id) {
+		return productRepository.getCategory2NameList(id);
+	}
+	
 	/* 카테고리 수정하기 */
-	public int updateCategory(String name, String afterName) {
-		return productRepository.updateCategory(name, afterName);
+	public int updateCategory(String id, String name, String afterName) {
+		return productRepository.updateCategory(id, name, afterName);
 		
 	}
 	/* 카테고리 추가시 카테고리 이름으로 부모 카테고리 번호 검색 */
-	public int getCategoryNoByName(String parentCategory) {
-		return productRepository.findCategoryNoByName(parentCategory);		
+	public int getCategoryNoByName(String id, String parentCategory) {
+		return productRepository.findCategoryNoByName(id, parentCategory);		
 	}
+
+	public List<OptionVo> getOptionListOfSize(String id) {
+		return productRepository.getOptionListOfSize(id);
+	}
+	
+	public List<OptionVo> getOptionListOfColor(String id) {
+		return productRepository.getOptionListOfColor(id);
+	}
+
 }
