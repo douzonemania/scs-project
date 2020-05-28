@@ -96,10 +96,10 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">SCS</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">회원관리</a></li>
-                                    <li class="breadcrumb-item active">문의게시판 관리</li>
+                                    <li class="breadcrumb-item active">Q&A 게시판 관리</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">문의게시판 관리</h4>
+                            <h4 class="page-title">Q&A 게시판 관리</h4>
                         </div>
                     </div>
                 </div>     

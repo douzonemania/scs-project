@@ -112,6 +112,7 @@ $(function(){
 			}
 		});
 	});
+
 	
 	// 클릭시 삭제
 	$(document).on('click','#admin-cat tr td button',function(event){
