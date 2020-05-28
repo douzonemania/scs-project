@@ -45,117 +45,40 @@
 <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
-<link href="<%=request.getContextPath() %>/assets/css/common.css" rel="stylesheet" type="text/css" />
-
-<script src="https://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
-<script type="text/JavaScript"
-	src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-​
-<script type="text/javascript">
-$(document).ready(function(){
-	
-	$('#submit-btn').click(function(e){
-		e.preventDefault();
-		var html = quill.getContents();
-		var email=$('#email').val();
-		var title=$('#title').val();
-		html.email=email;
-		html.title=title;
-		
- 		$.ajax({
-			url: '${pageContext.request.contextPath }/${authUser.id}/api/member/email/post',
-			async: true,
-			type: 'post',
-			dataType: 'json',
-			contentType: 'application/json',
-			data: JSON.stringify(html),
-			success: function(response){
-				location.href= "${pageContext.request.contextPath }/${authUser.id}/member/send-mail-success";
-			},
-			error: function(xhr, status, e){
-
-				console.error(status + " : " + e);
-	
-			}
-			
-			
-		}); 
- 		
-	});
-	
-});
-
-</script>
 
 </head>
 <body>
 
-	<header>
-  		<!-- horizontal-nav -->  	
-        <c:import url ='/WEB-INF/views/partials/horizontal-nav.jsp'/>
-    </header>
-    	<!-- footer -->
-    	<c:import url ='/WEB-INF/views/partials/footer.jsp'/>
-    
-     <!-- ============================================================== -->
-     <!-- Start Page Content here -->
-     <!-- ============================================================== -->
-     
-	<div class="wrapper">
-		<div class="container-fluid">
-			<!-- header-->
-			<div class="row">
-				<div class="col-12">
-					<div class="page-title-box">
-						<div class="page-title-right">
-							<ol class="breadcrumb m-0">
-								<li class="breadcrumb-item"><a href="javascript: void(0);">SCS</a></li>
-								<li class="breadcrumb-item"><a href="javascript: void(0);">회원관리</a></li>
-								<li class="breadcrumb-item active">메일발송</li>
-							</ol>
-						</div>
-						<h4 class="page-title">메일발송</h4>
-					</div>
-				</div>
-			</div>
-			<!--header 종료-->
+	<!-- footer -->
+	<c:import url='/WEB-INF/views/partials/footer.jsp' />
 
-			<!-- mail-info 시작-->
-			<form>
+	<!-- ============================================================== -->
+	<!-- Start Page Content here -->
+	<!-- ============================================================== -->
+
+
+
+	<div class="text-center mb-4" style="margin-top: 70px;">
+		<a href="${ pageContext.request.contextPath }/main"> <span><img
+				src="<%=request.getContextPath() %>/assets/images/logo-scs.png" alt="" height="130"></span>
+		</a>
+	</div>
+
+		<div class="container-fluid" style="margin-bottom: 30px;">
+			
 				<div class="col-lg-12"
-					style="background-color: #FFFFFF; padding: 40px;">
-					<div class="email-info">
-						<span style="margin-right: 20px;"> 받는사람 </span> <input type="text"
-							class="form-control mail-custom" id="email" name="memberEmail" value="${memberEmail}">
-					</div>
-	
-					<div class="email-info">
-						<span style="margin-right: 60px"> 제목 </span> <input type="text"
-							class="form-control mail-custom" id="title" placeholder="(제목 없음)" name="title">
-					</div>
-					<!-- mail info 종료-->
-	
-					<div style="margin-top: 30px;"></div>
-					
-					<!-- Editor -->
-					<div id="snow-editor" style="height: 300px;"></div>
-	
-					<div class="btn-submit-section" style="margin-top: 30px;">
-						<button type="submit" id="submit-btn" class="btn btn-secondary waves-effect">전송</button>
-					</div>
+					style="background-color: #FFFFFF; padding: 40px; width: 800px; height: 500px; margin: 0 auto; margin-top: 50px;">
+						<br/>
+						<h1 class="fe-check mt-3" style="font-size: 100px; margin-bottom: 20px"></h1>
+						<h2 class="mt-3 mt-lg-0">회원 가입이 완료되었습니다.</h2>
+						<br/><br/><br/><br/><br/><br/>
+                        <p class="mt-3 mt-lg-0"><a href="${pageContext.request.contextPath }/main">로그인 하러가기</a></p>
 				</div>
-			</form>
-            </div> <!-- end container -->
-        </div>
-        <!-- end wrapper -->
-
-        <!-- ============================================================== -->
-        <!-- End Page content -->
-        <!-- ============================================================== -->
+		</div>
+		<!-- end container -->
 
 	<c:import url ='/WEB-INF/views/partials/script.jsp'/>
-        
-    </body>
+
+
+</body>
 </html>

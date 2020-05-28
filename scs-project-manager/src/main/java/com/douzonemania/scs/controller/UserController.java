@@ -42,14 +42,11 @@ public class UserController {
 	public String join(@ModelAttribute @Valid CeoVo ceoVo, BindingResult result,
 			Model model) {
 
-		// properties 안넣으면 에러가 안들어가요ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
 		if(result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
 			return "user/signup";
 		}
 		
-//		model.addAllAttributes(result.getModel());
-
 		ceoVo.setAddress(ceoVo.getAddress1() + " " + ceoVo.getAddress2());
 
 		userService.insert(ceoVo);
@@ -60,7 +57,13 @@ public class UserController {
 		userService.createTable(id);
 		userService.alterTable(id);
 		
-		return "redirect:/index";
+		return "user/join-success";
+	}
+	
+	@RequestMapping(value="/join-success")
+	public String sendEmailSuccess() {
+		
+		return "user/join-success";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

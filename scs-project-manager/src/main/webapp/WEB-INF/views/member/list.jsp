@@ -57,9 +57,6 @@
 		src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
        
 <script type="text/javascript">
-var listTemplate = new EJS({
-	url: "${pageContext.request.contextPath }/assets/js/ejs/member-list.ejs"
-});
 
 var list = function() {
 	
@@ -91,7 +88,7 @@ var searchOption = function() {
     
     // select element에서 선택된 option의 value가 저장된다.
     var selectValue = langSelect.options[langSelect.selectedIndex].value;
-	console.log()
+
     return selectValue;
 }
 
@@ -110,54 +107,34 @@ var searchOption = function() {
 
 }); */
 
-/* var removeCheck = function() {
-if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
-	 console.log("네네네");
-	 event.preventDefault();
-		var no = $(this).data('no');
-		
+	var removeCheck = function(no) {
+	if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
+	 	console.log("네네네");
+	 	event.preventDefault();
+		console.log(no);
 			$.ajax({
-				url: '${pageContext.request.contextPath }/${authUser.id}/admin/api/category/delete/' + no,
+				url: '${pageContext.request.contextPath }/${authUser.id}/api/member/delete/' + no,
 				async: true,
-				type: 'delete',
+				type: 'post',
 				dataType: 'json',
+				contentType: 'application/json',
 				data: '',
-				success: function(response) {
-
-					console.log(tdCount+":"+trCount);
-
-					if(response.data != -1){
-				          console.log(response.data);
-				            
-							var tdCount = $('.admin-cat').find('tr td').length;
-							var trCount = $('.admin-cat').find('tr').length;
-							
-							for(var i = tdCount - 5, j = 1; i >= 0; i -= 5, j++) {
-								console.log(i, $('.admin-cat tr td')[i]);
-								if($('.admin-cat tr td')[i].innerText == j) {
-									continue;
-								} else {
-									console.log("find: " + $('.admin-cat tr td')[i].innerText);
-									$('.admin-cat tr td')[i].innerText = j;
-								}
-							}
-				          
-				          return;
-				    }
-
-					
+				success: function(response){
+					location.href= "${pageContext.request.contextPath }/${authUser.id}/member/list";
 				},
-				error: function(xhr, status, e) {
-					console.error(status + ":" + e);
+				error: function(xhr, status, e){
+
+					console.error(status + " : " + e);
+		
 				}
 			});
-}
-else {   //취소
-	 console.log("아니오오오오");
-	 event.preventDefault();
-    return;
-}
-} */
+	}
+	else {   //취소
+		console.log("아니오오오오");
+		event.preventDefault();
+	    return;
+	}
+} 
 
 </script>
 
@@ -243,7 +220,7 @@ else {   //취소
                                  		<td>${vo.phoneNumber }</td>
                                  		<td>
                                  			<a href="">
-											<i id="delete-member-icon" onClick="removeCheck();" class="fe-x-square member-icon"></i></a>
+											<i id="delete-member-icon" onClick="removeCheck(${vo.no});" class="fe-x-square member-icon"></i></a>
                                  		</td>
                                  		<td>
                                  			<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/email/${vo.no}">

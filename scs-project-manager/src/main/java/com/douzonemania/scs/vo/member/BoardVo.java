@@ -13,6 +13,8 @@ public class BoardVo {
 	private int memberNo;
 	private Timestamp regDate;
 	private int replyNo;
+	private String id; // member id
+	private String name; // member name
 
 	public int getNo() {
 		return no;
@@ -61,7 +63,7 @@ public class BoardVo {
 	public void setReplyNo(int replyNo) {
 		this.replyNo = replyNo;
 	}
-	
+
 	public String getCategory() {
 		return category;
 	}
@@ -70,10 +72,27 @@ public class BoardVo {
 		this.category = category;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardVo [no=" + no + ", category=" + category + ", title=" + title + ", contents=" + contents
-				+ ", memberNo=" + memberNo + ", regDate=" + regDate + ", replyNo=" + replyNo + "]";
+				+ ", memberNo=" + memberNo + ", regDate=" + regDate + ", replyNo=" + replyNo + ", id=" + id + ", name="
+				+ name + "]";
 	}
 
 }

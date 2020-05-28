@@ -49,12 +49,12 @@
 </head>
 <body>
 
-	<header>
-		<!-- horizontal-nav -->
-		<c:import url='/WEB-INF/views/partials/horizontal-nav.jsp' />
-	</header>
-	<!-- footer -->
-	<c:import url='/WEB-INF/views/partials/footer.jsp' />
+  	<header>
+  		<!-- horizontal-nav -->  	
+        <c:import url ='/WEB-INF/views/partials/horizontal-nav.jsp'/>
+    </header>
+    	<!-- footer -->
+    	<c:import url ='/WEB-INF/views/partials/footer.jsp'/>
 
 	<!-- ============================================================== -->
 	<!-- Start Page Content here -->
@@ -85,7 +85,7 @@
 				<div class="col-lg-12"
 					style="background-color: #FFFFFF; padding: 40px; width: 800px; height: 500px; margin: 0 auto; margin-top: 50px;">
 						<br/>
-						<h1 class="fe-mail mt-3" style="font-size: 100px; margin-bottom: 20px"></h1>
+						<h1 class="fe-mail mt-3" style="font-size: 100px; margin-bottom: 20px;"></h1>
 						<h2 class="mt-3 mt-lg-0">메일 발송이 완료되었습니다.</h2>
 						<br/><br/><br/><br/><br/><br/>
                         <p class="mt-3 mt-lg-0"><a href="${pageContext.request.contextPath }/${ authUser.id }/member/email">메일 발송 페이지로 돌아가기</a></p>
