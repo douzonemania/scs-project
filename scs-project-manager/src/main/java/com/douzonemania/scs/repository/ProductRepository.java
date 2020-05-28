@@ -109,7 +109,26 @@ public class ProductRepository {
 		return sqlSession.selectList("option.getOptionListOfColor", map);
 	}
 	
+	public int addSizeOption(String id, String name) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("name", name);
+		return sqlSession.insert("option.addSizeOption", map);
+	}
 	
+	public int addColorOption(String id, String name) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("name", name);
+		return sqlSession.insert("option.addColorOption", map);
+	}
+	
+	public OptionVo getOption(String id, String name) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("name", name);
+		return sqlSession.selectOne("option.getOption", map);
+	}	
 	
 	public String getSession() {
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
@@ -117,6 +136,9 @@ public class ProductRepository {
 		String id =nowSession.getAttribute("name").toString();
 		return id;
 	}
+
+
+
 
 
 

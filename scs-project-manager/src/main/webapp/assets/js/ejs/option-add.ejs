@@ -1,0 +1,23 @@
+<%
+	if(type=="color"){
+%>
+
+<tr>	
+	<td><%=name%></td>
+	<td>
+		<button type="button" id="color-del-<%=no %>" class="btn btn-secondary waves-effect del">삭제</button>
+	</td>
+</tr>
+
+<%
+	} else if ( type=="size"){
+%>
+<tr>	
+	<td><%=name%></td>
+	<td>
+		<button type="button" id="size-del-<%=no %>" class="btn btn-secondary waves-effect del">삭제</button>
+	</td>
+</tr>
+<%
+	}
+%>

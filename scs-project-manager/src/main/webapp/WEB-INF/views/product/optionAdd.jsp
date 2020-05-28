@@ -45,110 +45,70 @@
 		<script type="text/javascript"
 			src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
-var optionlistTemplate = new EJS({
-	url:"${pageContext.request.contextPath }/assets/js/ejs/option-list-template.ejs"
+var optionAddEjs = new EJS({
+	url:"${pageContext.request.contextPath }/assets/js/ejs/option-add.ejs"
 });
-var fetchList = function(){
-	$.ajax({
-		url: '${pageContext.request.contextPath }/${authUser.id}/api/proudct/addOption',
-		async: true,
-		type: 'get',
-		dataType: 'json',
-		data: '',
-		success: function(response){
-			
-			if(response.result != "success"){
-				console.error(response.message);
-				return;
-			}
-			console.log("response.data: " + response.data);
-			var html = optionlistTemplate.render(response);
-			$("#option-list").after(html);
-			
-			
-		},
-		error: function(xhr, status, e){
-			console.error(status + " : " + e);
-		}
-	});	
-}
+
 $(function(){
- 	
-	//입력폼 submit 이벤트
-	$('#add-form').submit(function(event){
-		event.preventDefault();
+	
+	//추가 버튼 클릭시 size option add 
+	$("#size-add").click(function() {	
 		
-		var vo = {};
-		vo.name = $('#text-ship').val();
-		vo.id = '${authUser.id}';
+		var no = null;
+		var name = $('#size-option-name').val();
+		var vo={}
+		vo.no = no;
+		vo.name = name;
 		$.ajax({
-			url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd/add',
-			async: true,
-			type: 'post',
-			dataType: 'json',
+			url: '${pageContext.request.contextPath }/api/product/option/addSize' ,
 			contentType: 'application/json',
 			data: JSON.stringify(vo),
-			success: function(response){
-				
-				console.log("add-form: " + response);
-				
-				if(response.result != "success"){
-					console.error(response.message);
-					return;
-				}
-				// rendering
-				
-				var lastNo = $("#admin-cat").find('tr').length;
-				response.data.lastNo = lastNo;
-				var html = shipAddTemplate.render(response.data);
-				$("#admin-cat tr").last().after(html);
-				
-				// form reset
-				$("#add-form")[0].reset();
-				
-			},
-			error: function(xhr, status, e){
-				console.error(status + " : " + e);
-			}
-		});
-	});
-
-	
-	// 클릭시 삭제
-	$(document).on('click','#admin-cat tr td button',function(event){
-		event.preventDefault();			
-		var no = $(this).data('no');
-		$(this).parents('tr').remove();
-		
-		console.log("delete   " + no);
-		$.ajax({
-			url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd/delete/'+ no,
-			async: true,
-			type: 'delete',
+			type: "POST",
 			dataType: 'json',
-			data: '',
-			success: function(response){
-				console.log("delete response:" + response);
-				if(response.result != "success"){
-					console.error(response.message);
-					return;
-				}
-				if(response.data != -1 ){
-					
-					return;
-				}
+			success : function(response){				
+				var html = optionAddEjs.render(response.data);
+				$('#last-SizeTable').before(html);
 			},
-			error: function(xhr, status, e){
-				console.error(status + " : " + e);
-			}
+			error:
+				function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
 		});
-		
-		
+		$('#size-option-name').val('');
 	});
 	
+	// 추가 버튼 클릭시 size color add
+	$("#color-add").click(function() {
+		
+		var no = null;
+		var name = $('#color-option-name').val();
+		var type = null;
+		
+		var vo={}
+		vo.no = no;
+		vo.name = name;
+		vo.type = type;
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/product/option/addColor' ,
+			contentType: 'application/json',
+			data: JSON.stringify(vo),
+			type: "POST",
+			dataType: 'json',
+			success : function(response){				
+				var html = optionAddEjs.render(response.data);
+				$('#last-ColorTable').before(html);
+			},
+			error:
+				function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
+		});
+		$('#color-option-name').val('');
+	});
 	
 });
-fetchList();
+
 </script>
 </head>
 <body>
@@ -170,21 +130,22 @@ fetchList();
 						${vo.name}	
 					</td>
 					<td>
-						<button type="button" id="color-add" class="btn btn-secondary waves-effect">삭제</button>
+						<button type="button" id="size-del-${vo.no }" class="btn btn-secondary waves-effect del">삭제</button>
 					</td>
 				</tr>
 			</c:if>
 		</c:forEach>
-		<tr>
+		<tr id="last-SizeTable">
 			<td style="text-align:center; border-right:solid 1px transparent;">
-				<input type="text" class="form-control" id="color-option-name" value="" />
+				<input type="text" class="form-control" id="size-option-name" value="" />
 			</td>
 			<td>
 				<button type="button" id="size-add" class="btn btn-secondary waves-effect">추가</button>
 			</td>
 		</tr>		
 	</table>
-		<table class="option-add-table">
+	
+	<table class="option-add-table">
 		<colgroup>
 			<col width="155px">
 			<col width="55px">			
@@ -194,24 +155,24 @@ fetchList();
 		</tr>
 		
 		<c:forEach var="vo" varStatus="status" items="${colorOptionList }">
-			
-			<c:if test="${vo.name!=null }">	<!-- name이 null이면 td 안붙임 -->
+			<!-- name이 null이면 td 안붙임 -->
+			<c:if test="${vo.name!=null }">	
 				<tr>
 			    	<td class="border-right">
 						${vo.name}	
 					</td>
 					<td>
-						<button type="button" id="size-add" class="btn btn-secondary waves-effect">삭제</button>
+						<button type="button" id="color-del-${vo.no }" class="btn btn-secondary waves-effect del">삭제</button>
 					</td>
 				</tr>
 			</c:if>
 		</c:forEach>
-		<tr>
+		<tr id="last-ColorTable">
 			<td style="text-align:center; border-right:solid 1px transparent;">
 				<input type="text" class="form-control" id="color-option-name" value="" />
 			</td>
 			<td>
-				<button type="button" id="size-add" class="btn btn-secondary waves-effect">추가</button>
+				<button type="button" id="color-add" class="btn btn-secondary waves-effect">추가</button>
 			</td>
 		</tr>		
 	</table>

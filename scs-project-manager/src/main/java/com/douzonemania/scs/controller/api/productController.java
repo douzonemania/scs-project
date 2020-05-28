@@ -14,6 +14,7 @@ import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.ProductService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
+import com.douzonemania.scs.vo.member.OptionVo;
 import com.douzonemania.security.AuthUser;
 
 
@@ -117,6 +118,29 @@ public class productController {
 		return JsonResult.success(productService.getCategory2NameList(id, cVo.getParentNo()));
 	}
 	
+	// 사이즈 옵션 추가
+	@RequestMapping(value="/option/addSize", method = RequestMethod.POST)
+	public JsonResult addSize(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo			
+			) {
+		String id = authUser.getId();
+		productService.addSizeOption(id, oVo.getName());		// 사이즈 add
+		oVo = productService.getOption(id, oVo.getName());		// 옵션 셀렉트
+		return JsonResult.success(oVo);
+	}
+	
+	// 컬러 옵션 추가
+	@RequestMapping(value="/option/addColor", method = RequestMethod.POST)
+	public JsonResult addColor(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo			
+			) {
+		String id = authUser.getId();
+		productService.addColorOption(id, oVo.getName());		// 컬러 add
+		oVo = productService.getOption(id, oVo.getName());		// 옵션 셀렉트
+		return JsonResult.success(oVo);
+	}
 	// 옵션 추가 팝업
 	/*
 	 * @RequestMapping(value="/category-reg/addOption", method = RequestMethod.POST)
