@@ -66,7 +66,7 @@
 				var name = $("#member_name").val();
 				var password = $("#member_password").val();
 				var phone = $("#member_phoneNumber").val();
-				var email = $("#member_phoneNumber").val();
+				var email = $("#member_email").val();
 				if(id != ''&& name != ''&& password !=''&& email !=''&& phone &&
 					 $("input:checkbox[name=all]").is(":checked")){
 					check=true;

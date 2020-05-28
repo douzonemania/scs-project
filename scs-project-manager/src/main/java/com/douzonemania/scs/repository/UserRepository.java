@@ -33,12 +33,14 @@ public class UserRepository {
 				+ "    second_option INT UNSIGNED NULL," + "    stock         INT UNSIGNED NULL,"
 				+ "    primary key(no)" + ") engine=InnoDB character set=utf8; ";
 		String optionQry = "CREATE TABLE " + id + ".option(" + "    no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
-				+ "    name VARCHAR(30)  NOT NULL," + "    primary key(no)" + ") engine=InnoDB character set=utf8;";
+				+ "    name VARCHAR(30)  NOT NULL," + "    type VARCHAR(30) NOT NULL,"
+				+ "    primary key(no)" + ") engine=InnoDB character set=utf8;";
 		String memberQry = "CREATE TABLE " + id + ".member ("
 				+ "    no           INT UNSIGNED  NOT NULL AUTO_INCREMENT," + "    id           VARCHAR(20)   NOT NULL,"
 				+ "    name         VARCHAR(20)   NOT NULL,"
 				+ "    password     VARCHAR(50)   NOT NULL," + "    phone_number VARCHAR(30)   NOT NULL,"
 				+ "    email        VARCHAR(50)   NOT NULL," + "    reg_date     DATETIME          NOT NULL,"
+				+ "    state		ENUM('회원', '탈퇴')	NOT NULL,"
 				+ "    type         ENUM('카카오', '구글', '네이버', '일반') NOT NULL," + "    primary key(no)\r\n"
 				+ ") engine=InnoDB character set=utf8; ";
 		String replyQry = "CREATE TABLE " + id + ".reply(" + "   no INT UNSIGNED NOT NULL AUTO_INCREMENT,"

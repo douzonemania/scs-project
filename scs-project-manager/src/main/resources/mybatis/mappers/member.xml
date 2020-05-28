@@ -13,6 +13,7 @@
 				   type,
 				   name
 			  from ${db}.member
+			 where state='회원'
 			 limit ${size} offset #{offset}
 		]]>
 	</select>
@@ -28,7 +29,8 @@
 				   type,
 				   name
 			  from ${db}.member
-			 where ${option} like '%${keyword}%'
+			 where state='회원'
+			   and ${option} like '%${keyword}%'
 			 limit ${size} offset #{offset}
 		]]>
 	</select>
@@ -59,4 +61,69 @@
 			 where no = #{no}
 		]]>
 	</select>
+	
+	
+	<select id="findBoardList" parameterType="map" resultType="boardvo">
+		<![CDATA[
+			select b.no,
+				   b.category,
+				   b.title,
+				   b.contents,
+				   b.member_no as memberNo,
+				   b.reg_date as regDate,
+				   b.reply_no as replyNo,
+				   m.id,
+				   m.name
+			  from ${db}.board b, ${db}.member m
+			 where b.member_no = m.no
+			   and m.state='회원'
+			 limit ${size} offset #{offset}
+		]]>
+	</select>
+	
+	<select id="findSearchBoardList" parameterType="map" resultType="boardvo">
+		<![CDATA[
+			select b.no,
+				   b.category,
+				   b.title,
+				   b.contents,
+				   b.member_no as memberNo,
+				   b.reg_date as regDate,
+				   b.reply_no as replyNo,
+				   m.id,
+				   m.name
+			  from ${db}.board b, ${db}.member m
+			 where b.member_no = m.no
+			   and m.state = '회원'
+			   and m.${option} like '%${keyword}%'
+			 limit ${size} offset #{offset}
+		]]>
+	</select>
+	
+	<select id="boardListCount" parameterType="map" resultType="int">
+			<choose>
+				<when test='option==""'>
+					<![CDATA[
+						select count(*)
+						  from ${db}.board
+					]]>
+				</when>
+				<otherwise>
+					<![CDATA[
+						select count(*)
+						  from ${db}.board
+						 where ${option} like '%${keyword}%'
+					]]>
+				</otherwise>
+			</choose>
+	</select>
+	
+	<update id="deleteMember" parameterType="map">
+		<![CDATA[
+			update ${db}.member
+			   set state = '탈퇴'
+			 where no = #{no}
+		]]>
+	</update>
+	
 </mapper>

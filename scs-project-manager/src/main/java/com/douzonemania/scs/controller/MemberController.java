@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.MemberService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.security.AuthUser;
@@ -27,18 +28,13 @@ public class MemberController {
 	MemberService memberService;
 
 	
-	@RequestMapping(value = "/board", method = RequestMethod.GET)
-	public String memberBoard() {
-		return "member/board";
-	}
-
 	@RequestMapping(value= {"", "/list"}, method = { RequestMethod.GET, RequestMethod.POST })
 	public String memberList(@AuthUser CeoVo authUser, Model model,
 			@RequestParam(value="p", required=true, defaultValue="1") int page,
 			@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
 			@RequestParam(value="op", required=true, defaultValue="") String option) {
 		
-		Map<String, Object> map = memberService.find(authUser.getId(), page, keyword, option);
+		Map<String, Object> map = memberService.memberList(authUser.getId(), page, keyword, option);
 		
 		model.addAttribute("map", map);
 		
@@ -58,36 +54,11 @@ public class MemberController {
 		return "member/send-mail";
 	}
 	
-//	@RequestMapping(value = "/email/post", method=RequestMethod.POST)
-//	public String sendEmail(@AuthUser CeoVo authUser, @RequestParam("memberEmail") String memberEmail,
-//			@RequestParam("title") String title, @RequestParam("contents") String contents) {
-//		
-//		memberService.gmailSend(memberEmail, title, contents);
-//		
-//		return "member/send-mail-success";
-//	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/email/post", method=RequestMethod.POST)
-	public String sendEmail(@AuthUser CeoVo authUser, @RequestBody String html) {
-		
-//		  String email = request.getParameter("memberEmail"); 
-//		  String title = request.getParameter("title");
-		 
-		System.out.println("html:"+html);
-		memberService.jsonPassing(html);
-		
-//		memberService.gmailSend(memberEmail, title, contents);
-		
-		return "member/send-mail-success";
-	}
-	
 	
 	// 메일발송 페이지로 가서 메일을 전송할 경우(회원 email을 직접 입력)
 	@RequestMapping(value = "/email", method = RequestMethod.GET)
 	// @RequestParam
 	public String sendMail(@AuthUser CeoVo authUser) {
-//		memberService.gmailSend();
 		return "member/send-mail";
 	}
 	
@@ -97,4 +68,21 @@ public class MemberController {
 		return "member/send-mail-success";
 	}
 	
+	@RequestMapping(value="/board", method = { RequestMethod.GET, RequestMethod.POST })
+	public String boardList(@AuthUser CeoVo authUser, Model model,
+			@RequestParam(value="p", required=true, defaultValue="1") int page,
+			@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
+			@RequestParam(value="op", required=true, defaultValue="") String option) {
+		
+		Map<String, Object> map = memberService.boardList(authUser.getId(), page, keyword, option);
+		
+		model.addAttribute("map", map);
+		
+		return "member/board";
+	}
+	
+//	@RequsetMapping(value="/board/reply/{no}")
+//	public String reply() {
+//		
+//	}
 }

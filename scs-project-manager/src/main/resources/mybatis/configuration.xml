@@ -8,6 +8,7 @@
 		<typeAlias alias="shipcompanyvo" type="com.douzonemania.scs.vo.ceo.ShipCompanyVo" />
 		<typeAlias alias="agreementvo" type="com.douzonemania.scs.vo.ceo.AgreementVo" />
 		<typeAlias alias="membervo" type="com.douzonemania.scs.vo.member.MemberVo" />
+		<typeAlias alias="boardvo" type="com.douzonemania.scs.vo.member.BoardVo" />
 		<typeAlias alias="optionvo" type="com.douzonemania.scs.vo.member.OptionVo" />
 	</typeAliases>	
 	<mappers>
