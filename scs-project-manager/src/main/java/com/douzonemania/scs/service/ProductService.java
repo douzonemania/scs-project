@@ -78,4 +78,21 @@ public class ProductService {
 		return productRepository.getOptionListOfColor(id);
 	}
 
+	public int addSizeOption(String id, String name) {
+		return productRepository.addSizeOption(id, name);
+	}
+
+	public int addColorOption(String id, String name) {
+		return productRepository.addColorOption(id, name);
+	}
+
+	public OptionVo getOption(String id, String name) {
+		return productRepository.getOption(id, name);
+	}
+
+	public int delOption(String id, int no) {
+		return productRepository.delOption(id, no);
+	}
+	
+
 }
