@@ -50,6 +50,7 @@
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
 var click = 0;
+var click2 = 0;
 $(function() {
 	/* 옵션 추가 등록 팝업 */
 		$('#option-add').click(function(){		
@@ -199,7 +200,7 @@ $(function() {
 	/* 컬러 옵션 뿌리기 */
 	$('#sizeOption').click(function(event){
 		
-		if((click%2)==0){
+		if((click2%2)==0){
 		var vo={};
 		$.ajax({
 			url: '${pageContext.request.contextPath }/api/product/option/sizeList',
@@ -221,7 +222,7 @@ $(function() {
 			$('select#sizeOption option').remove();
 			$('select#sizeOption').append("<option value=''>----</option>");
 		}
-		click++;
+		click2++;
 	});
 	
 	
