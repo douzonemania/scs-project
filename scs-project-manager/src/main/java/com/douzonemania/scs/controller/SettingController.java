@@ -33,8 +33,8 @@ public class SettingController {
 
 	// setting-basic
 	@RequestMapping(value = "/basic", method = RequestMethod.GET)
-	public String info(@AuthUser CeoVo authUser,
-			@ModelAttribute CeoVo ceoVo,
+	public String info(@ModelAttribute("ceoVo") CeoVo ceoVo,
+			@AuthUser CeoVo authUser,
 			Model model) {
 		
 		System.out.println("info보여준다.");
@@ -46,7 +46,7 @@ public class SettingController {
 
 	// setting-basic update(get)
 	@RequestMapping(value = "/basic/update", method = RequestMethod.GET)
-	public String update(@ModelAttribute CeoVo ceoVo,
+	public String update(@ModelAttribute("ceoVo") CeoVo ceoVo,
 			@AuthUser CeoVo authUser,
 			Model model) {
 		System.out.println("update get 보여준다.");
@@ -59,7 +59,7 @@ public class SettingController {
 
 	// setting-basic update(post)
 	@RequestMapping(value = "/basic/update", method = RequestMethod.POST)
-	public String update(@ModelAttribute CeoVo ceoVo,
+	public String update(@ModelAttribute("ceoVo") CeoVo ceoVo,
 			@AuthUser CeoVo authUser,
 			@RequestParam(value="logo-file") MultipartFile multipartFile1,
 			@RequestParam(value="favicon-file") MultipartFile multipartFile2,

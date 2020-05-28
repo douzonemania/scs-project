@@ -30,7 +30,7 @@
 	
 	<insert id="insertShip" parameterType="shipcompanyvo">
 		<![CDATA[
-			insert into ship_company values (null, #{name }, 'sjy8033')
+			insert into ship_company values (null, #{name }, #{id })
 		]]>
 	</insert>
 	
