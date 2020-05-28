@@ -7,7 +7,7 @@
 			<![CDATA[
 				select no, name from ${db}.option where type="size"
 			]]>
-	</select>	
+	</select>
 
 	<select id="getOptionListOfColor" resultType="map">
 			<![CDATA[
