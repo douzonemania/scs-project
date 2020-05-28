@@ -6,7 +6,7 @@
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     
-        <title></title>
+        <title>약관 및 정책 설정</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -148,7 +148,7 @@ fetchList();
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="<%=request.getContextPath() %>">SCS</a></li>
+                                <li class="breadcrumb-item"><a href="<%=request.getContextPath() %>/main">SCS</a></li>
                                 <li class="breadcrumb-item"><a href="<%=request.getContextPath() %>/{id}/setting/basic">환경설정</a></li>
                                 <li class="breadcrumb-item active">약관 및 정책 설정</li>
                             </ol>

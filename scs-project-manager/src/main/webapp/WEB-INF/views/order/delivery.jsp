@@ -6,7 +6,7 @@
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     
-        <title></title>
+        <title>주문/배송관리</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -40,7 +40,17 @@
         <!-- App css -->
         <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />        
+        <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />  
+        
+        		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />      
        
 </head>
 <body>
@@ -87,8 +97,26 @@
                         <div class="search-form">
                             <div class="form-group mb-3 scs-search"> 
                                 <label>날짜 검색</label>
-                                <input type="text" id="range-datepicker" class="form-control" placeholder="2020-05-01 to 2020-05-07">
-                            </div>
+                                                                <span class="input-group-addon">
+									<i class="fa fa-calendar bigger-110"></i>
+								</span>
+								<input type="text" id="date-range-picker"name="dates" value="06/01/2020 - 06/18/2020" class="form-control" />
+								<script>
+									$('input[id="date-range-picker"]').daterangepicker({
+									    "showCustomRangeLabel": false,
+									    "startDate": "07/06/2020",
+									    "endDate": "07/13/2020",
+									    "drops": "auto"
+									}, function(start, end) {
+									  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+									  	var startDate = start.format('YYYY-MM-DD');
+										var endDate = end.format('YYYY-MM-DD');
+										location.href="<%=request.getContextPath() %>/{id}/order/settle?startDate="+startDate+"&endDate="+endDate;
+										
+									});
+									
+								</script>
+							</div>
                             <div class="form-group mb-3 scs-category">
                                 <label for="product-category">1차 카테고리 <span class="text-danger">*</span></label>
                                 <select class="form-control select2" id="product-category">
