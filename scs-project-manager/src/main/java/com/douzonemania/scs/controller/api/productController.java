@@ -141,6 +141,16 @@ public class productController {
 		oVo = productService.getOption(id, oVo.getName());		// 옵션 셀렉트
 		return JsonResult.success(oVo);
 	}
+	
+	// 옵션 삭제
+	@RequestMapping(value="/option/deleteOpiton", method = RequestMethod.POST)
+	public JsonResult deleteOption(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo			
+			) {
+		String id = authUser.getId();		
+		return JsonResult.success(productService.delOption(id, oVo.getNo()));
+	}
 	// 옵션 추가 팝업
 	/*
 	 * @RequestMapping(value="/category-reg/addOption", method = RequestMethod.POST)

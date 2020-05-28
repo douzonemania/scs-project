@@ -130,12 +130,20 @@ public class ProductRepository {
 		return sqlSession.selectOne("option.getOption", map);
 	}	
 	
+	public int delOption(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("no", no);
+		return sqlSession.delete("option.delOption", map);
+	}
+	
 	public String getSession() {
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
 		HttpSession nowSession = attr.getRequest().getSession();		
 		String id =nowSession.getAttribute("name").toString();
 		return id;
 	}
+
 
 
 

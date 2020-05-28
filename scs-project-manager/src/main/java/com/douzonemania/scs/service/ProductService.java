@@ -89,6 +89,10 @@ public class ProductService {
 	public OptionVo getOption(String id, String name) {
 		return productRepository.getOption(id, name);
 	}
+
+	public int delOption(String id, int no) {
+		return productRepository.delOption(id, no);
+	}
 	
 
 }

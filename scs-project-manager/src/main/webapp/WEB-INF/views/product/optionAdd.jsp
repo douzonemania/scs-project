@@ -107,6 +107,29 @@ $(function(){
 		$('#color-option-name').val('');
 	});
 	
+	// 삭제 버튼 클릭시 size del
+	$(document).on('click','.button-zone button',function(event){
+		event.preventDefault();	
+		var no = $(this).data('no');
+		$(this).parents('tr').remove();	
+		var vo={};
+		vo.no = no;		
+
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/product/option/deleteOpiton' ,
+			contentType: 'application/json',
+			data: JSON.stringify(vo),
+			type: "POST",
+			dataType: 'json',
+			success : function(response){
+				
+			},
+			error:
+				function(xhr, status, e){
+					console.error(status + " : " + e);
+			}
+		});	
+	});
 });
 
 </script>
@@ -126,11 +149,11 @@ $(function(){
 			
 			<c:if test="${vo.name!=null }">	<!-- name이 null이면 td 안붙임 -->
 				<tr>
-			    	<td class="border-right">
+			    	<td class="button-zone">
 						${vo.name}	
 					</td>
-					<td>
-						<button type="button" id="size-del-${vo.no }" class="btn btn-secondary waves-effect del">삭제</button>
+					<td class="button-zone">
+						<button type="button" data-no="${vo.no }" class="btn btn-secondary waves-effect del">삭제</button>
 					</td>
 				</tr>
 			</c:if>
@@ -158,11 +181,11 @@ $(function(){
 			<!-- name이 null이면 td 안붙임 -->
 			<c:if test="${vo.name!=null }">	
 				<tr>
-			    	<td class="border-right">
+			    	<td class="button-zone">
 						${vo.name}	
 					</td>
-					<td>
-						<button type="button" id="color-del-${vo.no }" class="btn btn-secondary waves-effect del">삭제</button>
+					<td class="button-zone">
+						<button type="button" data-no="${vo.no }" class="btn btn-secondary waves-effect del">삭제</button>
 					</td>
 				</tr>
 			</c:if>

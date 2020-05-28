@@ -32,4 +32,10 @@
 				select no, name, type from ${db}.option where name=#{name}
 			]]>
 	</select>
+
+	<delete id="delOption" parameterType="map">
+			<![CDATA[
+				delete from ${db}.option where no=#{no}
+			]]>
+	</delete>
 </mapper>
