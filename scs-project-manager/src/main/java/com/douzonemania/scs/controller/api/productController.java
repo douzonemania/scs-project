@@ -118,6 +118,28 @@ public class productController {
 		return JsonResult.success(productService.getCategory2NameList(id, cVo.getParentNo()));
 	}
 	
+	// 컬러 옵션  리스트
+	@RequestMapping(value="/option/colorList", method = RequestMethod.POST)
+	public JsonResult colorList(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo			
+			) {
+		String id = authUser.getId();
+		List<OptionVo> colorOptionList = productService.getOptionListOfColor(id);
+		return JsonResult.success(colorOptionList);
+	}
+		
+	// 사이즈 옵션  리스트
+	@RequestMapping(value="/option/sizeList", method = RequestMethod.POST)
+	public JsonResult sizeList(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo			
+			) {
+		String id = authUser.getId();
+		List<OptionVo> sizeOptionList = productService.getOptionListOfSize(id);
+		return JsonResult.success(sizeOptionList);
+	}
+	
 	// 사이즈 옵션 추가
 	@RequestMapping(value="/option/addSize", method = RequestMethod.POST)
 	public JsonResult addSize(
