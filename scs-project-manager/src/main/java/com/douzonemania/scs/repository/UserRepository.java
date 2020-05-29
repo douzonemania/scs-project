@@ -19,12 +19,13 @@ public class UserRepository {
 		String itemReviewQry = "CREATE TABLE " + id + ".item_review(" + "   no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    rate INT UNSIGNED NOT NULL," + "    title VARCHAR(30)  NOT NULL," + "    content TEXT NOT NULL,"
 				+ "    image VARCHAR(50)  NULL," + "    item_no INT UNSIGNED NULL," + "    member_no INT UNSIGNED NULL,"
+				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "    primary key(no)" + ")engine=InnoDB character set=utf8;";
 		String itemBoardQry = "CREATE TABLE " + id + ".item_board(" + "    no INT UNSIGNED NOT NULL  AUTO_INCREMENT,"
 				+ "    title VARCHAR(50)  NOT NULL," + "    contents  TEXT         NOT NULL,"
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "    member_no INT UNSIGNED NULL," + "    item_no   INT UNSIGNED NULL,"
-				+ "    reply_no  INT UNSIGNED NULL," + "    primary key(no)" + ")engine=InnoDB character set=utf8;";
+				+ "	   reply_state BOOLEAN NOT NULL," + "    primary key(no)" + ")engine=InnoDB character set=utf8;";
 		String categoryQry = "CREATE TABLE " + id + ".category(" + "    no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    name VARCHAR(50)  NOT NULL," + "    parents_no INT UNSIGNED NULL," + "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8; ";
@@ -44,7 +45,9 @@ public class UserRepository {
 				+ "    type         ENUM('카카오', '구글', '네이버', '일반') NOT NULL," + "    primary key(no)\r\n"
 				+ ") engine=InnoDB character set=utf8; ";
 		String replyQry = "CREATE TABLE " + id + ".reply(" + "   no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
-				+ "   parents_no INT UNSIGNED NULL," + "   primary key(no)" + ") engine=InnoDB character set=utf8;";
+				+ "   parents_no INT UNSIGNED NULL," + "	contents TEXT NOT NULL,"
+				+ "    reg_date    DATETIME          NOT NULL, "
+				+ "   primary key(no)" + ") engine=InnoDB character set=utf8;";
 		String orderItemQry = "CREATE TABLE " + id + ".order_item(" + "    order_no INT UNSIGNED NULL,"
 				+ "    stock_no INT UNSIGNED NULL" + ") engine=InnoDB character set=utf8;";
 		String orderQry = "CREATE TABLE " + id + ".shop_order("
@@ -56,7 +59,7 @@ public class UserRepository {
 		String boardQry = "CREATE TABLE " + id + ".board(" + "    no        INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    category  ENUM('주문', '배송', '교환환불취소', '기타') NOT NULL," + "    title     VARCHAR(50)  NOT NULL ,"
 				+ "    contents  TEXT         NOT NULL," + "    member_no INT UNSIGNED NULL,"
-				+ "    reg_date  DATETIME         NOT NULL," + "    reply_no  INT UNSIGNED NULL," + "    primary key(no)"
+				+ "    reg_date  DATETIME         NOT NULL," + "    reply_state  BOOLEAN NOT NULL," + "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8; ";
 		String cartQry = "CREATE TABLE " + id + ".cart(" + "    no        INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    amount    INT UNSIGNED NOT NULL ," + "    member_no INT UNSIGNED NULL    ,"
@@ -79,7 +82,9 @@ public class UserRepository {
 				+ "    recent       BOOLEAN      NOT NULL ," + "    member_no    INT UNSIGNED NULL,"
 				+ "    primary key(no)" + ") engine=InnoDB character set=utf8; ";
 		String itemReplyQry = "CREATE TABLE " + id + ".item_reply("
-				+ "    no         INT UNSIGNED NOT NULL AUTO_INCREMENT," + "    parents_no INT UNSIGNED NULL,"
+				+ "    no         INT UNSIGNED NOT NULL AUTO_INCREMENT,"
+				+ "    parents_no INT UNSIGNED NULL," + "		contents TEXT NOT NULL,"
+				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "    primary key(no)" + ") engine=InnoDB character set=utf8; ";
 		HashMap<String, Object> map = new HashMap<>();
 		setCreateQry(itemBoardQry, map);
@@ -111,21 +116,14 @@ public class UserRepository {
 				+ " FOREIGN KEY (member_no)" + " REFERENCES " + id + ".member (no);";
 		String alterItemReviewTwo = "ALTER TABLE " + id + ".item_review" + "    ADD CONSTRAINT FK_item_TO_item_review"
 				+ "    FOREIGN KEY (item_no)" + "    REFERENCES " + id + ".item (no);";
-		String alterItemBoardOne = "ALTER TABLE " + id + ".item_board" + "    ADD CONSTRAINT FK_member_TO_item_board"
+		String alterItemBoard = "ALTER TABLE " + id + ".item_board" + "    ADD CONSTRAINT FK_member_TO_item_board"
 				+ "        FOREIGN KEY (member_no)" + "        REFERENCES " + id + ".member(no);";
-		String alterItemBoardTwo = "ALTER TABLE " + id + ".item_board" + "    ADD CONSTRAINT FK_item_TO_item_board"
-				+ "        FOREIGN KEY (item_no)" + "        REFERENCES " + id + ".item (no);";
-		String alterItemBoardThree = "ALTER TABLE " + id + ".item_board"
-				+ "    ADD CONSTRAINT FK_item_reply_TO_item_board" + "        FOREIGN KEY (reply_no)"
-				+ "        REFERENCES " + id + ".item_reply (no);";
 		String alterCartOne = "ALTER TABLE " + id + ".cart" + "    ADD CONSTRAINT FK_member_TO_cart"
 				+ "        FOREIGN KEY (member_no)" + "        REFERENCES " + id + ".member (no);";
 		String alterCartTwo = "ALTER TABLE " + id + ".cart" + "    ADD CONSTRAINT FK_stock_TO_cart"
 				+ "        FOREIGN KEY (stock_no)" + "        REFERENCES " + id + ".stock (no);";
-		String alterBoardOne = "ALTER TABLE " + id + ".board" + "    ADD CONSTRAINT FK_member_TO_board"
+		String alterBoard = "ALTER TABLE " + id + ".board" + "    ADD CONSTRAINT FK_member_TO_board"
 				+ "        FOREIGN KEY ( member_no)" + "        REFERENCES " + id + ".member (no);";
-		String alterBoardTwo = "ALTER TABLE " + id + ".board" + "    ADD CONSTRAINT FK_reply_TO_board"
-				+ "        FOREIGN KEY (reply_no)" + "        REFERENCES " + id + ".reply (no);";
 		String alterCategory = "ALTER TABLE " + id + ".category" + "    ADD CONSTRAINT FK_category_TO_category"
 				+ "        FOREIGN KEY (parents_no)" + "        REFERENCES " + id + ".category (no);";
 		String alterStockOne = "ALTER TABLE " + id + ".stock" + "	    ADD CONSTRAINT FK_option_TO_stock2"
@@ -134,8 +132,8 @@ public class UserRepository {
 				+ "	        FOREIGN KEY (item_no)" + "	        REFERENCES " + id + ".item (no);";
 		String alterStockThree = "	ALTER TABLE " + id + ".stock" + "	    ADD CONSTRAINT FK_option_TO_stock"
 				+ "	        FOREIGN KEY (second_option)" + "	        REFERENCES " + id + ".option (no);";
-		String alterReply = "ALTER TABLE  " + id + ".reply" + "	    ADD CONSTRAINT FK_reply_TO_reply"
-				+ "	        FOREIGN KEY (parents_no)" + "	        REFERENCES  " + id + ".reply (no);";
+		String alterReply = "ALTER TABLE  " + id + ".reply" + "	    ADD CONSTRAINT FK_board_TO_reply"
+				+ "	        FOREIGN KEY (parents_no)" + "	        REFERENCES  " + id + ".board (no);";
 		String alterShipAddress = "ALTER TABLE " + id + ".ship_address"
 				+ "	    ADD CONSTRAINT FK_member_TO_ship_address" + "	        FOREIGN KEY (member_no)"
 				+ "	        REFERENCES  " + id + ".member (no);";
@@ -150,8 +148,8 @@ public class UserRepository {
 		String alterItem = "ALTER TABLE  " + id + ".item" + "	    ADD CONSTRAINT FK_category_TO_item"
 				+ "	        FOREIGN KEY (category_no)" + "	        REFERENCES " + id + ".category (no);";
 		String alterItemReply = "	ALTER TABLE  " + id + ".item_reply"
-				+ "	    ADD CONSTRAINT FK_item_reply_TO_item_reply" + "	        FOREIGN KEY (parents_no)"
-				+ "	        REFERENCES  " + id + ".item_reply (no);";
+				+ "	    ADD CONSTRAINT FK_item_board_TO_item_reply" + "	        FOREIGN KEY (parents_no)"
+				+ "	        REFERENCES  " + id + ".item_board (no);";
 		setAlterTable(alterShipAddress, map);
 		setAlterTable(alterOrderItemOne, map);
 		setAlterTable(alterOrderItemTwo, map);
@@ -160,13 +158,10 @@ public class UserRepository {
 		setAlterTable(alterItemReply, map);
 		setAlterTable(alterItemReviewOne, map);
 		setAlterTable(alterItemReviewTwo, map);
-		setAlterTable(alterItemBoardOne, map);
-		setAlterTable(alterItemBoardTwo, map);
-		setAlterTable(alterItemBoardThree, map);
+		setAlterTable(alterItemBoard, map);
 		setAlterTable(alterCartOne, map);
 		setAlterTable(alterCartTwo, map);
-		setAlterTable(alterBoardOne, map);
-		setAlterTable(alterBoardTwo, map);
+		setAlterTable(alterBoard, map);
 		setAlterTable(alterCategory, map);
 		setAlterTable(alterStockOne, map);
 		setAlterTable(alterStockTwo, map);

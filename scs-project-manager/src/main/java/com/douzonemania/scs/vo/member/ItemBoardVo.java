@@ -1,13 +1,15 @@
 package com.douzonemania.scs.vo.member;
 
+import java.sql.Timestamp;
+
 public class ItemBoardVo {
 
 	private int no;
 	private String title;
 	private String contents;
+	private Timestamp regDate;
 	private int memberNo;
 	private int itemNo;
-	private int replyNo;
 
 	public int getNo() {
 		return no;
@@ -33,6 +35,14 @@ public class ItemBoardVo {
 		this.contents = contents;
 	}
 
+	public Timestamp getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(Timestamp regDate) {
+		this.regDate = regDate;
+	}
+
 	public int getMemberNo() {
 		return memberNo;
 	}
@@ -49,18 +59,10 @@ public class ItemBoardVo {
 		this.itemNo = itemNo;
 	}
 
-	public int getReplyNo() {
-		return replyNo;
-	}
-
-	public void setReplyNo(int replyNo) {
-		this.replyNo = replyNo;
-	}
-
 	@Override
 	public String toString() {
-		return "ItemBoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", memberNo=" + memberNo
-				+ ", itemNo=" + itemNo + ", replyNo=" + replyNo + "]";
+		return "ItemBoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", regDate=" + regDate
+				+ ", memberNo=" + memberNo + ", itemNo=" + itemNo + "]";
 	}
 
 }
