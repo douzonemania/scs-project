@@ -60,5 +60,10 @@ margin:2px 0
 	width:130px; 
 	height:28px;
 	padding-top:0.3em;
-		
+	border-right:solid 1px transparent;	
+}
+
+.ql-editor {
+	border: 1px solid #CCCCCC;
+
 }
