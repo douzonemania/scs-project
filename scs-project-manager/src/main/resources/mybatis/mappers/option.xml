@@ -7,11 +7,35 @@
 			<![CDATA[
 				select no, name from ${db}.option where type="size"
 			]]>
-	</select>	
+	</select>
 
 	<select id="getOptionListOfColor" resultType="map">
 			<![CDATA[
 				select no, name from ${db}.option where type="color"
 			]]>
 	</select>
+	
+	<insert id="addSizeOption" parameterType="map">
+			<![CDATA[
+				insert into ${db}.option values (null, #{name}, "size")
+			]]>
+	</insert>
+	
+	<insert id="addColorOption" parameterType="map">
+			<![CDATA[
+				insert into ${db}.option values (null, #{name}, "color")
+			]]>
+	</insert>
+
+	<select id="getOption" parameterType="map" resultType="optionvo">
+			<![CDATA[
+				select no, name, type from ${db}.option where name=#{name}
+			]]>
+	</select>
+
+	<delete id="delOption" parameterType="map">
+			<![CDATA[
+				delete from ${db}.option where no=#{no}
+			]]>
+	</delete>
 </mapper>

@@ -14,6 +14,7 @@ import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.ProductService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
+import com.douzonemania.scs.vo.member.OptionVo;
 import com.douzonemania.security.AuthUser;
 
 
@@ -117,6 +118,61 @@ public class productController {
 		return JsonResult.success(productService.getCategory2NameList(id, cVo.getParentNo()));
 	}
 	
+	// 컬러 옵션  리스트
+	@RequestMapping(value="/option/colorList", method = RequestMethod.POST)
+	public JsonResult colorList(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo			
+			) {
+		String id = authUser.getId();
+		List<OptionVo> colorOptionList = productService.getOptionListOfColor(id);
+		return JsonResult.success(colorOptionList);
+	}
+		
+	// 사이즈 옵션  리스트
+	@RequestMapping(value="/option/sizeList", method = RequestMethod.POST)
+	public JsonResult sizeList(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo			
+			) {
+		String id = authUser.getId();
+		List<OptionVo> sizeOptionList = productService.getOptionListOfSize(id);
+		return JsonResult.success(sizeOptionList);
+	}
+	
+	// 사이즈 옵션 추가
+	@RequestMapping(value="/option/addSize", method = RequestMethod.POST)
+	public JsonResult addSize(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo			
+			) {
+		String id = authUser.getId();
+		productService.addSizeOption(id, oVo.getName());		// 사이즈 add
+		oVo = productService.getOption(id, oVo.getName());		// 옵션 셀렉트
+		return JsonResult.success(oVo);
+	}
+	
+	// 컬러 옵션 추가
+	@RequestMapping(value="/option/addColor", method = RequestMethod.POST)
+	public JsonResult addColor(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo			
+			) {
+		String id = authUser.getId();
+		productService.addColorOption(id, oVo.getName());		// 컬러 add
+		oVo = productService.getOption(id, oVo.getName());		// 옵션 셀렉트
+		return JsonResult.success(oVo);
+	}
+	
+	// 옵션 삭제
+	@RequestMapping(value="/option/deleteOpiton", method = RequestMethod.POST)
+	public JsonResult deleteOption(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo			
+			) {
+		String id = authUser.getId();		
+		return JsonResult.success(productService.delOption(id, oVo.getNo()));
+	}
 	// 옵션 추가 팝업
 	/*
 	 * @RequestMapping(value="/category-reg/addOption", method = RequestMethod.POST)

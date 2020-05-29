@@ -66,7 +66,6 @@ var fetchList = function(){
 		success: function(response){
 			
 			console.log(response);
-			
 		},
 		error: function(xhr, status, e){
 			console.error(status + " : " + e);
@@ -106,49 +105,7 @@ fetchList();
                 </div>
             </div>     
             <!-- end page title --> 
-            <!-- start 검색 부분 -->
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card-box" >                       
-                     
-                        <h4 class="header-title">정산 현황</h4>
-                        <p class="sub-header">찾고자 하는 날짜를 고르시오.</p>
 
-
-                        <div class="search-form">
-                            <div class="form-group mb-3 scs-search"> 
-                                <label>날짜 검색</label>
-                                <span class="input-group-addon">
-									<i class="fa fa-calendar bigger-110"></i>
-								</span>
-								<input type="text" id="date-range-picker"name="dates" value="06/01/2020 - 06/18/2020" class="form-control" />
-								<script>
-									
-								$('input[id="date-range-picker"]').daterangepicker({
-									    "showCustomRangeLabel": false,
-									    "startDate": "07/06/2020",
-									    "endDate": "07/13/2020",
-									    "drops": "auto"
-									}, function(start, end) {
-									  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-									  	var startDate = start.format('YYYY-MM-DD');
-										var endDate = end.format('YYYY-MM-DD');
-										location.href="<%=request.getContextPath() %>/{id}/order/settle?startDate="+startDate+"&endDate="+endDate;
-									});
-								
-								</script>
-                            </div>
-                            
-                            <div class="col-sm-6 col-xl-3 scs-submit">
-                                <div class="p-3">
-                                    <button type= "button" class="btn btn-secondary waves-effect">Search</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- end card-box-->
-                </div> <!-- end col -->
-            </div>
-            <!-- end 검색 부분 -->
         </div> 
         <!-- end container -->
 
@@ -229,13 +186,39 @@ fetchList();
             <!-- start 정산 결과 리스트 -->
             <div class="col-lg-11">
                 <div class="card-box">
-                    <div class="card-body">
-                        <h4 class="header-title">정산 결과</h4>
-
-                        <table style="width:100%;" class="table table-striped mb-0">
+                    <div class="card-body"> 
+						<div class="form-group mb-3 scs-search"> 
+                                <label>날짜 검색</label>
+                                <span class="input-group-addon">
+									<i class="fa fa-calendar bigger-110"></i>
+								</span>
+								<input type="text" id="date-range-picker"name="dates" value="06/01/2020 - 06/18/2020" class="form-control" />
+								<script>
+									
+								$('input[id="date-range-picker"]').daterangepicker({
+									    "showCustomRangeLabel": false,
+									    "startDate": "07/06/2020",
+									    "endDate": "07/13/2020",
+									    "drops": "auto"
+									}, function(start, end) {
+									  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+									  	var startDate = start.format('YYYY-MM-DD');
+										var endDate = end.format('YYYY-MM-DD');
+										location.href="<%=request.getContextPath() %>/{id}/order/settle?startDate="+startDate+"&endDate="+endDate;
+									});
+								
+								</script>
+                            </div>
+                            
+                            <div class="col-sm-6 col-xl-3 scs-submit">
+                                <div class="p-3">
+                                    <button type= "button" class="btn btn-secondary waves-effect">검색</button>
+                                </div>
+                            </div>
+                        <table style="width:100%; " class="table table-striped mb-0">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>번호</th>
                                     <th>회원아이디</th>
                                     <th>주문날짜</th>
                                     <th>구매금액</th>
