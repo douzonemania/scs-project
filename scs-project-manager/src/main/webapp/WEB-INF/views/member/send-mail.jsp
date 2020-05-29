@@ -127,12 +127,14 @@ $(document).ready(function(){
 				<div class="col-lg-12"
 					style="background-color: #FFFFFF; padding: 40px;">
 					<div class="email-info">
-						<span style="margin-right: 20px;"> 받는사람 </span> <input type="text"
+						<span style="margin-right: 20px;"> 받는사람 </span> 
+						<input type="text"
 							class="form-control mail-custom" id="email" name="memberEmail" value="${memberEmail}">
 					</div>
 	
 					<div class="email-info">
-						<span style="margin-right: 60px"> 제목 </span> <input type="text"
+						<span style="margin-right: 60px"> 제목 </span> 
+						<input type="text"
 							class="form-control mail-custom" id="title" placeholder="(제목 없음)" name="title">
 					</div>
 					<!-- mail info 종료-->

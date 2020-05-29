@@ -72,15 +72,15 @@ public class MemberService {
 			Transport.send(message); // 전송
 
 			return true;
-			
+
 		} catch (AddressException e) {
 			e.printStackTrace();
 			return false;
-			
+
 		} catch (MessagingException e) {
 			e.printStackTrace();
 			return false;
-			
+
 		}
 
 	}
@@ -90,7 +90,7 @@ public class MemberService {
 	}
 
 	// json data를 파싱하여 email 전송
-	public boolean jsonPassing(String jsonData) {
+	public boolean sendEmail(String jsonData) {
 
 		JSONObject jObject = new JSONObject(jsonData);
 
@@ -107,12 +107,12 @@ public class MemberService {
 		String title = jObject.getString("title");
 
 		// 메일 발송
-		boolean result =gmailSend(email, title, contents);
-	
+		boolean result = gmailSend(email, title, contents);
+
 		return result;
 	}
 
-////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////
 
 	// member list 페이징
 	public Map<String,Object> memberList(String id, int currentPage,String keyword,String option) {
@@ -152,6 +152,7 @@ public class MemberService {
 		map.put("nextPage",nextPage);
 		map.put("page",currentPage);
 		map.put("total",total);
+		map.put("option", option);
 		map.put("kwd",keyword);
 		map.put("calCnt", calCnt);
 
@@ -163,7 +164,7 @@ public class MemberService {
 		return map;
 
 	}
-	
+
 	// board list 페이징
 	public Map<String,Object> boardList(String id, int currentPage,String keyword,String option) {
 
@@ -173,7 +174,8 @@ public class MemberService {
 		int offset=(currentPage-1)*5;
 
 		int total = memberRepository.boardListCount(id, option, keyword);
-
+	
+		
 		List<BoardVo> list;
 		if(option.equals("")) {
 			list = memberRepository.boardList(id, offset, LIST_SIZE);
@@ -181,7 +183,7 @@ public class MemberService {
 		else {
 			list = memberRepository.searchBoaardList(id, option, keyword, offset, LIST_SIZE);
 		}
-		
+
 		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
 		int calCnt=(currentPage%5)==0 ? currentPage-1 : currentPage;
 
@@ -202,6 +204,7 @@ public class MemberService {
 		map.put("nextPage",nextPage);
 		map.put("page",currentPage);
 		map.put("total",total);
+		map.put("option", option);
 		map.put("kwd",keyword);
 		map.put("calCnt", calCnt);
 
@@ -220,5 +223,31 @@ public class MemberService {
 		return count == 1;
 	}
 
+	public boolean deleteBoard(String id, int no) {
+		int count = memberRepository.deleteBoard(id, no);
+		return count == 1;
+	}
+
+	public boolean boardReply(String id, int no, String jsonData) {
+		
+		JSONObject jObject = new JSONObject(jsonData);
+
+		System.out.println("data:" + jsonData);
+		
+		JSONArray jArray = jObject.getJSONArray("ops");
+
+		String contents = "";
+
+		for(int i = 0; i < jArray.length(); i++) {
+			JSONObject obj = jArray.getJSONObject(i);
+			contents += obj.getString("insert");
+		}
+		
+		System.out.println("contents:" + contents);
+
+		int count = memberRepository.boardReply(id, no, contents);
+		return count == 1;
+	}
+	
 
 }
