@@ -45,7 +45,7 @@ public class UserRepository {
 				+ "    type         ENUM('카카오', '구글', '네이버', '일반') NOT NULL," + "    primary key(no)\r\n"
 				+ ") engine=InnoDB character set=utf8; ";
 		String replyQry = "CREATE TABLE " + id + ".reply(" + "   no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
-				+ "   parents_no INT UNSIGNED NULL," + "	contents TEXT NOT NULL,"
+				+ "   parents_no INT UNSIGNED NOT NULL," + "	contents TEXT NOT NULL,"
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "   primary key(no)" + ") engine=InnoDB character set=utf8;";
 		String orderItemQry = "CREATE TABLE " + id + ".order_item(" + "    order_no INT UNSIGNED NULL,"
@@ -83,7 +83,7 @@ public class UserRepository {
 				+ "    primary key(no)" + ") engine=InnoDB character set=utf8; ";
 		String itemReplyQry = "CREATE TABLE " + id + ".item_reply("
 				+ "    no         INT UNSIGNED NOT NULL AUTO_INCREMENT,"
-				+ "    parents_no INT UNSIGNED NULL," + "		contents TEXT NOT NULL,"
+				+ "    parents_no INT UNSIGNED NOT NULL," + "		contents TEXT NOT NULL,"
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "    primary key(no)" + ") engine=InnoDB character set=utf8; ";
 		HashMap<String, Object> map = new HashMap<>();
