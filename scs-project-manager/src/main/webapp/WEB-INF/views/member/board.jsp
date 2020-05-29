@@ -58,16 +58,34 @@
 		
 <script type="text/javascript">
 
-/* $(function() {
-	
-	$(document).on('click', '#board-delete', function(event) {
-		event.preventDefault();
-		
-		
-	});
-	
-} */
+var removeCheck = function(no) {
+	if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
+	 	console.log("네네네");
+	 	event.preventDefault();
+		console.log(no);
+			$.ajax({
+				url: '${pageContext.request.contextPath }/${authUser.id}/api/member/board/delete/' + no,
+				async: true,
+				type: 'post',
+				dataType: 'json',
+				contentType: 'application/json',
+				data: '',
+				success: function(response){
+					location.href= "${pageContext.request.contextPath }/${authUser.id}/member/board";
+				},
+				error: function(xhr, status, e){
 
+					console.error(status + " : " + e);
+		
+				}
+			});
+	}
+	else {   //취소
+		console.log("아니오오오오");
+		event.preventDefault();
+	    return;
+	}
+} 
 
 </script>
 		
@@ -148,20 +166,34 @@
                                 	<tr>
                                 		<td>${status.count + (map.page - 1) * 5 }</td>
                                 		<td>${vo.category }</td>
-                                		<td>
-                                			${vo.title }
-                                		</td>
+                                		<td> 
+                                			<a style="color:#6C757D;"
+												href="${ pageContext.request.contextPath }/${authUser.id}/member/board/view/${ vo.no }">${vo.title }</a>
+										</td>
                                 		<td>${vo.id }</td>
                                 		<td>${vo.name }</td>
                                 		<td>${vo.regDate }</td>
-                                		<td>
-                                			<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board/reply/${vo.no}">
-												<i class=' mdi mdi-message-text-outline member-icon'></i></a>
-										</td>
-                                		<td class="icon-wrap">
-                                			<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board/delete/${vo.no}" class="sa-warning" id="board-delete">
-                                				<i class="fe-x-square member-icon" style="margin-left: 10px;"></i></a>
-                                		</td>
+                                		
+                                		<c:choose>
+                                			<c:when test="${ vo.replyState  == false }">
+	                                			<td>
+	                                			<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board/reply/${ vo.no }">
+													<i class='mdi mdi-message-text-outline member-icon'></i></a>
+												</td>
+		                                		<td>
+		                                			<a href="">
+		                                				<i class="fe-x-square member-icon" onClick="removeCheck(${vo.no});" style="margin-left: 10px;"></i></a>
+		                                		</td>
+                                			</c:when>
+                                			<c:otherwise>
+                                				<td>
+                                					<i class='mdi mdi-read text-outline member-icon'></i>
+                                				</td>
+                                				<td>
+                                				</td>
+                                			</c:otherwise>
+                                		</c:choose>
+                                		
                                 	</tr>
 								</c:forEach>
                             </table>

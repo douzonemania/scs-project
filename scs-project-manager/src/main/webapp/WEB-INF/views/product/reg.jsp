@@ -49,6 +49,8 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
+var click = 0;
+var click2 = 0;
 $(function() {
 	/* 옵션 추가 등록 팝업 */
 		$('#option-add').click(function(){		
@@ -163,7 +165,69 @@ $(function() {
 			document.getElementById("selected-category-text").value += "  >  " + category2Name;
 		});
 		
-});	
+});
+
+$(function() {
+	
+	/* 컬러 옵션 뿌리기 */
+	$('#colorOption').click(function(event){
+		
+		if((click%2)==0){
+		var vo={};
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/product/option/colorList',
+			contentType: 'application/json',
+			data: JSON.stringify(vo),
+			type: "POST",
+			dataType: 'json',
+			success :function(response){
+				for( var key in response.data){
+					var data = response.data[key];	
+					if(data.name!=null)
+						$('#colorOption').append("<option value='" + data.no + "'>" + data.name + "</option>");
+				}
+			}, 			
+			error: function(xhr, status, e){
+				console.error(status + " : " + e);
+			}
+		});	
+			$('select#colorOption option').remove();
+			$('select#colorOption').append("<option value=''>----</option>");
+		}
+		click++;
+	});
+	
+	/* 컬러 옵션 뿌리기 */
+	$('#sizeOption').click(function(event){
+		
+		if((click2%2)==0){
+		var vo={};
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/product/option/sizeList',
+			contentType: 'application/json',
+			data: JSON.stringify(vo),
+			type: "POST",
+			dataType: 'json',
+			success :function(response){
+				for( var key in response.data){
+					var data = response.data[key];	
+					if(data.name!=null)
+						$('#sizeOption').append("<option value='" + data.no + "'>" + data.name + "</option>");
+				}
+			}, 			
+			error: function(xhr, status, e){
+				console.error(status + " : " + e);
+			}
+		});	
+			$('select#sizeOption option').remove();
+			$('select#sizeOption').append("<option value=''>----</option>");
+		}
+		click2++;
+	});
+	
+	
+		
+});
 	
 </script>
 </head>
@@ -348,7 +412,7 @@ $(function() {
 											&nbsp 할인율 <input type="text" id="item-sale" class="form-control product-info" value="${vo.sale }">
 											
 											<label class="text-space"></label><label class="text-space"></label><label class="text-space"></label>
-											<label class="text-space"></label><label class="text-space"></label><label class="text-space"></label>  
+											<label class="text-space"></label>
 											
 											판매가 <input type="text" id="item-sale-price" class="form-control product-info" readonly value="${salePrice }" >
 											<!-- &nbsp 재고량<span style="color: #FF4040">*</span><input type="text" id="item-stock" class="form-control product-info"> -->
@@ -439,7 +503,10 @@ $(function() {
 									<!-- image 등록 종료-->
 
 									<tr class="pro-op">
-										<th>상품옵션</th>
+										<th>
+											상품옵션<br>
+											<button type="button" id="option-add" class="btn btn-secondary waves-effect" style="background-color:#6C757D">옵션추가</button>
+										</th>
 										<td colspan="4">
 <!-- 											<div>
 												<input type=radio name="pro-opt" checked>&nbsp옵션사용안함	<label class="text-space"></label> 
@@ -449,14 +516,14 @@ $(function() {
 											<div>옵션 영역</div> -->
 											<div style="width:1000px; display:inline-block">
 												1차 옵션
-												<select class="form-control" id="colorOption">												
+												<select class="form-control" id="sizeOption">												
 		                                       		<option>----</option>
 		                                        <c:forEach var="vo" varStatus="status" items="${sizeOptionList }">
 		                                           	<option value="${vo.no }">${vo.name }</option>
 		                                        </c:forEach>
 												</select><label class="text-space"></label>
 												2차 옵션
-												<select class="form-control" id="sizeOption">
+												<select class="form-control" id="colorOption">
 		                                       		<option>----</option>
 		                                        <c:forEach var="vo" varStatus="status" items="${colorOptionList }">
 		                                           	<option value="${vo.no }">${vo.name }</option>
@@ -466,7 +533,7 @@ $(function() {
 												재고량 <input type="text" class="form-control product-info" id="input-stock" value="" />
 												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">등록</button>
 											</div>
-											<button type="button" id="option-add" class="btn btn-secondary waves-effect">옵션추가</button>
+											
 											
 										</td>
 									</tr>

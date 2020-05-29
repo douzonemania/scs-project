@@ -101,7 +101,7 @@ public class UserRepository {
 		setCreateQry(itemQry, map);
 		setCreateQry(shipAddressQry, map);
 		setCreateQry(itemReplyQry, map);
-	}
+	}  
 	public void setCreateQry(String id, HashMap<String, Object> map) {
 		if (map.containsKey("sql")) {
 			map.replace("sql", id);

@@ -56,17 +56,27 @@
 </head>
 <script type="text/javascript">
 
-var fetchList = function(){
+
+
+var fetchList = function(startDate, endDate){
+
+	var page = $('#current-page').val();
 	$.ajax({
-		url: '${pageContext.request.contextPath }/${authUser.id}/api/order/settle',
+		url: '<%=request.getContextPath() %>/${authUser.id}/api/order/settle',
 		async: true,
 		type: 'get',
 		dataType: 'json',
-		data: '',
+		contentType: 'application/json',
+		data: { "startDate": startDate, "endDate": endDate },
 		success: function(response){
 			
+<<<<<<< HEAD
 			console.log(response);
 			
+=======
+			console.log(response.data);
+			location.href="<%=request.getContextPath() %>/${authUser.id}/order/settle?p="+page+"&startDate="+startDate+"&endDate="+endDate;
+>>>>>>> branch 'master' of https://github.com/douzonemania/scs-project.git
 		},
 		error: function(xhr, status, e){
 			console.error(status + " : " + e);
@@ -74,7 +84,8 @@ var fetchList = function(){
 	});	
 }
 
-fetchList();
+
+
 </script>
 <body>
 
@@ -229,10 +240,48 @@ fetchList();
             <!-- start 정산 결과 리스트 -->
             <div class="col-lg-11">
                 <div class="card-box">
+<<<<<<< HEAD
                     <div class="card-body">
                         <h4 class="header-title">정산 결과</h4>
 
                         <table style="width:100%;" class="table table-striped mb-0">
+=======
+                    <div class="card-body"> 
+						<div class="form-group mb-3 scs-search"> 
+                                <label>날짜 검색</label>
+                                <span class="input-group-addon">
+									<i class="fa fa-calendar bigger-110"></i>
+									<h6>날짜검색해야 나옴.</h6>
+									
+								</span>
+								<input type="text" id="date-range-picker"name="dates" class="form-control" />
+								<script>
+								var startDate;
+								var endDate;
+								$('input[id="date-range-picker"]').daterangepicker({
+									    "showCustomRangeLabel": true,
+									    
+									    "drops": "auto"
+									}, function(start, end) {
+									  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+									  	startDate = start.format('YYYY-MM-DD');
+										endDate = end.format('YYYY-MM-DD');
+											
+										fetchList(startDate, endDate);
+									});
+								
+								</script>
+                            </div>
+                            <!-- 
+                            <div class="col-sm-6 col-xl-3 scs-submit">
+                                <div class="p-3">
+                                    <button type= "button" class="btn btn-secondary waves-effect">검색</button>
+                                </div>
+                            </div>
+                             -->
+                       
+                        <table style="width:100%; " class="table table-striped mb-0">
+>>>>>>> branch 'master' of https://github.com/douzonemania/scs-project.git
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -242,76 +291,49 @@ fetchList();
                                     <th>마진</th>
                                 </tr>
                             </thead>
-                        
+                        	 <c:forEach var="vo" varStatus="status" items="${map.list }">
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>sjy8033</td>
-                                    <td>2020-05-06</td>
-                                    <td>10000</td>
-                                    <td>9,700</td>
+                                    <td>${vo.no }</td>
+                                    <td>${vo.id }</td>
+                                    <td>${vo.regDate }</td>
+                                    <td>${vo.purchasePrice }</td>
+                                    <td>${vo.marginPrice }</td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>jery1217</td>
-                                    <td>2020-05-06</td>
-                                    <td>21,000</td>
-                                    <td>20,480</td>
-
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>jjyjjy123</td>
-                                    <td>2020-05-06</td>
-                                    <td>15,000</td>
-                                    <td>14,680</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>abcd1234</td>
-                                    <td>2020-05-06</td>
-                                    <td>10,000</td>
-                                    <td>9,700</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>efgh1234</td>
-                                    <td>2020-05-06</td>
-                                    <td>21,000</td>
-                                    <td>20,480</td>
-
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>ghjk1432</td>
-                                    <td>2020-05-06</td>
-                                    <td>15000</td>
-                                    <td>14,680</td>
-                                </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
-
+						
                         <!-- start paging -->
-                        <nav style="margin-top: 10px;">
-                        <ul class="pagination pagination-rounded justify-content-center">
-                            <li class="page-item">
-                                <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" >1</a></li>
-                            <li class="page-item"><a class="page-link" >2</a></li>
-                            <li class="page-item active"><a class="page-link" >3</a></li>
-                            <li class="page-item"><a class="page-link" >4</a></li>
-                            <li class="page-item"><a class="page-link" >5</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="javascript: void(0);" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
+                            <nav>
+                            <input type="hidden" value="${map.page }" id="current-page" />
+	                            <ul class="pagination pagination-rounded justify-content-center mb-3">
+	                            <li class="page-item">
+	                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/order/settle?p=${map.prevPage}&startDate=${map.startDate }&endDate=${map.endDate}" aria-label="Previous">
+	                                    <span aria-hidden="true">«</span>
+	                                    <span class="sr-only">Previous</span>
+	                                </a>
+	                            </li>
+	                            <c:forEach var="i" begin="1" end="${map.listsize }">
+									<c:choose>
+										<c:when test="${map.page == (map.beginPage+(i-1)) }">
+											<li class ="page-item active">
+												<a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/order/settle?p=${map.beginPage+(i-1) }&startDate=${map.startDate }&endDate=${map.endDate}">${map.beginPage+(i-1) }</a>
+											</li>
+										</c:when>
+										<c:otherwise>
+											<li><a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/order/settle?p=${map.beginPage+(i-1) }&startDate=${map.startDate }&endDate=${map.endDate}">${map.beginPage+(i-1) }</a></li>
+										</c:otherwise>
+									
+									</c:choose>
+								</c:forEach>
+	                            <li>
+	                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/order/settle?p=${map.nextPage }&startDate=${map.startDate }&endDate=${map.endDate}" aria-label="Next">  
+	                                 	<span aria-hidden="true">»</span>
+	                                    <span class="sr-only">Next</span>
+	                                </a>
+	                            </li>
+	                        </ul>
                         </nav>
                         <!-- end paging -->
 

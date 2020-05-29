@@ -4,6 +4,15 @@ public class OptionVo {
 
 	private int no;
 	private String name;
+	private String type;
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public int getNo() {
 		return no;
@@ -23,7 +32,7 @@ public class OptionVo {
 
 	@Override
 	public String toString() {
-		return "OptionVo [no=" + no + ", name=" + name + "]";
+		return "OptionVo [no=" + no + ", name=" + name + ", type=" + type + "]";
 	}
 
 }

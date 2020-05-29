@@ -228,8 +228,6 @@ $(function() {
 						var data = response.data[key];	
 						if(data.name!=null)
 							$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.no + "'>" + data.name + "</option>");
-						
-						
 					}
 				},
 					error: function(xhr, status, e){

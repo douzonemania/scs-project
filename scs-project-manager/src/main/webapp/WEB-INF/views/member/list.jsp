@@ -185,7 +185,7 @@ var searchOption = function() {
                                             <select id="member-search-option" class="custom-select custom-select-sm" name="op">
                                                 <option value="id">아이디</option>
                                                 <option value="email">이메일</option>
-                                                <option value="phonenum">휴대폰번호</option>
+                                                <option value="phone_number">휴대폰번호</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -229,7 +229,7 @@ var searchOption = function() {
                                  	</tr>
                                  </c:forEach>
                             </table>
-                            
+                           
                             <nav>
 	                            <ul class="pagination pagination-rounded justify-content-center mb-3">
 	                            <li class="page-item">
