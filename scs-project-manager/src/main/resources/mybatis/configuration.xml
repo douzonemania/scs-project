@@ -11,6 +11,7 @@
 		<typeAlias alias="boardvo" type="com.douzonemania.scs.vo.member.BoardVo" />
 		<typeAlias alias="optionvo" type="com.douzonemania.scs.vo.member.OptionVo" />
 		<typeAlias alias="ordersettlevo" type="com.douzonemania.scs.vo.member.OrderSettleVo" />
+		<typeAlias alias="replyvo" type="com.douzonemania.scs.vo.member.ReplyVo" />
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/main.xml" />

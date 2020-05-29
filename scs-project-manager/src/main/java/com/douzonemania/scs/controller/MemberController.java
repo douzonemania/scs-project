@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.scs.service.MemberService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.member.ReplyVo;
 import com.douzonemania.security.AuthUser;
 
 // 회원 관리
@@ -79,7 +80,6 @@ public class MemberController {
 	
 	@RequestMapping(value="/board/write", method=RequestMethod.GET)
 	public String boardWrite() {
-		System.out.println("2");
 		return "member/board-write";
 	}
 	
@@ -92,7 +92,21 @@ public class MemberController {
 		return "member/board-write";
 	}
 	
-	
+	@RequestMapping(value="board/view/{no}")
+	public String boardView(@AuthUser CeoVo authUser,@PathVariable("no") int no, Model model) {
+		
+//		BoardVo boardVo = memberService.boardByNo(authUser.getId(), no);
+		ReplyVo replyVo = memberService.replyByParentsNo(authUser.getId(), no);
+		
+		String viewer = "quill2.setContents([ " + 
+		                          replyVo.getContents() +
+		                 "]);";
+		
+		model.addAttribute("replyVo", replyVo);
+		model.addAttribute("viewer", viewer);
+		
+		return "member/board-view";
+	}
 	
 	
 }

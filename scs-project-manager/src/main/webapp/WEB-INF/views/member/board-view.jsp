@@ -51,36 +51,10 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	quill2.enable(false);
 	
-	$('#submit-btn').click(function(e){
-		e.preventDefault();
-		console.log("들어왔따");
-		
-	 	var html = quill.getContents();
-	 	console.log(html);
-	 	
-		var no = $('#parents_no').val();
-		
-		console.log(no);
- 		$.ajax({
-			url: '${pageContext.request.contextPath }/${authUser.id}/api/member/board/write/' + no,
-			async: true,
-			type: 'post',
-			dataType: 'json',
-			contentType: 'application/json',
-			data: JSON.stringify(html),
-			success: function(response){
-				location.href= "${pageContext.request.contextPath }/${authUser.id}/member/board/view/" + no;
-			},
-			error: function(xhr, status, e){
-
-				console.error(status + " : " + e);
-	
-			}
-			
-		}); 
- 		
-	});
+	var contents = '${replyVo.contents}';
+	${viewer};
 	
 });
 
@@ -129,7 +103,7 @@ $(document).ready(function(){
 						<div class="card-body" id="search-form">
 							<h4 class="page-title">답글작성</h4>
 							<input type='hidden' value=${no } id='parents_no'/>
-							<div id="snow-editor" style="height: 300px;"></div>
+							<div id="snow-viewer" style="height: 300px;" contentEditable="false"></div>
 
 							<br>
 							

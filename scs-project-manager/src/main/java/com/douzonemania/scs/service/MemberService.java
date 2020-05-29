@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import com.douzonemania.scs.repository.MemberRepository;
 import com.douzonemania.scs.vo.member.BoardVo;
 import com.douzonemania.scs.vo.member.MemberVo;
+import com.douzonemania.scs.vo.member.ReplyVo;
 
 @Service
 public class MemberService {
@@ -232,20 +233,32 @@ public class MemberService {
 		
 		JSONObject jObject = new JSONObject(jsonData);
 
-		System.out.println("data:" + jsonData);
-		
 		JSONArray jArray = jObject.getJSONArray("ops");
 
 		String contents = "";
 
 		for(int i = 0; i < jArray.length(); i++) {
 			JSONObject obj = jArray.getJSONObject(i);
-			contents += obj.getString("insert");
+			System.out.println("obj:"+obj);
+			if(i == jArray.length() - 1) {
+				contents += obj;
+			}
+			else {
+				contents += obj + ",";
+			}
 		}
 		
-		System.out.println("contents:" + contents);
-
 		int count = memberRepository.boardReply(id, no, contents);
+		return count == 1;
+	}
+
+	public ReplyVo replyByParentsNo(String id, int no) {
+		
+		return memberRepository.replyByParentsNo(id, no);
+	}
+
+	public boolean setBoardReplyTrue(String id, int no) {
+		int count = memberRepository.setBoardReplyTrue(id, no);
 		return count == 1;
 	}
 	

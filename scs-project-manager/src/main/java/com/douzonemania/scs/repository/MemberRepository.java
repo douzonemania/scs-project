@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.douzonemania.scs.vo.member.BoardVo;
 import com.douzonemania.scs.vo.member.MemberVo;
+import com.douzonemania.scs.vo.member.ReplyVo;
 
 @Repository
 public class MemberRepository {
@@ -124,6 +125,23 @@ public class MemberRepository {
 		map.put("contents", contents);
 		
 		return sqlSession.insert("insertBoardReply", map);
+	}
+
+	public ReplyVo replyByParentsNo(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("no", no);
+		
+		return sqlSession.selectOne("replyByParentsNo", map);
+	}
+
+	// board 답글을 남겼으면, 답글 상태를 true로 변경
+	public int setBoardReplyTrue(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("no", no);
+		
+		return sqlSession.update("setBoardReplyTrue", map);
 	}
 
 }
