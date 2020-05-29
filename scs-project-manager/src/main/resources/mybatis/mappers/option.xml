@@ -15,6 +15,12 @@
 			]]>
 	</select>
 	
+	<select id="getList" resultType="map">
+			<![CDATA[
+				select no, name, type from ${db}.option
+			]]>
+	</select>
+	
 	<insert id="addSizeOption" parameterType="map">
 			<![CDATA[
 				insert into ${db}.option values (null, #{name}, "size")

@@ -49,8 +49,12 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
+var stockAddEjs = new EJS({
+	url:"${pageContext.request.contextPath }/assets/js/ejs/stock-add.ejs"
+});
 var click = 0;
 var click2 = 0;
+
 $(function() {
 	/* 옵션 추가 등록 팝업 */
 		$('#option-add').click(function(){		
@@ -106,7 +110,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	vo.shippingCharge = shippingCharge;
 	
 	$.ajax({
-		url: '${pageContext.request.contextPath }/id/product/regItem',
+		url: '${pageContext.request.contextPath }/${authUser.id}/product/regItem',
 		contentType: 'application/json',
 		data: JSON.stringify(vo),
 		type: "POST",
@@ -130,7 +134,7 @@ $(function() {
 			vo.name = name;			
 			
 			$.ajax({
-				url: '${pageContext.request.contextPath }/api/product/category-reg/childCategoryList',
+				url: '${pageContext.request.contextPath }/${authUser.id}/api/product/category-reg/childCategoryList',
 				contentType: 'application/json',
 				data: JSON.stringify(vo),
 				type: "POST",
@@ -167,43 +171,46 @@ $(function() {
 		
 });
 
+/* 컬러 옵션 뿌리기 */
+$(document).on("click",".form-control.colorOptionSelect",function(){
+	
+	if((click%2)==0){
+	var vo={};
+	$.ajax({
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/option/colorList',
+		contentType: 'application/json',
+		data: JSON.stringify(vo),
+		type: "POST",
+		dataType: 'json',
+		success :function(response){
+			for( var key in response.data){
+				var data = response.data[key];	
+				if(data.name!=null)
+					$('.form-control.colorOptionSelect').append("<option value='" + data.no + "'>" + data.name + "</option>");
+			}
+		}, 			
+		error: function(xhr, status, e){
+			console.error(status + " : " + e);
+		}
+	});	
+		$('select#colorOption option').remove();
+		$('select#colorOption').append("<option value=''>----</option>");
+	}
+	click++;
+});
+
 $(function() {
 	
-	/* 컬러 옵션 뿌리기 */
-	$('#colorOption').click(function(event){
-		
-		if((click%2)==0){
-		var vo={};
-		$.ajax({
-			url: '${pageContext.request.contextPath }/api/product/option/colorList',
-			contentType: 'application/json',
-			data: JSON.stringify(vo),
-			type: "POST",
-			dataType: 'json',
-			success :function(response){
-				for( var key in response.data){
-					var data = response.data[key];	
-					if(data.name!=null)
-						$('#colorOption').append("<option value='" + data.no + "'>" + data.name + "</option>");
-				}
-			}, 			
-			error: function(xhr, status, e){
-				console.error(status + " : " + e);
-			}
-		});	
-			$('select#colorOption option').remove();
-			$('select#colorOption').append("<option value=''>----</option>");
-		}
-		click++;
-	});
 	
-	/* 컬러 옵션 뿌리기 */
-	$('#sizeOption').click(function(event){
+
+	
+	/* 사이즈 옵션 뿌리기 */
+	$(document).on("click",".form-control.sizeOptionSelect",function(){
 		
 		if((click2%2)==0){
 		var vo={};
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/product/option/sizeList',
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/option/sizeList',
 			contentType: 'application/json',
 			data: JSON.stringify(vo),
 			type: "POST",
@@ -212,7 +219,7 @@ $(function() {
 				for( var key in response.data){
 					var data = response.data[key];	
 					if(data.name!=null)
-						$('#sizeOption').append("<option value='" + data.no + "'>" + data.name + "</option>");
+						$('.form-control.sizeOptionSelect').append("<option value='" + data.no + "'>" + data.name + "</option>");
 				}
 			}, 			
 			error: function(xhr, status, e){
@@ -225,8 +232,27 @@ $(function() {
 		click2++;
 	});
 	
-	
+	$('#stock-add').click(function(){
 		
+		var vo={};
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/stock/add',
+			async: true,
+			type: 'post',
+			dataType: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify(vo),
+			success: function(response){
+				var html = stockAddEjs.render(response.data);
+				$('#option-zone').after(html);
+			},
+			error: function(xhr, status, e){
+				console.error(status + " : " + e);
+			}
+		});
+
+	});
 });
 	
 </script>
@@ -514,16 +540,16 @@ $(function() {
 												<input type=radio name="pro-opt">&nbsp2차옵션사용
 											</div>
 											<div>옵션 영역</div> -->
-											<div style="width:1000px; display:inline-block">
+											<div style="width:1000px; display:inline-block" class="option-zone" id="option-zone">
 												1차 옵션
-												<select class="form-control" id="sizeOption">												
+												<select class="form-control sizeOptionSelect" id="sizeOption">												
 		                                       		<option>----</option>
 		                                        <c:forEach var="vo" varStatus="status" items="${sizeOptionList }">
 		                                           	<option value="${vo.no }">${vo.name }</option>
 		                                        </c:forEach>
 												</select><label class="text-space"></label>
 												2차 옵션
-												<select class="form-control" id="colorOption">
+												<select class="form-control colorOptionSelect" id="colorOption">
 		                                       		<option>----</option>
 		                                        <c:forEach var="vo" varStatus="status" items="${colorOptionList }">
 		                                           	<option value="${vo.no }">${vo.name }</option>
@@ -531,7 +557,7 @@ $(function() {
 												</select><label class="text-space"></label>
 												
 												재고량 <input type="text" class="form-control product-info" id="input-stock" value="" />
-												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">등록</button>
+												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">추가</button>												
 											</div>
 											
 											

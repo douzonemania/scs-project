@@ -60,7 +60,7 @@ $(function(){
 		vo.no = no;
 		vo.name = name;
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/product/option/addSize' ,
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/option/addSize' ,
 			contentType: 'application/json',
 			data: JSON.stringify(vo),
 			type: "POST",
@@ -90,7 +90,7 @@ $(function(){
 		vo.type = type;
 		
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/product/option/addColor' ,
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/option/addColor' ,
 			contentType: 'application/json',
 			data: JSON.stringify(vo),
 			type: "POST",
@@ -116,7 +116,7 @@ $(function(){
 		vo.no = no;		
 
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/product/option/deleteOpiton' ,
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/option/deleteOpiton' ,
 			contentType: 'application/json',
 			data: JSON.stringify(vo),
 			type: "POST",

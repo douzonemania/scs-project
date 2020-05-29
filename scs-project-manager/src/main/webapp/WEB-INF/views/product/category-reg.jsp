@@ -54,7 +54,7 @@ function changeTable(no,name){
 	vo={};
 	vo.name = name;
 	$.ajax({
-		url: '${pageContext.request.contextPath }/api/product/category-reg/createTable' ,
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/category-reg/createTable' ,
 		contentType: 'application/json',
 		data: JSON.stringify(vo),
 		type: "POST",
@@ -75,7 +75,7 @@ function changeTable2(no){
 	vo.parentNo = no;
 	
 	$.ajax({
-		url: '${pageContext.request.contextPath }/api/product/category-reg/createTable2' ,
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/category-reg/createTable2' ,
 		contentType: 'application/json',
 		data: JSON.stringify(vo),
 		type: "POST",
@@ -136,7 +136,7 @@ $(function() {
 		
 		if(parentNo==null){
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/product/category-reg/add/' + parentCategory ,
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/category-reg/add/' + parentCategory ,
 			contentType: 'application/json',
 			data: JSON.stringify(vo),
 			type: "POST",
@@ -158,7 +158,7 @@ $(function() {
 		});
 		} else {
 			$.ajax({
-				url: '${pageContext.request.contextPath }/api/product/category-reg/add/' + parentCategory ,
+				url: '${pageContext.request.contextPath }/${authUser.id}/api/product/category-reg/add/' + parentCategory ,
 				contentType: 'application/json',
 				data: JSON.stringify(vo),
 				type: "POST",
@@ -216,7 +216,7 @@ $(function() {
 			vo.name = childCategoryName;			
 		}	
 			$.ajax({
-				url: '${pageContext.request.contextPath }/api/product/category-reg/del',
+				url: '${pageContext.request.contextPath }/${authUser.id}/api/product/category-reg/del',
 				contentType: 'application/json',
 				data: JSON.stringify(vo),
 				type: "POST",
@@ -269,7 +269,7 @@ $(function() {
 				}				
 				
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/product/category-reg/mod/' + afterName,
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/category-reg/mod/' + afterName,
 			contentType: 'application/json',
 			data: JSON.stringify(vo),
 			type: "POST",
@@ -393,7 +393,7 @@ $(function() {
 		vo.name = name;		
 		
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/product/category-reg/childCategoryList' ,
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/category-reg/childCategoryList' ,
 			contentType: 'application/json',
 			data: JSON.stringify(vo),
 			type: "POST",
@@ -430,7 +430,7 @@ $(function() {
 			vo.name = name;
 			
 			$.ajax({
-				url: '${pageContext.request.contextPath }/api/product/category-reg/childCategoryList' ,
+				url: '${pageContext.request.contextPath }/${authUser.id}/api/product/category-reg/childCategoryList' ,
 				contentType: 'application/json',
 				data: JSON.stringify(vo),
 				type: "POST",

@@ -1,0 +1,19 @@
+<div style="width:1000px; display:inline-block" class="option-zone">
+	1차 옵션
+	<select class="form-control sizeOptionSelect">												
+		<option>----</option>
+	<c:forEach var="vo" varStatus="status" items="${sizeOptionList }">
+		<option value="${vo.no }">${vo.name }</option>
+	</c:forEach>
+	</select><label class="text-space"></label>
+	2차 옵션
+	<select class="form-control colorOptionSelect">
+		<option>----</option>
+	<c:forEach var="vo" varStatus="status" items="${colorOptionList }">
+		<option value="${vo.no }">${vo.name }</option>
+	</c:forEach>											
+	</select><label class="text-space"></label>
+												
+	재고량 <input type="text" class="form-control product-info" id="input-stock" value="" />
+													
+</div>

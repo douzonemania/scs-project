@@ -19,7 +19,7 @@ import com.douzonemania.security.AuthUser;
 
 
 @RestController("ProductApiController")
-@RequestMapping("/api/product")
+@RequestMapping("/{id}/api/product")
 public class productController {
 
 	@Autowired
@@ -173,6 +173,18 @@ public class productController {
 		String id = authUser.getId();		
 		return JsonResult.success(productService.delOption(id, oVo.getNo()));
 	}
+	
+	// 재고량 옵션
+	@RequestMapping(value="/stock/add", method = RequestMethod.POST)
+	public JsonResult addStock(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo			
+			) {
+		String id = authUser.getId();
+		List<OptionVo> optionList = productService.getOptionList(id);
+		return JsonResult.success(optionList);
+	}
+	
 	// 옵션 추가 팝업
 	/*
 	 * @RequestMapping(value="/category-reg/addOption", method = RequestMethod.POST)
