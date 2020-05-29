@@ -161,9 +161,27 @@
 	<insert id="insertBoardReply" parameterType="map">
 		<![CDATA[
 			insert into ${db}.reply
-			values(null, #{parentsNo}, now()) 
+			values(null, #{parentsNo}, #{contents}, now()) 
 		]]>
 	</insert>
 	
+	<select id="replyByParentsNo" parameterType="map" resultType="replyvo">
+		<![CDATA[
+			select no,
+				   parents_no as parentsNo,
+				   contents,
+				   reg_date as regDate
+			  from ${db}.reply
+			 where parents_no=#{no} 
+		]]>
+	</select>
+	
+	<update id="setBoardReplyTrue" parameterType="map">
+		<![CDATA[
+			update ${db}.board
+			   set reply_state=true
+			 where no=#{no} 
+		]]>
+	</update>
 	
 </mapper>

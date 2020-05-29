@@ -55,9 +55,8 @@ public class MemberController {
 	public JsonResult boardWrite(@AuthUser CeoVo authUser,
 			@PathVariable("no") int no, @RequestBody String html) {
 		
-		System.out.println("controller!!!!!!!");
-		
 		boolean replyResult = memberService.boardReply(authUser.getId(), no, html);
+		memberService.setBoardReplyTrue(authUser.getId(), no);
 		
 		return JsonResult.success(replyResult);
 	}
