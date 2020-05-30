@@ -55,6 +55,13 @@ public class ProductRepository {
 		map.put("name",name);
 		return sqlSession.selectOne("category.findCategoryByName", map);
 	}
+	
+	public CategoryVo findCategoryByNo(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("no", no);
+		return sqlSession.selectOne("category.findCategoryByNo", map);
+	}
 
 	public int delCategory(String id, String name) {
 		Map<String, Object> map = new HashMap<>();

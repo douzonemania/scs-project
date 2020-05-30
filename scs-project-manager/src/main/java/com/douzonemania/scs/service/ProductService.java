@@ -39,8 +39,13 @@ public class ProductService {
 	/* 카테고리 이름으로 검색 */
 	public CategoryVo findCategoryByName(String id, String name) {
 		return productRepository.findCategoryByName(id, name);
-		}
+	}
 
+	/* 카테고리 번호로 검색 */
+	public CategoryVo findCategoryByNo(String id, int no) {
+		return productRepository.findCategoryByNo(id, no);
+	}
+	
 	/* 카테고리 삭제하기 */
 	public int delCategory(String id, String name) {
 		return productRepository.delCategory(id, name);		

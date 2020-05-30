@@ -82,10 +82,21 @@ public class ProductController {
 			) {
 		String id = authUser.getId();
 		ItemVo vo = new ItemVo();
-		vo = productService.findItem(id, no);		
+		vo = productService.findItem(id, no);
+		CategoryVo cVo = productService.findCategoryByNo(id, vo.getCategoryNo());
+		List<CategoryVo> categoryNameList = productService.getCategoryNameList(id);
+		List<OptionVo> sizeOptionList = productService.getOptionListOfSize(id);
+		List<OptionVo> colorOptionList = productService.getOptionListOfColor(id);
+		List<CategoryVo> category2NameList = productService.getCategory2NameList(id);
 				
-		model.addAttribute("vo",vo);
-		return "product/reg";
+		model.addAttribute("vo",vo);	//	아이템정보
+		model.addAttribute("cVo",cVo);	//	카테고리정보
+		model.addAttribute("categoryNameList",categoryNameList);	//카테고리리스트
+		model.addAttribute("category2NameList", category2NameList);	//2차카테고리리스트
+		model.addAttribute("sizeOptionList", sizeOptionList);		//사이즈옵션리스트
+		model.addAttribute("colorOptionList", colorOptionList);		//컬러옵션리스트
+		
+		return "product/item-mod";
 	}
 	
 	@RequestMapping(value = "/category-reg", method = RequestMethod.GET)

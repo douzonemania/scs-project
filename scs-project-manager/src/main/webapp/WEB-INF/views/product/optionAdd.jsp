@@ -71,8 +71,7 @@ function modOption(no, name, type, ad){
 		if(type=='size')
 			$(opener.document).find(".form-control.sizeOptionSelect option[value='"+no+"']").remove();
 		else if(type=='color'){
-			var sss = $(opener.document).find('.form-control.colorOptionSelect').val(no);
-			console.log(sss + "tds");
+			$(opener.document).find(".form-control.colorOptionSelect option[value='"+no+"']").remove();
 		}
 	}	
 }

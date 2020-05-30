@@ -58,8 +58,13 @@ var index = 1;
 $(function() {
 	/* 옵션 추가 등록 팝업 */
 		$('#option-add').click(function(){		
-			window.open('optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
+			window.open('http://localhost:8888/scs-manager/mall/product/optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
 		});
+});
+
+$(document).ready(function(){
+	$("#first-category").val("${cVo.parentNo}").prop("selected", true);
+	$("#seconds-category").val("${cVo.no}").prop("selected", true);
 });
 
 $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
@@ -351,6 +356,9 @@ $(function() {
 										</label> 2차분류 
 											<select class="form-control" id="seconds-category">
 												<option>----</option>
+											<c:forEach var="vo" varStatus="status" items="${category2NameList }">
+	                                           	<option value="${vo.no }">${vo.name }</option>
+	                                        </c:forEach>
 											</select>
 										</td>
 									</tr>

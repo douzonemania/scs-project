@@ -197,7 +197,7 @@
 											<td>${vo.regDate }</td>
 											<td>
 												
-												<a href="${pageContext.request.contextPath }/product/modify-item/${vo.no}">
+												<a href="${pageContext.request.contextPath }/${authUser.id }/product/modify-item/${vo.no}">
 													<input class="btn-secondary" style="height: 20px; font-size: 11px" type="button" value="수정"></a> 
 												<a href="">
 													<input class="btn-secondary" style="height: 20px; font-size: 11px" type="button" value="삭제"></a> 
