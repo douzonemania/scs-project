@@ -89,6 +89,10 @@ public class ProductService {
 	public OptionVo getOption(String id, String name) {
 		return productRepository.getOption(id, name);
 	}
+	
+	public OptionVo getOptionByNo(String id, int no) {
+		return productRepository.getOptionByNo(id, no);
+	}
 
 	public int delOption(String id, int no) {
 		return productRepository.delOption(id, no);
@@ -97,6 +101,7 @@ public class ProductService {
 	public List<OptionVo> getOptionList(String id) {
 		return productRepository.getOptionList(id);
 	}
+
 	
 
 }

@@ -49,6 +49,33 @@ var optionAddEjs = new EJS({
 	url:"${pageContext.request.contextPath }/assets/js/ejs/option-add.ejs"
 });
 
+function sizeList(no, name, type, ad){
+	var cOp = {};
+	cOp.no = no;
+	cOp.name = name;
+	cOp.type = type;
+	cOp.ad = ad;
+	console.log("sizeList!!")
+	console.log(cOp.name + cOp.type + cOp.ad + "!!!");
+	
+	$(opener.document).find('.form-control.colorOptionSelect').append("<option value='"+ cOp.no +"'>"+cOp.name+"</option>");
+}
+
+function modOption(no, name, type, ad){
+	if(ad=="add"){
+		if(type=='size')
+			$(opener.document).find('.form-control.sizeOptionSelect').append("<option value='"+ no +"'>"+name+"</option>");
+		else if(type=='color')
+			$(opener.document).find('.form-control.colorOptionSelect').append("<option value='"+ no +"'>"+name+"</option>");
+	}else if(ad=="del"){
+		if(type=='size')
+			$(opener.document).find(".form-control.sizeOptionSelect option[value='"+no+"']").remove();
+		else if(type=='color'){
+			var sss = $(opener.document).find('.form-control.colorOptionSelect').val(no);
+			console.log(sss + "tds");
+		}
+	}	
+}
 $(function(){
 	
 	//추가 버튼 클릭시 size option add 
@@ -56,9 +83,11 @@ $(function(){
 		
 		var no = null;
 		var name = $('#size-option-name').val();
+		var type = "size";
 		var vo={}
 		vo.no = no;
 		vo.name = name;
+		vo.type = type;
 		$.ajax({
 			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/option/addSize' ,
 			contentType: 'application/json',
@@ -67,7 +96,8 @@ $(function(){
 			dataType: 'json',
 			success : function(response){				
 				var html = optionAddEjs.render(response.data);
-				$('#last-SizeTable').before(html);
+				$('#last-SizeTable').before(html);				
+				modOption(response.data.no,name,type,"add");
 			},
 			error:
 				function(xhr, status, e){
@@ -82,7 +112,7 @@ $(function(){
 		
 		var no = null;
 		var name = $('#color-option-name').val();
-		var type = null;
+		var type = "color";
 		
 		var vo={}
 		vo.no = no;
@@ -95,9 +125,11 @@ $(function(){
 			data: JSON.stringify(vo),
 			type: "POST",
 			dataType: 'json',
-			success : function(response){				
+			success : function(response){
+				
 				var html = optionAddEjs.render(response.data);
-				$('#last-ColorTable').before(html);
+				$('#last-ColorTable').before(html);				
+				modOption(response.data.no,name,type,"add");
 			},
 			error:
 				function(xhr, status, e){
@@ -108,13 +140,14 @@ $(function(){
 	});
 	
 	// 삭제 버튼 클릭시 size del
-	$(document).on('click','.button-zone button',function(event){
+	$(document).on('click','.button-zone button',function(){
 		event.preventDefault();	
 		var no = $(this).data('no');
 		$(this).parents('tr').remove();	
+		
 		var vo={};
 		vo.no = no;		
-
+		
 		$.ajax({
 			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/option/deleteOpiton' ,
 			contentType: 'application/json',
@@ -122,7 +155,7 @@ $(function(){
 			type: "POST",
 			dataType: 'json',
 			success : function(response){
-				
+				modOption(response.data.no, response.data.name, response.data.type, "del");				
 			},
 			error:
 				function(xhr, status, e){

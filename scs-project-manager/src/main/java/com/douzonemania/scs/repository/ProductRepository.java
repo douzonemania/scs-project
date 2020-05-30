@@ -130,6 +130,13 @@ public class ProductRepository {
 		return sqlSession.selectOne("option.getOption", map);
 	}	
 	
+	public OptionVo getOptionByNo(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("no", no);
+		return sqlSession.selectOne("option.getOptionByNo", map);
+	}
+	
 	public int delOption(String id, int no) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db",id);
@@ -149,6 +156,7 @@ public class ProductRepository {
 		String id =nowSession.getAttribute("name").toString();
 		return id;
 	}
+
 
 
 

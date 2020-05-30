@@ -54,6 +54,7 @@ var stockAddEjs = new EJS({
 });
 var click = 0;
 var click2 = 0;
+var index = 1;
 
 $(function() {
 	/* 옵션 추가 등록 팝업 */
@@ -171,71 +172,16 @@ $(function() {
 		
 });
 
-/* 컬러 옵션 뿌리기 */
-$(document).on("click",".form-control.colorOptionSelect",function(){
-	
-	if((click%2)==0){
-	var vo={};
-	$.ajax({
-		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/option/colorList',
-		contentType: 'application/json',
-		data: JSON.stringify(vo),
-		type: "POST",
-		dataType: 'json',
-		success :function(response){
-			for( var key in response.data){
-				var data = response.data[key];	
-				if(data.name!=null)
-					$('.form-control.colorOptionSelect').append("<option value='" + data.no + "'>" + data.name + "</option>");
-			}
-		}, 			
-		error: function(xhr, status, e){
-			console.error(status + " : " + e);
-		}
-	});	
-		$('select#colorOption option').remove();
-		$('select#colorOption').append("<option value=''>----</option>");
-	}
-	click++;
-});
+
 
 $(function() {
 	
-	
 
 	
-	/* 사이즈 옵션 뿌리기 */
-	$(document).on("click",".form-control.sizeOptionSelect",function(){
-		
-		if((click2%2)==0){
+	$('#stock-add').click(function(){		
 		var vo={};
-		$.ajax({
-			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/option/sizeList',
-			contentType: 'application/json',
-			data: JSON.stringify(vo),
-			type: "POST",
-			dataType: 'json',
-			success :function(response){
-				for( var key in response.data){
-					var data = response.data[key];	
-					if(data.name!=null)
-						$('.form-control.sizeOptionSelect').append("<option value='" + data.no + "'>" + data.name + "</option>");
-				}
-			}, 			
-			error: function(xhr, status, e){
-				console.error(status + " : " + e);
-			}
-		});	
-			$('select#sizeOption option').remove();
-			$('select#sizeOption').append("<option value=''>----</option>");
-		}
-		click2++;
-	});
-	
-	$('#stock-add').click(function(){
-		
-		var vo={};
-		
+		var colorOption = "";
+		var sizeOption= "";
 		$.ajax({
 			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/stock/add',
 			async: true,
@@ -244,14 +190,33 @@ $(function() {
 			contentType: 'application/json',
 			data: JSON.stringify(vo),
 			success: function(response){
-				var html = stockAddEjs.render(response.data);
-				$('#option-zone').after(html);
+				console.log(response.data + +":" + response)
+				for( var key in response.data){
+					var data = response.data[key];
+					//$('.form-control.colorOptionSelect').append("<option value='" + data.no + "'>" + data.name + "</option>");
+					//$('.form-control.sizeOptionSelect').append("<option value='" + data.no + "'>" + data.name + "</option>");
+					console.log(data.no + ":" + data.name + ":" + data.type);
+					if(data.type=="color"){
+						console.log("type is color");
+						colorOption = colorOption + ("<option value='" + data.no + "'>" + data.name + "</option>")
+					}else if (data.type=="size"){
+						console.log("type is size");
+						sizeOption = sizeOption + ("<option value='" + data.no + "'>" + data.name + "</option>")
+					}
+				}
+				console.log("color: " + colorOption);
+				console.log("size: " + sizeOption);
+				
+				//$('#option-zone').append(html);
+				$('#option-zone').append("<div style='width:1000px; display:inline-block' class='option-zone'>1차 옵션 <select class='form-control sizeOptionSelect' id='sizeOption-"+ index + "'><option>----</option>"+sizeOption+"</select><label class='text-space'></label> 2차 옵션 <select class='form-control colorOptionSelect' id='colorOption-"+ index +"'><option>----</option>"+colorOption+"</select><label class='text-space'></label>  재고량 <input type='text' class='form-control product-info' id='input-stock-"+index+"' value='' /></div>");
+				//$('#option-zone').append("<div style='width:1000px; display:inline-block' class='option-zone' id='option-zone'>1차 옵션<select class='form-control sizeOptionSelect' id='sizeOption'><option>----</option><c:forEach var='vo' varStatus='status' items='${sizeOptionList }'>option value='${vo.no }'>${vo.name }</option></c:forEach></select><label class='text-space'></label>	<button type='button' id='stock-add' class='btn btn-secondary waves-effect'>추가</button>	</div>");
+				index++;
 			},
 			error: function(xhr, status, e){
 				console.error(status + " : " + e);
 			}
 		});
-
+		
 	});
 });
 	

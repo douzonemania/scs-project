@@ -170,8 +170,12 @@ public class productController {
 			@AuthUser CeoVo authUser,
 			@RequestBody OptionVo oVo			
 			) {
-		String id = authUser.getId();		
-		return JsonResult.success(productService.delOption(id, oVo.getNo()));
+		String id = authUser.getId();
+		oVo = productService.getOptionByNo(id, oVo.getNo());
+		productService.delOption(id, oVo.getNo());
+		System.err.println(oVo.getNo()+"zzzz");
+		System.err.println(oVo + "멀쩡한 날이 없지");
+		return JsonResult.success(oVo);
 	}
 	
 	// 재고량 옵션
@@ -182,6 +186,7 @@ public class productController {
 			) {
 		String id = authUser.getId();
 		List<OptionVo> optionList = productService.getOptionList(id);
+		System.err.println(optionList);
 		return JsonResult.success(optionList);
 	}
 	

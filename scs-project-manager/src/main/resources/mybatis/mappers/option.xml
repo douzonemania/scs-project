@@ -39,6 +39,12 @@
 			]]>
 	</select>
 
+	<select id="getOptionByNo" parameterType="map" resultType="optionvo">
+			<![CDATA[
+				select no, name, type from ${db}.option where no=#{no}
+			]]>
+	</select>
+	
 	<delete id="delOption" parameterType="map">
 			<![CDATA[
 				delete from ${db}.option where no=#{no}
