@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.scs.service.MemberService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.member.BoardVo;
 import com.douzonemania.scs.vo.member.ReplyVo;
 import com.douzonemania.security.AuthUser;
 
@@ -95,15 +96,27 @@ public class MemberController {
 	@RequestMapping(value="board/view/{no}")
 	public String boardView(@AuthUser CeoVo authUser,@PathVariable("no") int no, Model model) {
 		
-//		BoardVo boardVo = memberService.boardByNo(authUser.getId(), no);
-		ReplyVo replyVo = memberService.replyByParentsNo(authUser.getId(), no);
+		BoardVo boardVo = memberService.findBoardByNo(authUser.getId(), no);
+		String name = memberService.findNameByNo(authUser.getId(), no);
+		boardVo.setName(name);
 		
 		String viewer = "quill2.setContents([ " + 
-		                          replyVo.getContents() +
-		                 "]);";
+                boardVo.getContents() +
+       "]);";
 		
-		model.addAttribute("replyVo", replyVo);
-		model.addAttribute("viewer", viewer);
+		model.addAttribute("boardVo", boardVo);
+		model.addAttribute("viewer", viewer);		// 회원이 작성한 글
+		
+		// 답글이 있는 경우 
+		if(boardVo.isReplyState()) {
+			ReplyVo replyVo = memberService.findReplyByParentsNo(authUser.getId(), no);
+			String reply = "quill3.setContents([ " + 
+			                          replyVo.getContents() +
+			                 "]);";
+			
+			model.addAttribute("reply", reply);	
+			model.addAttribute("replyVo", replyVo);	 // 관리자가 작성한 답글
+		}
 		
 		return "member/board-view";
 	}

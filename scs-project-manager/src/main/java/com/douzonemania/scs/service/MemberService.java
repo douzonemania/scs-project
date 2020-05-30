@@ -175,8 +175,8 @@ public class MemberService {
 		int offset=(currentPage-1)*5;
 
 		int total = memberRepository.boardListCount(id, option, keyword);
-	
-		
+
+
 		List<BoardVo> list;
 		if(option.equals("")) {
 			list = memberRepository.boardList(id, offset, LIST_SIZE);
@@ -230,7 +230,7 @@ public class MemberService {
 	}
 
 	public boolean boardReply(String id, int no, String jsonData) {
-		
+
 		JSONObject jObject = new JSONObject(jsonData);
 
 		JSONArray jArray = jObject.getJSONArray("ops");
@@ -247,20 +247,29 @@ public class MemberService {
 				contents += obj + ",";
 			}
 		}
-		
+
 		int count = memberRepository.boardReply(id, no, contents);
 		return count == 1;
 	}
 
-	public ReplyVo replyByParentsNo(String id, int no) {
-		
-		return memberRepository.replyByParentsNo(id, no);
+	public BoardVo findBoardByNo(String id, int no) {
+		return memberRepository.findBoardByNo(id, no);
+	}
+	
+	public ReplyVo findReplyByParentsNo(String id, int no) {
+
+		return memberRepository.findReplyByParentsNo(id, no);
 	}
 
 	public boolean setBoardReplyTrue(String id, int no) {
 		int count = memberRepository.setBoardReplyTrue(id, no);
 		return count == 1;
 	}
-	
+
+	public String findNameByNo(String id, int no) {
+		return memberRepository.findNameByNo(id, no);
+	}
+
+
 
 }

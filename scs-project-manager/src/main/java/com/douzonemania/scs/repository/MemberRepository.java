@@ -127,12 +127,20 @@ public class MemberRepository {
 		return sqlSession.insert("insertBoardReply", map);
 	}
 
-	public ReplyVo replyByParentsNo(String id, int no) {
+	public BoardVo findBoardByNo(String id, int no) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db", id);
 		map.put("no", no);
 		
-		return sqlSession.selectOne("replyByParentsNo", map);
+		return sqlSession.selectOne("findBoardByNo", map);
+	}
+	
+	public ReplyVo findReplyByParentsNo(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("no", no);
+		
+		return sqlSession.selectOne("findReplyByParentsNo", map);
 	}
 
 	// board 답글을 남겼으면, 답글 상태를 true로 변경
@@ -142,6 +150,14 @@ public class MemberRepository {
 		map.put("no", no);
 		
 		return sqlSession.update("setBoardReplyTrue", map);
+	}
+
+	public String findNameByNo(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("no", no);
+		
+		return sqlSession.selectOne("findNameByNo", map);
 	}
 
 }
