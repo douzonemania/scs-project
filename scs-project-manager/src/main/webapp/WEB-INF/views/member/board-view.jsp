@@ -51,10 +51,17 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	quill2.enable(false);
+	quill2.enable(false);			// editor 비활성화
 	
-	var contents = '${replyVo.contents}';
 	${viewer};
+	
+	// 답글
+	var replyState = ${boardVo.replyState};
+	if(replyState == true) {
+		quill3.enable(false);
+		${reply};
+	}
+	
 	
 });
 
@@ -101,15 +108,60 @@ $(document).ready(function(){
 				<div class="col-12">
 					<div class="card">
 						<div class="card-body" id="search-form">
-							<h4 class="page-title">답글작성</h4>
-							<input type='hidden' value=${no } id='parents_no'/>
-							<div id="snow-viewer" style="height: 300px;" contentEditable="false"></div>
-
-							<br>
 							
-							<!-- 등록,목록 버튼-->
+							<table class="table-form-exposure">
+                                        <colgroup>
+                                            <col width="20%" /><col width="*" />
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th>제목</th>
+                                            <td>
+                                                ${boardVo.title }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>작성자</th>
+                                            <td>
+                                                  ${boardVo.name }                                                       
+                                            </td>
+                                        </tr>
+                                        <tr>
+                            	            <th>작성일</th>
+                                            <td>
+												${boardVo.regDate }
+                                            </td>
+                                        </tr>                          
+                                        </tbody>
+                                    </table>
+								
+								<div id="snow-viewer" style="height: 300px;" contentEditable="false"></div>
+
+
+								<!-- 답글이 있을 경우  -->
+								<c:if test="${boardVo.replyState }">
+									<br />
+									<div style="border: 1px dashed #6C757D;"></div>
+									<h3 class="page-title">답변</h3>
+									<table class="table-form-exposure">
+                                        <colgroup>
+                                            <col width="20%" /><col width="*" />
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                            	            <th>작성일</th>
+                                            <td>
+												${replyVo.regDate }
+                                            </td>
+                                        </tr>                          
+                                        </tbody>
+                                    </table>
+									
+									<div id="snow-reply" style="height: 300px;" contentEditable="false"></div>
+								</c:if>
+							
+							<br />
 							<div class="btn-submit-section">
-								<button type="button" class="btn btn-secondary waves-effect" id="submit-btn">등록</button>
 								<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board">
 								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
 									목록</button></a>

@@ -93,5 +93,5 @@ public class BoardVo {
 	public void setReplyState(boolean replyState) {
 		this.replyState = replyState;
 	}
-
+	
 }

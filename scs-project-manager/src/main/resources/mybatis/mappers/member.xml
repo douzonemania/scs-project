@@ -155,6 +155,7 @@
 			delete
 			  from ${db}.board
 			 where no=#{no}
+			   and reply_state=false
 		]]>
 	</delete>
 	
@@ -165,7 +166,7 @@
 		]]>
 	</insert>
 	
-	<select id="replyByParentsNo" parameterType="map" resultType="replyvo">
+	<select id="findReplyByParentsNo" parameterType="map" resultType="replyvo">
 		<![CDATA[
 			select no,
 				   parents_no as parentsNo,
@@ -184,4 +185,13 @@
 		]]>
 	</update>
 	
+	<select id="findNameByNo" parameterType="map" resultType="string">
+		<![CDATA[
+			select name
+			  from ${db}.member
+			 where no=#{no}		
+		]]>
+	</select>
+	
+
 </mapper>
