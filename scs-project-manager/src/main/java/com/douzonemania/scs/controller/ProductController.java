@@ -64,18 +64,7 @@ public class ProductController {
 		return "product/reg";
 	}
 
-	@RequestMapping(value = "/regItem", method = RequestMethod.POST)
-	public String regItem(
-			@AuthUser CeoVo authUser,
-			@RequestBody ItemVo iVo
-			) {
-		String id = authUser.getId();
-		System.err.println(iVo);
-		
-		//productService.regItem(iVo);
-		
-		return "product/reg";
-	}	
+
 
 	@RequestMapping(value = "/modify-item/{vo.no}")
 	public String modifyItem(

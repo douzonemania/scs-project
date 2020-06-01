@@ -14,13 +14,14 @@ import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.ProductService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
+import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
 import com.douzonemania.security.AuthUser;
 
 
 @RestController("ProductApiController")
 @RequestMapping("/{id}/api/product")
-public class productController {
+public class ProductController {
 
 	@Autowired
 	ProductService productService;
@@ -201,6 +202,19 @@ public class productController {
 	 * JsonResult.success(productService.getCategory2NameList(id,
 	 * cVo.getParentNo())); }
 	 */
+	
+	@RequestMapping(value = "/regItem", method = RequestMethod.POST)
+	public String regItem(
+			@AuthUser CeoVo authUser,
+			@RequestBody ItemVo iVo
+			) {
+		String id = authUser.getId();
+		System.err.println(iVo + "api 들어왔슈");
+		
+		productService.regItem(id, iVo);
+		
+		return "product/reg";
+	}	
 	
 
 }

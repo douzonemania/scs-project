@@ -52,6 +52,8 @@
 var stockAddEjs = new EJS({
 	url:"${pageContext.request.contextPath }/assets/js/ejs/stock-add.ejs"
 });
+var optionsArray = new Array();
+var options = new Object();
 
 var index = 1;
 
@@ -78,10 +80,10 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	if($("input:checkbox[id='item-new']").is(":checked") == true)
 		var newItem=true;
 	var editor = "abcd";
-	var description = "abcd";
+	var description = $("#item-des").val();
 	var regDate = null;
-	var categoryName1 = $("#first-category option:selected").text();
-	var categoryName2 = $("#seconds-category option:selected").text();
+	//var categoryName1 = $("#first-category option:selected").text();
+	var categoryName2 = $("#seconds-category option:selected").val();
 	var shipCompany = $("#ship-company-name option:selected").text();
 	
 	if($('input[name="shipping-charge"]:checked').val()=="free")
@@ -104,13 +106,12 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	vo.editor = editor;
 	vo.description = description;
 	vo.regDate = regDate;
-	vo.categoryName1 = categoryName1;
-	vo.categoryName2 = categoryName2;
+	vo.categoryNo = categoryName2;
 	vo.shipCompany = shipCompany;
 	vo.shippingCharge = shippingCharge;
 	
 	$.ajax({
-		url: '${pageContext.request.contextPath }/${authUser.id}/product/regItem',
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/regItem',
 		contentType: 'application/json',
 		data: JSON.stringify(vo),
 		type: "POST",
@@ -206,11 +207,39 @@ $(function() {
 			error: function(xhr, status, e){
 				console.error(status + " : " + e);
 			}
-		});
+		});		
+
+	});
+});
+
+$(function() {
+	
+	$('#testtest').click(function(){
+		var i = 0;
+		var kk = $('.sizeOptionSelect').length;
+		
+		for(i; i<kk; i++){
+			var color = $("#colorOption-" + i + " option:selected").text();
+			var size = $("#sizeOption-" + i + " option:selected").text();
+			var stock = $("#input-stock-" + i + " option:selected").val();
+			var sibal = $("#item-des").val();
+			console.log(sibal + "!#@#$#%");
+			console.log(i);
+			console.log(color + ":" +size);
+			
+			options.itemNo = null; // 아이템 번호 넣기
+			options.color = color;
+			options.size = size;
+			options.stock = stock;
+			
+			optionsArray.push(options);
+			
+		}
+			console.log("options!!!!!!!!! :" + optionsArray);
+		
 		
 	});
 });
-	
 </script>
 </head>
 <body>
@@ -498,22 +527,23 @@ $(function() {
 											<div id="option-zone">
 											<div style="width:1000px; margin-bottom:10px; display:inline-block" class="option-zone">
 												사이즈
-												<select class="form-control sizeOptionSelect" id="sizeOption">												
+												<select class="form-control sizeOptionSelect" id="sizeOption-0">												
 		                                       		<option>----</option>
 		                                        <c:forEach var="vo" varStatus="status" items="${sizeOptionList }">
 		                                           	<option value="${vo.no }">${vo.name }</option>
 		                                        </c:forEach>
 												</select><label class="text-space"></label>
 												색상
-												<select class="form-control colorOptionSelect" id="colorOption">
+												<select class="form-control colorOptionSelect" id="colorOption-0">
 		                                       		<option>----</option>
 		                                        <c:forEach var="vo" varStatus="status" items="${colorOptionList }">
 		                                           	<option value="${vo.no }">${vo.name }</option>
 		                                        </c:forEach>											
 												</select><label class="text-space"></label>
 												
-												재고량 <input type="text" class="form-control product-info" id="input-stock" value="" />
-												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">추가</button>												
+												재고량 <input type="text" class="form-control product-info" id="input-stock-0" value="" />
+												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">추가</button>	
+												<button type="button" id="testtest" class="btn btn-secondary waves-effect">실험쥐</button>												
 											</div>
 											</div>
 											

@@ -19,6 +19,24 @@ public class ItemVo {
 	private String description;
 	private Timestamp regDate;
 	private int categoryNo;
+	private String shipCompany;
+	private int shipCharge;
+
+	public String getShipCompany() {
+		return shipCompany;
+	}
+
+	public void setShipCompany(String shipCompany) {
+		this.shipCompany = shipCompany;
+	}
+
+	public int getShipCharge() {
+		return shipCharge;
+	}
+
+	public void setShipCharge(int shipCharge) {
+		this.shipCharge = shipCharge;
+	}
 
 	public String getDescription() {
 		return description;
@@ -145,7 +163,8 @@ public class ItemVo {
 		return "ItemVo [no=" + no + ", code=" + code + ", name=" + name + ", supPrice=" + supPrice + ", nowPrice="
 				+ nowPrice + ", sale=" + sale + ", mainImage=" + mainImage + ", subImage=" + subImage + ", visible="
 				+ visible + ", bestItem=" + bestItem + ", newItem=" + newItem + ", editor=" + editor + ", description="
-				+ description + ", regDate=" + regDate + ", categoryNo=" + categoryNo + "]";
+				+ description + ", regDate=" + regDate + ", categoryNo=" + categoryNo + ", shipCompany=" + shipCompany
+				+ ", shipCharge=" + shipCharge + "]";
 	}
 
 }

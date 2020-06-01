@@ -29,6 +29,11 @@
 					select no, name from scs2.ship_company where id = #{db}
 				]]>
 	</select>	
-	
+
+	<insert id="regItem" parameterType="map">
+				<![CDATA[
+					insert into ${db}.item values (null, #{iVo.code}, #{iVo.name}, #{iVo.supPrice}, #{iVo.nowPrice}, #{iVo.sale}, #{iVo.mainImage}, #{iVo.subImage}, #{iVo.visible}, #{iVo.bestItem}, #{iVo.newItem}, #{iVo.editor}, #{iVo.categoryNo}, #{iVo.description}, now(), #{iVo.shipCompany}, #{iVo.shipCharge})
+				]]>
+	</insert>	
 </mapper>
 
