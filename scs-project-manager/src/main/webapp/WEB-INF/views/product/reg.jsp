@@ -113,23 +113,46 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	var i = 0;
 	var numberOfOption = $('.sizeOptionSelect').length;
 	console.log(numberOfOption+ "여기를 보세요");
-	for(i=0; i<numberOfOption; i++){
+	
+	/* alert("LENGTH : "+$('#optionTest').length);
+	
+	$('#optionTest').each(function(){
+		alert("1:" +$(this).find('select[name=optionName]').val());
+		alert("2:" +$(this).find('select[name=colorName]').val());
+		alert("3:" +$(this).find('input[name=stockName]').val());
+	}); */
+	
+	var colorArr = [];
+	var sizeArr = [];
+	var stockArr=[];
+	
+	  for(i=0; i<numberOfOption; i++){
 		var color = $("#colorOption-" + i + " option:selected").val();
 		var size = $("#sizeOption-" + i + " option:selected").val();
 		var stock = $("#input-stock-" + i).val();
 		
-		console.log(color + ":" + size + ":" + stock);
-		
-		options.firstOption = color;
+		colorArr.push(color);
+		sizeArr.push(size);
+		stockArr.push(stock);
+		console.log(color+"//"+size+"//"+stock);
+		/* options.firstOption = color;
 		options.secondOption = size;
 		options.stock = stock;
-		console.log(options.firstOption + ":" + options.secondOption + ":" + options.stock + "뇌정지옴");
-		optionsArray.push(options);
-		console.log("---------------------------");
+		console.log(options.firstOption + ":" + options.secondOption + ":" + options.stock);
 		
-		console.log(optionsArray);
+		console.log("---------------------------"); */
+		
+	} 
+	
+	var objParams = {
+			'colorArr' : colorArr,
+			'sizeArr' : sizeArr,
+			'stockArr' : stockArr
 	}
-	console.log(optionsArray);
+	  
+	console.log(objParams);
+/* 	optionsArray.push(options);
+	console.log(optionsArray); */
 	
 	$.ajax({
 		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/regItem',
@@ -147,11 +170,10 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	
 	$.ajax({
 		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/stockInsert/' + code,
-		contentType: 'application/json',
-		data: JSON.stringify(optionsArray),
+		contentType :'application/x-www-form-urlencoded; charset=UTF-8',
+		data: objParams,
 		type: "POST",
-		dataType: 'json',
-		traditional: true,
+		dataType: 'json',		
 		success : function(response){
 			console.log("성공2");
 		},
@@ -159,9 +181,13 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 			console.error(status + " : " + e);
 		}
 	});
-	console.log("xxx:" +  code);
+	console.log("xxx:" +  code + "성공");
 	//location.reload();
 });
+
+
+
+
 $(function() {
 	/* 1차 카테고리 별 2차 카테고리 이름 리스트 */
 		$('#first-category').change(function(){		
@@ -238,7 +264,7 @@ $(function() {
 					}
 				}
 				//$('#option-zone').append(html);
-				$('#option-zone').append("<div id=""style='width:1000px; display:inline-block' class='option-zone'>사이즈 <select class='form-control sizeOptionSelect' id='sizeOption-"+ index + "'><option>----</option>"+sizeOption+"</select><label class='text-space'></label> 색상 <select class='form-control colorOptionSelect' id='colorOption-"+ index +"'><option>----</option>"+colorOption+"</select><label class='text-space'></label>  재고량 <input type='text' class='form-control product-info' id='input-stock-"+index+"' value='' /></div>");
+				$('#option-zone').append("<div id='optionTest' style='width:1000px; display:inline-block' class='option-zone'>사이즈 <select class='form-control sizeOptionSelect' id='sizeOption-"+ index + "' name = 'optionName'><option>----</option>"+sizeOption+"</select><label class='text-space'></label> 색상 <select class='form-control colorOptionSelect' id='colorOption-"+ index +"' name='colorName''><option>----</option>"+colorOption+"</select><label class='text-space'></label>  재고량 <input type='text' class='form-control product-info' id='input-stock-"+index+"' name='stockName'value='' /></div>");
 				//$('#option-zone').append("<div style='width:1000px; display:inline-block' class='option-zone' id='option-zone'>1차 옵션<select class='form-control sizeOptionSelect' id='sizeOption'><option>----</option><c:forEach var='vo' varStatus='status' items='${sizeOptionList }'>option value='${vo.no }'>${vo.name }</option></c:forEach></select><label class='text-space'></label>	<button type='button' id='stock-add' class='btn btn-secondary waves-effect'>추가</button>	</div>");
 				index++;
 			},

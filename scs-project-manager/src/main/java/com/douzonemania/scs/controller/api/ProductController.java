@@ -220,16 +220,14 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value = "/stockInsert/{code}", method = RequestMethod.POST)
 	public JsonResult stockInsert(
-			@AuthUser CeoVo authUser,			
-			@RequestBody String jsonData,
+			@AuthUser CeoVo authUser,		
+			@RequestParam(value="colorArr[]") List<Integer> colorArr,
+			@RequestParam(value="sizeArr[]") List<Integer> sizeArr,
+			@RequestParam(value="stockArr[]") List<Integer> stockArr,
 			@PathVariable String code) {				
 		String id = authUser.getId();
 		System.err.println("ㅗㅑ");
 		
-		
-		JSONObject jObject = new JSONObject(jsonData);
-		
-		System.out.println(jObject);
 
 //		JSONArray foArray = jObject.getJSONArray("firstOption");
 //		JSONArray soArray = jObject.getJSONArray("secondOption");
@@ -237,7 +235,8 @@ public class ProductController {
 //		
 //		StockVo sVo = new StockVo();
 //		
-//		int itemNo = productService.getItemNo(id, code);
+		int itemNo = productService.getItemNo(id, code);
+//		System.err.println("ㅗㅑ" + itemNo);
 //		int firstOption;
 //		int secondOption;
 //		int stock;
@@ -246,8 +245,19 @@ public class ProductController {
 //			JSONObject obj = foArray.getJSONObject(i);
 //			firstOption = obj.getInt("firstOption");
 //		}
+		
 //		
-
+		for(int i=0;i<sizeArr.size();i++) {
+			
+			StockVo temp = new StockVo();
+			temp.setFirstOption(colorArr.get(i));
+			temp.setSecondOption(sizeArr.get(i));
+			temp.setStock(stockArr.get(i));
+			
+			System.err.println(temp + "스바라기");
+			productService.insertStock(id, itemNo, temp);
+		}
+		
 
 		return JsonResult.success("");
 	}

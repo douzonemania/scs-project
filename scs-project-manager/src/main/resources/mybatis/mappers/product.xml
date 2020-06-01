@@ -40,6 +40,12 @@
 				<![CDATA[
 					insert into ${db}.item values (null, #{iVo.code}, #{iVo.name}, #{iVo.supPrice}, #{iVo.nowPrice}, #{iVo.sale}, #{iVo.mainImage}, #{iVo.subImage}, #{iVo.visible}, #{iVo.bestItem}, #{iVo.newItem}, #{iVo.editor}, #{iVo.categoryNo}, #{iVo.description}, now(), #{iVo.shipCompany}, #{iVo.shipCharge})
 				]]>
-	</insert>	
+	</insert>
+	
+	<insert id="insertStock" parameterType="map">
+				<![CDATA[
+					insert into ${db}.stock values (null, #{itemNo}, #{sVo.firstOption}, #{sVo.secondOption}, #{sVo.stock});
+				]]>
+	</insert>		
 </mapper>
 

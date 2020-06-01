@@ -16,6 +16,7 @@ import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
+import com.douzonemania.scs.vo.member.StockVo;
 
 @Repository
 public class ProductRepository {
@@ -171,6 +172,14 @@ public class ProductRepository {
 		return sqlSession.selectOne("product.getItemNo",map);
 	}
 	
+	public int insertStock(String id, int itemNo, StockVo sVo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);		
+		map.put("sVo", sVo);
+		map.put("itemNo",itemNo);
+		return sqlSession.insert("product.insertStock", map);
+	}
+	
 	public String getSession() {
 
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
@@ -178,6 +187,7 @@ public class ProductRepository {
 		String id =nowSession.getAttribute("name").toString();
 		return id;
 	}
+
 
 
 

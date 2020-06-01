@@ -10,6 +10,7 @@ import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
+import com.douzonemania.scs.vo.member.StockVo;
 
 @Service
 public class ProductService {
@@ -114,6 +115,10 @@ public class ProductService {
 
 	public int getItemNo(String id, String code) {
 		return productRepository.getItemNo(id, code);
+	}
+
+	public int insertStock(String id, int itemNo, StockVo sVo) {
+		return productRepository.insertStock(id, itemNo, sVo);
 	}
 
 	
