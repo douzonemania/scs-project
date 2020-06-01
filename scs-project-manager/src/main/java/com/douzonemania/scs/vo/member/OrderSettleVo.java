@@ -9,6 +9,22 @@ public class OrderSettleVo {
 	private Timestamp regDate;
 	private int purchasePrice;
 	private int marginPrice;
+	
+	private int totalPrice;
+	private int totalMargin;
+	
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	public int getTotalMargin() {
+		return totalMargin;
+	}
+	public void setTotalMargin(int totalMargin) {
+		this.totalMargin = totalMargin;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -42,7 +58,7 @@ public class OrderSettleVo {
 	@Override
 	public String toString() {
 		return "OrderSettleVo [no=" + no + ", id=" + id + ", regDate=" + regDate + ", purchasePrice=" + purchasePrice
-				+ ", marginPrice=" + marginPrice + "]";
+				+ ", marginPrice=" + marginPrice + ", totalPrice=" + totalPrice + ", totalMargin=" + totalMargin + "]";
 	}
 	
 	

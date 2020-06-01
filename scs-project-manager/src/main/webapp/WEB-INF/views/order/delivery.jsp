@@ -53,6 +53,34 @@
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />      
        
 </head>
+<script type="text/javascript">
+
+
+
+var fetchList = function(startDate, endDate){
+
+	var page = $('#current-page').val();
+	$.ajax({
+		url: '<%=request.getContextPath() %>/${authUser.id}/api/order/delivery',
+		async: true,
+		type: 'get',
+		dataType: 'json',
+		contentType: 'application/json',
+		data: { "startDate": startDate, "endDate": endDate },
+		success: function(response){
+
+			console.log(response.data);
+			location.href="<%=request.getContextPath() %>/${authUser.id}/order/delivery?p="+page+"&startDate="+startDate+"&endDate="+endDate;
+		},
+		error: function(xhr, status, e){
+			console.error(status + " : " + e);
+		}
+	});	
+}
+
+
+
+</script>
 <body>
 
   	<header>
@@ -97,26 +125,29 @@
                         <div class="search-form">
                             <div class="form-group mb-3 scs-search"> 
                                 <label>날짜 검색</label>
-                                                                <span class="input-group-addon">
+                                <span class="input-group-addon">
 									<i class="fa fa-calendar bigger-110"></i>
+									<h6>날짜검색해야 나옴.</h6>
 								</span>
-								<input type="text" id="date-range-picker"name="dates" value="06/01/2020 - 06/18/2020" class="form-control" />
+								<input type="text" id="date-range-picker" name="dates" class="form-control" />
 								<script>
-									$('input[id="date-range-picker"]').daterangepicker({
-									    "showCustomRangeLabel": false,
-									    "startDate": "07/06/2020",
-									    "endDate": "07/13/2020",
+								var startDate;
+								var endDate;
+								$('input[id="date-range-picker"]').daterangepicker({
+									    "showCustomRangeLabel": true,
+									    
 									    "drops": "auto"
 									}, function(start, end) {
 									  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-									  	var startDate = start.format('YYYY-MM-DD');
-										var endDate = end.format('YYYY-MM-DD');
-										location.href="<%=request.getContextPath() %>/{id}/order/settle?startDate="+startDate+"&endDate="+endDate;
+									  	startDate = start.format('YYYY-MM-DD');
+										endDate = end.format('YYYY-MM-DD');
 										
+										$('#date-range-picker').attr( 'value', startDate+ ' ~ ' + endDate );
+										fetchList(startDate, endDate);
 									});
-									
+								
 								</script>
-							</div>
+                            </div>
                             <div class="form-group mb-3 scs-category">
                                 <label for="product-category">1차 카테고리 <span class="text-danger">*</span></label>
                                 <select class="form-control select2" id="product-category">

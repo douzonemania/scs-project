@@ -36,6 +36,25 @@ public class OrderRepository {
 		
 		return sqlSession.selectOne("order.listCount", map); 
 	}
+
+	public int findTotalPrice(String startDate, String endDate, String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		
+		return sqlSession.selectOne("order.findTotalPrice", map); 
+	}
+
+	public int findTotalMargin(String startDate, String endDate, String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		
+		
+		return sqlSession.selectOne("order.findTotalMargin", map);
+	}
 	
 	
 }
