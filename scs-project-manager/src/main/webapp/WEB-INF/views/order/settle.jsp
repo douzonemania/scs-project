@@ -134,7 +134,7 @@ var fetchList = function(startDate, endDate){
                                     </div>
                                     <div class="col-6">
                                         <div class="text-right">
-                                            <h3 class="text-dark mt-1"><span data-plugin="counterup">127</span>건</h3>
+                                            <h3 class="text-dark mt-1"><span data-plugin="counterup">${map.total }</span>건</h3>
                                             <p class="text-muted mb-1 text-truncate">건수</p>
                                         </div>
                                     </div>
@@ -152,10 +152,13 @@ var fetchList = function(startDate, endDate){
                                         </div>
                                     </div>
                                     <div class="col-6">
+                                    
                                         <div class="text-right">
-                                            <h3 class="text-dark mt-1"><span data-plugin="counterup">58,947</span>원</h3>
+                                            <h3 class="text-dark mt-1"><span data-plugin="counterup">${map.totalPrice }</span>원</h3>
+                                            
                                             <p class="text-muted mb-1 text-truncate">매출</p>
                                         </div>
+                                   
                                     </div>
                                 </div> <!-- end row-->
                             </div> <!-- end widget-rounded-circle-->
@@ -174,7 +177,7 @@ var fetchList = function(startDate, endDate){
             
                                     <div class="col-6">
                                         <div class="text-right">
-                                            <h3 class="text-dark mt-1"><span data-plugin="counterup">32,481</span>원</h3>
+                                            <h3 class="text-dark mt-1"><span data-plugin="counterup">${map.totalMargin }</span>원</h3>
                                             <p class="text-muted mb-1 text-truncate">순수익</p>
                                         </div>
                                     </div>
@@ -200,7 +203,7 @@ var fetchList = function(startDate, endDate){
 									<i class="fa fa-calendar bigger-110"></i>
 									<h6>날짜검색해야 나옴.</h6>
 								</span>
-								<input type="text" id="date-range-picker"name="dates" class="form-control" />
+								<input type="text" id="date-range-picker" name="dates" class="form-control" />
 								<script>
 								var startDate;
 								var endDate;
@@ -212,7 +215,8 @@ var fetchList = function(startDate, endDate){
 									  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
 									  	startDate = start.format('YYYY-MM-DD');
 										endDate = end.format('YYYY-MM-DD');
-											
+										
+										$('#date-range-picker').attr( 'value', startDate+ ' ~ ' + endDate );
 										fetchList(startDate, endDate);
 									});
 								

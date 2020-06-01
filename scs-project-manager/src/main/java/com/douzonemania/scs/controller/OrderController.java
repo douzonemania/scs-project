@@ -32,8 +32,6 @@ public class OrderController {
 			@RequestParam(value="endDate", required=true, defaultValue="") String endDate,
 			@RequestParam(value="p", required=true, defaultValue="1") int page,
 			Model model) {
-			System.out.println(startDate + " :1: " + endDate);
-			System.out.println("order settle 한다.");
 			
 			
 			Map<String, Object> map = orderService.findByDate(startDate, endDate, authUser.getId(), page);

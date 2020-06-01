@@ -32,6 +32,8 @@ public class OrderService {
 		System.out.println("total:" + total);
 		List<OrderSettleVo> list;
 		list = orderRepository.findByDate(startDate, endDate,id, offset, LIST_SIZE);
+		int totalPrice = orderRepository.findTotalPrice(startDate, endDate, id);
+		int totalMargin = orderRepository.findTotalMargin(startDate, endDate, id);
 		
 		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
 		int calCnt=(currentPage%5)==0 ? currentPage-1 : currentPage;
@@ -56,6 +58,8 @@ public class OrderService {
 		map.put("calCnt", calCnt);
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
+		map.put("totalPrice", totalPrice);
+		map.put("totalMargin", totalMargin);
 		
 		if(endPage!=pageCnt)
 			map.put("listsize",LIST_SIZE);
