@@ -78,12 +78,6 @@ public class MemberController {
 		return "member/board";
 	}
 	
-	
-	@RequestMapping(value="/board/write", method=RequestMethod.GET)
-	public String boardWrite() {
-		return "member/board-write";
-	}
-	
 	@RequestMapping(value="/board/reply/{no}")
 	public String reply(@AuthUser CeoVo authUser,
 			@PathVariable("no") int no, Model model) {

@@ -206,7 +206,7 @@ var searchOption = function() {
                                 	<th>번호</th>
 									<th>아이디</th>
 									<th>이메일</th>
-									<th>성명</th>
+									<th>이름</th>
 									<th>휴대폰번호</th>
 									<th>탈퇴</th>
 									<th>메일발송</th>
