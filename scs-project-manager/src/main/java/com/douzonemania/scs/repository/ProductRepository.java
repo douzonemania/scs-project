@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
@@ -157,12 +158,19 @@ public class ProductRepository {
 		return sqlSession.selectList("option.getList", map);
 	}
 	
+	public List<ShipCompanyVo> getShipCompanyList(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);	
+		return sqlSession.selectList("product.getShipCompanyList",map);
+	}
 	public String getSession() {
+
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
 		HttpSession nowSession = attr.getRequest().getSession();		
 		String id =nowSession.getAttribute("name").toString();
 		return id;
 	}
+
 
 
 

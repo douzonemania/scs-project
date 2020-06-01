@@ -116,11 +116,12 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 		type: "POST",
 		dataType: 'json',
 		success : function(response){
-			alert("성공")
+			location.reload();
 		},
-		error:
-			alert("실패")
-	});			
+		error: function(xhr, status, e){
+			console.error(status + " : " + e);
+		}
+	});
 });
 $(function() {
 	/* 1차 카테고리 별 2차 카테고리 이름 리스트 */
@@ -147,8 +148,9 @@ $(function() {
 							$('#seconds-category').append("<option value='" + data.parentNo + "'>" + data.name + "</option>");
 					}					
 				}, 			
-				error:
-					console.log("")
+				error: function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
 			});			
 			
 			$("select#seconds-category option").remove();
@@ -168,14 +170,9 @@ $(function() {
 			var category2Name = $("#seconds-category option:selected").text();
 			document.getElementById("selected-category-text").value += "  >  " + category2Name;
 		});
-		
 });
 
-
-
 $(function() {
-	
-
 	
 	$('#stock-add').click(function(){		
 		var vo={};
@@ -196,18 +193,13 @@ $(function() {
 					//$('.form-control.sizeOptionSelect').append("<option value='" + data.no + "'>" + data.name + "</option>");
 					console.log(data.no + ":" + data.name + ":" + data.type);
 					if(data.type=="color"){
-						console.log("type is color");
 						colorOption = colorOption + ("<option value='" + data.no + "'>" + data.name + "</option>")
-					}else if (data.type=="size"){
-						console.log("type is size");
+					}else if (data.type=="size"){						
 						sizeOption = sizeOption + ("<option value='" + data.no + "'>" + data.name + "</option>")
 					}
 				}
-				console.log("color: " + colorOption);
-				console.log("size: " + sizeOption);
-				
 				//$('#option-zone').append(html);
-				$('#option-zone').append("<div style='width:1000px; display:inline-block' class='option-zone'>1차 옵션 <select class='form-control sizeOptionSelect' id='sizeOption-"+ index + "'><option>----</option>"+sizeOption+"</select><label class='text-space'></label> 2차 옵션 <select class='form-control colorOptionSelect' id='colorOption-"+ index +"'><option>----</option>"+colorOption+"</select><label class='text-space'></label>  재고량 <input type='text' class='form-control product-info' id='input-stock-"+index+"' value='' /></div>");
+				$('#option-zone').append("<div style='width:1000px; display:inline-block' class='option-zone'>사이즈 <select class='form-control sizeOptionSelect' id='sizeOption-"+ index + "'><option>----</option>"+sizeOption+"</select><label class='text-space'></label> 색상 <select class='form-control colorOptionSelect' id='colorOption-"+ index +"'><option>----</option>"+colorOption+"</select><label class='text-space'></label>  재고량 <input type='text' class='form-control product-info' id='input-stock-"+index+"' value='' /></div>");
 				//$('#option-zone').append("<div style='width:1000px; display:inline-block' class='option-zone' id='option-zone'>1차 옵션<select class='form-control sizeOptionSelect' id='sizeOption'><option>----</option><c:forEach var='vo' varStatus='status' items='${sizeOptionList }'>option value='${vo.no }'>${vo.name }</option></c:forEach></select><label class='text-space'></label>	<button type='button' id='stock-add' class='btn btn-secondary waves-effect'>추가</button>	</div>");
 				index++;
 			},
@@ -413,10 +405,9 @@ $(function() {
 										<td colspan="2">
 											<select class="form-control" style="min-width: 200px" id="ship-company-name">
 												<option>----</option>
-												<option>로젠택배</option>
-												<option>cj대한통운</option>
-												<option>현대택배</option>
-												<option>우체국택배</option>
+												<c:forEach var="vo" varStatus="status" items="${shipCompanyList }">
+	                                           	<option value="${vo.no }">${vo.name }</option>
+	                                        </c:forEach>
 											</select>
 										</td>
 										
@@ -504,15 +495,16 @@ $(function() {
 												<input type=radio name="pro-opt">&nbsp2차옵션사용
 											</div>
 											<div>옵션 영역</div> -->
-											<div style="width:1000px; display:inline-block" class="option-zone" id="option-zone">
-												1차 옵션
+											<div id="option-zone">
+											<div style="width:1000px; margin-bottom:10px; display:inline-block" class="option-zone">
+												사이즈
 												<select class="form-control sizeOptionSelect" id="sizeOption">												
 		                                       		<option>----</option>
 		                                        <c:forEach var="vo" varStatus="status" items="${sizeOptionList }">
 		                                           	<option value="${vo.no }">${vo.name }</option>
 		                                        </c:forEach>
 												</select><label class="text-space"></label>
-												2차 옵션
+												색상
 												<select class="form-control colorOptionSelect" id="colorOption">
 		                                       		<option>----</option>
 		                                        <c:forEach var="vo" varStatus="status" items="${colorOptionList }">
@@ -523,7 +515,7 @@ $(function() {
 												재고량 <input type="text" class="form-control product-info" id="input-stock" value="" />
 												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">추가</button>												
 											</div>
-											
+											</div>
 											
 										</td>
 									</tr>

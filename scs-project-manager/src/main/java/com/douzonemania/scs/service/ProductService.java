@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzonemania.scs.repository.ProductRepository;
+import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
@@ -105,6 +106,10 @@ public class ProductService {
 
 	public List<OptionVo> getOptionList(String id) {
 		return productRepository.getOptionList(id);
+	}
+
+	public List<ShipCompanyVo> getShipCompanyList(String id) {
+		return productRepository.getShipCompanyList(id);
 	}
 
 	

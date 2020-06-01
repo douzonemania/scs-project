@@ -55,9 +55,6 @@ function sizeList(no, name, type, ad){
 	cOp.name = name;
 	cOp.type = type;
 	cOp.ad = ad;
-	console.log("sizeList!!")
-	console.log(cOp.name + cOp.type + cOp.ad + "!!!");
-	
 	$(opener.document).find('.form-control.colorOptionSelect').append("<option value='"+ cOp.no +"'>"+cOp.name+"</option>");
 }
 

@@ -24,5 +24,11 @@
 				]]>
 	</select>
 	
+	<select id="getShipCompanyList" parameterType="map" resultType="shipcompanyvo">		
+				<![CDATA[
+					select no, name from scs2.ship_company where id = #{db}
+				]]>
+	</select>	
+	
 </mapper>
 
