@@ -185,8 +185,15 @@
 												</div>
 											</td>
 											<td class="table-user">${vo.no }</td>
-											<td><span class="badge bg-soft-danger text-danger">노출</span>
-											</td>
+											<c:choose>
+												<c:when test="${vo.visible == true}">
+											<td><span class="badge bg-soft-danger text-danger">노출</span></td>
+												</c:when>
+												<c:when test="${vo.visible != true}">
+											<td><span class="badge badge-warning text-danger">숨김</span></td>	
+												</c:when>
+											
+											</c:choose>
 											<td>${vo.code }</td>
 											<td><img
 												src='${pageContext.request.contextPath }/assets/images/${vo.mainImage}'
