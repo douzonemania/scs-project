@@ -54,10 +54,7 @@ $(document).ready(function(){
 	
 	$('#submit-btn').click(function(e){
 		e.preventDefault();
-		console.log("들어왔따");
-		
 	 	var html = quill.getContents();
-	 	console.log(html);
 	 	
 		var no = $('#parents_no').val();
 		
