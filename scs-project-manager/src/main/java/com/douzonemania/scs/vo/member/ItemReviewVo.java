@@ -1,5 +1,7 @@
 package com.douzonemania.scs.vo.member;
 
+import java.sql.Timestamp;
+
 public class ItemReviewVo {
 	private int no;
 	private int rate;
@@ -8,6 +10,7 @@ public class ItemReviewVo {
 	private String image;
 	private int itemNo;
 	private int memberNo;
+	private Timestamp regDate;
 
 	public int getNo() {
 		return no;
@@ -65,10 +68,18 @@ public class ItemReviewVo {
 		this.memberNo = memberNo;
 	}
 
+	public Timestamp getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(Timestamp regDate) {
+		this.regDate = regDate;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemReviewVo [no=" + no + ", rate=" + rate + ", title=" + title + ", contents=" + contents + ", image="
-				+ image + ", itemNo=" + itemNo + ", memberNo=" + memberNo + "]";
+				+ image + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", regDate=" + regDate + "]";
 	}
 
 }

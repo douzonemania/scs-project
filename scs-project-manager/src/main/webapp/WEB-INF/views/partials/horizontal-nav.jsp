@@ -102,6 +102,9 @@
                                 <li>
                                     <a href="${pageContext.request.contextPath }/${ authUser.id }/product/category-reg">카테고리 등록</a>
                                 </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/product/item/board">상품 게시판 관리</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="has-submenu">

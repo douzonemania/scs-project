@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.douzonemania.scs.vo.member.BoardVo;
 import com.douzonemania.scs.vo.member.MemberVo;
+import com.douzonemania.scs.vo.member.ReplyVo;
 
 @Repository
 public class MemberRepository {
@@ -30,7 +31,7 @@ public class MemberRepository {
 		map.put("offset", offset);
 		map.put("size", size);
 		
-		return sqlSession.selectList("member.findAll", map);
+		return sqlSession.selectList("member.memberList", map);
 	}
 
 	public List<MemberVo> searchMemberList(String id, String option, String keyword
@@ -43,7 +44,7 @@ public class MemberRepository {
 		map.put("offset", offset);
 		map.put("size", size);
 		
-		return sqlSession.selectList("member.findSearchList", map);
+		return sqlSession.selectList("member.searchMemberList", map);
 
 	}
 	
@@ -88,7 +89,7 @@ public class MemberRepository {
 		map.put("option", option);
 		map.put("keyword", keyword);
 		
-		return sqlSession.selectOne("member.listCount", map); 
+		return sqlSession.selectOne("member.boardListCount", map); 
 	}
 
 	public int deleteMember(String id, int no) {
@@ -98,6 +99,65 @@ public class MemberRepository {
 		map.put("no", no);
 		
 		return sqlSession.update("deleteMember", map);
+	}
+
+	public int deleteBoard(String id, int no) {
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("no", no);
+		
+		BoardVo boardVo = sqlSession.selectOne("findBoardByNo", map);
+		
+		// 답글이 달려있으면 글을 지우지 못하도록.
+		if(!boardVo.isReplyState()) {
+			return sqlSession.delete("deleteBoard", map);
+		}
+		else {
+			return 0; 
+		}
+	}
+
+	public int boardReply(String id, int parentsNo, String contents) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("parentsNo", parentsNo);
+		map.put("contents", contents);
+		
+		return sqlSession.insert("insertBoardReply", map);
+	}
+
+	public BoardVo findBoardByNo(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("no", no);
+		
+		return sqlSession.selectOne("findBoardByNo", map);
+	}
+	
+	public ReplyVo findReplyByParentsNo(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("no", no);
+		
+		return sqlSession.selectOne("findReplyByParentsNo", map);
+	}
+
+	// board 답글을 남겼으면, 답글 상태를 true로 변경
+	public int setBoardReplyTrue(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("no", no);
+		
+		return sqlSession.update("setBoardReplyTrue", map);
+	}
+
+	public String findNameByNo(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("no", no);
+		
+		return sqlSession.selectOne("findNameByNo", map);
 	}
 
 }

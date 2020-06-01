@@ -7,14 +7,20 @@ public class BoardVo {
 	private int no;
 
 	private String category;
-
 	private String title;
 	private String contents;
 	private int memberNo;
 	private Timestamp regDate;
-	private int replyNo;
 	private String id; // member id
 	private String name; // member name
+	private boolean replyState; // 답글 여부
+
+	@Override
+	public String toString() {
+		return "BoardVo [no=" + no + ", category=" + category + ", title=" + title + ", contents=" + contents
+				+ ", memberNo=" + memberNo + ", regDate=" + regDate + ", id=" + id + ", name=" + name + ", replyState="
+				+ replyState + "]";
+	}
 
 	public int getNo() {
 		return no;
@@ -22,6 +28,14 @@ public class BoardVo {
 
 	public void setNo(int no) {
 		this.no = no;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getTitle() {
@@ -56,20 +70,12 @@ public class BoardVo {
 		this.regDate = regDate;
 	}
 
-	public int getReplyNo() {
-		return replyNo;
+	public String getId() {
+		return id;
 	}
 
-	public void setReplyNo(int replyNo) {
-		this.replyNo = replyNo;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -80,19 +86,12 @@ public class BoardVo {
 		this.name = name;
 	}
 
-	public String getId() {
-		return id;
+	public boolean isReplyState() {
+		return replyState;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setReplyState(boolean replyState) {
+		this.replyState = replyState;
 	}
-
-	@Override
-	public String toString() {
-		return "BoardVo [no=" + no + ", category=" + category + ", title=" + title + ", contents=" + contents
-				+ ", memberNo=" + memberNo + ", regDate=" + regDate + ", replyNo=" + replyNo + ", id=" + id + ", name="
-				+ name + "]";
-	}
-
+	
 }
