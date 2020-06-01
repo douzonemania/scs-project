@@ -182,7 +182,7 @@ public class MemberService {
 			list = memberRepository.boardList(id, offset, LIST_SIZE);
 		}
 		else {
-			list = memberRepository.searchBoaardList(id, option, keyword, offset, LIST_SIZE);
+			list = memberRepository.searchBoardList(id, option, keyword, offset, LIST_SIZE);
 		}
 
 		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
