@@ -13,7 +13,6 @@ public class MainController {
 	
 	@RequestMapping({"","/main"})
 	public String home() {
-		System.out.println("MAIN");
 		return "main/index";
 	}
 	

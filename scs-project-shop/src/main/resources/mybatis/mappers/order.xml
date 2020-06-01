@@ -22,9 +22,8 @@
 		   <result property="regDate" column="regDate" />
 		   <result property="cnt" column="cnt" />
 		   <result property="rate" column="rate" />
-		   
  		</resultMap>
-		
+ 		
 		<select id="totalCount" resultType="int" parameterType="map" >
 			<choose>
 				<when test='subCategory==null or subCategory==""'>
@@ -108,5 +107,117 @@
 			where a.second_option = b.no and item_no= #{no} and first_option=#{option};
 		]]>
 	</select>
+	
+	
+	
+	
+	<select id="checkCart" parameterType="map" resultType="cartvo">
+		<choose>
+			<when test="secondOption==0">
+				select a.amount ,a.no
+				from ${db}.cart a ,${db}.stock b
+				where 
+					a.stock_no=b.no and a.member_no=#{memberNo} and
+					b.first_option = #{firstOption} and 
+					b.second_option is NULL and
+					b.item_no=#{itemNo} and
+					a.member_no=#{memberNo}
+			</when>
+			<otherwise>
+				<![CDATA[
+				select a.amount ,a.no
+				from ${db}.cart a ,${db}.stock b
+				where 
+					a.stock_no=b.no and a.member_no=#{memberNo} and
+					b.first_option = #{firstOption} and 
+					b.second_option = #{secondOption} and
+					b.item_no=#{itemNo} and
+					a.member_no=#{memberNo}
+				]]>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findStockNo" parameterType="map" resultType="int">
+		<choose>
+			<when test="secondOption==0">
+				select no 
+				from ${db}.stock
+				where 
+					item_no=#{item_no} and
+					first_option=#{firstOption} and
+					second_option is NULL; 	
+			</when>
+			<otherwise>
+				<![CDATA[
+				select no 
+				from ${db}.stock
+				where 
+					item_no=#{itemNo} and first_option=#{firstOption} and second_option=#{secondOption}	
+				]]>
+			</otherwise>
+		</choose>
+		
+	</select>
+
+
+	<insert id="insertCart" parameterType="map" >
+		<![CDATA[
+			insert into ${db}.cart values(null,#{amount},#{memberNo},#{stockNo});
+		]]>
+	</insert>
+	
+	<update id = "updateCart" parameterType="map">
+		<![CDATA[
+			update ${db}.cart set amount=#{amount} where no=#{cartNo}
+		]]>
+	</update>
+	
+	<select id = "setCartList" parameterType="map" resultType="itemvo">
+		<![CDATA[
+			select a.no,a.code,a.name,a.now_price as nowPrice,a.sale , a.main_image , b.first_option,b.firstOptionName,b.second_option , b.secondOptionName, b.cartNo,b.amount 
+			from ${db}.item a, (
+					select a.no,a.item_no,a.first_option,a.firstOptionName,a.second_option,a.secondOptionName,b.no as cartNo,b.amount 
+					from (
+							select a.no,a.item_no,a.first_option,a.firstOptionName, a.second_option,b.name as secondOptionName 
+							from (	select a.no , a.item_no,a.first_option, b.name as firstOptionName, a.second_option ,a.stock 
+								 	from ${db}.stock a, ${db}.option b 
+									where a.first_option= b.no) a , ${db}.option b 
+							where a.second_option = b.no) a , ${db}.cart b 
+					where a.no=b.stock_no and member_no=#{memberNo}) b 
+			where a.no=b.item_no;
+		]]>
+
+	</select>
+	
+	<select id="findOrderItem" parameterType="map" resultType="itemvo">
+		<![CDATA[
+			select a.no,a.code,a.name,a.now_price as nowPrice,a.sale , a.main_image , b.first_option,b.firstOptionName,b.second_option , b.secondOptionName, b.cartNo,b.amount 
+			from ${db}.item a, (
+					select a.no,a.item_no,a.first_option,a.firstOptionName,a.second_option,a.secondOptionName,b.no as cartNo,b.amount 
+					from (
+							select a.no,a.item_no,a.first_option,a.firstOptionName, a.second_option,b.name as secondOptionName 
+							from (	select a.no , a.item_no,a.first_option, b.name as firstOptionName, a.second_option ,a.stock 
+								 	from ${db}.stock a, ${db}.option b 
+									where a.first_option= b.no) a , ${db}.option b 
+							where a.second_option = b.no) a , ${db}.cart b 
+					where a.no=b.stock_no and member_no=#{memberNo}) b 
+			where a.no=b.item_no and b.cartNo=#{cartNo}
+		]]>
+	</select>
+	
+	
+	<delete id="deleteCart" parameterType="map">
+		<![CDATA[
+			delete from ${db}.cart where member_no=#{userNo} and no=#{cartNo};
+		]]>
+	</delete>
+	
+	<delete id="deleteCartAll" parameterType="map">
+		<![CDATA[
+			delete from ${db}.cart where member_no=#{userNo};
+		]]>
+	</delete>
+	
 	
 </mapper>

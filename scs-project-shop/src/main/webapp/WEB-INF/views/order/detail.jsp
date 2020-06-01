@@ -46,70 +46,179 @@
 	var mobileDropDownTemplate = new EJS({url : "${pageContext.request.contextPath }/assets/js/ejs/mobile-dropdown-box-template.ejs"});
 
 	$(function() {
+		
+		var firstOption= $('#firstOption').val();
+		var mobileFirstOption= $('#mobileFirstOption').val();
+		
+		if(firstOption==0 || firstOption=="X"){
+			$('#detail-cart-btn').attr('disabled',true);
+			$('#detail-order-btn').attr('disabled',true);
+		} else{
+			$('#detail-cart-btn').attr('disabled',false);
+			$('#detail-order-btn').attr('disabled',false);
+		}
+		
+		if(mobileFirstOption==0 || mobileFirstOption=="X"){
+			$('#mobile-detail-cart-btn').attr('disabled',true);
+			$('#mobile-detail-order-btn').attr('disabled',true);
+		} else{
+			$('#mobile-detail-cart-btn').attr('disabled',false);
+			$('#mobile-detail-order-btn').attr('disabled',false);
+		}
+		
+		$('#detail-cart-page-ok').click(function(){
+			
+			var itemNo = ${map.product.no};
+			
+			var firstOption= $('#firstOption').val();
+			var secondOption=0;
+			var quantity=$('#quantityinput').val();
+			
+			if($(".dynamicDropDown select").length!=0){
+			secondOption =$("#mobileSecondOption").val();
+			}
+			 	$.ajax({
+					url : '${pageContext.request.contextPath }/api/order/cart/insert/'+ itemNo + "/" + firstOption+ "/" + secondOption+"/"+quantity,
+					async : true,
+					type : 'get',
+					ataType : 'json',
+					data : '',
+					success : function(response) {
+						
+						if(response.data==true){
+							location.href="${pageContext.request.contextPath }/${db}/order/cart"
+						}else{
+							location.href="${pageContext.request.contextPath }/${db}/member/login"
+						}
+						
+						
+					},
+					error : function(xhr, status, e) {
+						console.error(status + ":" + e);
+					}
+				});
+			
+			 	
+			
+		});
+		
+		$("#mobile-detail-cart-page-ok").click(function(){
+			
+		});
+		
+		$('#detail-login-page-ok').click(function(){
+			location.href="${pageContext.request.contextPath }/${db}/member/login"
+		})
+		$('#mobile-detail-cart-btn').click(function(){
+			$( ".modal fade bs-example-modal-center" ).css("display","none");
+		});
+		
 		$('#firstOption').change(function() {
 				var option = this.value;
 				var no = ${map.product.no};
-
-				console.log("test : " + option);
+				
+				FirstOption= $('#firstOption').val();
+	
+				if(FirstOption==0 || FirstOption=="X"){
+					
+					$('#detail-cart-btn').attr('disabled',true);
+					$('#detail-order-btn').attr('disabled',true);
+				} else{
+					$('#detail-cart-btn').attr('disabled',false);
+					$('#detail-order-btn').attr('disabled',false);
+				}
+				
+				
 				if (option == 0) {
 					alert("품절된 상품 입니다");
 					if($(".dynamicDropDown").css("display")=="block"){
 						$(".dynamicDropDown").css("display","none");
 						}
+				} else if(option =="X"){
+					if($(".dynamicDropDown").css("display")=="block"){
+						$(".dynamicDropDown").css("display","none");
+						}
 				} else {
 					$.ajax({
-							url : '${pageContext.request.contextPath }/api/order/detail/'+ no + "/" + option,
+							url : '${pageContext.request.contextPath }/api/order/detail/'+ option + "/" + no,
 							async : true,
 							type : 'get',
 							ataType : 'json',
 							data : '',
 							success : function(response) {
+								
 								if(response.data.length!=0){
-									var html = dropDownTemplate.render(response);
-									$(".dynamicDropDown").append(html);
-								}							},
+									if($(".dynamicDropDown select").length==0){
+										var html = mobileDropDownTemplate.render(response);
+										$(".dynamicDropDown").append(html);
+									}
+								}
+								if($(".dynamicDropDown").css("display")=="none"){
+										$(".dynamicDropDown").css("display","block");
+								}									
+							},
 							error : function(xhr, status, e) {
 								console.error(status + ":" + e);
 							}
 						});
+					
+					
 					}
-		});
-		
+		});	
 		$('#mobileFirstOption').change(function() {
 			var option = this.value;
 			var no = ${map.product.no};
 
-			console.log("test : " + option);
+			mobileFirstOption= $('#mobileFirstOption').val();
+			if(mobileFirstOption==0 || mobileFirstOption=="X"){
+				
+				$('#mobile-detail-cart-btn').attr('disabled',true);
+				$('#mobile-detail-order-btn').attr('disabled',true);
+			} else{
+				$('#mobile-detail-cart-btn').attr('disabled',false);
+				$('#mobile-detail-order-btn').attr('disabled',false);
+			}
+			
 			if (option == 0) {
 				alert("품절된 상품 입니다");
 				if($(".mobiledynamicDropDown").css("display")=="block"){
 					
 					$(".mobiledynamicDropDown").css("display","none");
 					}
-			} else {
+			} else if(option =="X"){
+				if($(".mobiledynamicDropDown").css("display")=="block"){
+						$(".mobiledynamicDropDown").css("display","none");
+					}
+			}else {
+				
 				$.ajax({
-						url : '${pageContext.request.contextPath }/api/order/detail/'+ no + "/" + option,
+						url : '${pageContext.request.contextPath }/api/order/detail/'+ option + "/" + no,
 						async : true,
 						type : 'get',
 						ataType : 'json',
 						data : '',
 						success : function(response) {
 							if(response.data.length!=0){
-								var html = mobileDropDownTemplate.render(response);
-								$(".mobiledynamicDropDown").append(html);
-							}							},
+								if($(".mobiledynamicDropDown select").length==0){
+									var html = mobileDropDownTemplate.render(response);
+									$(".mobiledynamicDropDown").append(html);
+								}
+								
+							}
+							if($(".mobiledynamicDropDown").css("display")=="none"){
+								$(".mobiledynamicDropDown").css("display","block");
+							}
+						},
 						error : function(xhr, status, e) {
 							console.error(status + ":" + e);
 						}
 					});
-				}
+			}
 	});
 		
 		$('#quantityPlusBtn').click(function(){
 			var now = parseInt($("#nowQuantity").val())+1;
-			
 			$("#nowQuantity").val(now);
-			
 		});
 		
 		$('#quantityMinusBtn').click(function(){
@@ -118,9 +227,14 @@
 			if(parseInt(now)!=0){
 				$("#nowQuantity").val(parseInt(now)-1);
 			}
+		});
+		
+		
+		
+		$('#detail-cart-btn').click(function(){
 			
 		});
-
+		
 	});
 </script>
 
@@ -263,7 +377,7 @@
 
 													<c:choose>
 														<c:when test="${vo.stock == 0 }">
-															<option value="0">${vo.name }품절</option>
+															<option value="0">${vo.name }&nbsp;&nbsp;[품절]</option>
 														</c:when>
 														<c:otherwise>
 															<option value="${vo.no }">${vo.name }</option>
@@ -274,19 +388,24 @@
 											</select>
 										</div>
 
-										<div class="dynamicDropDown" style='margin-left: 22%; width: 100%'>
+										<div class="dynamicDropDown" style='margin-left: 21.5%; width: 54.5%'>
 										</div>
 									</form>
 
-									<div style="board: 1px solid red; margin-top: 100px;">
-										<button type="button"
-											class="btn btn-dark waves-effect waves-light detail-custom-btn ">
-											장바구니</button>
-
-										<button type="button"
-											class="btn btn-outline-dark waves-effect waves-light detail-order-btn">
-											구매 하기</button>
-									</div>
+									<c:choose>
+									<c:when test="${not empty authUser  }">
+									<div class="mobile-product-detail-order-btn">
+										<button type="button" class="btn btn-dark waves-effect waves-light detail-custom-btn" id="detail-cart-btn" data-toggle="modal" data-target=".bs-example-modal-center">장바구니</button>
+										<button type="button" class="btn btn-outline-dark waves-effect waves-light detail-order-btn" id="detail-order-btn"> 구매 하기</button>
+									</div>		
+									</c:when>
+									<c:otherwise>
+									<div class="mobile-product-detail-order-btn">
+										<button type="button" class="btn btn-dark waves-effect waves-light detail-custom-btn detail-login-page-move" id="login-detail-cart-btn" data-toggle="modal" data-target=".login-popup">장바구니</button>
+										<button type="button" class="btn btn-outline-dark waves-effect waves-light detail-order-btn detail-login-page-move" id="login-detail-order-btn" data-toggle="modal" data-target=".login-popup"> 구매 하기</button>
+									</div>	
+									</c:otherwise>
+								</c:choose>
 								</div>
 							</div>
 							<!-- end col -->
@@ -339,7 +458,7 @@
 												<c:forEach items="${option }" var="vo">
 													<c:choose>
 														<c:when test="${vo.stock == 0 }">
-															<option value="0">${vo.name }품절</option>
+															<option value="0">${vo.name }&nbsp;&nbsp;[품절]</option>
 														</c:when>
 														<c:otherwise>
 															<option value="${vo.no }">${vo.name }</option>
@@ -356,14 +475,21 @@
 											</div>
 								</div>
 
-								<div class="mobile-product-detail-order-btn">
-									<button type="button"
-										class="btn btn-dark waves-effect waves-light">장바구니</button>
-									<button type="button"
-										class="btn btn-outline-dark waves-effect waves-light">
-										구매 하기</button>
-								</div>
-
+								<c:choose>
+									<c:when test="${not empty authUser  }">
+									<div class="mobile-product-detail-order-btn">
+										<button type="button" class="btn btn-dark waves-effect waves-light" id="mobile-detail-cart-btn" data-toggle="modal" data-target=".bs-example-modal-center mobile-cart">장바구니</button>
+										<button type="button" class="btn btn-outline-dark waves-effect waves-light" id="mobile-detail-order-btn"> 구매 하기</button>
+									</div>		
+									</c:when>
+									<c:otherwise>
+									<div class="mobile-product-detail-order-btn">
+										<button type="button" class="btn btn-dark waves-effect waves-light detail-login-page-move" id="mobile-login-detail-cart-btn" data-toggle="modal" data-target=".login-popup">장바구니</button>
+										<button type="button" class="btn btn-outline-dark waves-effect waves-light detail-login-page-move" id="mobile-login-detail-order-btn" data-toggle="modal" data-target=".login-popup"> 구매 하기</button>
+									</div>	
+									</c:otherwise>
+								</c:choose>
+								
 							</div>
 						</div>
 						<!-- end row -->
@@ -514,6 +640,85 @@
 		<!-- end wrapper -->
 		<c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
 		<!-- Vendor js -->
+		
+		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="myCenterModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myCenterModalLabel">장바구니</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        	장바구니에 담겼습니다.<br/>
+                        	장바구니로 이동하시겠습니까?
+                    </div>
+                    <div class="modal-footer">
+                         <button type="button" class="btn btn-primary" id="detail-cart-page-ok">확인</button>
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal" >취소</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        
+        <div class="modal fade bs-example-modal-center mobile-cart" tabindex="-1" role="dialog" aria-labelledby="myCenterModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myCenterModalLabel">장바구니</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        	장바구니에 담겼습니다.<br/>
+                        	장바구니로 이동하시겠습니까?
+                    </div>
+                    <div class="modal-footer">
+                         <button type="button" class="btn btn-primary" id="mobile-detail-cart-page-ok">확인</button>
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal" >취소</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+		
+		<div class="modal fade bs-example-modal-center login-popup" tabindex="-1" role="dialog" aria-labelledby="myCenterModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myCenterModalLabel">장바구니</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        	로그인이 필요합니다<br/>
+                        	로그인페이지로 이동하시겠습니까?
+                    </div>
+                    <div class="modal-footer">
+                         <button type="button" class="btn btn-primary" id="detail-login-page-ok">확인</button>
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal" >취소</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        
+        
+        <div class="modal fade bs-example-modal-center mobile-login-popup" tabindex="-1" role="dialog" aria-labelledby="myCenterModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myCenterModalLabel">장바구니</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        	로그인이 필요합니다<br/>
+                        	로그인페이지로 이동하시겠습니까?
+                    </div>
+                    <div class="modal-footer">
+                         <button type="button" class="btn btn-primary" id="detail-login-page-ok">확인</button>
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal" >취소</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+		
+		
 		<script
 			src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>
 

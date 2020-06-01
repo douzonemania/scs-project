@@ -16,12 +16,12 @@
             <link rel="shortcut icon" href="../assets/images/favicon.ico">
     
             <!-- Plugins css -->
-            <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
     
             <!-- App css -->
-            <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-            <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-            <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
             <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
             <script type="text/JavaScript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
@@ -264,10 +264,10 @@
 
    <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
     <!-- Vendor js -->
-   <script src="../assets/js/vendor.min.js"></script>
+   <script src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>
 
    <!-- App js-->
-   <script src="../assets/js/app.min.js"></script>
+   <script src="${pageContext.request.contextPath}/assets/js/app.min.js"></script>
 
 </body>
 </html>

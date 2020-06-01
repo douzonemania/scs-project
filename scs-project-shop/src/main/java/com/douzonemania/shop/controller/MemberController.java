@@ -35,7 +35,6 @@ public class MemberController {
 	public String join(@ModelAttribute MemberVo memberVo,Model model,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String db = session.getAttribute("db").toString();
-		System.out.println(db);
 		model.addAttribute(db);
 		
 		return "member/join";
@@ -60,13 +59,13 @@ public class MemberController {
 	public String login(@ModelAttribute MemberVo vo,@PathVariable("db")String db,HttpServletResponse response, HttpServletRequest request) throws Exception{
 		
 		int count = memberService.findUser(vo);
-			
+		HttpSession session = request.getSession();	
 		boolean result = (count>=1)? true:false;
 		
 		if(result==true) {
-			HttpSession session = request.getSession();
+			vo.setId("maill");
 			session.setAttribute("authUser", vo);
-			
+	
 			return "main/index";
 		}else {
 			response.setContentType("text/html; charset=UTF-8");
