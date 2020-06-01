@@ -48,7 +48,7 @@ public class UserController {
 			return "user/signup";
 		}
 		
-		ceoVo.setAddress(ceoVo.getAddress1() + " " + ceoVo.getAddress2());
+		ceoVo.setAddress(ceoVo.getAddress1() + "!" + ceoVo.getAddress2() + "!" + ceoVo.getPostcode());
 
 		userService.insert(ceoVo);
 
