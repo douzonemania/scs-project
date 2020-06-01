@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="product">
+
+	<select id="getItemNo" parameterType="map" resultType="Integer">		
+				<![CDATA[
+					select no from ${db}.item where code=#{code}
+				]]>
+	</select>
 	
 	<select id="getList" parameterType="map" resultType="itemvo">		
 				<![CDATA[
@@ -29,6 +35,17 @@
 					select no, name from scs2.ship_company where id = #{db}
 				]]>
 	</select>	
+
+	<insert id="regItem" parameterType="map">
+				<![CDATA[
+					insert into ${db}.item values (null, #{iVo.code}, #{iVo.name}, #{iVo.supPrice}, #{iVo.nowPrice}, #{iVo.sale}, #{iVo.mainImage}, #{iVo.subImage}, #{iVo.visible}, #{iVo.bestItem}, #{iVo.newItem}, #{iVo.editor}, #{iVo.categoryNo}, #{iVo.description}, now(), #{iVo.shipCompany}, #{iVo.shipCharge})
+				]]>
+	</insert>
 	
+	<insert id="insertStock" parameterType="map">
+				<![CDATA[
+					insert into ${db}.stock values (null, #{itemNo}, #{sVo.firstOption}, #{sVo.secondOption}, #{sVo.stock});
+				]]>
+	</insert>		
 </mapper>
 

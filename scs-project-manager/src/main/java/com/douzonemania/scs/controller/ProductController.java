@@ -1,5 +1,6 @@
 package com.douzonemania.scs.controller;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +37,10 @@ public class ProductController {
 		String id = authUser.getId();
 		List<ItemVo> itemList = productService.getItemList(id);
 		
-		List<Integer> salePriceList = new ArrayList<>();
+		List<String> salePriceList = new ArrayList<>();
 		for (ItemVo vo : itemList) {
-			salePriceList.add(vo.getNowPrice() * (1 - (vo.getSale() / 100)));
+			String price = NumberFormat.getInstance().format( ((int)((double)vo.getNowPrice() * (1 - ((double)vo.getSale() / 100)))+5)/10*10   )+"원";
+			salePriceList.add(price);
 		}
 		
 		model.addAttribute("salePriceList", salePriceList);
@@ -64,18 +66,7 @@ public class ProductController {
 		return "product/reg";
 	}
 
-	@RequestMapping(value = "/regItem", method = RequestMethod.POST)
-	public String regItem(
-			@AuthUser CeoVo authUser,
-			@RequestBody ItemVo iVo
-			) {
-		String id = authUser.getId();
-		System.err.println(iVo);
-		
-		//productService.regItem(iVo);
-		
-		return "product/reg";
-	}	
+
 
 	@RequestMapping(value = "/modify-item/{vo.no}")
 	public String modifyItem(
@@ -142,4 +133,5 @@ public class ProductController {
 		return "product/optionAdd";
 	}
 	
+
 }
