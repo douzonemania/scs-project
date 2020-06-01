@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzonemania.scs.repository.ProductRepository;
+import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
@@ -39,8 +40,13 @@ public class ProductService {
 	/* 카테고리 이름으로 검색 */
 	public CategoryVo findCategoryByName(String id, String name) {
 		return productRepository.findCategoryByName(id, name);
-		}
+	}
 
+	/* 카테고리 번호로 검색 */
+	public CategoryVo findCategoryByNo(String id, int no) {
+		return productRepository.findCategoryByNo(id, no);
+	}
+	
 	/* 카테고리 삭제하기 */
 	public int delCategory(String id, String name) {
 		return productRepository.delCategory(id, name);		
@@ -89,10 +95,23 @@ public class ProductService {
 	public OptionVo getOption(String id, String name) {
 		return productRepository.getOption(id, name);
 	}
+	
+	public OptionVo getOptionByNo(String id, int no) {
+		return productRepository.getOptionByNo(id, no);
+	}
 
 	public int delOption(String id, int no) {
 		return productRepository.delOption(id, no);
 	}
+
+	public List<OptionVo> getOptionList(String id) {
+		return productRepository.getOptionList(id);
+	}
+
+	public List<ShipCompanyVo> getShipCompanyList(String id) {
+		return productRepository.getShipCompanyList(id);
+	}
+
 	
 
 }

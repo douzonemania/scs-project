@@ -16,10 +16,25 @@ public class ItemVo {
 	private boolean bestItem = false;
 	private boolean newItem = false;
 	private String editor;
-	private String des;
+	private String description;
 	private Timestamp regDate;
+	private int categoryNo;
 
+	public String getDescription() {
+		return description;
+	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getCategoryNo() {
+		return categoryNo;
+	}
+
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
+	}
 
 	public Timestamp getRegDate() {
 		return regDate;
@@ -27,14 +42,6 @@ public class ItemVo {
 
 	public void setRegDate(Timestamp regDate) {
 		this.regDate = regDate;
-	}
-
-	public String getDes() {
-		return des;
-	}
-
-	public void setDes(String des) {
-		this.des = des;
 	}
 
 	public int getNo() {
@@ -137,8 +144,8 @@ public class ItemVo {
 	public String toString() {
 		return "ItemVo [no=" + no + ", code=" + code + ", name=" + name + ", supPrice=" + supPrice + ", nowPrice="
 				+ nowPrice + ", sale=" + sale + ", mainImage=" + mainImage + ", subImage=" + subImage + ", visible="
-				+ visible + ", bestItem=" + bestItem + ", newItem=" + newItem + ", editor=" + editor + ", des=" + des
-				+ ", regDate=" + regDate + "]";
+				+ visible + ", bestItem=" + bestItem + ", newItem=" + newItem + ", editor=" + editor + ", description="
+				+ description + ", regDate=" + regDate + ", categoryNo=" + categoryNo + "]";
 	}
 
 }

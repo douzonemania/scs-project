@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.scs.service.ProductService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
@@ -54,10 +55,12 @@ public class ProductController {
 		List<CategoryVo> categoryNameList = productService.getCategoryNameList(id);
 		List<OptionVo> sizeOptionList = productService.getOptionListOfSize(id);
 		List<OptionVo> colorOptionList = productService.getOptionListOfColor(id);
+		List<ShipCompanyVo> shipCompanyList = productService.getShipCompanyList(id);
 		
-		model.addAttribute("categoryNameList",categoryNameList);
-		model.addAttribute("sizeOptionList", sizeOptionList);
-		model.addAttribute("colorOptionList", colorOptionList);
+		model.addAttribute("categoryNameList",categoryNameList);	// 카테고리 리스트
+		model.addAttribute("sizeOptionList", sizeOptionList);		// 사이즈 리스트
+		model.addAttribute("colorOptionList", colorOptionList);		// 컬러 리스트
+		model.addAttribute("shipCompanyList", shipCompanyList);		// 배송사 리스트
 		return "product/reg";
 	}
 
@@ -82,10 +85,23 @@ public class ProductController {
 			) {
 		String id = authUser.getId();
 		ItemVo vo = new ItemVo();
-		vo = productService.findItem(id, no);		
-				
-		model.addAttribute("vo",vo);
-		return "product/reg";
+		vo = productService.findItem(id, no);
+		CategoryVo cVo = productService.findCategoryByNo(id, vo.getCategoryNo());
+		List<CategoryVo> categoryNameList = productService.getCategoryNameList(id);
+		List<OptionVo> sizeOptionList = productService.getOptionListOfSize(id);
+		List<OptionVo> colorOptionList = productService.getOptionListOfColor(id);
+		List<CategoryVo> category2NameList = productService.getCategory2NameList(id, cVo.getParentNo());
+		List<ShipCompanyVo> shipCompanyList = productService.getShipCompanyList(id);
+		
+		model.addAttribute("vo",vo);	//	아이템정보
+		model.addAttribute("cVo",cVo);	//	카테고리정보
+		model.addAttribute("categoryNameList",categoryNameList);	//카테고리리스트
+		model.addAttribute("category2NameList", category2NameList);	//2차카테고리리스트
+		model.addAttribute("sizeOptionList", sizeOptionList);		//사이즈옵션리스트
+		model.addAttribute("colorOptionList", colorOptionList);		//컬러옵션리스트
+		model.addAttribute("shipCompanyList", shipCompanyList);		//배송사 리스트
+		
+		return "product/item-mod";
 	}
 	
 	@RequestMapping(value = "/category-reg", method = RequestMethod.GET)

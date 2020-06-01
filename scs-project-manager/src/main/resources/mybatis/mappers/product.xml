@@ -18,11 +18,17 @@
 					select no, code, name, sup_price as 'supPrice', now_price as 'nowPrice', 
 						sale, main_image as 'mainImage', sub_image as 'subImage', 
 						visible, best_item as 'bestItem', new_item as 'newItem', editor, category_no,
-						des, reg_date as 'regDate'
+						description, reg_date as 'regDate', category_no as 'categoryNo'
 					from ${db}.item
-					where no = #{iVo.no}
+					where no = #{no}
 				]]>
 	</select>
+	
+	<select id="getShipCompanyList" parameterType="map" resultType="shipcompanyvo">		
+				<![CDATA[
+					select no, name from scs2.ship_company where id = #{db}
+				]]>
+	</select>	
 	
 </mapper>
 

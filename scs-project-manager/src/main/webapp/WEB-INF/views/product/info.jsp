@@ -76,42 +76,30 @@
 				</div>
 			</div>
 
-			<!-- TEXT: Search 시작-->
-
-			<!-- TEXT: Search 종료 -->
-
 			<!-- Search-form 시작 -->
-			<div class="row">
+<!-- 			<div class="row">
 				<div class="col-12">
 					<div class="card">
 						<div class="card-body" id="search-form" style="margin-top:0">
-						
 								
 				<div class="col-12">
 					<div class="page-title-box" id="search-form-text" >
 						<h4 class="page-title" style="margin:0">상품 검색</h4>
 					</div>
 				</div>
-			
-
-							<select class="btn btn-secondary lg" data-style="selectBox-light">
-								<option>상품코드</option>
-								<option>상품명</option>
-								<option>상품노출여부</option>
-								<option>카테고리</option>
-							</select> <input type="text" id="search_text" class="form-control">
-							<button class="ladda-button btn btn-secondary waves-effect"
-								data-style="zoom-in">검색</button>
-
-
+					<select class="btn btn-secondary lg" data-style="selectBox-light">
+						<option>상품코드</option>
+						<option>상품명</option>
+						<option>상품노출여부</option>
+						<option>카테고리</option>
+					</select> <input type="text" id="search_text" class="form-control">
+					<button class="ladda-button btn btn-secondary waves-effect"
+					data-style="zoom-in">검색</button>
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<!-- Search-form 종료 -->
-
-
-
 
 			<div class="row">
 				<div class="col-12">
@@ -120,16 +108,35 @@
 						
 									<!-- 상품리스트 시작 -->
 			
-				<div class="col-12">
+				<!-- <div class="col-12">
 					<div class="page-title-box">
 						<h4 class="page-title">상품 리스트</h4>
 					</div>
-				</div>
+				</div> -->
 			
 			<!-- 상품리스트 종료 -->
 
-
 							<div class="table-responsive">
+							
+							        <form action="${pageContext.servletContext.contextPath }/${authUser.id}/product/info">
+                                    <div class="col-12 text-sm-center form-inline"  style="padding-bottom:12px">
+                                        <div class="form-group mr-2">
+                                            <select id="member-search-option" class="custom-select custom-select-sm" name="op">
+                                                <option value="code">상품코드</option>
+                                                <option value="name">상품명</option>
+                                                <option value="isVisible">상품노출여부</option>
+                                                <option value="category">카테고리</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input id="search-text" name="kwd" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
+                                        </div>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <div class="search-button">
+                                            <button id="info-search-btn" class="btn btn-secondary btn-sm float-sm-right" type="submit"> 검색 </button>
+                                        </div>
+                                    </div>
+                                    </form>
 								<table class="table table-striped table-centered "
 									id="products-datatable">
 
@@ -190,7 +197,7 @@
 											<td>${vo.regDate }</td>
 											<td>
 												
-												<a href="${pageContext.request.contextPath }/product/modify-item/${vo.no}">
+												<a href="${pageContext.request.contextPath }/${authUser.id }/product/modify-item/${vo.no}">
 													<input class="btn-secondary" style="height: 20px; font-size: 11px" type="button" value="수정"></a> 
 												<a href="">
 													<input class="btn-secondary" style="height: 20px; font-size: 11px" type="button" value="삭제"></a> 

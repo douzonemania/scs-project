@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
@@ -54,6 +55,13 @@ public class ProductRepository {
 		map.put("db",id);
 		map.put("name",name);
 		return sqlSession.selectOne("category.findCategoryByName", map);
+	}
+	
+	public CategoryVo findCategoryByNo(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("no", no);
+		return sqlSession.selectOne("category.findCategoryByNo", map);
 	}
 
 	public int delCategory(String id, String name) {
@@ -130,6 +138,13 @@ public class ProductRepository {
 		return sqlSession.selectOne("option.getOption", map);
 	}	
 	
+	public OptionVo getOptionByNo(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("no", no);
+		return sqlSession.selectOne("option.getOptionByNo", map);
+	}
+	
 	public int delOption(String id, int no) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db",id);
@@ -137,12 +152,27 @@ public class ProductRepository {
 		return sqlSession.delete("option.delOption", map);
 	}
 	
+	public List<OptionVo> getOptionList(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);		
+		return sqlSession.selectList("option.getList", map);
+	}
+	
+	public List<ShipCompanyVo> getShipCompanyList(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);	
+		return sqlSession.selectList("product.getShipCompanyList",map);
+	}
 	public String getSession() {
+
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
 		HttpSession nowSession = attr.getRequest().getSession();		
 		String id =nowSession.getAttribute("name").toString();
 		return id;
 	}
+
+
+
 
 
 
