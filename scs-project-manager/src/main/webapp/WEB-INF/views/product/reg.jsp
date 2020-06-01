@@ -110,6 +110,27 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	vo.shipCompany = shipCompany;
 	vo.shippingCharge = shippingCharge;
 	
+	var i = 0;
+	var numberOfOption = $('.sizeOptionSelect').length;
+	console.log(numberOfOption+ "여기를 보세요");
+	for(i=0; i<numberOfOption; i++){
+		var color = $("#colorOption-" + i + " option:selected").val();
+		var size = $("#sizeOption-" + i + " option:selected").val();
+		var stock = $("#input-stock-" + i).val();
+		
+		console.log(color + ":" + size + ":" + stock);
+		
+		options.firstOption = color;
+		options.secondOption = size;
+		options.stock = stock;
+		console.log(options.firstOption + ":" + options.secondOption + ":" + options.stock + "뇌정지옴");
+		optionsArray.push(options);
+		console.log("---------------------------");
+		
+		console.log(optionsArray);
+	}
+	console.log(optionsArray);
+	
 	$.ajax({
 		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/regItem',
 		contentType: 'application/json',
@@ -117,12 +138,29 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 		type: "POST",
 		dataType: 'json',
 		success : function(response){
-			location.reload();
+			console.log("성공1");
 		},
 		error: function(xhr, status, e){
 			console.error(status + " : " + e);
 		}
 	});
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/stockInsert/' + code,
+		contentType: 'application/json',
+		data: JSON.stringify(optionsArray),
+		type: "POST",
+		dataType: 'json',
+		traditional: true,
+		success : function(response){
+			console.log("성공2");
+		},
+		error: function(xhr, status, e){
+			console.error(status + " : " + e);
+		}
+	});
+	console.log("xxx:" +  code);
+	//location.reload();
 });
 $(function() {
 	/* 1차 카테고리 별 2차 카테고리 이름 리스트 */
@@ -200,7 +238,7 @@ $(function() {
 					}
 				}
 				//$('#option-zone').append(html);
-				$('#option-zone').append("<div style='width:1000px; display:inline-block' class='option-zone'>사이즈 <select class='form-control sizeOptionSelect' id='sizeOption-"+ index + "'><option>----</option>"+sizeOption+"</select><label class='text-space'></label> 색상 <select class='form-control colorOptionSelect' id='colorOption-"+ index +"'><option>----</option>"+colorOption+"</select><label class='text-space'></label>  재고량 <input type='text' class='form-control product-info' id='input-stock-"+index+"' value='' /></div>");
+				$('#option-zone').append("<div id=""style='width:1000px; display:inline-block' class='option-zone'>사이즈 <select class='form-control sizeOptionSelect' id='sizeOption-"+ index + "'><option>----</option>"+sizeOption+"</select><label class='text-space'></label> 색상 <select class='form-control colorOptionSelect' id='colorOption-"+ index +"'><option>----</option>"+colorOption+"</select><label class='text-space'></label>  재고량 <input type='text' class='form-control product-info' id='input-stock-"+index+"' value='' /></div>");
 				//$('#option-zone').append("<div style='width:1000px; display:inline-block' class='option-zone' id='option-zone'>1차 옵션<select class='form-control sizeOptionSelect' id='sizeOption'><option>----</option><c:forEach var='vo' varStatus='status' items='${sizeOptionList }'>option value='${vo.no }'>${vo.name }</option></c:forEach></select><label class='text-space'></label>	<button type='button' id='stock-add' class='btn btn-secondary waves-effect'>추가</button>	</div>");
 				index++;
 			},
@@ -221,7 +259,7 @@ $(function() {
 		for(i; i<kk; i++){
 			var color = $("#colorOption-" + i + " option:selected").text();
 			var size = $("#sizeOption-" + i + " option:selected").text();
-			var stock = $("#input-stock-" + i + " option:selected").val();
+			var stock = $("#input-stock-" + i).val();
 			var sibal = $("#item-des").val();
 			console.log(sibal + "!#@#$#%");
 			console.log(i);

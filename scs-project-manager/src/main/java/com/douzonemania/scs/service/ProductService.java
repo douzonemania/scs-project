@@ -112,6 +112,10 @@ public class ProductService {
 		return productRepository.getShipCompanyList(id);
 	}
 
+	public int getItemNo(String id, String code) {
+		return productRepository.getItemNo(id, code);
+	}
+
 	
 
 }

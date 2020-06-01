@@ -163,6 +163,14 @@ public class ProductRepository {
 		map.put("db",id);	
 		return sqlSession.selectList("product.getShipCompanyList",map);
 	}
+	
+	public int getItemNo(String id, String code) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);		
+		map.put("code", code);
+		return sqlSession.selectOne("product.getItemNo",map);
+	}
+	
 	public String getSession() {
 
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
@@ -170,6 +178,7 @@ public class ProductRepository {
 		String id =nowSession.getAttribute("name").toString();
 		return id;
 	}
+
 
 
 

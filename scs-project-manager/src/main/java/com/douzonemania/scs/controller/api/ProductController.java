@@ -2,11 +2,14 @@ package com.douzonemania.scs.controller.api;
 
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +19,8 @@ import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
+import com.douzonemania.scs.vo.member.StockVo;
 import com.douzonemania.security.AuthUser;
-
 
 @RestController("ProductApiController")
 @RequestMapping("/{id}/api/product")
@@ -204,17 +207,49 @@ public class ProductController {
 	 */
 	
 	@RequestMapping(value = "/regItem", method = RequestMethod.POST)
-	public String regItem(
+	public JsonResult regItem(
 			@AuthUser CeoVo authUser,
 			@RequestBody ItemVo iVo
 			) {
-		String id = authUser.getId();
-		System.err.println(iVo + "api 들어왔슈");
-		
+		String id = authUser.getId();		
 		productService.regItem(id, iVo);
 		
-		return "product/reg";
-	}	
+		return JsonResult.success("");
+	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/stockInsert/{code}", method = RequestMethod.POST)
+	public JsonResult stockInsert(
+			@AuthUser CeoVo authUser,			
+			@RequestBody String jsonData,
+			@PathVariable String code) {				
+		String id = authUser.getId();
+		System.err.println("ㅗㅑ");
+		
+		
+		JSONObject jObject = new JSONObject(jsonData);
+		
+		System.out.println(jObject);
+
+//		JSONArray foArray = jObject.getJSONArray("firstOption");
+//		JSONArray soArray = jObject.getJSONArray("secondOption");
+//		JSONArray stockArray = jObject.getJSONArray("stock");
+//		
+//		StockVo sVo = new StockVo();
+//		
+//		int itemNo = productService.getItemNo(id, code);
+//		int firstOption;
+//		int secondOption;
+//		int stock;
+//		
+//		for(int i =0; i<foArray.length(); i++) {
+//			JSONObject obj = foArray.getJSONObject(i);
+//			firstOption = obj.getInt("firstOption");
+//		}
+//		
+
+
+		return JsonResult.success("");
+	}
 
 }
