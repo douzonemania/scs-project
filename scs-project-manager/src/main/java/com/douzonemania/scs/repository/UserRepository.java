@@ -54,7 +54,8 @@ public class UserRepository {
 				+ "    no           INT UNSIGNED NOT NULL AUTO_INCREMENT ," + "    order_number VARCHAR(20)  NOT NULL, "
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "    statement    ENUM('주문완료', '입금완료', '배송준비중', '배송중', '배송완료', '취소처리중', '교환처리중', '환불처리중', '처리완료') NOT NULL,"
-				+ "    member_no    INT UNSIGNED NULL ," + "    primary key(no)"
+				+ "    member_no    INT UNSIGNED NULL ," + "ship_no INT UNSIGNED NULL,"
+				+ "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8;";
 		String boardQry = "CREATE TABLE " + id + ".board(" + "    no        INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    category  ENUM('주문', '배송', '교환환불취소', '기타') NOT NULL," + "    title     VARCHAR(50)  NOT NULL ,"
@@ -143,8 +144,10 @@ public class UserRepository {
 		String alterOrderItemTwo = "	ALTER TABLE " + id + ".order_item"
 				+ "	    ADD CONSTRAINT FK_stock_TO_order_item" + "	        FOREIGN KEY (stock_no)"
 				+ "	        REFERENCES  " + id + ".stock (no);";
-		String alterShopOrder = "ALTER TABLE  " + id + ".shop_order" + "	    ADD CONSTRAINT FK_member_TO_order"
+		String alterShopOrderOne = "ALTER TABLE  " + id + ".shop_order" + "	    ADD CONSTRAINT FK_member_TO_shop_order"
 				+ "	        FOREIGN KEY (member_no)" + "	        REFERENCES  " + id + ".member (no);";
+		String alterShopOrderTwo = "ALTER TABLE  " + id + ".shop_order" + "	    ADD CONSTRAINT FK_ship_address_TO_shop_order"
+				+ "	        FOREIGN KEY (ship_no)" + "	        REFERENCES  " + id + ".ship_address (no);";
 		String alterItem = "ALTER TABLE  " + id + ".item" + "	    ADD CONSTRAINT FK_category_TO_item"
 				+ "	        FOREIGN KEY (category_no)" + "	        REFERENCES " + id + ".category (no);";
 		String alterItemReply = "	ALTER TABLE  " + id + ".item_reply"
@@ -153,7 +156,8 @@ public class UserRepository {
 		setAlterTable(alterShipAddress, map);
 		setAlterTable(alterOrderItemOne, map);
 		setAlterTable(alterOrderItemTwo, map);
-		setAlterTable(alterShopOrder, map);
+		setAlterTable(alterShopOrderOne, map);
+		setAlterTable(alterShopOrderTwo, map);
 		setAlterTable(alterItem, map);
 		setAlterTable(alterItemReply, map);
 		setAlterTable(alterItemReviewOne, map);

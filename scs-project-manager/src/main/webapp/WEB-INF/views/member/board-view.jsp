@@ -165,6 +165,11 @@ $(document).ready(function(){
 								<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board">
 								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
 									목록</button></a>
+								<c:if test="${boardVo.replyState == false}">
+									<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board/reply/${ boardVo.no }">
+								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
+									답글달기</button></a>
+								</c:if>
 							</div>
 
 						</div>
