@@ -161,7 +161,7 @@ var removeCheck = function(no) {
                                             <input id="member-input-box" name="kwd" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
                                         </div>
                                         <div>
-                                        	<select id="category-option" class="custom-select custom-select-sm" style="display:none;">
+                                        	<select id="category-option" name="kwd" class="custom-select custom-select-sm" style="display:none;">
                                         		<option value="주문">주문</option>
                                                 <option value="배송">배송</option>
                                                 <option value="교환환불취소">교환환불취소</option>
