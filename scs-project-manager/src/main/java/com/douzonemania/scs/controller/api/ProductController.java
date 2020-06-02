@@ -177,8 +177,6 @@ public class ProductController {
 		String id = authUser.getId();
 		oVo = productService.getOptionByNo(id, oVo.getNo());
 		productService.delOption(id, oVo.getNo());
-		System.err.println(oVo.getNo()+"zzzz");
-		System.err.println(oVo + "멀쩡한 날이 없지");
 		return JsonResult.success(oVo);
 	}
 	
@@ -194,18 +192,7 @@ public class ProductController {
 		return JsonResult.success(optionList);
 	}
 	
-	// 옵션 추가 팝업
-	/*
-	 * @RequestMapping(value="/category-reg/addOption", method = RequestMethod.POST)
-	 * public JsonResult addOption(
-	 * 
-	 * @AuthUser CeoVo authUser,
-	 * 
-	 * @RequestBody CategoryVo cVo ) { String id = authUser.getId(); return
-	 * JsonResult.success(productService.getCategory2NameList(id,
-	 * cVo.getParentNo())); }
-	 */
-	
+	// 아이템 등록
 	@RequestMapping(value = "/regItem", method = RequestMethod.POST)
 	public JsonResult regItem(
 			@AuthUser CeoVo authUser,
@@ -216,7 +203,8 @@ public class ProductController {
 		
 		return JsonResult.success("");
 	}
-	
+
+	// 재고량 등록
 	@ResponseBody
 	@RequestMapping(value = "/stockInsert/{code}", method = RequestMethod.POST)
 	public JsonResult stockInsert(
@@ -227,26 +215,9 @@ public class ProductController {
 			@PathVariable String code) {				
 		String id = authUser.getId();
 		System.err.println("ㅗㅑ");
-		
 
-//		JSONArray foArray = jObject.getJSONArray("firstOption");
-//		JSONArray soArray = jObject.getJSONArray("secondOption");
-//		JSONArray stockArray = jObject.getJSONArray("stock");
-//		
-//		StockVo sVo = new StockVo();
-//		
 		int itemNo = productService.getItemNo(id, code);
-//		System.err.println("ㅗㅑ" + itemNo);
-//		int firstOption;
-//		int secondOption;
-//		int stock;
-//		
-//		for(int i =0; i<foArray.length(); i++) {
-//			JSONObject obj = foArray.getJSONObject(i);
-//			firstOption = obj.getInt("firstOption");
-//		}
-		
-//		
+
 		for(int i=0;i<sizeArr.size();i++) {
 			
 			StockVo temp = new StockVo();
@@ -254,10 +225,8 @@ public class ProductController {
 			temp.setSecondOption(sizeArr.get(i));
 			temp.setStock(stockArr.get(i));
 			
-			System.err.println(temp + "스바라기");
 			productService.insertStock(id, itemNo, temp);
 		}
-		
 
 		return JsonResult.success("");
 	}

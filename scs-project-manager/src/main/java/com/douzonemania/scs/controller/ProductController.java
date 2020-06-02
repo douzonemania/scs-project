@@ -48,7 +48,7 @@ public class ProductController {
 		
 		return "product/info";
 	}
-	
+	// 상품 등록 페이지
 	@RequestMapping(value = "/reg", method = RequestMethod.GET)
 	public String reg(
 			Model model,
@@ -67,7 +67,7 @@ public class ProductController {
 	}
 
 
-
+	// 아이템 수정
 	@RequestMapping(value = "/modify-item/{vo.no}")
 	public String modifyItem(
 			@AuthUser CeoVo authUser,
@@ -77,13 +77,14 @@ public class ProductController {
 		String id = authUser.getId();
 		ItemVo vo = new ItemVo();
 		vo = productService.findItem(id, no);
+		System.err.println(vo.getCategoryNo()+"sss" + vo);
 		CategoryVo cVo = productService.findCategoryByNo(id, vo.getCategoryNo());
 		List<CategoryVo> categoryNameList = productService.getCategoryNameList(id);
 		List<OptionVo> sizeOptionList = productService.getOptionListOfSize(id);
 		List<OptionVo> colorOptionList = productService.getOptionListOfColor(id);
 		List<CategoryVo> category2NameList = productService.getCategory2NameList(id, cVo.getParentNo());
 		List<ShipCompanyVo> shipCompanyList = productService.getShipCompanyList(id);
-		
+		System.err.println(cVo.getParentNo()+"cvoparentno");
 		model.addAttribute("vo",vo);	//	아이템정보
 		model.addAttribute("cVo",cVo);	//	카테고리정보
 		model.addAttribute("categoryNameList",categoryNameList);	//카테고리리스트
@@ -95,6 +96,19 @@ public class ProductController {
 		return "product/item-mod";
 	}
 	
+	// 아이템 삭제
+	@RequestMapping(value = "/delete-item/{vo.no}", method = RequestMethod.GET)
+	public String deleteItem(
+			Model model,
+			@PathVariable("vo.no") int no,
+			@AuthUser CeoVo authUser) {
+		String id = authUser.getId();
+		productService.delItem(id, no);
+	
+		return "redirect:/{id}/product/info";
+	}
+	
+	// 카데고리 등록 페이지
 	@RequestMapping(value = "/category-reg", method = RequestMethod.GET)
 	public String categoryReg(
 			@AuthUser CeoVo authUser,
@@ -109,6 +123,7 @@ public class ProductController {
 		return "product/category-reg";
 	}
 	
+	// 카테고리 추가
 	@RequestMapping(value = "/category-reg/add", method = RequestMethod.POST)
 	public String addCategory(
 			@AuthUser CeoVo authUser,
@@ -118,6 +133,7 @@ public class ProductController {
 		return "product/category-reg";
 	}
 	
+	// 옵션 추가
 	@RequestMapping(value = "/optionAdd", method = RequestMethod.GET)
 	public String optionList(
 			@AuthUser CeoVo authUser,

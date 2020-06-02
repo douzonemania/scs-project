@@ -41,7 +41,17 @@
         <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />        
-       
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$(function() {
+	$('.btn-del').click(function(){
+		alert('삭제되었습니다.')
+	});
+});
+</script>       
+
 </head>
 <body>
 
@@ -206,8 +216,8 @@
 												
 												<a href="${pageContext.request.contextPath }/${authUser.id }/product/modify-item/${vo.no}">
 													<input class="btn-secondary" style="height: 20px; font-size: 11px" type="button" value="수정"></a> 
-												<a href="">
-													<input class="btn-secondary" style="height: 20px; font-size: 11px" type="button" value="삭제"></a> 
+												<a href="${pageContext.request.contextPath }/${authUser.id }/product/delete-item/${vo.no}">
+													<input class="btn-secondary btn-del" style="height: 20px; font-size: 11px" type="button" value="삭제"></a> 
 												<a href="">
 													<input class="btn-secondary" style="height: 20px; font-size: 11px" type="button" value="통계"></a>
 											</td>
@@ -268,10 +278,6 @@
 				<!-- end col -->
 			</div>
 			<!-- end row -->
-
-
-
-
 
 
 		</div>
