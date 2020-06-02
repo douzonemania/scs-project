@@ -5,6 +5,9 @@
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    <%@ page import="java.util.*"%>
+	<%@ page import="java.text.SimpleDateFormat"%>
+
     
         <title>주문/배송관리</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -138,7 +141,16 @@ $(function() {
 
 </script>
 <body>
+<%
 
+ Date now = new Date();
+ SimpleDateFormat sf = new SimpleDateFormat("MM/dd/yyyy");
+ 
+ String today = sf.format(now);
+ Calendar week = Calendar.getInstance();
+ week.add(Calendar.DATE , -7);
+ String beforeWeek = new java.text.SimpleDateFormat("MM/dd/yyyy").format(week.getTime());
+%>
   	<header>
   		<!-- horizontal-nav -->  	
         <c:import url ='/WEB-INF/views/partials/horizontal-nav.jsp'/>
@@ -185,7 +197,7 @@ $(function() {
 									<i class="fa fa-calendar bigger-110"></i>
 								</span>
 								
-								<input type="text" id="date-range-picker" name="dates" value="05/23/2020 - 06/01/2020" class="form-control" />
+								<input type="text" id="date-range-picker" name="dates" value="<%=beforeWeek %> - <%=today %>" class="form-control" />
 								<script>
 			
 								
