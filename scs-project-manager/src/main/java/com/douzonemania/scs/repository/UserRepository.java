@@ -75,7 +75,7 @@ public class UserRepository {
 				+ "    editor      TEXT         NULL," + "    category_no INT UNSIGNED NULL," 
 				+ "    description TEXT         NULL," + "    reg_date    DATETIME     NOT NULL,"
 				+ "    ship_address    VARCHAR(30)   NOT NULL," + "    ship_charge    INT UNSIGNED   NOT NULL,"
-				+ "    primary key(no)"
+				+"	   state		BOOLEAN			 NOT NULL," + "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8; ";
 		String shipAddressQry = "CREATE TABLE " + id + ".ship_address("
 				+ "    no           INT UNSIGNED NOT NULL AUTO_INCREMENT ," + "    ship_name   VARCHAR(30)  NOT NULL ,"
