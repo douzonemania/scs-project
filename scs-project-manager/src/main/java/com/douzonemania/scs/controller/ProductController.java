@@ -3,6 +3,7 @@ package com.douzonemania.scs.controller;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import com.douzonemania.scs.service.ProductService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
+import com.douzonemania.scs.vo.member.ItemBoardVo;
+import com.douzonemania.scs.vo.member.ItemReplyVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
 import com.douzonemania.scs.vo.member.StockVo;
@@ -165,5 +168,58 @@ public class ProductController {
 		model.addAttribute("iVo", iVo);
 		model.addAttribute("stockList", stockList);
 		return "product/stock";
+	}
+	
+	@RequestMapping(value= "/board", method = { RequestMethod.GET, RequestMethod.POST })
+	public String memberList(@AuthUser CeoVo authUser, Model model,
+			@RequestParam(value="p", required=true, defaultValue="1") int page,
+			@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
+			@RequestParam(value="op", required=true, defaultValue="") String option) {
+		
+		Map<String, Object> map = productService.itemBoardList(authUser.getId(), page, keyword, option);
+		
+		model.addAttribute("map", map);
+		
+		return "product/board";
+	}
+	
+	@RequestMapping(value="/board/reply/{no}")
+	public String reply(@AuthUser CeoVo authUser,
+			@PathVariable("no") int no, Model model) {
+
+		model.addAttribute("no", no);
+		
+		return "product/board-write";
+	}
+	
+	@RequestMapping(value="board/view/{no}")
+	public String boardView(@AuthUser CeoVo authUser,@PathVariable("no") int no, Model model) {
+		
+		ItemBoardVo itemBoardVo = productService.findItemBoardByNo(authUser.getId(), no);
+		String name = productService.findNameByNo(authUser.getId(), no);
+		itemBoardVo.setName(name);
+		
+		String viewer = "quill2.setContents([ " + 
+				itemBoardVo.getContents() +
+       "]);";
+		
+		model.addAttribute("itemBoardVo", itemBoardVo);
+		model.addAttribute("viewer", viewer);		// 회원이 작성한 글
+		
+		// 답글이 있는 경우 
+		if(itemBoardVo.isReplyState()) {
+			ItemReplyVo itemReplyVo = productService.findItemReplyByParentsNo(authUser.getId(), no);
+			String reply = "quill3.setContents([ " + 
+								itemReplyVo.getContents() +
+			                 "]);";
+			
+			model.addAttribute("reply", reply);	
+			model.addAttribute("itemReplyVo", itemReplyVo);	 // 관리자가 작성한 답글
+		
+			System.out.println("itemReplyVo");
+			System.out.println(itemReplyVo);
+		}
+		
+		return "product/board-view";
 	}
 }

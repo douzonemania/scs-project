@@ -13,6 +13,8 @@
 		<typeAlias alias="stockvo" type="com.douzonemania.scs.vo.member.StockVo" />		
 		<typeAlias alias="ordersettlevo" type="com.douzonemania.scs.vo.member.OrderSettleVo" />
 		<typeAlias alias="replyvo" type="com.douzonemania.scs.vo.member.ReplyVo" />
+		<typeAlias alias="itemboardvo" type="com.douzonemania.scs.vo.member.ItemBoardVo" />
+		<typeAlias alias="itemreplyvo" type="com.douzonemania.scs.vo.member.ItemReplyVo" />
 
 	</typeAliases>	
 	<mappers>
