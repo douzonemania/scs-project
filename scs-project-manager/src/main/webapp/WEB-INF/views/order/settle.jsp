@@ -5,7 +5,9 @@
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-    
+    <%@ page import="java.util.*"%>
+	<%@ page import="java.text.SimpleDateFormat"%>
+	
         <title>정산관리</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
@@ -83,7 +85,16 @@ var fetchList = function(startDate, endDate){
 
 </script>
 <body>
+<%
 
+ Date now = new Date();
+ SimpleDateFormat sf = new SimpleDateFormat("MM/dd/yyyy");
+ 
+ String today = sf.format(now);
+ Calendar week = Calendar.getInstance();
+ week.add(Calendar.DATE , -7);
+ String beforeWeek = new java.text.SimpleDateFormat("MM/dd/yyyy").format(week.getTime());
+%>
   	<header>
   		<!-- horizontal-nav -->  	
         <c:import url ='/WEB-INF/views/partials/horizontal-nav.jsp'/>
@@ -201,9 +212,8 @@ var fetchList = function(startDate, endDate){
                                 <label>날짜 검색</label>
                                 <span class="input-group-addon">
 									<i class="fa fa-calendar bigger-110"></i>
-									<h6>날짜검색해야 나옴.</h6>
 								</span>
-								<input type="text" id="date-range-picker" name="dates" class="form-control" />
+								<input type="text" id="date-range-picker" name="dates" value="<%=beforeWeek %> - <%=today %>" class="form-control" />
 								<script>
 								var startDate;
 								var endDate;
