@@ -7,13 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzonemania.scs.dto.JsonResult;
+import com.douzonemania.scs.service.MemberService;
 import com.douzonemania.scs.service.UserService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 
@@ -23,7 +23,6 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-	
 	
 	// 아이디 중복 검사
 	@ResponseBody
@@ -77,11 +76,24 @@ public class UserController {
 		return "user/recover";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/find/id")
-	public JsonResult findId(@RequestBody String name, @RequestBody String phoneNum) {
-		System.out.println(name + " : " + phoneNum);
+	public JsonResult findId(@RequestParam(value="name") String name,
+					@RequestParam(value="phoneNum") String phoneNum) {
 		
-		return JsonResult.success(true);
+		String id = userService.findIdByNameAndPhone(name, phoneNum);
+		
+		return JsonResult.success(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/find/password")
+	public JsonResult findPassword(@RequestParam(value="id") String id,
+					@RequestParam(value="email") String email) {
+		
+		Boolean sendPassword = userService.sendPasswordEmail(id, email); 
+		
+		return JsonResult.success(sendPassword);
 	}
 
 

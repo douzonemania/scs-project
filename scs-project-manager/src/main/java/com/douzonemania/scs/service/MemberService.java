@@ -282,6 +282,4 @@ public class MemberService {
 		return memberRepository.findNameByNo(id, no);
 	}
 
-
-
 }

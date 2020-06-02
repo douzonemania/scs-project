@@ -164,4 +164,5 @@ public class MemberRepository {
 		return sqlSession.selectOne("member.findNameByNo", map);
 	}
 
+
 }

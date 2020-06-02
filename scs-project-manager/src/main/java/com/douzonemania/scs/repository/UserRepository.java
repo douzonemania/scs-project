@@ -1,5 +1,6 @@
 package com.douzonemania.scs.repository;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -213,6 +214,21 @@ public class UserRepository {
 		
 		
 		return id;
+	}
+	
+	public String findIdByNameAndPhone(String name, String phoneNum) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("name", name);
+		map.put("phoneNum", phoneNum);
+		
+		return sqlSession.selectOne("user.findIdByNameAndPhone", map);
+	}
+	public int updatePassword(String id, String password) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("password", password);
+		
+		return sqlSession.update("user.updatePassword", map);
 	}
 
 }
