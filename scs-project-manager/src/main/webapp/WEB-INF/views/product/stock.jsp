@@ -55,22 +55,29 @@
 		<table class="stock-table">
 			
 			<colgroup>
-				<col width="55px">
-				<col width="55px">
-				<col width="55px">			
+				<col width="155px">
+				<col width="100px">
+				<col width="100px">
+				<col width="80px">			
 			</colgroup>
 		
 			<tbody>
 				<tr>
+					<th>상품이름</th>
 					<th>컬러</th>
 					<th>사이즈</th>
 					<th>재고량</th>
 				</tr>
+				
+			<c:forEach var="vo" varStatus="status" items="${stockList}">
 				<tr>
-					<td>1</td>
-					<td>2</td>
-					<td>3</td>
+					<td>${iVo.name }</td>				
+					<td>${vo.color }</td>
+					<td>${vo.size }</td>
+					<td>${vo.stock}</td>
 				</tr>
+			</c:forEach>
+			
 			</tbody>
 		</table>	
 	</div>

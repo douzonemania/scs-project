@@ -46,10 +46,23 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(function() {
+	
+	/* 옵션 추가 등록 팝업 */
+	$(document).on("click", ".btn-secondary.stock",function(){		
+		var itemNo= $(this).data('no')
+		console.log(itemNo);
+		window.name = "infoPage";
+		window.open("stock/"+itemNo,'옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
+		//openWin.document.getElementById("cInput").value = document.getElementById("pInput").value;
+		
+	});
+	
+	/* 상품 삭제 버튼*/
 	$('.btn-del').click(function(){
 		alert('삭제되었습니다.')
 	});
 });
+
 </script>       
 
 </head>
@@ -210,7 +223,10 @@ $(function() {
 												style="width: 90px; height: 90px"></td>
 											<td>${vo.name }</td>
 											<td> ${salePriceList[status.index]} </td>
-											<td>198</td>
+											<td>
+												<input class="btn-secondary stock" style="height: 25px; font-size: 11px" name='' type="button" data-no='${vo.no }' id="btn-stock-${vo.no }" value="재고량">
+												
+											</td>
 											<td>${vo.regDate }</td>
 											<td>
 												

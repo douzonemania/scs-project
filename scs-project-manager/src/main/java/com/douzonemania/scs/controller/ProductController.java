@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +18,7 @@ import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
+import com.douzonemania.scs.vo.member.StockVo;
 import com.douzonemania.security.AuthUser;
 
 @Controller
@@ -147,7 +147,23 @@ public class ProductController {
 		model.addAttribute("colorOptionList", colorOptionList);
 
 		return "product/optionAdd";
-	}
+	}	
 	
+	// 재고량 확인
+	@RequestMapping(value = "/stock/{itemNo}", method = RequestMethod.GET)
+	public String stockList(
+			@AuthUser CeoVo authUser,
+			@PathVariable("itemNo") int no,
+			Model model) {				
+		String id = authUser.getId();
+		System.err.println(no);
 
+		ItemVo iVo = productService.findItem(id, no);
+		List<StockVo> stockList = productService.getStockListByItemNo(id, no);
+		System.err.println(stockList);
+		
+		model.addAttribute("iVo", iVo);
+		model.addAttribute("stockList", stockList);
+		return "product/stock";
+	}
 }

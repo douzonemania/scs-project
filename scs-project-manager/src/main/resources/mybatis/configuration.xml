@@ -9,7 +9,8 @@
 		<typeAlias alias="agreementvo" type="com.douzonemania.scs.vo.ceo.AgreementVo" />
 		<typeAlias alias="membervo" type="com.douzonemania.scs.vo.member.MemberVo" />
 		<typeAlias alias="boardvo" type="com.douzonemania.scs.vo.member.BoardVo" />
-		<typeAlias alias="optionvo" type="com.douzonemania.scs.vo.member.OptionVo" />		
+		<typeAlias alias="optionvo" type="com.douzonemania.scs.vo.member.OptionVo" />
+		<typeAlias alias="stockvo" type="com.douzonemania.scs.vo.member.StockVo" />		
 		<typeAlias alias="ordersettlevo" type="com.douzonemania.scs.vo.member.OrderSettleVo" />
 		<typeAlias alias="replyvo" type="com.douzonemania.scs.vo.member.ReplyVo" />
 
