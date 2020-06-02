@@ -103,7 +103,7 @@ var fetchList = function(startDate, endDate){
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="<%=request.getContextPath() %>/main">SCS</a></li>
-                                <li class="breadcrumb-item"><a href="<%=request.getContextPath() %>/{id}/order/delivery">주문관리</a></li>
+                                <li class="breadcrumb-item"><a href="<%=request.getContextPath() %>/{id}/order/settle">주문관리</a></li>
                                 <li class="breadcrumb-item active">정산 관리</li>
                             </ol>
                         </div>
@@ -239,8 +239,9 @@ var fetchList = function(startDate, endDate){
                                     <th>마진</th>
                                 </tr>
                             </thead>
-                        	 <c:forEach var="vo" varStatus="status" items="${map.list }">
+                        	 
                             <tbody>
+                            	<c:forEach var="vo" varStatus="status" items="${map.list }">
                                 <tr>
                                     <td>${vo.no }</td>
                                     <td>${vo.id }</td>
@@ -250,6 +251,7 @@ var fetchList = function(startDate, endDate){
                                 </tr>
                                 </c:forEach>
                             </tbody>
+                            
                         </table>
 						
                         <!-- start paging -->
