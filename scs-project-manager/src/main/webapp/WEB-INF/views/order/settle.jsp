@@ -232,8 +232,9 @@ var fetchList = function(startDate, endDate){
                        
                         <table style="width:100%; " class="table table-striped mb-0"> <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>번호</th>
                                     <th>회원아이디</th>
+                                    <th>주문번호</th>
                                     <th>주문날짜</th>
                                     <th>구매금액</th>
                                     <th>마진</th>
@@ -243,8 +244,9 @@ var fetchList = function(startDate, endDate){
                             <tbody>
                             	<c:forEach var="vo" varStatus="status" items="${map.list }">
                                 <tr>
-                                    <td>${vo.no }</td>
+                                    <td>${status.count + (map.page - 1) * 5 }</td>
                                     <td>${vo.id }</td>
+                                    <td>${vo.orderNumber }</td>
                                     <td>${vo.regDate }</td>
                                     <td>${vo.purchasePrice }</td>
                                     <td>${vo.marginPrice }</td>

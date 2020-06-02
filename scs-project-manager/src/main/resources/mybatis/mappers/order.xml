@@ -6,26 +6,34 @@
 	<choose>
 		<when test="startDate  =='' and endDate == '' ">
 			<![CDATA[
-				select item.no as 'no', member.id as 'id', DATE_FORMAT(shop_order.reg_date, '%Y-%m-%d %T') as 'regDate', truncate(sum(item.now_price -(item.now_price * sale / 100)),0) as 'purchasePrice', truncate((sum(item.now_price -(item.now_price * sale / 100)) - sum(item.sup_price)),0) as 'marginPrice', item.sale
-				  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
-				 where item.no = stock.item_no 
+				select member.id as 'id',
+						shop_order.order_number as orderNumber,
+						shop_order.reg_date as 'regDate',
+						truncate(sum(item.now_price -(item.now_price * sale / 100)),0) as 'purchasePrice',
+						truncate((sum(item.now_price -(item.now_price * sale / 100)) - sum(item.sup_price)),0) as 'marginPrice'
+				  from mall.item, mall.stock, mall.order_item, mall.shop_order, mall.member
+				 where item.no = stock.item_no
 				   and stock.no = order_item.stock_no
 				   and order_item.order_no = shop_order.no
 				   and shop_order.member_no = member.no
-				   group by 1
+			   group by shop_order.order_number
 				   limit ${size} offset #{offset}
 			]]>
 		</when>
 		<otherwise>
 			<![CDATA[
-				select item.no as 'no', member.id as 'id', DATE_FORMAT(shop_order.reg_date, '%Y-%m-%d %T') as 'regDate', truncate(sum(item.now_price -(item.now_price * sale / 100)),0) as 'purchasePrice', truncate((sum(item.now_price -(item.now_price * sale / 100)) - sum(item.sup_price)),0) as 'marginPrice', item.sale
-				  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
-				 where item.no = stock.item_no 
+				select member.id as 'id',
+						shop_order.order_number as orderNumber,
+						shop_order.reg_date as 'regDate',
+						truncate(sum(item.now_price -(item.now_price * sale / 100)),0) as 'purchasePrice',
+						truncate((sum(item.now_price -(item.now_price * sale / 100)) - sum(item.sup_price)),0) as 'marginPrice'
+				  from mall.item, mall.stock, mall.order_item, mall.shop_order, mall.member
+				 where item.no = stock.item_no
 				   and stock.no = order_item.stock_no
 				   and order_item.order_no = shop_order.no
 				   and shop_order.member_no = member.no
-				  and shop_order.reg_date >= #{startDate } and shop_order.reg_date <= #{endDate }
-				 group by 1
+				   and shop_order.reg_date >= #{startDate } and shop_order.reg_date <= #{endDate }
+			   group by shop_order.order_number
 				 limit ${size} offset #{offset}
 			]]>
 		</otherwise>
@@ -36,23 +44,26 @@
 			<choose>
 				<when test='startDate  == "" and endDate == "" '>
 					<![CDATA[
-						select count(*)
-						  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
-						 where item.no = stock.item_no 
+						select count(*) from (select shop_order.order_number as orderNumber
+						  from mall.item, mall.stock, mall.order_item, mall.shop_order, mall.member
+						 where item.no = stock.item_no
 						   and stock.no = order_item.stock_no
 						   and order_item.order_no = shop_order.no
 						   and shop_order.member_no = member.no
+                           group by shop_order.order_number) a;
 					]]>
 				</when>
 				<otherwise>
 					<![CDATA[
-						select count(*)
-						  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
-						 where item.no = stock.item_no 
+						select count(*) from (select shop_order.order_number as orderNumber
+						  from mall.item, mall.stock, mall.order_item, mall.shop_order, mall.member
+						 where item.no = stock.item_no
 						   and stock.no = order_item.stock_no
 						   and order_item.order_no = shop_order.no
 						   and shop_order.member_no = member.no
 						   and shop_order.reg_date >= #{startDate } and shop_order.reg_date <= #{endDate }
+                           group by shop_order.order_number) a;
+						   
 						   
 					]]>
 				</otherwise>
@@ -122,6 +133,7 @@
 						   and stock.no = order_item.stock_no
 						   and order_item.order_no = shop_order.no
 						   and shop_order.member_no = member.no
+						   group by 1
 						   limit ${size} offset #{offset}
 					]]>
 				</when>
@@ -134,6 +146,7 @@
 						   and order_item.order_no = shop_order.no
 						   and shop_order.member_no = member.no
 						   and shop_order.reg_date >= #{startDate } and shop_order.reg_date <= #{endDate }
+						   group by 1
 						   limit ${size} offset #{offset}
 					]]>
 				</when>
@@ -146,6 +159,7 @@
 						   and order_item.order_no = shop_order.no
 						   and shop_order.member_no = member.no
 						   and #{option} like '%${keyword}%'
+						   group by 1
 						   limit ${size} offset #{offset}
 					]]>
 				</when>
@@ -159,6 +173,7 @@
 						   and shop_order.member_no = member.no
 						   and shop_order.reg_date >= #{startDate } and shop_order.reg_date <= #{endDate }
 						   and #{option} like '%${keyword}%'
+						   group by 1
 						   limit ${size} offset #{offset}
 					]]>
 				</otherwise>

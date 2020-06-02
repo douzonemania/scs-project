@@ -7,6 +7,13 @@ public class OrderSettleVo {
 	private int no;
 	private String id;
 	private Timestamp regDate;
+	private String orderNumber;
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
 	private int purchasePrice;
 	private int marginPrice;
 	
@@ -57,8 +64,9 @@ public class OrderSettleVo {
 	}
 	@Override
 	public String toString() {
-		return "OrderSettleVo [no=" + no + ", id=" + id + ", regDate=" + regDate + ", purchasePrice=" + purchasePrice
-				+ ", marginPrice=" + marginPrice + ", totalPrice=" + totalPrice + ", totalMargin=" + totalMargin + "]";
+		return "OrderSettleVo [no=" + no + ", id=" + id + ", regDate=" + regDate + ", orderNumber=" + orderNumber
+				+ ", purchasePrice=" + purchasePrice + ", marginPrice=" + marginPrice + ", totalPrice=" + totalPrice
+				+ ", totalMargin=" + totalMargin + "]";
 	}
 	
 	

@@ -15,8 +15,8 @@ import com.douzonemania.scs.vo.member.OrderSettleVo;
 public class OrderService {
 
 	// 페이징 크기 결정
-	private static final int LIST_SIZE =3;
-	private static final int PAGE_SIZE =3;
+	private static final int LIST_SIZE =5;
+	private static final int PAGE_SIZE =5;
 	
 	@Autowired
 	private OrderRepository orderRepository;
@@ -26,7 +26,7 @@ public class OrderService {
 		Map<String, Object> map = new HashMap<>();
 
 		// start index 결정
-		int offset=(currentPage-1)*3;
+		int offset=(currentPage-1)*5;
 
 		int total = orderRepository.countDeliveryList(startDate, endDate, id, option, keyword);
 		
