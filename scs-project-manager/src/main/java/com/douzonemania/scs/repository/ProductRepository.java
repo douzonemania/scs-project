@@ -180,6 +180,20 @@ public class ProductRepository {
 		return sqlSession.insert("product.insertStock", map);
 	}
 	
+	public int delItem(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("no",no);
+		return sqlSession.update("product.delItem", map);
+	}
+	
+	public List<StockVo> getStockListByItemNo(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("no",no);
+		return sqlSession.selectList("option.getStockListByItemNo", map);
+	}
+
 	public String getSession() {
 
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
@@ -187,6 +201,8 @@ public class ProductRepository {
 		String id =nowSession.getAttribute("name").toString();
 		return id;
 	}
+
+
 
 
 

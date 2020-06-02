@@ -7,6 +7,26 @@ public class StockVo {
 	private int firstOption;
 	private int secondOption;
 	private int stock; // 재고량
+	private String color;
+	private String size;
+
+
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
 
 	public int getNo() {
 		return no;
@@ -51,7 +71,7 @@ public class StockVo {
 	@Override
 	public String toString() {
 		return "StockVo [no=" + no + ", itemNo=" + itemNo + ", firstOption=" + firstOption + ", secondOption="
-				+ secondOption + ", stock=" + stock + "]";
+				+ secondOption + ", stock=" + stock + ", color=" + color + ", size=" + size + "]";
 	}
 
 }

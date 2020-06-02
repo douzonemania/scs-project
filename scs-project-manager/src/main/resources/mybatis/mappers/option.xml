@@ -21,6 +21,15 @@
 			]]>
 	</select>
 	
+	<select id="getStockListByItemNo" resultType="map">
+			<![CDATA[			
+				select a.itemNo, a.stock, a.color, b.size from
+				(select s.no as first_no, item_no as itemNo, name as color, stock from mall.stock s, mall.option o where s.item_no=#{no} and type="color" and o.no = s.first_option) a,
+    			(select s.no as second_no, item_no as itemNo, name as size, stock from mall.stock s, mall.option o where s.item_no=#{no} and type="size" and o.no = s.second_option) b
+    			where first_no = second_no;
+			]]>
+	</select>
+	
 	<insert id="addSizeOption" parameterType="map">
 			<![CDATA[
 				insert into ${db}.option values (null, #{name}, "size")

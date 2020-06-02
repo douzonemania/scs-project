@@ -121,6 +121,14 @@ public class ProductService {
 		return productRepository.insertStock(id, itemNo, sVo);
 	}
 
+	public int delItem(String id, int no) {
+		return productRepository.delItem(id, no);		
+	}
+
+	public List<StockVo> getStockListByItemNo(String id, int no) {
+		return productRepository.getStockListByItemNo(id, no);
+	}
+
 	
 
 }

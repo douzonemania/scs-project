@@ -77,3 +77,21 @@ margin:2px 0
 .ql-editor {
 	border: 1px solid #CCCCCC;
 }
+
+.stock-table{
+	display:inline-block;
+	
+	text-align:center;
+	margin:5px;
+}
+
+.stock-table th {
+	border:2px solid;
+	background-color:#CDD3D4;
+	height:40px;
+}
+.stock-table tr,.stock-table td {
+	border:2px solid;
+	text-align:center;
+	height:30px; 
+}

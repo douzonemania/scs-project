@@ -85,6 +85,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	var regDate = null;
 	//var categoryName1 = $("#first-category option:selected").text();
 	var categoryName2 = $("#seconds-category option:selected").val();
+	console.log(categoryName2 + "????");
 	var shipCompany = $("#ship-company-name option:selected").text();
 	
 	if($('input[name="shipping-charge"]:checked').val()=="free")
@@ -113,15 +114,6 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	
 	var i = 0;
 	var numberOfOption = $('.sizeOptionSelect').length;
-	console.log(numberOfOption+ "여기를 보세요");
-	
-	/* alert("LENGTH : "+$('#optionTest').length);
-	
-	$('#optionTest').each(function(){
-		alert("1:" +$(this).find('select[name=optionName]').val());
-		alert("2:" +$(this).find('select[name=colorName]').val());
-		alert("3:" +$(this).find('input[name=stockName]').val());
-	}); */
 	
 	var colorArr = [];
 	var sizeArr = [];
@@ -136,13 +128,6 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 		sizeArr.push(size);
 		stockArr.push(stock);
 		console.log(color+"//"+size+"//"+stock);
-		/* options.firstOption = color;
-		options.secondOption = size;
-		options.stock = stock;
-		console.log(options.firstOption + ":" + options.secondOption + ":" + options.stock);
-		
-		console.log("---------------------------"); */
-		
 	} 
 	
 	var objParams = {
@@ -150,11 +135,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 			'sizeArr' : sizeArr,
 			'stockArr' : stockArr
 	}
-	  
-	console.log(objParams);
-/* 	optionsArray.push(options);
-	console.log(optionsArray); */
-	
+
 	$.ajax({
 		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/regItem',
 		contentType: 'application/json',
@@ -162,28 +143,25 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 		type: "POST",
 		dataType: 'json',
 		success : function(response){
-			console.log("성공1");
+			$.ajax({
+				url: '${pageContext.request.contextPath }/${authUser.id}/api/product/stockInsert/' + code,
+				contentType :'application/x-www-form-urlencoded; charset=UTF-8',
+				data: objParams,
+				type: "POST",
+				dataType: 'json',		
+				success : function(response){
+					location.reload();
+				},
+				error: function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
+			});
 		},
 		error: function(xhr, status, e){
 			console.error(status + " : " + e);
+			alert("상품 정보를 모두 입력하세요.")
 		}
 	});
-	
-	$.ajax({
-		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/stockInsert/' + code,
-		contentType :'application/x-www-form-urlencoded; charset=UTF-8',
-		data: objParams,
-		type: "POST",
-		dataType: 'json',		
-		success : function(response){
-			console.log("성공2");
-		},
-		error: function(xhr, status, e){
-			console.error(status + " : " + e);
-		}
-	});
-	console.log("xxx:" +  code + "성공");
-	//location.reload();
 });
 
 
@@ -211,7 +189,7 @@ $(function() {
 					for( var key in response.data){
 						var data = response.data[key];	
 						if(data.name!=null)							
-							$('#seconds-category').append("<option value='" + data.parentNo + "'>" + data.name + "</option>");
+							$('#seconds-category').append("<option value='" + data.no + "'>" + data.name + "</option>");
 					}					
 				}, 			
 				error: function(xhr, status, e){
@@ -287,9 +265,6 @@ $(function() {
 			var size = $("#sizeOption-" + i + " option:selected").text();
 			var stock = $("#input-stock-" + i).val();
 			var sibal = $("#item-des").val();
-			console.log(sibal + "!#@#$#%");
-			console.log(i);
-			console.log(color + ":" +size);
 			
 			options.itemNo = null; // 아이템 번호 넣기
 			options.color = color;
@@ -299,7 +274,6 @@ $(function() {
 			optionsArray.push(options);
 			
 		}
-			console.log("options!!!!!!!!! :" + optionsArray);
 	});
 });
 
@@ -314,7 +288,7 @@ $(function() {
 				sale = Number(sale);
 				
 				var salePrice = nowPrice * ( 1 - (sale/100));
-				salePrice = Math.floor(salePrice/10)) * 10;	// 원단위 계산
+				//salePrice = Math.floor((salePrice/10)) * 10;	// 원단위 계산
 				$('#item-sale-price').val(salePrice);
 			}
 		});

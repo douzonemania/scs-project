@@ -16,6 +16,7 @@
 						visible, best_item as 'bestItem', new_item as 'newItem', editor, category_no,
 						description, reg_date as 'regDate'
 					from ${db}.item
+					where state = true;
 				]]>
 	</select>
 	
@@ -38,7 +39,7 @@
 
 	<insert id="regItem" parameterType="map">
 				<![CDATA[
-					insert into ${db}.item values (null, #{iVo.code}, #{iVo.name}, #{iVo.supPrice}, #{iVo.nowPrice}, #{iVo.sale}, #{iVo.mainImage}, #{iVo.subImage}, #{iVo.visible}, #{iVo.bestItem}, #{iVo.newItem}, #{iVo.editor}, #{iVo.categoryNo}, #{iVo.description}, now(), #{iVo.shipCompany}, #{iVo.shipCharge})
+					insert into ${db}.item values (null, #{iVo.code}, #{iVo.name}, #{iVo.supPrice}, #{iVo.nowPrice}, #{iVo.sale}, #{iVo.mainImage}, #{iVo.subImage}, #{iVo.visible}, #{iVo.bestItem}, #{iVo.newItem}, #{iVo.editor}, #{iVo.categoryNo}, #{iVo.description}, now(), #{iVo.shipCompany}, #{iVo.shipCharge}, true)
 				]]>
 	</insert>
 	
@@ -46,6 +47,12 @@
 				<![CDATA[
 					insert into ${db}.stock values (null, #{itemNo}, #{sVo.firstOption}, #{sVo.secondOption}, #{sVo.stock});
 				]]>
-	</insert>		
+	</insert>
+	
+	<update id="delItem" parameterType="map">
+				<![CDATA[
+					update ${db}.item set state = false where no = #{no};
+				]]>
+	</update>		
 </mapper>
 

@@ -21,6 +21,15 @@ public class ItemVo {
 	private int categoryNo;
 	private String shipCompany;
 	private int shipCharge;
+	private boolean state;
+
+	public boolean isState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
 
 	public String getShipCompany() {
 		return shipCompany;
@@ -164,7 +173,7 @@ public class ItemVo {
 				+ nowPrice + ", sale=" + sale + ", mainImage=" + mainImage + ", subImage=" + subImage + ", visible="
 				+ visible + ", bestItem=" + bestItem + ", newItem=" + newItem + ", editor=" + editor + ", description="
 				+ description + ", regDate=" + regDate + ", categoryNo=" + categoryNo + ", shipCompany=" + shipCompany
-				+ ", shipCharge=" + shipCharge + "]";
+				+ ", shipCharge=" + shipCharge + ", state=" + state + "]";
 	}
 
 }
