@@ -30,8 +30,9 @@ public class MemberController {
 			@RequestParam(value="p", required=true, defaultValue="1") int page,
 			@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
 			@RequestParam(value="op", required=true, defaultValue="") String option) {
-		
+
 		Map<String, Object> map = memberService.memberList(authUser.getId(), page, keyword, option);
+		
 		
 		model.addAttribute("map", map);
 		

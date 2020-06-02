@@ -167,16 +167,28 @@ public class MemberService {
 	}
 
 	// board list 페이징
-	public Map<String,Object> boardList(String id, int currentPage,String keyword,String option) {
+	public Map<String,Object> boardList(String id, int currentPage,String key,String option) {
 
 		Map<String, Object> map = new HashMap<>();
 
+		// keyword 지정
+		String keywordList[] = key.split(",");
+		String keyword="";
+		if(option.equals("category")) {
+			keyword = keywordList[1];
+		}
+		else {
+			keyword = keywordList[0];
+		}
+		
 		// start index 결정
 		int offset=(currentPage-1)*5;
 
 		int total = memberRepository.boardListCount(id, option, keyword);
 
-
+		
+		System.out.println("TOTAL: " + total);
+		
 		List<BoardVo> list;
 		if(option.equals("")) {
 			list = memberRepository.boardList(id, offset, LIST_SIZE);
