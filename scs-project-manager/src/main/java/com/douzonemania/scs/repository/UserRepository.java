@@ -49,7 +49,9 @@ public class UserRepository {
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "   primary key(no)" + ") engine=InnoDB character set=utf8;";
 		String orderItemQry = "CREATE TABLE " + id + ".order_item(" + "    order_no INT UNSIGNED NULL,"
-				+ "    stock_no INT UNSIGNED NULL" + ") engine=InnoDB character set=utf8;";
+				+ "    stock_no INT UNSIGNED NULL," + "	amount INT UNSIGNED NOT NULL, "
+				+"	   total_price INT UNSIGNED NOT NULL"
+				+ ") engine=InnoDB character set=utf8;";
 		String orderQry = "CREATE TABLE " + id + ".shop_order("
 				+ "    no           INT UNSIGNED NOT NULL AUTO_INCREMENT ," + "    order_number VARCHAR(20)  NOT NULL, "
 				+ "    reg_date    DATETIME          NOT NULL, "
