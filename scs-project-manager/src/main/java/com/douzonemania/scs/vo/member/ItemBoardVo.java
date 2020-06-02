@@ -10,6 +10,10 @@ public class ItemBoardVo {
 	private Timestamp regDate;
 	private int memberNo;
 	private int itemNo;
+	private boolean replyState;
+	private String code; // 상품 코드
+	private String id; // 회원 아이디
+	private String name; // 회원 이름
 
 	public int getNo() {
 		return no;
@@ -59,10 +63,43 @@ public class ItemBoardVo {
 		this.itemNo = itemNo;
 	}
 
+	public boolean isReplyState() {
+		return replyState;
+	}
+
+	public void setReplyState(boolean replyState) {
+		this.replyState = replyState;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemBoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", regDate=" + regDate
-				+ ", memberNo=" + memberNo + ", itemNo=" + itemNo + "]";
+				+ ", memberNo=" + memberNo + ", itemNo=" + itemNo + ", replyState=" + replyState + ", code=" + code
+				+ ", id=" + id + ", name=" + name + "]";
 	}
 
 }

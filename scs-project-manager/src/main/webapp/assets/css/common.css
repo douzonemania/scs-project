@@ -12,12 +12,12 @@ a{
 	padding:0px;
 }
 
-
 .dz-error-message,
 .dz-success-mark,
 .dz-error-mark{
-	width:0%	
+	width:0%;	
 	display:none;
+	visibility:hidden;
 }
 
 .option-add-table{

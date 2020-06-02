@@ -53,6 +53,142 @@
 				<![CDATA[
 					update ${db}.item set state = false where no = #{no};
 				]]>
-	</update>		
+	</update>
+	
+		<select id="itemBoardListCount" parameterType="map" resultType="int">
+			<choose>
+				<when test='option==""'>
+					<![CDATA[
+						select count(*)
+						  from ${db}.item_board i,
+						  	   ${db}.member m
+						 where i.member_no = m.no
+						   and m.state='회원'
+					]]>
+				</when>
+				<otherwise>
+					<![CDATA[
+						select count(*) 
+						  from (select b.no,
+									   b.title,
+									   b.contents,
+									   b.reg_date as regDate,
+									   b.member_no as memberNo,
+									   b.item_no as itemNo,
+									   b.reply_state as replyState,
+					                   i.code,
+                  					   m.id
+								  from mall.item_board b,
+									   mall.member m,
+					                   mall.item i
+								 where b.member_no = m.no
+					               and b.item_no = i.no
+								   and m.state='회원') a
+					               where a.${option} like '%${keyword}%'
+					]]>
+				</otherwise>
+			</choose>
+	</select>
+	
+	<select id="itemBoardList" parameterType="map" resultType="itemboardvo">
+		<![CDATA[
+			select b.no,
+				   b.title,
+				   b.contents,
+				   b.reg_date as regDate,
+				   b.member_no as memberNo,
+				   b.item_no as itemNo,
+				   b.reply_state as replyState,
+                   i.code,
+                   m.id
+			  from mall.item_board b,
+				   mall.member m,
+                   mall.item i
+			 where b.member_no = m.no
+               and b.item_no = i.no
+			   and m.state='회원'
+			 limit ${size} offset #{offset}
+		]]>
+	</select>
+	
+	<select id="searchItemBoaardList" parameterType="map" resultType="itemboardvo">
+		<![CDATA[
+			select * 
+			  from (select b.no,
+						   b.title,
+						   b.contents,
+						   b.reg_date as regDate,
+						   b.member_no as memberNo,
+					 	   b.item_no as itemNo,
+					 	   b.reply_state as replyState,
+		                   i.code,
+                   		   m.id
+					  from mall.item_board b,
+						   mall.member m,
+		                   mall.item i
+					 where b.member_no = m.no
+		               and b.item_no = i.no
+					   and m.state='회원') a
+			 where a.${option} like '%${keyword}%'
+			 limit ${size} offset #{offset}
+		]]>
+	</select>	
+	
+	<insert id="insertBoardReply" parameterType="map">
+		<![CDATA[
+			insert into ${db}.item_reply
+			values(null, #{parentsNo}, #{contents}, now()) 
+		]]>
+	</insert>
+	
+	<update id="setBoardReplyTrue" parameterType="map">
+		<![CDATA[
+			update ${db}.item_board
+			   set reply_state=true
+			 where no = #{no} 
+		]]>
+	</update>
+	
+	<select id="findItemBoardByNo" parameterType="map" resultType="itemboardvo">
+		<![CDATA[
+			select no,
+				   title,
+				   contents,
+				   reg_date as regDate,
+				   member_no as memberNo,
+				   item_no as itemNo,
+				   reply_state as replyState
+			  from ${db}.item_board
+			 where no=#{no}
+		]]>
+	</select>
+	
+	<select id="findNameByNo" parameterType="map" resultType="string">
+		<![CDATA[
+			select name
+			  from ${db}.member
+			 where no=#{no}		
+		]]>
+	</select>
+	
+	<select id="findItemReplyByParentsNo" parameterType="map" resultType="itemreplyvo">
+		<![CDATA[
+			select no,
+				   parents_no as parentsNo,
+				   contents,
+				   reg_date as regDate
+			  from ${db}.item_reply
+			 where parents_no = #{no}
+		 ]]>
+	</select>
+	
+	<delete id="deleteItemBoard" parameterType="map">
+		<![CDATA[
+			delete
+			  from ${db}.item_board
+			 where no=#{no}
+			   and reply_state=false
+		]]>
+	</delete>		
 </mapper>
 

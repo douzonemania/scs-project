@@ -214,7 +214,6 @@ public class ProductController {
 			@RequestParam(value="stockArr[]") List<Integer> stockArr,
 			@PathVariable String code) {				
 		String id = authUser.getId();
-		System.err.println("ㅗㅑ");
 
 		int itemNo = productService.getItemNo(id, code);
 
@@ -229,6 +228,26 @@ public class ProductController {
 		}
 
 		return JsonResult.success("");
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/board/write/{no}", method=RequestMethod.POST)
+	public JsonResult boardWrite(@AuthUser CeoVo authUser,
+			@PathVariable("no") int no, @RequestBody String html) {
+		
+		boolean replyResult = productService.boardReply(authUser.getId(), no, html);
+		productService.setBoardReplyTrue(authUser.getId(), no);
+		
+		return JsonResult.success(replyResult);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/board/delete/{no}")
+	public JsonResult deleteBoard(@AuthUser CeoVo authUser, @PathVariable int no) {
+		
+		boolean deleteResult = productService.deleteItemBoard(authUser.getId(), no);
+		
+		return JsonResult.success(deleteResult);
 	}
 
 }

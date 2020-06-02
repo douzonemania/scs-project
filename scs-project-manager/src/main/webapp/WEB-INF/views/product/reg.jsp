@@ -64,6 +64,15 @@ $(function() {
 		});
 });
 
+$(document).ready(function(){
+	console.log("zz");
+	$('.dz-image').hover(function(){
+		alert("오우오우오우");
+	});
+});
+	
+
+
 
 $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	var no = null;
