@@ -54,11 +54,10 @@ $(document).ready(function(){
 	
 	$('#submit-btn').click(function(e){
 		e.preventDefault();
-		console.log("들어왔따");
-		
 	 	var html = quill.getContents();
+	 	
 		var no = $('#parents_no').val();
-		console.log(html);
+		
 		console.log(no);
  		$.ajax({
 			url: '${pageContext.request.contextPath }/${authUser.id}/api/member/board/write/' + no,

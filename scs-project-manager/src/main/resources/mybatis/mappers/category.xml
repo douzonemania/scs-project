@@ -10,7 +10,13 @@
 	
 	<select id="findCategoryByName" parameterType="map" resultType="categoryvo">
 				<![CDATA[
-					select no, name from ${db}.category where name = #{name}
+					select no, name,  parents_no as 'parentNo' from ${db}.category where name = #{name}
+				]]>
+	</select>
+	
+	<select id="findCategoryByNo" parameterType="map" resultType="categoryvo">
+				<![CDATA[
+					select no, name, parents_no as 'parentNo' from ${db}.category where no = #{no}
 				]]>
 	</select>
 	

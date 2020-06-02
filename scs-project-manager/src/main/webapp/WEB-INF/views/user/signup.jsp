@@ -413,7 +413,7 @@ $(function() {
 												<div>
 													<label for="company-address" style="display: block;">사업장주소</label>
 
-													<input class="form-control" type="text" id="postcode1" />
+													<form:input path="postcode" class="form-control" type="text" id="postcode1" />
 													<button type="button" id="search_address"
 														class="btn btn-dark waves-effect waves-light ceo-join-btn-custom">우편
 														번호 찾기</button>

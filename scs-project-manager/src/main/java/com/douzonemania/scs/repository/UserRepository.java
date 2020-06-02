@@ -1,5 +1,6 @@
 package com.douzonemania.scs.repository;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -49,12 +50,15 @@ public class UserRepository {
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "   primary key(no)" + ") engine=InnoDB character set=utf8;";
 		String orderItemQry = "CREATE TABLE " + id + ".order_item(" + "    order_no INT UNSIGNED NULL,"
-				+ "    stock_no INT UNSIGNED NULL" + ") engine=InnoDB character set=utf8;";
+				+ "    stock_no INT UNSIGNED NULL," + "	amount INT UNSIGNED NOT NULL, "
+				+"	   total_price INT UNSIGNED NOT NULL"
+				+ ") engine=InnoDB character set=utf8;";
 		String orderQry = "CREATE TABLE " + id + ".shop_order("
 				+ "    no           INT UNSIGNED NOT NULL AUTO_INCREMENT ," + "    order_number VARCHAR(20)  NOT NULL, "
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "    statement    ENUM('주문완료', '입금완료', '배송준비중', '배송중', '배송완료', '취소처리중', '교환처리중', '환불처리중', '처리완료') NOT NULL,"
-				+ "    member_no    INT UNSIGNED NULL ," + "    primary key(no)"
+				+ "    member_no    INT UNSIGNED NULL ," + "ship_no INT UNSIGNED NULL,"
+				+ "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8;";
 		String boardQry = "CREATE TABLE " + id + ".board(" + "    no        INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    category  ENUM('주문', '배송', '교환환불취소', '기타') NOT NULL," + "    title     VARCHAR(50)  NOT NULL ,"
@@ -72,9 +76,9 @@ public class UserRepository {
 				+ "    sub_image   VARCHAR(300) NULL," + "    visible     BOOLEAN      NOT NULL,"
 				+ "    best_item        BOOLEAN      NOT NULL," + "    new_item         BOOLEAN      NOT NULL,"
 				+ "    editor      TEXT         NULL," + "    category_no INT UNSIGNED NULL," 
-				+ "    description TEXT         NULL,"
-				+ "    reg_date    DATETIME     NOT NULL,"
-				+ "    primary key(no)"
+				+ "    description TEXT         NULL," + "    reg_date    DATETIME     NOT NULL,"
+				+ "    ship_address    VARCHAR(30)   NOT NULL," + "    ship_charge    INT UNSIGNED   NOT NULL,"
+				+"	   state		BOOLEAN			 NOT NULL," + "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8; ";
 		String shipAddressQry = "CREATE TABLE " + id + ".ship_address("
 				+ "    no           INT UNSIGNED NOT NULL AUTO_INCREMENT ," + "    ship_name   VARCHAR(30)  NOT NULL ,"
@@ -143,8 +147,10 @@ public class UserRepository {
 		String alterOrderItemTwo = "	ALTER TABLE " + id + ".order_item"
 				+ "	    ADD CONSTRAINT FK_stock_TO_order_item" + "	        FOREIGN KEY (stock_no)"
 				+ "	        REFERENCES  " + id + ".stock (no);";
-		String alterShopOrder = "ALTER TABLE  " + id + ".shop_order" + "	    ADD CONSTRAINT FK_member_TO_order"
+		String alterShopOrderOne = "ALTER TABLE  " + id + ".shop_order" + "	    ADD CONSTRAINT FK_member_TO_shop_order"
 				+ "	        FOREIGN KEY (member_no)" + "	        REFERENCES  " + id + ".member (no);";
+		String alterShopOrderTwo = "ALTER TABLE  " + id + ".shop_order" + "	    ADD CONSTRAINT FK_ship_address_TO_shop_order"
+				+ "	        FOREIGN KEY (ship_no)" + "	        REFERENCES  " + id + ".ship_address (no);";
 		String alterItem = "ALTER TABLE  " + id + ".item" + "	    ADD CONSTRAINT FK_category_TO_item"
 				+ "	        FOREIGN KEY (category_no)" + "	        REFERENCES " + id + ".category (no);";
 		String alterItemReply = "	ALTER TABLE  " + id + ".item_reply"
@@ -153,7 +159,8 @@ public class UserRepository {
 		setAlterTable(alterShipAddress, map);
 		setAlterTable(alterOrderItemOne, map);
 		setAlterTable(alterOrderItemTwo, map);
-		setAlterTable(alterShopOrder, map);
+		setAlterTable(alterShopOrderOne, map);
+		setAlterTable(alterShopOrderTwo, map);
 		setAlterTable(alterItem, map);
 		setAlterTable(alterItemReply, map);
 		setAlterTable(alterItemReviewOne, map);
@@ -207,6 +214,21 @@ public class UserRepository {
 		
 		
 		return id;
+	}
+	
+	public String findIdByNameAndPhone(String name, String phoneNum) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("name", name);
+		map.put("phoneNum", phoneNum);
+		
+		return sqlSession.selectOne("user.findIdByNameAndPhone", map);
+	}
+	public int updatePassword(String id, String password) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("password", password);
+		
+		return sqlSession.update("user.updatePassword", map);
 	}
 
 }

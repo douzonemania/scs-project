@@ -1,18 +1,30 @@
 package com.douzonemania.scs.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzonemania.scs.repository.ProductRepository;
+import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
+import com.douzonemania.scs.vo.member.BoardVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
+import com.douzonemania.scs.vo.member.ItemBoardVo;
+import com.douzonemania.scs.vo.member.ItemReplyVo;
 import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
+import com.douzonemania.scs.vo.member.StockVo;
 
 @Service
 public class ProductService {
 
+	private static final int LIST_SIZE =5;
+	private static final int PAGE_SIZE =5;
+	
 	@Autowired
 	private ProductRepository productRepository;
 
@@ -39,8 +51,13 @@ public class ProductService {
 	/* 카테고리 이름으로 검색 */
 	public CategoryVo findCategoryByName(String id, String name) {
 		return productRepository.findCategoryByName(id, name);
-		}
+	}
 
+	/* 카테고리 번호로 검색 */
+	public CategoryVo findCategoryByNo(String id, int no) {
+		return productRepository.findCategoryByNo(id, no);
+	}
+	
 	/* 카테고리 삭제하기 */
 	public int delCategory(String id, String name) {
 		return productRepository.delCategory(id, name);		
@@ -89,10 +106,133 @@ public class ProductService {
 	public OptionVo getOption(String id, String name) {
 		return productRepository.getOption(id, name);
 	}
+	
+	public OptionVo getOptionByNo(String id, int no) {
+		return productRepository.getOptionByNo(id, no);
+	}
 
 	public int delOption(String id, int no) {
 		return productRepository.delOption(id, no);
 	}
-	
+
+	public List<OptionVo> getOptionList(String id) {
+		return productRepository.getOptionList(id);
+	}
+
+	public List<ShipCompanyVo> getShipCompanyList(String id) {
+		return productRepository.getShipCompanyList(id);
+	}
+
+	public int getItemNo(String id, String code) {
+		return productRepository.getItemNo(id, code);
+	}
+
+	public int insertStock(String id, int itemNo, StockVo sVo) {
+		return productRepository.insertStock(id, itemNo, sVo);
+	}
+
+	public int delItem(String id, int no) {
+		return productRepository.delItem(id, no);		
+	}
+
+	public List<StockVo> getStockListByItemNo(String id, int no) {
+		return productRepository.getStockListByItemNo(id, no);
+	}
+
+	// 페이징, 리스트
+	public Map<String,Object> itemBoardList(String id, int currentPage,String keyword,String option) {
+
+		Map<String, Object> map = new HashMap<>();
+
+		// start index 결정
+		int offset=(currentPage-1)*5;
+
+		int total = productRepository.itemBoardListCount(id, option, keyword);
+
+
+		List<BoardVo> list;
+		if(option.equals("")) {
+			list = productRepository.itemBoardList(id, offset, LIST_SIZE);
+		}
+		else {
+			list = productRepository.searchItemBoaardList(id, option, keyword, offset, LIST_SIZE);
+		}
+
+		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
+		int calCnt=(currentPage%5)==0 ? currentPage-1 : currentPage;
+
+		int beginPage=calCnt-(calCnt%5)==0 ? 1 : calCnt-(calCnt%5)+1;
+		int prevPage = beginPage == 1 ? 1 : beginPage -1;
+		int endPage = (pageCnt-(pageCnt%5))==(calCnt-(calCnt%5)) ? pageCnt : (beginPage+PAGE_SIZE)-1;
+		int nextPage = (pageCnt-(pageCnt%5))==(calCnt-(calCnt%5)) ? pageCnt : endPage+1;
+
+		if(nextPage>=pageCnt)
+			nextPage=pageCnt;
+		if(endPage>=pageCnt)
+			endPage=pageCnt;
+
+		map.put("list", list);
+		map.put("beginPage",beginPage);
+		map.put("prevPage",prevPage);
+		map.put("endPage",endPage);
+		map.put("nextPage",nextPage);
+		map.put("page",currentPage);
+		map.put("total",total);
+		map.put("option", option);
+		map.put("kwd",keyword);
+		map.put("calCnt", calCnt);
+
+		if(endPage!=pageCnt)
+			map.put("listsize",LIST_SIZE);
+		else
+			map.put("listsize",endPage%5);
+
+		return map;
+
+	}
+
+	public boolean boardReply(String id, int no, String jsonData) {
+		JSONObject jObject = new JSONObject(jsonData);
+
+		JSONArray jArray = jObject.getJSONArray("ops");
+
+		String contents = "";
+
+		for(int i = 0; i < jArray.length(); i++) {
+			JSONObject obj = jArray.getJSONObject(i);
+			System.out.println("obj:"+obj);
+			if(i == jArray.length() - 1) {
+				contents += obj;
+			}
+			else {
+				contents += obj + ",";
+			}
+		}
+
+		int count = productRepository.boardReply(id, no, contents);
+		return count == 1;
+	}
+
+	public boolean setBoardReplyTrue(String id, int no) {
+		int count = productRepository.setBoardReplyTrue(id, no);
+		return count == 1;
+	}
+
+	public ItemBoardVo findItemBoardByNo(String id, int no) {
+		return productRepository.findItemBoardByNo(id, no);
+	}
+
+	public String findNameByNo(String id, int no) {
+		return productRepository.findNameByNo(id, no);
+	}
+
+	public ItemReplyVo findItemReplyByParentsNo(String id, int no) {
+		return productRepository.findItemReplyByParentsNo(id, no);
+	}
+
+	public boolean deleteItemBoard(String id, int no) {
+		int count = productRepository.deleteItemBoard(id, no);
+		return count == 1;
+	}
 
 }

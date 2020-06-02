@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import com.douzonemania.scs.repository.MemberRepository;
 import com.douzonemania.scs.vo.member.BoardVo;
 import com.douzonemania.scs.vo.member.MemberVo;
+import com.douzonemania.scs.vo.member.ReplyVo;
 
 @Service
 public class MemberService {
@@ -166,22 +167,34 @@ public class MemberService {
 	}
 
 	// board list 페이징
-	public Map<String,Object> boardList(String id, int currentPage,String keyword,String option) {
+	public Map<String,Object> boardList(String id, int currentPage,String key,String option) {
 
 		Map<String, Object> map = new HashMap<>();
 
+		// keyword 지정
+		String keywordList[] = key.split(",");
+		String keyword="";
+		if(option.equals("category")) {
+			keyword = keywordList[1];
+		}
+		else {
+			keyword = keywordList[0];
+		}
+		
 		// start index 결정
 		int offset=(currentPage-1)*5;
 
 		int total = memberRepository.boardListCount(id, option, keyword);
-	
+
+		
+		System.out.println("TOTAL: " + total);
 		
 		List<BoardVo> list;
 		if(option.equals("")) {
 			list = memberRepository.boardList(id, offset, LIST_SIZE);
 		}
 		else {
-			list = memberRepository.searchBoaardList(id, option, keyword, offset, LIST_SIZE);
+			list = memberRepository.searchBoardList(id, option, keyword, offset, LIST_SIZE);
 		}
 
 		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
@@ -229,25 +242,44 @@ public class MemberService {
 	}
 
 	public boolean boardReply(String id, int no, String jsonData) {
-		
+
 		JSONObject jObject = new JSONObject(jsonData);
 
-		System.out.println("data:" + jsonData);
-		
 		JSONArray jArray = jObject.getJSONArray("ops");
 
 		String contents = "";
 
 		for(int i = 0; i < jArray.length(); i++) {
 			JSONObject obj = jArray.getJSONObject(i);
-			contents += obj.getString("insert");
+			System.out.println("obj:"+obj);
+			if(i == jArray.length() - 1) {
+				contents += obj;
+			}
+			else {
+				contents += obj + ",";
+			}
 		}
-		
-		System.out.println("contents:" + contents);
 
 		int count = memberRepository.boardReply(id, no, contents);
 		return count == 1;
 	}
+
+	public BoardVo findBoardByNo(String id, int no) {
+		return memberRepository.findBoardByNo(id, no);
+	}
 	
+	public ReplyVo findReplyByParentsNo(String id, int no) {
+
+		return memberRepository.findReplyByParentsNo(id, no);
+	}
+
+	public boolean setBoardReplyTrue(String id, int no) {
+		int count = memberRepository.setBoardReplyTrue(id, no);
+		return count == 1;
+	}
+
+	public String findNameByNo(String id, int no) {
+		return memberRepository.findNameByNo(id, no);
+	}
 
 }

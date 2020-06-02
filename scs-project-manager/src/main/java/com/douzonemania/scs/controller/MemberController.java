@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.scs.service.MemberService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.member.BoardVo;
+import com.douzonemania.scs.vo.member.ReplyVo;
 import com.douzonemania.security.AuthUser;
 
 // 회원 관리
@@ -28,8 +30,9 @@ public class MemberController {
 			@RequestParam(value="p", required=true, defaultValue="1") int page,
 			@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
 			@RequestParam(value="op", required=true, defaultValue="") String option) {
-		
+
 		Map<String, Object> map = memberService.memberList(authUser.getId(), page, keyword, option);
+		
 		
 		model.addAttribute("map", map);
 		
@@ -76,13 +79,6 @@ public class MemberController {
 		return "member/board";
 	}
 	
-	
-	@RequestMapping(value="/board/write", method=RequestMethod.GET)
-	public String boardWrite() {
-		System.out.println("2");
-		return "member/board-write";
-	}
-	
 	@RequestMapping(value="/board/reply/{no}")
 	public String reply(@AuthUser CeoVo authUser,
 			@PathVariable("no") int no, Model model) {
@@ -92,7 +88,33 @@ public class MemberController {
 		return "member/board-write";
 	}
 	
-	
+	@RequestMapping(value="board/view/{no}")
+	public String boardView(@AuthUser CeoVo authUser,@PathVariable("no") int no, Model model) {
+		
+		BoardVo boardVo = memberService.findBoardByNo(authUser.getId(), no);
+		String name = memberService.findNameByNo(authUser.getId(), no);
+		boardVo.setName(name);
+		
+		String viewer = "quill2.setContents([ " + 
+                boardVo.getContents() +
+       "]);";
+		
+		model.addAttribute("boardVo", boardVo);
+		model.addAttribute("viewer", viewer);		// 회원이 작성한 글
+		
+		// 답글이 있는 경우 
+		if(boardVo.isReplyState()) {
+			ReplyVo replyVo = memberService.findReplyByParentsNo(authUser.getId(), no);
+			String reply = "quill3.setContents([ " + 
+			                          replyVo.getContents() +
+			                 "]);";
+			
+			model.addAttribute("reply", reply);	
+			model.addAttribute("replyVo", replyVo);	 // 관리자가 작성한 답글
+		}
+		
+		return "member/board-view";
+	}
 	
 	
 }

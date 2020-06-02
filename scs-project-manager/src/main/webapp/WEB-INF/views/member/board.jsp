@@ -58,6 +58,24 @@
 		
 <script type="text/javascript">
 
+/* var optionCheck = function() {
+	alert($(this).val());
+} */
+
+$(function(){
+	$('#member-search-option').change(function(){
+		var option = $(this).val();
+		
+		if(option == 'category') {
+			$('#category-option').show();
+			$('#member-input-box').hide();
+		} else {
+			$('#category-option').hide();
+			$('#member-input-box').show();
+		}
+	});
+});
+
 var removeCheck = function(no) {
 	if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
 	 	console.log("네네네");
@@ -136,11 +154,21 @@ var removeCheck = function(no) {
                                             <select id="member-search-option" class="custom-select custom-select-sm" name="op">
                                                 <option value="id">아이디</option>
                                                 <option value="name">이름</option>
+                                                <option value="category">카테고리</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <input id="member-input-box" name="kwd" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
                                         </div>
+                                        <div>
+                                        	<select id="category-option" name="kwd" class="custom-select custom-select-sm" style="display:none;">
+                                        		<option value="주문">주문</option>
+                                                <option value="배송">배송</option>
+                                                <option value="교환환불취소">교환환불취소</option>
+                                                <option value="기타">기타</option>
+                                        	</select>
+                                        </div>
+                                        
                                         &nbsp;&nbsp;&nbsp;
                                         <div class="search-button">
                                             <button id="member-search-btn" class="btn btn-secondary btn-sm float-sm-right" type="submit"> 검색 </button>
@@ -155,12 +183,12 @@ var removeCheck = function(no) {
                                 <tr>
                                     <th>번호</th>
                                     <th>카테고리</th>
-                                    <th data-sort-initial="true" data-toggle="true">제목</th>
+                                    <th>제목</th>
                                     <th>아이디</th>
-                                    <th data-hide="phone">성명</th>
-                                    <th data-sort-ignore="true" data-hide="phone, tablet">작성일</th>
-                                    <th data-sort-ignore="true" data-hide="phone, tablet">답글</th>
-                                    <th data-sort-ignore="true" data-hide="phone, tablet">글삭제</th>
+                                    <th>이름</th>
+                                    <th>작성일</th>
+                                    <th>답글</th>
+                                    <th>글삭제</th>
                                 </tr>
                                 <c:forEach items="${map.list }" var="vo" varStatus="status">
                                 	<tr>

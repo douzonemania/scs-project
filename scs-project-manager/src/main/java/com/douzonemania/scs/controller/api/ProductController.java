@@ -2,11 +2,14 @@ package com.douzonemania.scs.controller.api;
 
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,13 +17,14 @@ import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.ProductService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
+import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
+import com.douzonemania.scs.vo.member.StockVo;
 import com.douzonemania.security.AuthUser;
 
-
 @RestController("ProductApiController")
-@RequestMapping("/api/product")
-public class productController {
+@RequestMapping("/{id}/api/product")
+public class ProductController {
 
 	@Autowired
 	ProductService productService;
@@ -170,20 +174,80 @@ public class productController {
 			@AuthUser CeoVo authUser,
 			@RequestBody OptionVo oVo			
 			) {
-		String id = authUser.getId();		
-		return JsonResult.success(productService.delOption(id, oVo.getNo()));
+		String id = authUser.getId();
+		oVo = productService.getOptionByNo(id, oVo.getNo());
+		productService.delOption(id, oVo.getNo());
+		return JsonResult.success(oVo);
 	}
-	// 옵션 추가 팝업
-	/*
-	 * @RequestMapping(value="/category-reg/addOption", method = RequestMethod.POST)
-	 * public JsonResult addOption(
-	 * 
-	 * @AuthUser CeoVo authUser,
-	 * 
-	 * @RequestBody CategoryVo cVo ) { String id = authUser.getId(); return
-	 * JsonResult.success(productService.getCategory2NameList(id,
-	 * cVo.getParentNo())); }
-	 */
 	
+	// 재고량 옵션
+	@RequestMapping(value="/stock/add", method = RequestMethod.POST)
+	public JsonResult addStock(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo			
+			) {
+		String id = authUser.getId();
+		List<OptionVo> optionList = productService.getOptionList(id);
+		System.err.println(optionList);
+		return JsonResult.success(optionList);
+	}
+	
+	// 아이템 등록
+	@RequestMapping(value = "/regItem", method = RequestMethod.POST)
+	public JsonResult regItem(
+			@AuthUser CeoVo authUser,
+			@RequestBody ItemVo iVo
+			) {
+		String id = authUser.getId();		
+		productService.regItem(id, iVo);
+		
+		return JsonResult.success("");
+	}
+
+	// 재고량 등록
+	@ResponseBody
+	@RequestMapping(value = "/stockInsert/{code}", method = RequestMethod.POST)
+	public JsonResult stockInsert(
+			@AuthUser CeoVo authUser,		
+			@RequestParam(value="colorArr[]") List<Integer> colorArr,
+			@RequestParam(value="sizeArr[]") List<Integer> sizeArr,
+			@RequestParam(value="stockArr[]") List<Integer> stockArr,
+			@PathVariable String code) {				
+		String id = authUser.getId();
+
+		int itemNo = productService.getItemNo(id, code);
+
+		for(int i=0;i<sizeArr.size();i++) {
+			
+			StockVo temp = new StockVo();
+			temp.setFirstOption(colorArr.get(i));
+			temp.setSecondOption(sizeArr.get(i));
+			temp.setStock(stockArr.get(i));
+			
+			productService.insertStock(id, itemNo, temp);
+		}
+
+		return JsonResult.success("");
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/board/write/{no}", method=RequestMethod.POST)
+	public JsonResult boardWrite(@AuthUser CeoVo authUser,
+			@PathVariable("no") int no, @RequestBody String html) {
+		
+		boolean replyResult = productService.boardReply(authUser.getId(), no, html);
+		productService.setBoardReplyTrue(authUser.getId(), no);
+		
+		return JsonResult.success(replyResult);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/board/delete/{no}")
+	public JsonResult deleteBoard(@AuthUser CeoVo authUser, @PathVariable int no) {
+		
+		boolean deleteResult = productService.deleteItemBoard(authUser.getId(), no);
+		
+		return JsonResult.success(deleteResult);
+	}
 
 }

@@ -128,5 +128,20 @@
 
 	</update>
 	
+	<select id="findIdByNameAndPhone" parameterType="map" resultType="string">
+		<![CDATA[
+			select id
+			  from ceo
+			 where name=#{name}
+			   and phone_number=#{phoneNum}
+		]]>
+	</select>
 	
+	<update id="updatePassword" parameterType="map">
+		<![CDATA[
+			update ceo
+			   set password=#{password}
+			 where id=#{id}
+		]]>
+	</update>
 </mapper>

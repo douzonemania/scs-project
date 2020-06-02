@@ -54,21 +54,20 @@ $(document).ready(function(){
 	
 	$('#submit-btn').click(function(e){
 		e.preventDefault();
-		var html = quill.getContents();
-		var email=$('#email').val();
-		var title=$('#title').val();
-		html.email=email;
-		html.title=title;
+	 	var html = quill.getContents();
+	 	
+		var no = $('#parents_no').val();
 		
+		console.log(no);
  		$.ajax({
-			url: '${pageContext.request.contextPath }/${authUser.id}/api/member/email/post',
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/board/write/' + no,
 			async: true,
 			type: 'post',
 			dataType: 'json',
 			contentType: 'application/json',
 			data: JSON.stringify(html),
 			success: function(response){
-				location.href= "${pageContext.request.contextPath }/${authUser.id}/member/send-mail-success";
+				location.href= "${pageContext.request.contextPath }/${authUser.id}/product/board/view/" + no;
 			},
 			error: function(xhr, status, e){
 
@@ -76,12 +75,12 @@ $(document).ready(function(){
 	
 			}
 			
-			
 		}); 
  		
 	});
 	
 });
+
 </script>
 
 </head>
@@ -98,8 +97,6 @@ $(document).ready(function(){
 	<!-- Start Page Content here -->
 	<!-- ============================================================== -->
 
-
-
 	<div class="wrapper">
 		<div class="container-fluid">
 
@@ -110,45 +107,36 @@ $(document).ready(function(){
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">SCS</a></li>
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">회원관리</a></li>
-                                    <li class="breadcrumb-item active">메일발송</li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">상품관리</a></li>
+                                    <li class="breadcrumb-item active">상품 게시판 관리</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">메일발송</h4>
+                            <h4 class="page-title">상품 게시판 관리</h4>
                         </div>
                     </div>
                 </div>     
                 <!-- end page title -->
 
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body" id="search-form">
+							<h4 class="page-title">답글작성</h4>
+							<input type='hidden' value=${no } id='parents_no'/>
+							<div id="snow-editor" style="height: 300px;"></div>
 
+							<br>
+							
+							<!-- 등록,목록 버튼-->
+							<div class="btn-submit-section">
+								<button type="button" class="btn btn-secondary waves-effect" id="submit-btn">등록</button>
+								<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board">
+								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
+									목록</button></a>
+							</div>
 
-				<!-- mail-info 시작-->
-			<form>
-				<div class="col-lg-12"
-					style="background-color: #FFFFFF; padding: 40px;">
-					<div class="email-info">
-						<span style="margin-right: 20px;"> 받는사람 </span> 
-						<input type="text"
-							class="form-control mail-custom" id="email" name="memberEmail" value="${memberEmail}">
-					</div>
-	
-					<div class="email-info">
-						<span style="margin-right: 60px"> 제목 </span> 
-						<input type="text"
-							class="form-control mail-custom" id="title" placeholder="(제목 없음)" name="title">
-					</div>
-					<!-- mail info 종료-->
-	
-					<div style="margin-top: 30px;"></div>
-					
-					<!-- Editor -->
-					<div id="snow-editor" style="height: 300px;"></div>
-	
-					<div class="btn-submit-section" style="margin-top: 30px;">
-						<button type="submit" id="submit-btn" class="btn btn-secondary waves-effect">전송</button>
+						</div>
 					</div>
 				</div>
-			</form>
 					
 		</div>
 		<!-- end container -->

@@ -51,37 +51,20 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	quill2.enable(false);			// editor 비활성화
 	
-	$('#submit-btn').click(function(e){
-		e.preventDefault();
-		var html = quill.getContents();
-		var email=$('#email').val();
-		var title=$('#title').val();
-		html.email=email;
-		html.title=title;
-		
- 		$.ajax({
-			url: '${pageContext.request.contextPath }/${authUser.id}/api/member/email/post',
-			async: true,
-			type: 'post',
-			dataType: 'json',
-			contentType: 'application/json',
-			data: JSON.stringify(html),
-			success: function(response){
-				location.href= "${pageContext.request.contextPath }/${authUser.id}/member/send-mail-success";
-			},
-			error: function(xhr, status, e){
-
-				console.error(status + " : " + e);
+	${viewer};
 	
-			}
-			
-			
-		}); 
- 		
-	});
+	// 답글
+	var replyState = ${itemBoardVo.replyState};
+	if(replyState == true) {
+		quill3.enable(false);
+		${reply};
+	}
+	
 	
 });
+
 </script>
 
 </head>
@@ -111,10 +94,10 @@ $(document).ready(function(){
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">SCS</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">회원관리</a></li>
-                                    <li class="breadcrumb-item active">메일발송</li>
+                                    <li class="breadcrumb-item active">Q&A 게시판 관리</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">메일발송</h4>
+                            <h4 class="page-title">Q&A 게시판 관리</h4>
                         </div>
                     </div>
                 </div>     
@@ -122,33 +105,76 @@ $(document).ready(function(){
 
 
 
-				<!-- mail-info 시작-->
-			<form>
-				<div class="col-lg-12"
-					style="background-color: #FFFFFF; padding: 40px;">
-					<div class="email-info">
-						<span style="margin-right: 20px;"> 받는사람 </span> 
-						<input type="text"
-							class="form-control mail-custom" id="email" name="memberEmail" value="${memberEmail}">
-					</div>
-	
-					<div class="email-info">
-						<span style="margin-right: 60px"> 제목 </span> 
-						<input type="text"
-							class="form-control mail-custom" id="title" placeholder="(제목 없음)" name="title">
-					</div>
-					<!-- mail info 종료-->
-	
-					<div style="margin-top: 30px;"></div>
-					
-					<!-- Editor -->
-					<div id="snow-editor" style="height: 300px;"></div>
-	
-					<div class="btn-submit-section" style="margin-top: 30px;">
-						<button type="submit" id="submit-btn" class="btn btn-secondary waves-effect">전송</button>
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body" id="search-form">
+							
+							<table class="table-form-exposure">
+                                        <colgroup>
+                                            <col width="20%" /><col width="*" />
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th>제목</th>
+                                            <td>
+                                                ${itemBoardVo.title }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>작성자</th>
+                                            <td>
+                                                  ${itemBoardVo.name }                                                       
+                                            </td>
+                                        </tr>
+                                        <tr>
+                            	            <th>작성일</th>
+                                            <td>
+												${itemBoardVo.regDate }
+                                            </td>
+                                        </tr>                          
+                                        </tbody>
+                                    </table>
+								
+								<div id="snow-viewer" style="height: 300px;" contentEditable="false"></div>
+
+
+								<!-- 답글이 있을 경우  -->
+								<c:if test="${itemBoardVo.replyState }">
+									<br />
+									<div style="border: 1px dashed #6C757D;"></div>
+									<h3 class="page-title">답변</h3>
+									<table class="table-form-exposure">
+                                        <colgroup>
+                                            <col width="20%" /><col width="*" />
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                            	            <th>작성일</th>
+                                            <td>
+												${itemReplyVo.regDate }
+                                            </td>
+                                        </tr>                          
+                                        </tbody>
+                                    </table>
+									
+									<div id="snow-reply" style="height: 300px;" contentEditable="false"></div>
+								</c:if>
+							
+							<br />
+							<div class="btn-submit-section">
+								<a href="${pageContext.servletContext.contextPath }/${authUser.id}/product/board">
+								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
+									목록</button></a>
+								<c:if test="${boardVo.replyState == false}">
+									<a href="${pageContext.servletContext.contextPath }/${authUser.id}/product/board/reply/${ itemBoardVo.no }">
+								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
+									답글달기</button></a>
+								</c:if>
+							</div>
+
+						</div>
 					</div>
 				</div>
-			</form>
 					
 		</div>
 		<!-- end container -->
