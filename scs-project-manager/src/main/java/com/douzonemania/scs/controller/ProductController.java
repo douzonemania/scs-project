@@ -80,14 +80,15 @@ public class ProductController {
 		String id = authUser.getId();
 		ItemVo vo = new ItemVo();
 		vo = productService.findItem(id, no);
-		System.err.println(vo.getCategoryNo()+"sss" + vo);
 		CategoryVo cVo = productService.findCategoryByNo(id, vo.getCategoryNo());
 		List<CategoryVo> categoryNameList = productService.getCategoryNameList(id);
 		List<OptionVo> sizeOptionList = productService.getOptionListOfSize(id);
 		List<OptionVo> colorOptionList = productService.getOptionListOfColor(id);
 		List<CategoryVo> category2NameList = productService.getCategory2NameList(id, cVo.getParentNo());
 		List<ShipCompanyVo> shipCompanyList = productService.getShipCompanyList(id);
-		System.err.println(cVo.getParentNo()+"cvoparentno");
+		List<StockVo> stockList = productService.getStockListByItemNo(id, no);
+		
+		model.addAttribute("no", no);
 		model.addAttribute("vo",vo);	//	아이템정보
 		model.addAttribute("cVo",cVo);	//	카테고리정보
 		model.addAttribute("categoryNameList",categoryNameList);	//카테고리리스트
@@ -95,7 +96,7 @@ public class ProductController {
 		model.addAttribute("sizeOptionList", sizeOptionList);		//사이즈옵션리스트
 		model.addAttribute("colorOptionList", colorOptionList);		//컬러옵션리스트
 		model.addAttribute("shipCompanyList", shipCompanyList);		//배송사 리스트
-		
+		model.addAttribute("stockList", stockList);					//재고리스트
 		return "product/item-mod";
 	}
 	

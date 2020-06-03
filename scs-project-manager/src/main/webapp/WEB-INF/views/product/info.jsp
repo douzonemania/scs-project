@@ -148,7 +148,7 @@ $(function() {
                                                 <option value="code">상품코드</option>
                                                 <option value="name">상품명</option>
                                                 <option value="isVisible">상품노출여부</option>
-                                                <option value="category">카테고리</option>
+                                                <option value="category">2차카테고리이름</option>
                                             </select>
                                         </div>
                                         <div class="form-group">

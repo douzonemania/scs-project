@@ -298,6 +298,13 @@ public class ProductRepository {
 		
 	}
 
+	public int updateItem(String id, ItemVo iVo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("iVo", iVo);
+		return sqlSession.update("product.modItem",map);
+	}
+
 
 
 

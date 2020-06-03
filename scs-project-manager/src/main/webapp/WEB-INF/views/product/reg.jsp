@@ -62,11 +62,15 @@ $(function() {
 		$('#option-add').click(function(){		
 			window.open('optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
 		});
+		$('#option-add').hover(function(){
+			alert("오우오우오우");
+		});
 });
+
 
 $(document).ready(function(){
 	console.log("zz");
-	$('.dz-image').hover(function(){
+	$('.dz-preivew img').hover(function(){
 		alert("오우오우오우");
 	});
 });
@@ -83,7 +87,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	var sale = document.getElementById("item-sale").value;
 	var mainImage = "abcd";
 	var subImage = "abcd";
-	if($('input[name="pro-expo"]:checked').val()!=true)
+	if($('input[name="pro-expo"]:checked').val()!="visible")
 		var visible = false;
 	if($("input:checkbox[id='item-best']").is(":checked") == true)	
 		var bestItem=true;
@@ -515,6 +519,7 @@ $(function() {
 										<td colspan="4">
 											<div class="img-section">
 												<form action="/" method="post" class="dropzone"	id="img-section-main" name="image-main">
+												<input type='button' value='삭제' style="margin-left:50px; position:relative;"/>
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>

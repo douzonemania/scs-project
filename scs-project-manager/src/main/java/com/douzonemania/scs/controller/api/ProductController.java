@@ -250,4 +250,28 @@ public class ProductController {
 		return JsonResult.success(deleteResult);
 	}
 
+	// 수정 옵션 뿌리기
+	@RequestMapping(value="/optionList/{no}", method = RequestMethod.POST)
+	public JsonResult optionList(
+			@AuthUser CeoVo authUser,
+			@RequestBody OptionVo oVo,	
+			@PathVariable("no") int no
+			) {
+		String id = authUser.getId();
+		List<StockVo> stockList = productService.getStockListByItemNo(id, no);
+		return JsonResult.success(stockList);
+	}
+	
+	// 아이템수정
+	@RequestMapping(value="/modItem", method = RequestMethod.POST)
+	public JsonResult modItem(
+			@AuthUser CeoVo authUser,
+			@RequestBody ItemVo iVo			
+			) {
+		System.err.println(iVo+"!!");
+			String id = authUser.getId();	
+			productService.updateItem(id, iVo);
+			
+			return JsonResult.success("");
+	}
 }

@@ -235,4 +235,8 @@ public class ProductService {
 		return count == 1;
 	}
 
+	public int updateItem(String id, ItemVo iVo) {
+		return  productRepository.updateItem(id,iVo);
+	}
+
 }
