@@ -62,11 +62,15 @@ $(function() {
 		$('#option-add').click(function(){		
 			window.open('optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
 		});
+		$('#option-add').hover(function(){
+			alert("오우오우오우");
+		});
 });
+
 
 $(document).ready(function(){
 	console.log("zz");
-	$('.dz-image').hover(function(){
+	$('.dz-preivew img').hover(function(){
 		alert("오우오우오우");
 	});
 });
@@ -83,13 +87,15 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	var sale = document.getElementById("item-sale").value;
 	var mainImage = "abcd";
 	var subImage = "abcd";
-	if($('input[name="pro-expo"]:checked').val()!=true)
+	var editor = JSON.stringify(quill.getContents());
+	
+	if($('input[name="pro-expo"]:checked').val()!="visible")
 		var visible = false;
 	if($("input:checkbox[id='item-best']").is(":checked") == true)	
 		var bestItem=true;
 	if($("input:checkbox[id='item-new']").is(":checked") == true)
 		var newItem=true;
-	var editor = "abcd";
+	
 	var description = $("#item-des").val();
 	var regDate = null;
 	//var categoryName1 = $("#first-category option:selected").text();
@@ -101,7 +107,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 		var shippingCharge=0;
 	else
 		var shippingCharge=3000; // 설정 배송비 나중에 수정할것
-	
+
 	var vo={};
 	vo.no = no;
 	vo.code = code;
@@ -120,6 +126,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	vo.categoryNo = categoryName2;
 	vo.shipCompany = shipCompany;
 	vo.shippingCharge = shippingCharge;
+	vo.editor = editor;
 	
 	var i = 0;
 	var numberOfOption = $('.sizeOptionSelect').length;
@@ -136,7 +143,6 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 		colorArr.push(color);
 		sizeArr.push(size);
 		stockArr.push(stock);
-		console.log(color+"//"+size+"//"+stock);
 	} 
 	
 	var objParams = {
@@ -280,9 +286,24 @@ $(function() {
 			options.size = size;
 			options.stock = stock;
 			
-			optionsArray.push(options);
-			
+			optionsArray.push(options);			
 		}
+		
+		var queryString = $("form[name=testForm]").serialize() ;
+		 
+        $.ajax({
+            type : 'post',
+            url : '${pageContext.request.contextPath }/${authUser.id}/api/product/image',
+            data : queryString,
+            dataType : 'json',
+            error: function(xhr, status, error){
+                alert(error);
+            },
+            success : function(json){
+                alert(json)
+            },
+        });
+		
 	});
 });
 
@@ -514,7 +535,8 @@ $(function() {
 										<th>이미지 등록</th>
 										<td colspan="4">
 											<div class="img-section">
-												<form action="/" method="post" class="dropzone"	id="img-section-main" name="image-main">
+												<form action="/" method="post" enctype="multipart/form-data" class="dropzone"	id="img-section-main" name="image-main">
+												<input type='button' value='삭제' style="margin-left:50px; position:relative;"/>
 													<div class="fallback">
 														<input name="file" type="file" multiple />
 													</div>
@@ -525,7 +547,7 @@ $(function() {
 											<div class="img-section">
 												<form action="/" method="post" class="dropzone"	id="img-section-sub" name="image-sub">
 													<div class="fallback">
-														<input name="file" type="file" multiple />
+														<input name="main-image" type="file" multiple />
 													</div>
 												</form>
 												<p class="text-muted text-center mt-2 mb-0">부가이미지1</p>
@@ -535,7 +557,7 @@ $(function() {
 												<form action="/" method="post" class="dropzone"
 													id="img-section-sub2">
 													<div class="fallback">
-														<input name="file" type="file" multiple />
+														<input name="image" type="file" multiple />
 													</div>
 												</form>
 												<p class="text-muted text-center mt-2 mb-0">부가이미지2</p>
@@ -545,7 +567,7 @@ $(function() {
 												<form action="/" method="post" class="dropzone"
 													id="img-section-sub3">
 													<div class="fallback">
-														<input name="file" type="file" multiple />
+														<input name="image" type="file" multiple />
 													</div>
 												</form>
 												<p class="text-muted text-center mt-2 mb-0">부가이미지3</p>
@@ -555,7 +577,7 @@ $(function() {
 												<form action="/" method="post" class="dropzone"
 													id="img-section-sub4">
 													<div class="fallback">
-														<input name="file" type="file" multiple />
+														<input name="image-1" type="file" multiple />
 													</div>
 												</form>
 												<p class="text-muted text-center mt-2 mb-0">부가이미지4</p>
@@ -565,7 +587,7 @@ $(function() {
 												<form action="/" method="post" class="dropzone"
 													id="img-section-sub5">
 													<div class="fallback">
-														<input name="file" type="file" multiple />
+														<input name="image-2" type="file" multiple />
 													</div>
 												</form>
 												<p class="text-muted text-center mt-2 mb-0">부가이미지5</p>

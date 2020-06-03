@@ -53,9 +53,10 @@ var stockAddEjs = new EJS({
 	url:"${pageContext.request.contextPath }/assets/js/ejs/stock-add.ejs"
 });
 
-var index = 1;
+var index = ${stockList.size()};
 
 $(function() {
+		
 	/* 옵션 추가 등록 팝업 */
 		$('#option-add').click(function(){		
 			window.open('http://localhost:8888/scs-manager/mall/product/optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
@@ -63,14 +64,45 @@ $(function() {
 });
 
 $(document).ready(function(){
+	${viewer}
+	
+	var i = 0;
+	var itemNo = ${vo.no};
+	var vo={};
+	$.ajax({
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/optionList/'+itemNo,
+		contentType: 'application/json',
+		data: JSON.stringify(vo),
+		type: "POST",
+		dataType: 'json',
+		success : function(response){
+			console.log(response.data);
+			for( var key in response.data){
+				
+				var data = response.data[key];
+				console.log(data.firstOption);
+				$("#colorOption-"+i).val(data.firstOption).prop("selected", true);
+				$("#sizeOption-"+i).val(data.secondOption).prop("selected", true);				
+				$("#input-stock-"+i).val(data.stock)
+				i++;
+			}
+		},
+		error: function(xhr, status, e){
+			console.error(status + " : " + e);
+			alert("상품 정보를 모두 입력하세요.")
+		}
+	});
+	
 	$("#first-category").val("${cVo.parentNo}").prop("selected", true);
 	$("#seconds-category").val("${cVo.no}").prop("selected", true);
 	
 	$('#selected-category-text').val($("#first-category option:selected").text() + "  >  " + $("#seconds-category option:selected").text());
+	
+
 });
 
-$(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
-	var no = null;
+$(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
+	var no = ${no};
 	var code = document.getElementById("item-code").value;
 	var name = document.getElementById("item-name").value;
 	var supPrice = document.getElementById("item-sup-price").value;
@@ -78,17 +110,17 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	var sale = document.getElementById("item-sale").value;
 	var mainImage = "abcd";
 	var subImage = "abcd";
-	if($('input[name="pro-expo"]:checked').val()!=true)
+	if($('input[name="pro-expo"]:checked').val()!="visible")
 		var visible = false;
 	if($("input:checkbox[id='item-best']").is(":checked") == true)	
 		var bestItem=true;
 	if($("input:checkbox[id='item-new']").is(":checked") == true)
 		var newItem=true;
-	var editor = "abcd";
-	var description = "abcd";
+	var editor = JSON.stringify(quill.getContents());
+	var description = $("#item-des").val();
 	var regDate = null;
 	var categoryName1 = $("#first-category option:selected").text();
-	var categoryName2 = $("#seconds-category option:selected").text();
+	var categoryName2 = $("#seconds-category option:selected").val();
 	var shipCompany = $("#ship-company-name option:selected").text();
 	
 	if($('input[name="shipping-charge"]:checked').val()=="free")
@@ -111,22 +143,59 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	vo.editor = editor;
 	vo.description = description;
 	vo.regDate = regDate;
-	vo.categoryName1 = categoryName1;
-	vo.categoryName2 = categoryName2;
+	vo.categoryNo = categoryName2;
 	vo.shipCompany = shipCompany;
 	vo.shippingCharge = shippingCharge;
 	
+	var i = 0;
+	var numberOfOption = $('.sizeOptionSelect').length;
+	var colorArr = [];
+	var sizeArr = [];
+	var stockArr=[];
+	
+	  for(i=0; i<numberOfOption; i++){
+		var color = $("#colorOption-" + i + " option:selected").val();
+		var size = $("#sizeOption-" + i + " option:selected").val();
+		var stock = $("#input-stock-" + i).val();
+		
+		colorArr.push(color);
+		sizeArr.push(size);
+		stockArr.push(stock);
+		
+	} 
+	
+	var objParams = {
+			'colorArr' : colorArr,
+			'sizeArr' : sizeArr,
+			'stockArr' : stockArr
+	}
+	
 	$.ajax({
-		url: '${pageContext.request.contextPath }/${authUser.id}/product/regItem',
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/modItem',
 		contentType: 'application/json',
 		data: JSON.stringify(vo),
 		type: "POST",
 		dataType: 'json',
 		success : function(response){
-			alert("성공")
+			$.ajax({
+				url: '${pageContext.request.contextPath }/${authUser.id}/api/product/stockMod/'+code,
+				contentType :'application/x-www-form-urlencoded; charset=UTF-8',
+				data: objParams,
+				type: "POST",
+				dataType: 'json',		
+				success : function(response){
+					alert("수정되었습니다.");
+					location.reload();
+				},
+				error: function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
+			});
+			var viewer = response.data;
 		},
-		error:
-			alert("실패")
+		error: function(xhr, status, e){
+			console.error(status + " : " + e);
+		}
 	});			
 });
 $(function() {
@@ -154,15 +223,16 @@ $(function() {
 							$('#seconds-category').append("<option value='" + data.parentNo + "'>" + data.name + "</option>");
 					}					
 				}, 			
-				error:
-					console.log("")
+				error: function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
 			});			
 			
 			$("select#seconds-category option").remove();
 			
 		});
 });	
-$(function() {
+$(function() {	
 		
 	/* 선택된 카테고리 텍스트 뿌리기 */
 		$('#seconds-category').change(function(){
@@ -181,8 +251,6 @@ $(function() {
 
 
 $(function() {
-	
-
 	
 	$('#stock-add').click(function(){		
 		var vo={};
@@ -220,7 +288,6 @@ $(function() {
 				console.error(status + " : " + e);
 			}
 		});
-		
 	});
 });
 	
@@ -511,27 +578,36 @@ $(function() {
 												<input type=radio name="pro-opt">&nbsp2차옵션사용
 											</div>
 											<div>옵션 영역</div> -->
-											<div style="width:1000px; display:inline-block" class="option-zone" id="option-zone">
+										
+										<c:forEach var="vo" varStatus="sta" items="${stockList }">
+
+											<div style="width:1000px; display:inline-block" class="option-zone">
+											
 												사이즈
-												<select class="form-control sizeOptionSelect" id="sizeOption">												
+												<select class="form-control sizeOptionSelect" id="sizeOption-${sta.index }" disabled>												
 		                                       		<option>----</option>
 		                                        <c:forEach var="vo" varStatus="status" items="${sizeOptionList }">
 		                                           	<option value="${vo.no }">${vo.name }</option>
 		                                        </c:forEach>
 												</select><label class="text-space"></label>
 												색상
-												<select class="form-control colorOptionSelect" id="colorOption">
+												<select class="form-control colorOptionSelect" id="colorOption-${sta.index }" disabled>
 		                                       		<option>----</option>
 		                                        <c:forEach var="vo" varStatus="status" items="${colorOptionList }">
 		                                           	<option value="${vo.no }">${vo.name }</option>
 		                                        </c:forEach>											
 												</select><label class="text-space"></label>
 												
-												재고량 <input type="text" class="form-control product-info" id="input-stock" value="" />
+												재고량 <input type="text" class="form-control product-info" id="input-stock-${sta.index }" value="" />
+												<c:if test="${sta.index==0 }">
 												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">추가</button>												
+												
+												</c:if>
 											</div>
-											
-											
+										</c:forEach>
+											<div id="option-zone"></div>
+										
+										
 										</td>
 									</tr>
 								</tbody>
@@ -550,7 +626,7 @@ $(function() {
 
 							<!-- 등록,목록 버튼-->
 							<div class="btn-submit-section">
-								<button type="button" class="btn btn-secondary waves-effect" id="btn-reg">등록</button>
+								<button type="button" class="btn btn-secondary waves-effect" id="btn-mod">수정</button>
 								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">목록</button>
 							</div>
 

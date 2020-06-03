@@ -46,6 +46,17 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(function() {
+	$('#item-search-option').change(function(){
+		var option = $(this).val();
+		
+		if(option == 'visible') {
+			$('#visible-option').show();
+			$('#item-input-box').hide();
+		} else {
+			$('#visible-option').hide();
+			$('#item-input-box').show();
+		}
+	});
 	
 	/* 옵션 추가 등록 팝업 */
 	$(document).on("click", ".btn-secondary.stock",function(){		
@@ -144,15 +155,21 @@ $(function() {
 							        <form action="${pageContext.servletContext.contextPath }/${authUser.id}/product/info">
                                     <div class="col-12 text-sm-center form-inline"  style="padding-bottom:12px">
                                         <div class="form-group mr-2">
-                                            <select id="member-search-option" class="custom-select custom-select-sm" name="op">
+                                            <select id="item-search-option" class="custom-select custom-select-sm" name="op">
                                                 <option value="code">상품코드</option>
                                                 <option value="name">상품명</option>
-                                                <option value="isVisible">상품노출여부</option>
-                                                <option value="category">카테고리</option>
+                                                <option value="visible">상품노출여부</option>
+                                                <option value="category">2차카테고리명</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input id="search-text" name="kwd" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
+                                            <input id="item-input-box" name="kwd" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
+                                        </div>
+                                        <div>
+                                        	<select id="visible-option" name="kwd" class="custom-select custom-select-sm" style="display:none;">
+                                        		<option value="true">노출</option>
+                                                <option value="false">숨김</option>
+                                        	</select>
                                         </div>
                                         &nbsp;&nbsp;&nbsp;
                                         <div class="search-button">
@@ -240,52 +257,41 @@ $(function() {
 										</tr>
 									
 									</c:forEach>
-										<%-- <tr>
-											<td>
-												<div class="custom-control custom-checkbox">
-													<input type="checkbox" class="custom-control-input"
-														id="customCheck1"> <label
-														class="custom-control-label" for="customCheck1">&nbsp;</label>
-												</div>
-											</td>
-											<td class="table-user">5</td>
-											<td><span class="badge bg-soft-danger text-danger">노출</span>
-											</td>
-											<td>F7962-B6231-S5561</td>
-											<td><img
-												src='${pageContext.request.contextPath }/assets/images/jjonjjon.png'
-												style="width: 90px; height: 90px"></td>
-											<td>쫀쫀한 무지티</td>
-											<td>7,900</td>
-											<td>198</td>
-											<td>2020-05-05</td>
-											<td><a href=""><input class="btn-secondary"
-													style="height: 20px; font-size: 11px" type="button"
-													value="수정"></a> <a href=""><input
-													class="btn-secondary" style="height: 20px; font-size: 11px"
-													type="button" value="삭제"></a> <a href=""><input
-													class="btn-secondary" style="height: 20px; font-size: 11px"
-													type="button" value="통계"></a></td>
-										</tr> --%>
 
 									</tbody>
 								</table>
 							</div>
-							<ul class="pagination pagination-rounded justify-content-center">
-								<li class="page-item"><a class="page-link"
-									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-										<span class="sr-only">Previous</span>
-								</a></li>
-								<li class="page-item"><a class="page-link">1</a></li>
-								<li class="page-item"><a class="page-link">2</a></li>
-								<li class="page-item active"><a class="page-link">3</a></li>
-								<li class="page-item"><a class="page-link">4</a></li>
-								<li class="page-item"><a class="page-link">5</a></li>
-								<li class="page-item"><a class="page-link"
-									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-										<span class="sr-only">Next</span>
-								</a></li>
-							</ul>
+							
+							<nav>
+	                            <ul class="pagination pagination-rounded justify-content-center mb-3">
+		                            <li class="page-item">
+		                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/product/info?p=${map.prevPage}&op=${map.option }&kwd=${map.kwd}" aria-label="Previous">
+		                                    <span aria-hidden="true">«</span>
+		                                    <span class="sr-only">Previous</span>
+		                                </a>
+		                            </li>
+		                            <c:forEach var="i" begin="1" end="${map.listsize }">
+										<c:choose>
+											<c:when test="${map.page == (map.beginPage+(i-1)) }">
+												<li class ="page-item active">
+													<a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/product/info?p=${map.beginPage+(i-1) }&op=${map.option }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a>
+												</li>
+											</c:when>
+											<c:otherwise>
+												<li><a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/product/info?p=${map.beginPage+(i-1) }&op=${map.option }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a></li>
+											</c:otherwise>
+										
+										</c:choose>
+									</c:forEach>
+		                            <li>
+		                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/product/info?p=${map.nextPage }&op=${map.option }&kwd=${map.kwd}" aria-label="Next">  
+		                                 	<span aria-hidden="true">»</span>
+		                                    <span class="sr-only">Next</span>
+		                                </a>
+		                            </li>
+	                        	</ul>
+                        	</nav>
+
 						</div>
 						<!-- end card-body-->
 					</div>
