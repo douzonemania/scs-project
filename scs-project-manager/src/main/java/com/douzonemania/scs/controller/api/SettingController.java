@@ -84,10 +84,7 @@ public class SettingController {
 			@AuthUser CeoVo authUser,
 			@RequestBody String html,
 			@ModelAttribute AgreementVo agreementVo) {
-			
-			System.out.println(html);
-			
-			
+
 			agreementVo.setId(authUser.getId());
 			agreementVo = settingService.findAgreementById(authUser.getId());
 			settingService.updatePolicy(html, agreementVo.getId());
