@@ -65,12 +65,12 @@ $(function(){
 		}
 		return check;
 	}
-	$("#inputId").focusout(function() {
+	$("#inputId").change(function() {
 		if($.fn.checkPasswordInfo()) {
 			$('#find-password-btn').attr('disabled', false);
 		}
 	});
-	$("#inputEmail").focusout(function() {
+	$("#inputEmail").change(function() {
 		if($.fn.checkPasswordInfo()) {
 			$('#find-password-btn').attr('disabled', false);
 		}
@@ -88,6 +88,10 @@ $(function(){
 			type: 'post',
 			data: { "name": name, "phoneNum": phoneNum },
 			success: function(response){
+				if(response.data == null) {
+					alert("일치하는 회원 정보가 없습니다.");
+					return;
+				}
 				alert(response.data);
 				/* location.href= "${pageContext.request.contextPath }/user/find/id"; */
 			},
@@ -111,6 +115,10 @@ $("#find-password-btn").click(function() {
 			data: { 'id' : id,
 					'email' : email },
 			success: function(response){
+				if(response.data == null) {
+					alert("일치하는 회원 정보가 없습니다.");
+					return;
+				}
 				alert("회원님의 이메일로 임시 비밀번호를 전송했습니다.\n 변경된 임시 비밀번호로 로그인해주세요.")
 			},
 			error: function(xhr, status, e){

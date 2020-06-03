@@ -174,11 +174,16 @@ public class MemberService {
 		// keyword 지정
 		String keywordList[] = key.split(",");
 		String keyword="";
-		if(option.equals("category")) {
-			keyword = keywordList[1];
+		if(keywordList.length == 2) {
+			if(option.equals("category")) {
+				keyword = keywordList[1];
+			}
+			else {
+				keyword = keywordList[0];
+			}
 		}
 		else {
-			keyword = keywordList[0];
+			keyword = key;
 		}
 		
 		// start index 결정
