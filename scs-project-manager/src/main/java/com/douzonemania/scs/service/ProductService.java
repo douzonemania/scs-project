@@ -29,8 +29,72 @@ public class ProductService {
 	private ProductRepository productRepository;
 
 	/* 상품 리스트 가져오기 */
-	public List<ItemVo> getItemList(String id) {
-		return productRepository.getItemList(id);
+	public Map<String, Object> getItemList(String id, int currentPage,String key,String option) {
+		Map<String, Object> map = new HashMap<>();
+		
+		// keyword 지정
+		String keywordList[] = key.split(",");
+		String keyword="";
+		if(keywordList.length == 2) {
+			if(option.equals("visible")) {
+					keyword = keywordList[1];
+			}
+			else {
+				keyword = keywordList[0];
+			}
+		}
+		else {
+			keyword = key;
+		}
+
+		int offset=(currentPage-1)*5;
+		
+		int total = productRepository.listCount(id, option, keyword);
+		
+		List<ItemVo> list;
+		if(option.equals("")) {
+			list = productRepository.getItemList(id, offset, LIST_SIZE);
+		}
+		else {
+			list = productRepository.getSearchItemList(id, option, keyword, offset, LIST_SIZE);
+		}
+		
+		System.out.println("count:"+total);
+		
+		for (ItemVo itemVo : list) {
+			System.out.println(itemVo);
+		}
+		
+		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
+		int calCnt=(currentPage%5)==0 ? currentPage-1 : currentPage;
+
+		int beginPage=calCnt-(calCnt%5)==0 ? 1 : calCnt-(calCnt%5)+1;
+		int prevPage = beginPage == 1 ? 1 : beginPage -1;
+		int endPage = (pageCnt-(pageCnt%5))==(calCnt-(calCnt%5)) ? pageCnt : (beginPage+PAGE_SIZE)-1;
+		int nextPage = (pageCnt-(pageCnt%5))==(calCnt-(calCnt%5)) ? pageCnt : endPage+1;
+
+		if(nextPage>=pageCnt)
+			nextPage=pageCnt;
+		if(endPage>=pageCnt)
+			endPage=pageCnt;
+
+		map.put("list", list);
+		map.put("beginPage",beginPage);
+		map.put("prevPage",prevPage);
+		map.put("endPage",endPage);
+		map.put("nextPage",nextPage);
+		map.put("page",currentPage);
+		map.put("total",total);
+		map.put("option", option);
+		map.put("kwd",keyword);
+		map.put("calCnt", calCnt);
+
+		if(endPage!=pageCnt)
+			map.put("listsize",LIST_SIZE);
+		else
+			map.put("listsize",endPage%5);
+
+		return map;
 	}
 
 	/* 상품 등록*/
@@ -233,6 +297,14 @@ public class ProductService {
 	public boolean deleteItemBoard(String id, int no) {
 		int count = productRepository.deleteItemBoard(id, no);
 		return count == 1;
+	}
+
+	public int updateItem(String id, ItemVo iVo) {
+		return  productRepository.updateItem(id,iVo);
+	}
+
+	public int delStock(String id, int itemNo) {
+		return productRepository.delStock(id, itemNo);
 	}
 
 }
