@@ -49,6 +49,132 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
+var stockAddEjs = new EJS({
+	url:"${pageContext.request.contextPath }/assets/js/ejs/stock-add.ejs"
+});
+var optionsArray = new Array();
+var options = new Object();
+
+var index = 1;
+
+$(function() {
+	/* 옵션 추가 등록 팝업 */
+		$('#option-add').click(function(){		
+			window.open('optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
+		});
+});
+
+$(document).ready(function(){
+	console.log("zz");
+	$('.dz-image').hover(function(){
+		alert("오우오우오우");
+	});
+});
+	
+
+
+
+$(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
+	var no = null;
+	var code = document.getElementById("item-code").value;
+	var name = document.getElementById("item-name").value;
+	var supPrice = document.getElementById("item-sup-price").value;
+	var nowPrice = document.getElementById("item-now-price").value;
+	var sale = document.getElementById("item-sale").value;
+	var mainImage = "abcd";
+	var subImage = "abcd";
+	if($('input[name="pro-expo"]:checked').val()!=true)
+		var visible = false;
+	if($("input:checkbox[id='item-best']").is(":checked") == true)	
+		var bestItem=true;
+	if($("input:checkbox[id='item-new']").is(":checked") == true)
+		var newItem=true;
+	var editor = "abcd";
+	var description = $("#item-des").val();
+	var regDate = null;
+	//var categoryName1 = $("#first-category option:selected").text();
+	var categoryName2 = $("#seconds-category option:selected").val();
+	console.log(categoryName2 + "????");
+	var shipCompany = $("#ship-company-name option:selected").text();
+	
+	if($('input[name="shipping-charge"]:checked').val()=="free")
+		var shippingCharge=0;
+	else
+		var shippingCharge=3000; // 설정 배송비 나중에 수정할것
+	
+	var vo={};
+	vo.no = no;
+	vo.code = code;
+	vo.name = name;
+	vo.supPrice = supPrice;
+	vo.nowPrice = nowPrice;
+	vo.sale = sale;
+	vo.mainImage = mainImage;
+	vo.subImage = subImage;
+	vo.visible = visible;
+	vo.bestItem = bestItem;
+	vo.newItem = newItem;
+	vo.editor = editor;
+	vo.description = description;
+	vo.regDate = regDate;
+	vo.categoryNo = categoryName2;
+	vo.shipCompany = shipCompany;
+	vo.shippingCharge = shippingCharge;
+	
+	var i = 0;
+	var numberOfOption = $('.sizeOptionSelect').length;
+	
+	var colorArr = [];
+	var sizeArr = [];
+	var stockArr=[];
+	
+	  for(i=0; i<numberOfOption; i++){
+		var color = $("#colorOption-" + i + " option:selected").val();
+		var size = $("#sizeOption-" + i + " option:selected").val();
+		var stock = $("#input-stock-" + i).val();
+		
+		colorArr.push(color);
+		sizeArr.push(size);
+		stockArr.push(stock);
+		console.log(color+"//"+size+"//"+stock);
+	} 
+	
+	var objParams = {
+			'colorArr' : colorArr,
+			'sizeArr' : sizeArr,
+			'stockArr' : stockArr
+	}
+
+	$.ajax({
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/regItem',
+		contentType: 'application/json',
+		data: JSON.stringify(vo),
+		type: "POST",
+		dataType: 'json',
+		success : function(response){
+			$.ajax({
+				url: '${pageContext.request.contextPath }/${authUser.id}/api/product/stockInsert/' + code,
+				contentType :'application/x-www-form-urlencoded; charset=UTF-8',
+				data: objParams,
+				type: "POST",
+				dataType: 'json',		
+				success : function(response){
+					location.reload();
+				},
+				error: function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
+			});
+		},
+		error: function(xhr, status, e){
+			console.error(status + " : " + e);
+			alert("상품 정보를 모두 입력하세요.")
+		}
+	});
+});
+
+
+
 
 $(function() {
 	/* 1차 카테고리 별 2차 카테고리 이름 리스트 */
@@ -62,7 +188,7 @@ $(function() {
 			vo.name = name;			
 			
 			$.ajax({
-				url: '${pageContext.request.contextPath }/api/product/category-reg/childCategoryList',
+				url: '${pageContext.request.contextPath }/${authUser.id}/api/product/category-reg/childCategoryList',
 				contentType: 'application/json',
 				data: JSON.stringify(vo),
 				type: "POST",
@@ -72,23 +198,22 @@ $(function() {
 					for( var key in response.data){
 						var data = response.data[key];	
 						if(data.name!=null)							
-							$('#seconds-category').append("<option value='" + data.parentNo + "'>" + data.name + "</option>");
+							$('#seconds-category').append("<option value='" + data.no + "'>" + data.name + "</option>");
 					}					
 				}, 			
-				error:
-					console.log("")
+				error: function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
 			});			
-			//document.getElementById("selected-category-text").value = name;
+			
 			$("select#seconds-category option").remove();
 			
 		});
 });	
-
 $(function() {
 		
 	/* 선택된 카테고리 텍스트 뿌리기 */
 		$('#seconds-category').change(function(){
-
 			if($('#seconds-category option:selected').text()=="----")
 				return;
 			
@@ -98,11 +223,86 @@ $(function() {
 			var category2Name = $("#seconds-category option:selected").text();
 			document.getElementById("selected-category-text").value += "  >  " + category2Name;
 		});
-		
-});	
+});
+
+$(function() {
 	
+	$('#stock-add').click(function(){		
+		var vo={};
+		var colorOption = "";
+		var sizeOption= "";
+		$.ajax({
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/stock/add',
+			async: true,
+			type: 'post',
+			dataType: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify(vo),
+			success: function(response){
+				console.log(response.data + +":" + response)
+				for( var key in response.data){
+					var data = response.data[key];
+					//$('.form-control.colorOptionSelect').append("<option value='" + data.no + "'>" + data.name + "</option>");
+					//$('.form-control.sizeOptionSelect').append("<option value='" + data.no + "'>" + data.name + "</option>");
+					console.log(data.no + ":" + data.name + ":" + data.type);
+					if(data.type=="color"){
+						colorOption = colorOption + ("<option value='" + data.no + "'>" + data.name + "</option>")
+					}else if (data.type=="size"){						
+						sizeOption = sizeOption + ("<option value='" + data.no + "'>" + data.name + "</option>")
+					}
+				}
+				//$('#option-zone').append(html);
+				$('#option-zone').append("<div id='optionTest' style='width:1000px; display:inline-block' class='option-zone'>사이즈 <select class='form-control sizeOptionSelect' id='sizeOption-"+ index + "' name = 'optionName'><option>----</option>"+sizeOption+"</select><label class='text-space'></label> 색상 <select class='form-control colorOptionSelect' id='colorOption-"+ index +"' name='colorName''><option>----</option>"+colorOption+"</select><label class='text-space'></label>  재고량 <input type='text' class='form-control product-info' id='input-stock-"+index+"' name='stockName'value='' /></div>");
+				//$('#option-zone').append("<div style='width:1000px; display:inline-block' class='option-zone' id='option-zone'>1차 옵션<select class='form-control sizeOptionSelect' id='sizeOption'><option>----</option><c:forEach var='vo' varStatus='status' items='${sizeOptionList }'>option value='${vo.no }'>${vo.name }</option></c:forEach></select><label class='text-space'></label>	<button type='button' id='stock-add' class='btn btn-secondary waves-effect'>추가</button>	</div>");
+				index++;
+			},
+			error: function(xhr, status, e){
+				console.error(status + " : " + e);
+			}
+		});		
+	});
+});
 
+$(function() {
+	
+	$('#testtest').click(function(){
+		var i = 0;
+		var kk = $('.sizeOptionSelect').length;
+		
+		for(i; i<kk; i++){
+			var color = $("#colorOption-" + i + " option:selected").text();
+			var size = $("#sizeOption-" + i + " option:selected").text();
+			var stock = $("#input-stock-" + i).val();
+			var sibal = $("#item-des").val();
+			
+			options.itemNo = null; // 아이템 번호 넣기
+			options.color = color;
+			options.size = size;
+			options.stock = stock;
+			
+			optionsArray.push(options);
+			
+		}
+	});
+});
 
+$(function() {
+	/* 판매가 계산 */
+		$('#item-sup-price, #item-now-price, #item-sale').change(function(){		
+			if( $('#item-now-price').val() != ""){				
+				var nowPrice = $('#item-now-price').val();
+				var sale = $('#item-sale').val();		
+				
+				nowPrice = Number(nowPrice);
+				sale = Number(sale);
+				
+				var salePrice = nowPrice * ( 1 - (sale/100));
+				//salePrice = Math.floor((salePrice/10)) * 10;	// 원단위 계산
+				$('#item-sale-price').val(salePrice);
+			}
+		});
+});
+	
 </script>
 </head>
 <body>
@@ -271,24 +471,25 @@ $(function() {
 										</td>
 									</tr>
 									<tr>
-										<th>description</th>
+										<th>부가설명</th>
 										<td colspan="4">
-											<textarea class="form-control txtb" id="item-des" rows="3">${vo.des }</textarea>
+											<textarea class="form-control txtb" id="item-des" rows="3">${vo.description }</textarea>
 										</td>
 									</tr>
 
 									<tr>
 										<th>판매정보 <span style="color: #FF4040">*</span></th>
 										<td colspan="4">
-											공급가 <span style="color: #FF4040">*</span>
-											<input type="text" id="item-sup-price" class="form-control product-info" value="${vo.supPrice }">
-											&nbsp정상가 <input type="text" id="item-now-price" class="form-control product-info" value="${vo.nowPrice }">
+											</label> 공급가 <span style="color: #FF4040">*</span>
+											<input type="text" id="item-sup-price" class="form-control product-info" value="${vo.supPrice }"><label class="text-space"></label> 
+											&nbsp정상가 <input type="text" id="item-now-price" class="form-control product-info" value="${vo.nowPrice }"><label class="text-space"></label> 
 											&nbsp 할인율 <input type="text" id="item-sale" class="form-control product-info" value="${vo.sale }">
 											
-											<label class="text-space"></label><label class="text-space"></label><label class="text-space"></label> 
+											<label class="text-space"></label><label class="text-space"></label><label class="text-space"></label>
+											<label class="text-space"></label>
 											
 											판매가 <input type="text" id="item-sale-price" class="form-control product-info" readonly value="${salePrice }" >
-											&nbsp 재고량<span style="color: #FF4040">*</span><input type="text" id="item-stock" class="form-control product-info">
+											<!-- &nbsp 재고량<span style="color: #FF4040">*</span><input type="text" id="item-stock" class="form-control product-info"> -->
 										</td>
 									</tr>
 									<tr>
@@ -296,17 +497,16 @@ $(function() {
 										<td colspan="2">
 											<select class="form-control" style="min-width: 200px" id="ship-company-name">
 												<option>----</option>
-												<option>로젠택배</option>
-												<option>cj대한통운</option>
-												<option>현대택배</option>
-												<option>우체국택배</option>
+												<c:forEach var="vo" varStatus="status" items="${shipCompanyList }">
+	                                           	<option value="${vo.no }">${vo.name }</option>
+	                                        </c:forEach>
 											</select>
 										</td>
 										
 										<th>배송비 <span style="color: #FF4040">*</span></th>
 										<td colspan="2">
-											<input type=radio name="shipping-charge" checked>&nbsp무료배송<label class="text-space"></label>
-											<input type=radio name="shipping-charge">&nbsp설정 배송비
+											<input type=radio name="shipping-charge" value="free" checked>&nbsp무료배송<label class="text-space"></label>
+											<input type=radio name="shipping-charge" value="basic-charge">&nbsp설정 배송비
 										</td>
 									</tr>
 									<!-- image 등록 -->
@@ -376,14 +576,40 @@ $(function() {
 									<!-- image 등록 종료-->
 
 									<tr class="pro-op">
-										<th>상품옵션</th>
+										<th>
+											상품옵션<br>
+											<button type="button" id="option-add" class="btn btn-secondary waves-effect" style="background-color:#6C757D">옵션추가</button>
+										</th>
 										<td colspan="4">
-											<div>
+<!-- 											<div>
 												<input type=radio name="pro-opt" checked>&nbsp옵션사용안함	<label class="text-space"></label> 
 												<input type=radio name="pro-opt">&nbsp1차옵션사용 <label class="text-space"></label>
 												<input type=radio name="pro-opt">&nbsp2차옵션사용
 											</div>
-											<div>옵션 영역</div>
+											<div>옵션 영역</div> -->
+											<div id="option-zone">
+											<div style="width:1000px; margin-bottom:10px; display:inline-block" class="option-zone">
+												사이즈
+												<select class="form-control sizeOptionSelect" id="sizeOption-0">												
+		                                       		<option>----</option>
+		                                        <c:forEach var="vo" varStatus="status" items="${sizeOptionList }">
+		                                           	<option value="${vo.no }">${vo.name }</option>
+		                                        </c:forEach>
+												</select><label class="text-space"></label>
+												색상
+												<select class="form-control colorOptionSelect" id="colorOption-0">
+		                                       		<option>----</option>
+		                                        <c:forEach var="vo" varStatus="status" items="${colorOptionList }">
+		                                           	<option value="${vo.no }">${vo.name }</option>
+		                                        </c:forEach>											
+												</select><label class="text-space"></label>
+												
+												재고량 <input type="text" class="form-control product-info" id="input-stock-0" value="" />
+												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">추가</button>	
+												<button type="button" id="testtest" class="btn btn-secondary waves-effect">실험쥐</button>												
+											</div>
+											</div>
+											
 										</td>
 									</tr>
 								</tbody>
@@ -402,7 +628,7 @@ $(function() {
 
 							<!-- 등록,목록 버튼-->
 							<div class="btn-submit-section">
-								<button type="submit" class="btn btn-secondary waves-effect" id="btn-reg">등록</button>
+								<button type="button" class="btn btn-secondary waves-effect" id="btn-reg">등록</button>
 								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">목록</button>
 							</div>
 
@@ -410,7 +636,7 @@ $(function() {
 					</div>
 				</div>
 			</div>
-			</form>			
+					
 		</div>
 		<!-- end container -->
 	</div>

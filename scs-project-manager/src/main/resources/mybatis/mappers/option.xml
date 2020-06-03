@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="option">
+	
+	<select id="getOptionListOfSize" resultType="map">
+			<![CDATA[
+				select no, name from ${db}.option where type="size"
+			]]>
+	</select>
+
+	<select id="getOptionListOfColor" resultType="map">
+			<![CDATA[
+				select no, name from ${db}.option where type="color"
+			]]>
+	</select>
+	
+	<select id="getList" resultType="map">
+			<![CDATA[
+				select no, name, type from ${db}.option
+			]]>
+	</select>
+	
+	<select id="getStockListByItemNo" resultType="map">
+			<![CDATA[			
+				select a.itemNo, a.stock, a.color, b.size from
+				(select s.no as first_no, item_no as itemNo, name as color, stock from mall.stock s, mall.option o where s.item_no=#{no} and type="color" and o.no = s.first_option) a,
+    			(select s.no as second_no, item_no as itemNo, name as size, stock from mall.stock s, mall.option o where s.item_no=#{no} and type="size" and o.no = s.second_option) b
+    			where first_no = second_no;
+			]]>
+	</select>
+	
+	<insert id="addSizeOption" parameterType="map">
+			<![CDATA[
+				insert into ${db}.option values (null, #{name}, "size")
+			]]>
+	</insert>
+	
+	<insert id="addColorOption" parameterType="map">
+			<![CDATA[
+				insert into ${db}.option values (null, #{name}, "color")
+			]]>
+	</insert>
+
+	<select id="getOption" parameterType="map" resultType="optionvo">
+			<![CDATA[
+				select no, name, type from ${db}.option where name=#{name}
+			]]>
+	</select>
+
+	<select id="getOptionByNo" parameterType="map" resultType="optionvo">
+			<![CDATA[
+				select no, name, type from ${db}.option where no=#{no}
+			]]>
+	</select>
+	
+	<delete id="delOption" parameterType="map">
+			<![CDATA[
+				delete from ${db}.option where no=#{no}
+			]]>
+	</delete>
+</mapper>

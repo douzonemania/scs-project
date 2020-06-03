@@ -102,6 +102,9 @@
                                 <li>
                                     <a href="${pageContext.request.contextPath }/${ authUser.id }/product/category-reg">카테고리 등록</a>
                                 </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/product/board">상품 게시판 관리</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="has-submenu">
@@ -114,7 +117,7 @@
                                     <a href="${pageContext.request.contextPath }/${ authUser.id }/member/email">메일 발송</a>
                                 </li>
                                 <li>
-                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/member/board">문의 게시판 관리</a>
+                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/member/board">Q&A 게시판 관리</a>
                                 </li>  
                             </ul>
                         </li>            

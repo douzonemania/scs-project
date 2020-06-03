@@ -56,6 +56,57 @@
 		<script type="text/JavaScript"
 		src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		
+<script type="text/javascript">
+
+/* var optionCheck = function() {
+	alert($(this).val());
+} */
+
+$(function(){
+	$('#member-search-option').change(function(){
+		var option = $(this).val();
+		
+		if(option == 'category') {
+			$('#category-option').show();
+			$('#member-input-box').hide();
+		} else {
+			$('#category-option').hide();
+			$('#member-input-box').show();
+		}
+	});
+});
+
+var removeCheck = function(no) {
+	if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
+	 	console.log("네네네");
+	 	event.preventDefault();
+		console.log(no);
+			$.ajax({
+				url: '${pageContext.request.contextPath }/${authUser.id}/api/member/board/delete/' + no,
+				async: true,
+				type: 'post',
+				dataType: 'json',
+				contentType: 'application/json',
+				data: '',
+				success: function(response){
+					location.href= "${pageContext.request.contextPath }/${authUser.id}/member/board";
+				},
+				error: function(xhr, status, e){
+
+					console.error(status + " : " + e);
+		
+				}
+			});
+	}
+	else {   //취소
+		console.log("아니오오오오");
+		event.preventDefault();
+	    return;
+	}
+} 
+
+</script>
+		
 </head>
 <body>
 
@@ -81,10 +132,10 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">SCS</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">회원관리</a></li>
-                                    <li class="breadcrumb-item active">문의게시판 관리</li>
+                                    <li class="breadcrumb-item active">Q&A 게시판 관리</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">문의게시판 관리</h4>
+                            <h4 class="page-title">Q&A 게시판 관리</h4>
                         </div>
                     </div>
                 </div>     
@@ -96,68 +147,89 @@
 
                             <div class="mb-2">
                                 <div class="row">
+                                
+                                    <form action="${pageContext.servletContext.contextPath }/${authUser.id}/member/board">
                                     <div class="col-12 text-sm-center form-inline">
                                         <div class="form-group mr-2">
-                                            <select id="demo-foo-filter-status" class="custom-select custom-select-sm">
+                                            <select id="member-search-option" class="custom-select custom-select-sm" name="op">
                                                 <option value="id">아이디</option>
-                                                <option value="email">이메일</option>
-                                                <option value="phonenum">휴대폰번호</option>
+                                                <option value="name">이름</option>
+                                                <option value="category">카테고리</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input id="demo-foo-search" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
+                                            <input id="member-input-box" name="kwd" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
                                         </div>
+                                        <div>
+                                        	<select id="category-option" name="kwd" class="custom-select custom-select-sm" style="display:none;">
+                                        		<option value="주문">주문</option>
+                                                <option value="배송">배송</option>
+                                                <option value="교환환불취소">교환환불취소</option>
+                                                <option value="기타">기타</option>
+                                        	</select>
+                                        </div>
+                                        
                                         &nbsp;&nbsp;&nbsp;
                                         <div class="search-button">
-                                            <button class="btn btn-secondary btn-sm float-sm-right" type="submit"> 검색 </button>
+                                            <button id="member-search-btn" class="btn btn-secondary btn-sm float-sm-right" type="submit"> 검색 </button>
                                         </div>
                                     </div>
+                                    </form>
+                                    
                                 </div>
                             </div>
 
                             <table class="table table-striped mb-0">
-                                <thead>
                                 <tr>
                                     <th>번호</th>
-                                    <th data-sort-initial="true" data-toggle="true">제목</th>
-                                    <th>이메일</th>
-                                    <th data-hide="phone">성명</th>
-                                    <th data-sort-ignore="true" data-hide="phone, tablet">작성일</th>
-                                    <th data-sort-ignore="true" data-hide="phone, tablet">답글</th>
-                                    <th data-sort-ignore="true" data-hide="phone, tablet">글삭제</th>
+                                    <th>카테고리</th>
+                                    <th>제목</th>
+                                    <th>아이디</th>
+                                    <th>이름</th>
+                                    <th>작성일</th>
+                                    <th>답글</th>
+                                    <th>글삭제</th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>문의드립니다.</td>
-                                    <td>sjy8033@naver.com</td>
-                                    <td>신정은</td>
-                                    <td>2020-05-11</td>
-                                    <td>
-                                        <i class=' mdi mdi-message-text-outline member-icon'></i>
-                                    </td>
-                                    <td class="icon-wrap"><button type="button" class="btn btn-xs sa-warning"><i class="fe-x-square member-icon"></i></button></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><i class='fe-corner-down-right member-icon'></i> 답변드립니다.</td>
-                                    <td>sjy8033@naver.com</td>
-                                    <td>신정은</td>
-                                    <td>2020-05-11</td>
-                                    <td>
-                                        <i class=' mdi mdi-message-text-outline member-icon'></i>
-                                    </td>
-                                    <td class="icon-wrap"><button type="button" class="btn btn-xs sa-warning"><i class="fe-x-square member-icon"></i></button></td>
-                                </tr>
-                                </tbody>
-
+                                <c:forEach items="${map.list }" var="vo" varStatus="status">
+                                	<tr>
+                                		<td>${status.count + (map.page - 1) * 5 }</td>
+                                		<td>${vo.category }</td>
+                                		<td> 
+                                			<a style="color:#6C757D;"
+												href="${ pageContext.request.contextPath }/${authUser.id}/member/board/view/${ vo.no }">${vo.title }</a>
+										</td>
+                                		<td>${vo.id }</td>
+                                		<td>${vo.name }</td>
+                                		<td>${vo.regDate }</td>
+                                		
+                                		<c:choose>
+                                			<c:when test="${ vo.replyState  == false }">
+	                                			<td>
+	                                			<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board/reply/${ vo.no }">
+													<i class='mdi mdi-message-text-outline member-icon'></i></a>
+												</td>
+		                                		<td>
+		                                			<a href="">
+		                                				<i class="fe-x-square member-icon" onClick="removeCheck(${vo.no});" style="margin-left: 10px;"></i></a>
+		                                		</td>
+                                			</c:when>
+                                			<c:otherwise>
+                                				<td>
+                                					<i class='mdi mdi-read text-outline member-icon'></i>
+                                				</td>
+                                				<td>
+                                				</td>
+                                			</c:otherwise>
+                                		</c:choose>
+                                		
+                                	</tr>
+								</c:forEach>
                             </table>
 
 							<nav>
 	                            <ul class="pagination pagination-rounded justify-content-center mb-3">
 		                            <li class="page-item">
-		                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/member/list?p=${map.prevPage}&op=${map.option }&kwd=${map.kwd}" aria-label="Previous">
+		                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board?p=${map.prevPage}&op=${map.option }&kwd=${map.kwd}" aria-label="Previous">
 		                                    <span aria-hidden="true">«</span>
 		                                    <span class="sr-only">Previous</span>
 		                                </a>
@@ -166,17 +238,17 @@
 										<c:choose>
 											<c:when test="${map.page == (map.beginPage+(i-1)) }">
 												<li class ="page-item active">
-													<a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/member/list?p=${map.beginPage+(i-1) }&op=${map.option }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a>
+													<a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board?p=${map.beginPage+(i-1) }&op=${map.option }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a>
 												</li>
 											</c:when>
 											<c:otherwise>
-												<li><a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/member/list?p=${map.beginPage+(i-1) }&op=${map.option }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a></li>
+												<li><a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board?p=${map.beginPage+(i-1) }&op=${map.option }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a></li>
 											</c:otherwise>
 										
 										</c:choose>
 									</c:forEach>
 		                            <li>
-		                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/member/list?p=${map.nextPage }&op=${map.option }&kwd=${map.kwd}" aria-label="Next">  
+		                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board?p=${map.nextPage }&op=${map.option }&kwd=${map.kwd}" aria-label="Next">  
 		                                 	<span aria-hidden="true">»</span>
 		                                    <span class="sr-only">Next</span>
 		                                </a>
@@ -215,5 +287,6 @@
 	<script	src="<%=request.getContextPath() %>/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
 
 	<c:import url ='/WEB-INF/views/partials/script.jsp'/>
-</body>
+	
+	</body>
 </html>

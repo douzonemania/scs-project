@@ -54,28 +54,28 @@
 		]]>
 	</select>
 	<select id="findByIdJoin" parameterType="string" resultType="ceovo">
-		<![CDATA[
-			select 
-				   c.id as id,
-				   c.name, 
-				   c.password, 
-				   c.phone_number as phoneNumber, 
-				   c.email, 
-				   c.company_name as companyName,
-				   c.reg_date as regDate, 
-				   c.fax_number as faxNumber, 
-				   c.cp_number as cpNumber, 
-				   c.address, 
-				   c.site_name as siteName, 
-				   c.co_number as coNumber, 
-				   c.cm_number as cmNumber,
-				   s.logo,
-				   s.favicon,
-				   s.ship_charge as shipCharge
-		      from ceo c,site s
-		     where c.id = s.id and c.id = #{id}
-			
-		]]>
+		
+				<![CDATA[
+					select 
+						   c.id as id,
+						   c.name, 
+						   c.password, 
+						   c.phone_number as phoneNumber, 
+						   c.email, 
+						   c.company_name as companyName,
+						   c.reg_date as regDate, 
+						   c.fax_number as faxNumber, 
+						   c.cp_number as cpNumber, 
+						   c.address, 
+						   c.site_name as siteName, 
+						   c.co_number as coNumber, 
+						   c.cm_number as cmNumber,
+						   s.logo,
+						   s.favicon,
+						   s.ship_charge as shipCharge
+				      from ceo c,site s
+				     where c.id = s.id and c.id = #{id}
+				]]>
 	</select>
 	
 	<update id="updateCeo" parameterType="ceovo">
@@ -99,7 +99,7 @@
 						    s.logo = #{logo },
 						    s.favicon = #{favicon }
 					where c.id=s.id and
-						  c.id ='sjy8033'
+						  c.id =#{id }
 				]]>
 			</when>
 			<otherwise>
@@ -121,12 +121,27 @@
 						    s.logo = #{logo },
 						    s.favicon = #{favicon }
 					where c.id=s.id and
-						  c.id ='sjy8033'
+						  c.id = #{id }
 				]]>
 			</otherwise>
 		</choose>
 
 	</update>
 	
+	<select id="findIdByNameAndPhone" parameterType="map" resultType="string">
+		<![CDATA[
+			select id
+			  from ceo
+			 where name=#{name}
+			   and phone_number=#{phoneNum}
+		]]>
+	</select>
 	
+	<update id="updatePassword" parameterType="map">
+		<![CDATA[
+			update ceo
+			   set password=#{password}
+			 where id=#{id}
+		]]>
+	</update>
 </mapper>

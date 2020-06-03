@@ -40,6 +40,24 @@
 
 // 주소 api
 $(document).ready(function() {
+	$.fn.checkInfo = function(){
+		var check = false;
+		var id = $("#user_id").val();
+		var name = $("#user_name").val();
+		var password = $("#user_password").val();
+		var phone = $("#user_phone").val();
+		var email = $("#user_email").val();
+		var company = $("#user_company").val();
+		var checked = $("#checkbox-signup").is(":checked");
+		console.log("CHECK : "+checked);
+		if(id != ''&& name != ''&& password !=''&& email !=''&& phone !='' &&
+			company !=''){
+			check=true;
+		}
+		
+		return check;
+	}
+	
 	$('#search_address').click(function openPostCode() {
         new daum.Postcode({
             oncomplete:function(data) {
@@ -51,7 +69,7 @@ $(document).ready(function() {
 	
 	//Success Message
 	$('#sa-success').click(function(e) {
-	    e.preventdefault();
+	    e.preventDefault();
 	    Swal.fire(
 	       {
 	            title: '가입되었습니다!',
@@ -67,7 +85,6 @@ $(document).ready(function() {
 
 // 유효성 검사
 $(function() {
-	
 	$("#user_name").focusout(function() {
 		var name = $("#user_name").val();
 		
@@ -87,6 +104,12 @@ $(function() {
 		} 
 		
 		$("#name_check").hide();
+		
+		if($.fn.checkInfo()){
+			$('#join-btn').attr('disabled', false);
+		}
+		
+		
 	});
 	
 	// 비밀번호 체크
@@ -103,6 +126,9 @@ $(function() {
 			return;
 		}
 		$("#password_check").hide();
+		if($.fn.checkInfo()){
+			$('#join-btn').attr('disabled', false);
+		}
 	});
 	
 	// 이메일 체크
@@ -121,6 +147,9 @@ $(function() {
 			return;
 		}
 		$("#email_check").hide();
+		if($.fn.checkInfo()){
+			$('#join-btn').attr('disabled', false);
+		}
 	});
 	
 	// 핸드폰번호 체크
@@ -139,6 +168,9 @@ $(function() {
 			return;
 		}
 		$("#phone_check").hide();
+		if($.fn.checkInfo()){
+			$('#join-btn').attr('disabled', false);
+		}
 	});
 	
 	// 회사명 체크
@@ -151,6 +183,9 @@ $(function() {
 			return;
 		}
 		$("#company_check").hide();
+		if($.fn.checkInfo()){
+			$('#join-btn').attr('disabled', false);
+		}
 	});
 	
 	
@@ -378,7 +413,7 @@ $(function() {
 												<div>
 													<label for="company-address" style="display: block;">사업장주소</label>
 
-													<input class="form-control" type="text" id="postcode1" />
+													<form:input path="postcode" class="form-control" type="text" id="postcode1" />
 													<button type="button" id="search_address"
 														class="btn btn-dark waves-effect waves-light ceo-join-btn-custom">우편
 														번호 찾기</button>
@@ -394,7 +429,8 @@ $(function() {
 														style="z-index: 0;">
 														<button type="submit"
 															class="btn btn-secondary btn-sm float-right btn-signup"
-															style="position: absolute; right: 0; bottom: 0; z-index: 10;">가입하기</button>
+															style="position: absolute; right: 0; bottom: 0; z-index: 10;"
+															id="join-btn" disabled="">가입하기</button>
 														<input type="checkbox" class="custom-control-input"
 															id="checkbox-signup"> <label
 															class="custom-control-label" for="checkbox-signup">약관에

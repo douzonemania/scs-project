@@ -2,27 +2,193 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="product">
+
+	<select id="getItemNo" parameterType="map" resultType="Integer">		
+				<![CDATA[
+					select no from ${db}.item where code=#{code}
+				]]>
+	</select>
 	
-	<select id="getList" resultType="itemvo">		
+	<select id="getList" parameterType="map" resultType="itemvo">		
 				<![CDATA[
 					select no, code, name, sup_price as 'supPrice', now_price as 'nowPrice', 
 						sale, main_image as 'mainImage', sub_image as 'subImage', 
 						visible, best_item as 'bestItem', new_item as 'newItem', editor, category_no,
 						description, reg_date as 'regDate'
-					from mall.item
+					from ${db}.item
+					where state = true;
 				]]>
 	</select>
 	
-	<select id="findItem" parameterType="integer" resultType="itemvo">		
+	<select id="findItem" parameterType="map" resultType="itemvo">		
 				<![CDATA[
 					select no, code, name, sup_price as 'supPrice', now_price as 'nowPrice', 
 						sale, main_image as 'mainImage', sub_image as 'subImage', 
 						visible, best_item as 'bestItem', new_item as 'newItem', editor, category_no,
-						des, reg_date as 'regDate'
-					from mall.item
+						description, reg_date as 'regDate', category_no as 'categoryNo'
+					from ${db}.item
 					where no = #{no}
 				]]>
 	</select>
 	
+	<select id="getShipCompanyList" parameterType="map" resultType="shipcompanyvo">		
+				<![CDATA[
+					select no, name from scs2.ship_company where id = #{db}
+				]]>
+	</select>	
+
+	<insert id="regItem" parameterType="map">
+				<![CDATA[
+					insert into ${db}.item values (null, #{iVo.code}, #{iVo.name}, #{iVo.supPrice}, #{iVo.nowPrice}, #{iVo.sale}, #{iVo.mainImage}, #{iVo.subImage}, #{iVo.visible}, #{iVo.bestItem}, #{iVo.newItem}, #{iVo.editor}, #{iVo.categoryNo}, #{iVo.description}, now(), #{iVo.shipCompany}, #{iVo.shipCharge}, true)
+				]]>
+	</insert>
+	
+	<insert id="insertStock" parameterType="map">
+				<![CDATA[
+					insert into ${db}.stock values (null, #{itemNo}, #{sVo.firstOption}, #{sVo.secondOption}, #{sVo.stock});
+				]]>
+	</insert>
+	
+	<update id="delItem" parameterType="map">
+				<![CDATA[
+					update ${db}.item set state = false where no = #{no};
+				]]>
+	</update>
+	
+		<select id="itemBoardListCount" parameterType="map" resultType="int">
+			<choose>
+				<when test='option==""'>
+					<![CDATA[
+						select count(*)
+						  from ${db}.item_board i,
+						  	   ${db}.member m
+						 where i.member_no = m.no
+						   and m.state='회원'
+					]]>
+				</when>
+				<otherwise>
+					<![CDATA[
+						select count(*) 
+						  from (select b.no,
+									   b.title,
+									   b.contents,
+									   b.reg_date as regDate,
+									   b.member_no as memberNo,
+									   b.item_no as itemNo,
+									   b.reply_state as replyState,
+					                   i.code,
+                  					   m.id
+								  from mall.item_board b,
+									   mall.member m,
+					                   mall.item i
+								 where b.member_no = m.no
+					               and b.item_no = i.no
+								   and m.state='회원') a
+					               where a.${option} like '%${keyword}%'
+					]]>
+				</otherwise>
+			</choose>
+	</select>
+	
+	<select id="itemBoardList" parameterType="map" resultType="itemboardvo">
+		<![CDATA[
+			select b.no,
+				   b.title,
+				   b.contents,
+				   b.reg_date as regDate,
+				   b.member_no as memberNo,
+				   b.item_no as itemNo,
+				   b.reply_state as replyState,
+                   i.code,
+                   m.id
+			  from mall.item_board b,
+				   mall.member m,
+                   mall.item i
+			 where b.member_no = m.no
+               and b.item_no = i.no
+			   and m.state='회원'
+			 limit ${size} offset #{offset}
+		]]>
+	</select>
+	
+	<select id="searchItemBoaardList" parameterType="map" resultType="itemboardvo">
+		<![CDATA[
+			select * 
+			  from (select b.no,
+						   b.title,
+						   b.contents,
+						   b.reg_date as regDate,
+						   b.member_no as memberNo,
+					 	   b.item_no as itemNo,
+					 	   b.reply_state as replyState,
+		                   i.code,
+                   		   m.id
+					  from mall.item_board b,
+						   mall.member m,
+		                   mall.item i
+					 where b.member_no = m.no
+		               and b.item_no = i.no
+					   and m.state='회원') a
+			 where a.${option} like '%${keyword}%'
+			 limit ${size} offset #{offset}
+		]]>
+	</select>	
+	
+	<insert id="insertBoardReply" parameterType="map">
+		<![CDATA[
+			insert into ${db}.item_reply
+			values(null, #{parentsNo}, #{contents}, now()) 
+		]]>
+	</insert>
+	
+	<update id="setBoardReplyTrue" parameterType="map">
+		<![CDATA[
+			update ${db}.item_board
+			   set reply_state=true
+			 where no = #{no} 
+		]]>
+	</update>
+	
+	<select id="findItemBoardByNo" parameterType="map" resultType="itemboardvo">
+		<![CDATA[
+			select no,
+				   title,
+				   contents,
+				   reg_date as regDate,
+				   member_no as memberNo,
+				   item_no as itemNo,
+				   reply_state as replyState
+			  from ${db}.item_board
+			 where no=#{no}
+		]]>
+	</select>
+	
+	<select id="findNameByNo" parameterType="map" resultType="string">
+		<![CDATA[
+			select name
+			  from ${db}.member
+			 where no=#{no}		
+		]]>
+	</select>
+	
+	<select id="findItemReplyByParentsNo" parameterType="map" resultType="itemreplyvo">
+		<![CDATA[
+			select no,
+				   parents_no as parentsNo,
+				   contents,
+				   reg_date as regDate
+			  from ${db}.item_reply
+			 where parents_no = #{no}
+		 ]]>
+	</select>
+	
+	<delete id="deleteItemBoard" parameterType="map">
+		<![CDATA[
+			delete
+			  from ${db}.item_board
+			 where no=#{no}
+			   and reply_state=false
+		]]>
+	</delete>		
 </mapper>
 

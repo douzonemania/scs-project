@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzonemania.scs.dto.JsonResult;
+import com.douzonemania.scs.service.MemberService;
 import com.douzonemania.scs.service.UserService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 
@@ -22,7 +23,6 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-	
 	
 	// 아이디 중복 검사
 	@ResponseBody
@@ -42,15 +42,12 @@ public class UserController {
 	public String join(@ModelAttribute @Valid CeoVo ceoVo, BindingResult result,
 			Model model) {
 
-		// properties 안넣으면 에러가 안들어가요ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
 		if(result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
 			return "user/signup";
 		}
 		
-//		model.addAllAttributes(result.getModel());
-
-		ceoVo.setAddress(ceoVo.getAddress1() + " " + ceoVo.getAddress2());
+		ceoVo.setAddress(ceoVo.getAddress1() + "!" + ceoVo.getAddress2() + "!" + ceoVo.getPostcode());
 
 		userService.insert(ceoVo);
 
@@ -60,7 +57,13 @@ public class UserController {
 		userService.createTable(id);
 		userService.alterTable(id);
 		
-		return "redirect:/index";
+		return "user/join-success";
+	}
+	
+	@RequestMapping(value="/join-success")
+	public String sendEmailSuccess() {
+		
+		return "user/join-success";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -71,6 +74,26 @@ public class UserController {
 	@RequestMapping(value = "/recover", method = RequestMethod.GET)
 	public String recover() {
 		return "user/recover";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/find/id")
+	public JsonResult findId(@RequestParam(value="name") String name,
+					@RequestParam(value="phoneNum") String phoneNum) {
+		
+		String id = userService.findIdByNameAndPhone(name, phoneNum);
+		
+		return JsonResult.success(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/find/password")
+	public JsonResult findPassword(@RequestParam(value="id") String id,
+					@RequestParam(value="email") String email) {
+		
+		Boolean sendPassword = userService.sendPasswordEmail(id, email); 
+		
+		return JsonResult.success(sendPassword);
 	}
 
 

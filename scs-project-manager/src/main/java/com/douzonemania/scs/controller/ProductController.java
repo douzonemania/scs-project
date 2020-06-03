@@ -1,7 +1,9 @@
 package com.douzonemania.scs.controller;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,11 +14,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.scs.service.ProductService;
+import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
+import com.douzonemania.scs.vo.member.ItemBoardVo;
+import com.douzonemania.scs.vo.member.ItemReplyVo;
 import com.douzonemania.scs.vo.member.ItemVo;
+import com.douzonemania.scs.vo.member.OptionVo;
+import com.douzonemania.scs.vo.member.StockVo;
+import com.douzonemania.security.AuthUser;
 
 @Controller
-@RequestMapping("/{id}/product")
+@RequestMapping("/{id:(?!assets).*}/product")
 
 public class ProductController {
 	
@@ -25,14 +34,16 @@ public class ProductController {
 	
 	// product-info 상품 리스트 뿌리기
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
-	public String info(Model model) {
+	public String info(
+			Model model,
+			@AuthUser CeoVo authUser) {
+		String id = authUser.getId();
+		List<ItemVo> itemList = productService.getItemList(id);
 		
-		
-		List<ItemVo> itemList = productService.getItemList();
-		
-		List<Integer> salePriceList = new ArrayList<>();
+		List<String> salePriceList = new ArrayList<>();
 		for (ItemVo vo : itemList) {
-			salePriceList.add(vo.getNowPrice() * (1 - (vo.getSale() / 100)));
+			String price = NumberFormat.getInstance().format( ((int)((double)vo.getNowPrice() * (1 - ((double)vo.getSale() / 100)))+5)/10*10   )+"원";
+			salePriceList.add(price);
 		}
 		
 		model.addAttribute("salePriceList", salePriceList);
@@ -40,79 +51,175 @@ public class ProductController {
 		
 		return "product/info";
 	}
-	
+	// 상품 등록 페이지
 	@RequestMapping(value = "/reg", method = RequestMethod.GET)
-	public String reg(Model model) {			
-		List<CategoryVo> categoryNameList = productService.getCategoryNameList();
-		model.addAttribute("categoryNameList",categoryNameList);
+	public String reg(
+			Model model,
+			@AuthUser CeoVo authUser) {
+		String id = authUser.getId();
+		List<CategoryVo> categoryNameList = productService.getCategoryNameList(id);
+		List<OptionVo> sizeOptionList = productService.getOptionListOfSize(id);
+		List<OptionVo> colorOptionList = productService.getOptionListOfColor(id);
+		List<ShipCompanyVo> shipCompanyList = productService.getShipCompanyList(id);
+		
+		model.addAttribute("categoryNameList",categoryNameList);	// 카테고리 리스트
+		model.addAttribute("sizeOptionList", sizeOptionList);		// 사이즈 리스트
+		model.addAttribute("colorOptionList", colorOptionList);		// 컬러 리스트
+		model.addAttribute("shipCompanyList", shipCompanyList);		// 배송사 리스트
 		return "product/reg";
 	}
 
-	@RequestMapping(value = "/regItem", method = RequestMethod.POST)
-	public String regItem(
-			@RequestParam(value = "pro-expo", required=true, defaultValue = "true") String visible,
-			@RequestParam(value = "item-best", required=true, defaultValue = "false") String bestItem,
-			@RequestParam(value = "item-new", required=true, defaultValue = "false") String newItem,
-			@RequestParam(value = "item-code", required=true, defaultValue = "") String code,
-			@RequestParam(value = "item-name", required=true, defaultValue = "") String name,
-			@RequestParam(value = "item-des", required=false, defaultValue = "false") String des,
-			@RequestParam(value = "item-sup-price", required=true, defaultValue = "") int supPrice,
-			@RequestParam(value = "item-now-price", required=false,defaultValue = "false") int nowPrice,
-			@RequestParam(value = "item-sale", required=false,defaultValue = "false") int sale,
-			@RequestParam(value = "item-sale-price", required=false, defaultValue = "false") int salePrice,
-			@RequestParam(value = "item-stock", required=true, defaultValue = "") String stock,
-			@RequestParam(value = "ship-company-name", required=true, defaultValue = "") String shipCompany,
-			@RequestParam(value = "shipping-charge", required=true, defaultValue = "") String shipCharge,
-			@RequestParam(value = "image-main", required=true, defaultValue = "") String mainImage,
-			@RequestParam(value = "image-sub", required=false, defaultValue = "true") String subImage,
-			@RequestParam(value = "item-editor", required=false, defaultValue = "true") String editor,
-			ItemVo iVo
-			) {				
-		if(visible=="visible") iVo.setVisible(true);		
-		if(bestItem=="best") iVo.setBestItem(true);		
-		if(newItem=="new") iVo.setNewItem(true);		
-		iVo.setCode(code);
-		iVo.setName(name);
-		iVo.setDes(des);
-		iVo.setSupPrice(supPrice);
-		iVo.setNowPrice(nowPrice);
-		iVo.setSale(sale);
-		iVo.setMainImage(mainImage);
-		iVo.setSubImage(subImage);
-		iVo.setEditor(editor);
-		
-		productService.regItem(iVo);
-		
-		return "product/reg";
-	}	
 
+	// 아이템 수정
 	@RequestMapping(value = "/modify-item/{vo.no}")
 	public String modifyItem(
+			@AuthUser CeoVo authUser,
 			@PathVariable("vo.no") int no,
 			Model model
-			) {		
+			) {
+		String id = authUser.getId();
 		ItemVo vo = new ItemVo();
-		vo = productService.findItem(no);		
-				
-		model.addAttribute("vo",vo);
-		return "product/reg";
+		vo = productService.findItem(id, no);
+		System.err.println(vo.getCategoryNo()+"sss" + vo);
+		CategoryVo cVo = productService.findCategoryByNo(id, vo.getCategoryNo());
+		List<CategoryVo> categoryNameList = productService.getCategoryNameList(id);
+		List<OptionVo> sizeOptionList = productService.getOptionListOfSize(id);
+		List<OptionVo> colorOptionList = productService.getOptionListOfColor(id);
+		List<CategoryVo> category2NameList = productService.getCategory2NameList(id, cVo.getParentNo());
+		List<ShipCompanyVo> shipCompanyList = productService.getShipCompanyList(id);
+		System.err.println(cVo.getParentNo()+"cvoparentno");
+		model.addAttribute("vo",vo);	//	아이템정보
+		model.addAttribute("cVo",cVo);	//	카테고리정보
+		model.addAttribute("categoryNameList",categoryNameList);	//카테고리리스트
+		model.addAttribute("category2NameList", category2NameList);	//2차카테고리리스트
+		model.addAttribute("sizeOptionList", sizeOptionList);		//사이즈옵션리스트
+		model.addAttribute("colorOptionList", colorOptionList);		//컬러옵션리스트
+		model.addAttribute("shipCompanyList", shipCompanyList);		//배송사 리스트
+		
+		return "product/item-mod";
 	}
 	
+	// 아이템 삭제
+	@RequestMapping(value = "/delete-item/{vo.no}", method = RequestMethod.GET)
+	public String deleteItem(
+			Model model,
+			@PathVariable("vo.no") int no,
+			@AuthUser CeoVo authUser) {
+		String id = authUser.getId();
+		productService.delItem(id, no);
+	
+		return "redirect:/{id}/product/info";
+	}
+	
+	// 카데고리 등록 페이지
 	@RequestMapping(value = "/category-reg", method = RequestMethod.GET)
-	public String categoryReg(Model model) {
-		List<CategoryVo> categoryNameList = productService.getCategoryNameList();
-		List<CategoryVo> category2NameList = productService.getCategory2NameList();
+	public String categoryReg(
+			@AuthUser CeoVo authUser,
+			Model model) {
+		String id = authUser.getId();
+		List<CategoryVo> categoryNameList = productService.getCategoryNameList(id);
+		List<CategoryVo> category2NameList = productService.getCategory2NameList(id);
+		
 		model.addAttribute("categoryNameList", categoryNameList);
 		model.addAttribute("category2NameList", category2NameList);
+
 		return "product/category-reg";
 	}
 	
+	// 카테고리 추가
 	@RequestMapping(value = "/category-reg/add", method = RequestMethod.POST)
 	public String addCategory(
+			@AuthUser CeoVo authUser,
 			@RequestParam(value= "category-name", defaultValue="true") String categoryName
 			) {
-		
+		String id = authUser.getId();
 		return "product/category-reg";
 	}
 	
+	// 옵션 추가
+	@RequestMapping(value = "/optionAdd", method = RequestMethod.GET)
+	public String optionList(
+			@AuthUser CeoVo authUser,
+			Model model) {				
+		String id = authUser.getId();
+	
+		List<OptionVo> sizeOptionList = productService.getOptionListOfSize(id);
+		List<OptionVo> colorOptionList = productService.getOptionListOfColor(id);
+		
+		model.addAttribute("sizeOptionList", sizeOptionList);
+		model.addAttribute("colorOptionList", colorOptionList);
+
+		return "product/optionAdd";
+	}	
+	
+	// 재고량 확인
+	@RequestMapping(value = "/stock/{itemNo}", method = RequestMethod.GET)
+	public String stockList(
+			@AuthUser CeoVo authUser,
+			@PathVariable("itemNo") int no,
+			Model model) {				
+		String id = authUser.getId();
+		System.err.println(no);
+
+		ItemVo iVo = productService.findItem(id, no);
+		List<StockVo> stockList = productService.getStockListByItemNo(id, no);
+		System.err.println(stockList);
+		
+		model.addAttribute("iVo", iVo);
+		model.addAttribute("stockList", stockList);
+		return "product/stock";
+	}
+	
+	@RequestMapping(value= "/board", method = { RequestMethod.GET, RequestMethod.POST })
+	public String memberList(@AuthUser CeoVo authUser, Model model,
+			@RequestParam(value="p", required=true, defaultValue="1") int page,
+			@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
+			@RequestParam(value="op", required=true, defaultValue="") String option) {
+		
+		Map<String, Object> map = productService.itemBoardList(authUser.getId(), page, keyword, option);
+		
+		model.addAttribute("map", map);
+		
+		return "product/board";
+	}
+	
+	@RequestMapping(value="/board/reply/{no}")
+	public String reply(@AuthUser CeoVo authUser,
+			@PathVariable("no") int no, Model model) {
+
+		model.addAttribute("no", no);
+		
+		return "product/board-write";
+	}
+	
+	@RequestMapping(value="board/view/{no}")
+	public String boardView(@AuthUser CeoVo authUser,@PathVariable("no") int no, Model model) {
+		
+		ItemBoardVo itemBoardVo = productService.findItemBoardByNo(authUser.getId(), no);
+		String name = productService.findNameByNo(authUser.getId(), no);
+		itemBoardVo.setName(name);
+		
+		String viewer = "quill2.setContents([ " + 
+				itemBoardVo.getContents() +
+       "]);";
+		
+		model.addAttribute("itemBoardVo", itemBoardVo);
+		model.addAttribute("viewer", viewer);		// 회원이 작성한 글
+		
+		// 답글이 있는 경우 
+		if(itemBoardVo.isReplyState()) {
+			ItemReplyVo itemReplyVo = productService.findItemReplyByParentsNo(authUser.getId(), no);
+			String reply = "quill3.setContents([ " + 
+								itemReplyVo.getContents() +
+			                 "]);";
+			
+			model.addAttribute("reply", reply);	
+			model.addAttribute("itemReplyVo", itemReplyVo);	 // 관리자가 작성한 답글
+		
+			System.out.println("itemReplyVo");
+			System.out.println(itemReplyVo);
+		}
+		
+		return "product/board-view";
+	}
 }
