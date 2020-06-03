@@ -168,6 +168,12 @@ $(function() {
 	});
 	
 });
+$(document).ready(function(){
+	
+	$('#basic-btn-submit').on('click',function(){
+		alert('수정되었습니다.');
+	})
+});
 
 
 function preview(input, target) {
@@ -411,7 +417,7 @@ function preview(input, target) {
                                          
 										 <!-- 수정 버튼 -->
                                          <div class="form-group mb-3 float-sm-right" style="margin-top: 10px;">
-                                             <button class="btn btn-secondary btn-lg" type="submit" > 수정 </button>
+                                             <button class="btn btn-secondary btn-lg" id="basic-btn-submit"type="submit" > 수정 </button>
                                          </div>
 						</form:form>
            				<!-- 제출 form 종료 -->

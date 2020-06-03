@@ -62,6 +62,18 @@
 
 $(function() {
 	
+	$('#cate-select').change(function(){
+		var option = $(this).val();
+		
+		if(option == 'statement') {
+			$('#statement-option').show();
+			$('#delivery-input-box').hide();
+		} else {
+			$('#statement-option').hide();
+			$('#delivery-input-box').show();
+		}
+	});
+	
 	$("#list-search-btn").click(function() {
 		
 		var date = $("input[name=dates]").val().split(" - ");
@@ -72,7 +84,12 @@ $(function() {
 		var endDate = temp2[2]+"-"+temp2[0]+"-"+temp2[1];
 		
 		var op = $('#cate-select').val();
-		var kwd = $('#delivery-input-box').val();
+		if(op == 'statement'){
+			var kwd = $('#statement-option').val();
+		} else{
+			var kwd = $('#delivery-input-box').val();
+		}
+		
 		
 		
 		
@@ -98,11 +115,11 @@ $(function() {
 			
 			var no = $(this).parents('.select-inline').data('no');
 			console.log(no);
-			var status = $('.form-control-sm option:selected').text();
-			console.log(status);
-			var test = {"no": no, "status" : status};
+			var statement = $('.form-control-sm option:selected').text();
+			console.log(statement);
+			var test = {"no": no, "statement" : statement};
 			
-			$('.inline-select').editable().attr('prepend',status);
+			$('.inline-select').editable().attr('prepend',statement);
 			
 			
 			$.ajax({
@@ -222,10 +239,22 @@ $(function() {
                                 </select>
                             </div>
                             <div class="form-group mb-3 scs-category">
-                                <label for="product-category">Input <span class="text-danger">*</span></label>
                                 <div class="form-group">
                                     <input id="delivery-input-box" name="kwd" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
                                 </div>
+                                <div>
+                                   	<select id="statement-option" name="kwd" class="custom-select custom-select-sm" style="display:none;">
+                                   		<option value="주문완료">주문완료</option>
+                                        <option value="입긍완료">입금완료</option>
+                                        <option value="배송준비중">배송준비중</option>
+                                        <option value="배송중">배송중</option>
+                                        <option value="배송완료">배송완료</option>
+                                        <option value="취소처리중">취소처리중</option>
+                                        <option value="교환처리중">교환처리중</option>
+                                        <option value="환불처리중">환불처리중</option>
+                                        <option value="처리완료">처리완료</option>
+                                   	</select>
+                               </div>
                             </div>
                             <div class="col-sm-6 col-xl-3 scs-submit">
                                 <div class="search-button">

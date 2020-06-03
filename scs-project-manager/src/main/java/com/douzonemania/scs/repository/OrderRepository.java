@@ -91,14 +91,14 @@ public class OrderRepository {
 		return sqlSession.selectOne("order.countDeliveryList", map); 
 	}
 	/* Delivery status update */
-	public int updateStatus(String id, int no, String status) {
+	public int updateStatus(String id, int no, String statement) {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("db", id);
 		map.put("no", no);
-		map.put("status", status);
+		map.put("statement", statement);
 		
-		System.out.println(no + " : " + status);
+		System.out.println(no + " : " + statement);
 		
 		return sqlSession.update("order.updateStatus", map);
 	}
