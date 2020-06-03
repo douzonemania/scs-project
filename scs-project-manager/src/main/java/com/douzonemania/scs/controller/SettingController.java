@@ -33,8 +33,9 @@ public class SettingController {
 
 	// setting-basic
 	@RequestMapping(value = "/basic", method = RequestMethod.GET)
-	public String info(@ModelAttribute("ceoVo") CeoVo ceoVo,
+	public String info(
 			@AuthUser CeoVo authUser,
+			@ModelAttribute("ceoVo") CeoVo ceoVo,
 			Model model) {
 		
 		System.out.println("info보여준다.");
@@ -46,8 +47,9 @@ public class SettingController {
 
 	// setting-basic update(get)
 	@RequestMapping(value = "/basic/update", method = RequestMethod.GET)
-	public String update(@ModelAttribute("ceoVo") CeoVo ceoVo,
+	public String update(
 			@AuthUser CeoVo authUser,
+			@ModelAttribute("ceoVo") CeoVo ceoVo,
 			Model model) {
 		System.out.println("update get 보여준다.");
 		ceoVo.setId(authUser.getId());
@@ -59,8 +61,9 @@ public class SettingController {
 
 	// setting-basic update(post)
 	@RequestMapping(value = "/basic/update", method = RequestMethod.POST)
-	public String update(@ModelAttribute("ceoVo") CeoVo ceoVo,
+	public String update(
 			@AuthUser CeoVo authUser,
+			@ModelAttribute("ceoVo") CeoVo ceoVo,
 			@RequestParam(value="logo-file") MultipartFile multipartFile1,
 			@RequestParam(value="favicon-file") MultipartFile multipartFile2,
 			Model model) {
@@ -79,16 +82,34 @@ public class SettingController {
 
 	// setting-policy
 	@RequestMapping(value = "/policy", method = RequestMethod.GET)
-	public String reg(
+	public String policy(
 			@AuthUser CeoVo authUser,
 			@PathVariable String id,
 			@ModelAttribute AgreementVo agreementVo,
 			Model model) {
 		
 		System.out.println("policy보여준다.");
+		
+		
 		agreementVo.setId(authUser.getId());
-		agreementVo = settingService.findAgreementById(authUser.getId());	//authUser 처리
-		System.out.println("--------------------------" + 	agreementVo);
+		agreementVo = settingService.findAgreementById(authUser.getId());
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!" + agreementVo);
+		String viewer1 = "quill.setContents([ " +
+                agreementVo.getFirstAgree() +
+       "]);";
+		
+		System.out.println(viewer1);
+		String viewer2 = "quill.setContents([ " +
+                agreementVo.getSecondAgree() +
+       "]);";
+		String viewer3 = "quill.setContents([ " +
+                agreementVo.getThirdAgree() +
+       "]);";
+		
+		
+		model.addAttribute("viewer1", viewer1);
+		model.addAttribute("viewer2", viewer2);
+		model.addAttribute("viewer3", viewer3);
 		model.addAttribute("agreementVo", agreementVo);
 
 		
@@ -105,7 +126,9 @@ public class SettingController {
 			
 		System.out.println("policy(update)보여준다.");
 		agreementVo.setId(authUser.getId());
-		settingService.updatePolicy(html, authUser.getId(), 1);
+		settingService.updatePolicy(html, authUser.getId());
+		
+		
 		model.addAttribute("agreementVo",agreementVo);
 		
 		return "setting/policy";

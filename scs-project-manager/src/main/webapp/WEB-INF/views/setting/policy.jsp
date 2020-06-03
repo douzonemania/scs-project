@@ -47,7 +47,11 @@
 <script type="text/javascript">
 
 var fetchList = function(){
-
+	
+	var agreement = $('#first_agree').attr('id');
+	console.log(agreement);
+	${viewer1 }
+	
 	$.ajax({
 		url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/policy',
 		async: true,
@@ -55,34 +59,18 @@ var fetchList = function(){
 		dataType: 'json',
 		data: '',
 		success: function(response){
-			
-			console.log(response.data);
-			if(response.result != "success"){
-				console.error(response.message);
-				return;
-			}
-			
-			$('#nav-item1').click(function(){
-				quill.setContents([
-				  { insert: response.data.firstAgree },
-				  { insert: "\n" }
-				], 'user');
-				
+			$('#first_agree').click(function(){
+				console.log($(this).attr('id'));
+				${viewer1 }
 			});
-			
-			$('#nav-item2').click(function(){
-				quill.setContents([
-				  { insert: response.data.secondAgree },
-				  { insert: "\n" }
-				], 'user');
+			$('#second_agree').click(function(){
+				console.log($(this).attr('id'));
+				${viewer2 }
 
 			});
-			
-			$('#nav-item3').click(function(){
-				quill.setContents([
-				  { insert: response.data.thirdAgree },
-				  { insert: "\n" }
-				], 'user');
+			$('#third_agree').click(function(){
+				console.log($(this).attr('id'));
+				${viewer3 }
 			});
 		},
 		error: function(xhr, status, e){
@@ -91,39 +79,43 @@ var fetchList = function(){
 	});
 };
 
-function submitPolicy(){
+
+
+$(document).ready(function(){
+	var agreement = $('#first_agree').attr('id');
+	console.log(agreement);
+	$("#agreement li").on("click", function() {
+       agreement = $(this).attr('id');
+    });
 	
-	event.preventDefault();
-	
-	var html = quill.getContents();
-	console.log(html);
-	$.ajax({
-		url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/policy/update',
-		async: true,
-		type: 'post',
-		dataType: 'json',
-		contentType: 'application/json',
-		data: JSON.stringify(html),
-		success: function(response){
-			
-			if(response.result != "success"){
-				console.error(response.message);
-				return;
+	$('#save-btn').click(function(e){
+		e.preventDefault();
+		
+		var html = quill.getContents();
+		html.agreement = agreement;
+		console.log(html);
+		$.ajax({
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/policy/update',
+			async: true,
+			type: 'post',
+			dataType: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify(html),
+			success: function(response){
+				
+				location.href= "${pageContext.request.contextPath }/${authUser.id}/setting/policy";
+			},
+			error: function(xhr, status, e){
+				console.error(status + " : " + e);
 			}
-					
-			
-			console.log(response);
-			
-			
-		},
-		error: function(xhr, status, e){
-			console.error(status + " : " + e);
-		}
+		});
 	});
-}
+	
+	
+	fetchList();
+});
 
 
-fetchList();
 
 
 </script>
@@ -162,34 +154,34 @@ fetchList();
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card-box">
-                        <ul class="nav nav-pills navtab-bg nav-justified">
-                            <li class="nav-item" id="nav-item1">
+                        <ul class="nav nav-pills navtab-bg nav-justified" id="agreement">
+                            <li class="nav-item" id="first_agree">
                                 <a href="#home1" data-toggle="tab" aria-expanded="true" class="nav-link active nav-title-color">
                                    	 이용 약관
                                 </a>
                             </li>
-                            <li class="nav-item" id="nav-item2">
+                            <li class="nav-item" id="second_agree">
                                 <a href="#home2" data-toggle="tab" aria-expanded="false" class="nav-link nav-title-color">
                                    	개인정보처리방침
                                 </a>
                             </li>
-                            <li class="nav-item" id="nav-item3">
+                            <li class="nav-item" id="third_agree">
                                 <a href="#home3" data-toggle="tab" aria-expanded="false" class="nav-link nav-title-color">
                                    	개인정보 수집 및 이용동의
                                 </a>
                             </li>
                         </ul>
-                        <form id="update-form" action="${pageContext.request.contextPath }/${authUser.id}/setting/policy/update" method="post">
+                        <form id="update-form">
 	                        <div class="tab-content">
-	                            <div class="tab-pane show active" id="home1">
+	                            <div class="tab-pane show active">
 	                                <div id="snow-editor" class="editor-class" style="height: 300px;" contentEditable="true">
-	                                	Default
+	                                	
 	                                </div> 
-	                           </div>	
+	                           </div>
 		                     
 		                        <div class="col-lg-12 scs-submit">
 		                            <div id="#test" class="p-4" style="float: right; margin-left:40px;">
-		                                <input type= "button" id="save-btn" value="저장" class="btn btn-secondary waves-effect" onclick="submitPolicy()">
+		                                <input type= "button" id="save-btn" value="저장" class="btn btn-secondary waves-effect">
 		                                <input type= "button" value="취소"class="btn btn-secondary waves-effect">
 		                            </div>
 		                        </div>

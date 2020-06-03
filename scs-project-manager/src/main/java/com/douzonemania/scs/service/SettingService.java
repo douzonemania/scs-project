@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -119,13 +121,29 @@ public class SettingService {
 		return settingRepository.findAgreementById(id);
 	}
 
-	public int updatePolicy(String html, String id, int num) {
-		Map<String, Object> map = new HashMap();
-		map.put("html", html);
-		map.put("id", id);
-		map.put("num", num);
+	public int updatePolicy(String jsonData, String id) {
 		
-		return settingRepository.updatePolicy(map);
+		JSONObject jObject = new JSONObject(jsonData);
+
+		JSONArray jArray = jObject.getJSONArray("ops");
+
+		String contents = "";
+		
+		String agreement = jObject.getString("agreement");
+		
+		for(int i = 0; i < jArray.length(); i++) {
+			JSONObject obj = jArray.getJSONObject(i);
+			System.out.println("obj:"+obj);
+			if(i == jArray.length() - 1) {
+				contents += obj;
+			}
+			else {
+				contents += obj + ",";
+			}
+		}
+
+		
+		return settingRepository.updatePolicy(contents,agreement, id);
 		
 	}
 
