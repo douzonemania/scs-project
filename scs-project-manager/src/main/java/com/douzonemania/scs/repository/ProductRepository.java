@@ -305,6 +305,13 @@ public class ProductRepository {
 		return sqlSession.update("product.modItem",map);
 	}
 
+	public int delStock(String id, int itemNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("itemNo", itemNo);
+		return sqlSession.delete("product.delStock",map);
+	}
+
 
 
 

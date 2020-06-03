@@ -56,6 +56,7 @@ var stockAddEjs = new EJS({
 var index = ${stockList.size()};
 
 $(function() {
+		
 	/* 옵션 추가 등록 팝업 */
 		$('#option-add').click(function(){		
 			window.open('http://localhost:8888/scs-manager/mall/product/optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
@@ -63,6 +64,8 @@ $(function() {
 });
 
 $(document).ready(function(){
+	${viewer}
+	
 	var i = 0;
 	var itemNo = ${vo.no};
 	var vo={};
@@ -113,8 +116,8 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 		var bestItem=true;
 	if($("input:checkbox[id='item-new']").is(":checked") == true)
 		var newItem=true;
-	var editor = "abcd";
-	var description = "abcd";
+	var editor = JSON.stringify(quill.getContents());
+	var description = $("#item-des").val();
 	var regDate = null;
 	var categoryName1 = $("#first-category option:selected").text();
 	var categoryName2 = $("#seconds-category option:selected").val();
@@ -144,6 +147,29 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 	vo.shipCompany = shipCompany;
 	vo.shippingCharge = shippingCharge;
 	
+	var i = 0;
+	var numberOfOption = $('.sizeOptionSelect').length;
+	var colorArr = [];
+	var sizeArr = [];
+	var stockArr=[];
+	
+	  for(i=0; i<numberOfOption; i++){
+		var color = $("#colorOption-" + i + " option:selected").val();
+		var size = $("#sizeOption-" + i + " option:selected").val();
+		var stock = $("#input-stock-" + i).val();
+		
+		colorArr.push(color);
+		sizeArr.push(size);
+		stockArr.push(stock);
+		
+	} 
+	
+	var objParams = {
+			'colorArr' : colorArr,
+			'sizeArr' : sizeArr,
+			'stockArr' : stockArr
+	}
+	
 	$.ajax({
 		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/modItem',
 		contentType: 'application/json',
@@ -151,10 +177,25 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 		type: "POST",
 		dataType: 'json',
 		success : function(response){
-			alert("성공")
+			$.ajax({
+				url: '${pageContext.request.contextPath }/${authUser.id}/api/product/stockMod/'+code,
+				contentType :'application/x-www-form-urlencoded; charset=UTF-8',
+				data: objParams,
+				type: "POST",
+				dataType: 'json',		
+				success : function(response){
+					alert("수정되었습니다.");
+					location.reload();
+				},
+				error: function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
+			});
+			var viewer = response.data;
 		},
-		error:
-			alert("실패")
+		error: function(xhr, status, e){
+			console.error(status + " : " + e);
+		}
 	});			
 });
 $(function() {
@@ -182,8 +223,9 @@ $(function() {
 							$('#seconds-category').append("<option value='" + data.parentNo + "'>" + data.name + "</option>");
 					}					
 				}, 			
-				error:
-					console.log("")
+				error: function(xhr, status, e){
+					console.error(status + " : " + e);
+				}
 			});			
 			
 			$("select#seconds-category option").remove();

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.ProductService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
@@ -196,9 +198,26 @@ public class ProductController {
 	@RequestMapping(value = "/regItem", method = RequestMethod.POST)
 	public JsonResult regItem(
 			@AuthUser CeoVo authUser,
-			@RequestBody ItemVo iVo
+			@RequestBody ItemVo iVo			
 			) {
-		String id = authUser.getId();		
+		String id = authUser.getId();
+		JSONObject jObject = new JSONObject(iVo.getEditor());
+		JSONArray jArray = jObject.getJSONArray("ops");
+
+		String contents = "";
+
+		for(int i = 0; i < jArray.length(); i++) {
+			JSONObject obj = jArray.getJSONObject(i);
+			System.out.println("obj:"+obj);
+			if(i == jArray.length() - 1) {
+				contents += obj;
+			}
+			else {
+				contents += obj + ",";
+			}
+		}
+		
+		iVo.setEditor(contents);
 		productService.regItem(id, iVo);
 		
 		return JsonResult.success("");
@@ -258,6 +277,7 @@ public class ProductController {
 			@PathVariable("no") int no
 			) {
 		String id = authUser.getId();
+		
 		List<StockVo> stockList = productService.getStockListByItemNo(id, no);
 		return JsonResult.success(stockList);
 	}
@@ -269,9 +289,64 @@ public class ProductController {
 			@RequestBody ItemVo iVo			
 			) {
 		System.err.println(iVo+"!!");
-			String id = authUser.getId();	
-			productService.updateItem(id, iVo);
+
+		System.out.println("editor: " + iVo.getEditor());
+		
+		JSONObject jObject = new JSONObject(iVo.getEditor());
+		
+		JSONArray jArray = jObject.getJSONArray("ops");
+
+		String contents = "";
+
+		for(int i = 0; i < jArray.length(); i++) {
+			JSONObject obj = jArray.getJSONObject(i);
+			System.out.println("obj:"+obj);
+			if(i == jArray.length() - 1) {
+				contents += obj;
+			}
+			else {
+				contents += obj + ",";
+			}
+		}
+			String id = authUser.getId();
+			iVo.setEditor(contents);
 			
-			return JsonResult.success("");
+			System.out.println("passing editor: " + iVo.getEditor());
+			
+			String viewer = "quill.setContents([ " + 
+					iVo.getEditor() +
+	       "]);";			
+			
+			productService.updateItem(id, iVo);
+			return JsonResult.success(viewer);
 	}
+	
+	// 재고량 수정
+		@ResponseBody
+		@RequestMapping(value = "/stockMod/{code}", method = RequestMethod.POST)
+		public JsonResult stockMod(
+				@AuthUser CeoVo authUser,		
+				@RequestParam(value="colorArr[]") List<Integer> colorArr,
+				@RequestParam(value="sizeArr[]") List<Integer> sizeArr,
+				@RequestParam(value="stockArr[]") List<Integer> stockArr,
+				@PathVariable String code
+				) {				
+			String id = authUser.getId();
+			
+			int itemNo = productService.getItemNo(id, code);
+			
+			// 아이템 no 해당 아이템 전부 삭제
+			productService.delStock(id, itemNo);
+			for(int i=0;i<sizeArr.size();i++) {
+				
+				StockVo temp = new StockVo();
+				temp.setFirstOption(colorArr.get(i));
+				temp.setSecondOption(sizeArr.get(i));
+				temp.setStock(stockArr.get(i));
+				// stock insert
+				productService.insertStock(id, itemNo, temp);
+			}
+
+			return JsonResult.success("");
+		}
 }

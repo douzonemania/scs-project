@@ -87,6 +87,11 @@ public class ProductController {
 		List<CategoryVo> category2NameList = productService.getCategory2NameList(id, cVo.getParentNo());
 		List<ShipCompanyVo> shipCompanyList = productService.getShipCompanyList(id);
 		List<StockVo> stockList = productService.getStockListByItemNo(id, no);
+		System.err.println(vo.getEditor()+"zz");
+
+		String viewer = "quill.setContents([ " + 
+				vo.getEditor() +
+             "]);";
 		
 		model.addAttribute("no", no);
 		model.addAttribute("vo",vo);	//	아이템정보
@@ -97,6 +102,7 @@ public class ProductController {
 		model.addAttribute("colorOptionList", colorOptionList);		//컬러옵션리스트
 		model.addAttribute("shipCompanyList", shipCompanyList);		//배송사 리스트
 		model.addAttribute("stockList", stockList);					//재고리스트
+		model.addAttribute("viewer", viewer);						//에디터
 		return "product/item-mod";
 	}
 	
@@ -172,7 +178,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value= "/board", method = { RequestMethod.GET, RequestMethod.POST })
-	public String memberList(@AuthUser CeoVo authUser, Model model,
+	public String itemBoardList(@AuthUser CeoVo authUser, Model model,
 			@RequestParam(value="p", required=true, defaultValue="1") int page,
 			@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
 			@RequestParam(value="op", required=true, defaultValue="") String option) {

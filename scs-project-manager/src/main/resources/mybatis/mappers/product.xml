@@ -49,6 +49,12 @@
 				]]>
 	</insert>
 	
+	<delete id="delStock" parameterType="map">
+				<![CDATA[
+					delete from ${db}.stock where item_no = #{itemNo};
+				]]>
+	</delete>
+	
 	<update id="delItem" parameterType="map">
 				<![CDATA[
 					update ${db}.item set state = false where no = #{no};
@@ -57,7 +63,7 @@
 	
 	<update id="modItem" parameterType="map">
 				<![CDATA[
-					update ${db}.item set code = '${iVo.code}', name= '${iVo.name}', sup_price= ${iVo.supPrice}, now_price=${iVo.nowPrice}, sale= ${iVo.sale}, main_image='${iVo.mainImage}', sub_Image= '${iVo.subImage}', visible=${iVo.visible}, best_item= ${iVo.bestItem}, new_item= ${iVo.newItem}, editor= '${iVo.editor}', category_no = ${iVo.categoryNo}, description = '${iVo.description}', ship_company = '${iVo.shipCompany}', ship_charge=${iVo.shipCharge} where no = ${iVo.no}
+					update ${db}.item set code = '${iVo.code}', name= '${iVo.name}', sup_price= ${iVo.supPrice}, now_price=${iVo.nowPrice}, sale= ${iVo.sale}, main_image='${iVo.mainImage}', sub_Image= '${iVo.subImage}', visible=${iVo.visible}, best_item= ${iVo.bestItem}, new_item= ${iVo.newItem}, editor= #{iVo.editor}, category_no = ${iVo.categoryNo}, description = '${iVo.description}', ship_company = '${iVo.shipCompany}', ship_charge=${iVo.shipCharge} where no = ${iVo.no}
 				]]>
 	</update>
 	

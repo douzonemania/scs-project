@@ -87,13 +87,15 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	var sale = document.getElementById("item-sale").value;
 	var mainImage = "abcd";
 	var subImage = "abcd";
+	var editor = JSON.stringify(quill.getContents());
+	
 	if($('input[name="pro-expo"]:checked').val()!="visible")
 		var visible = false;
 	if($("input:checkbox[id='item-best']").is(":checked") == true)	
 		var bestItem=true;
 	if($("input:checkbox[id='item-new']").is(":checked") == true)
 		var newItem=true;
-	var editor = "abcd";
+	
 	var description = $("#item-des").val();
 	var regDate = null;
 	//var categoryName1 = $("#first-category option:selected").text();
@@ -105,7 +107,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 		var shippingCharge=0;
 	else
 		var shippingCharge=3000; // 설정 배송비 나중에 수정할것
-	
+
 	var vo={};
 	vo.no = no;
 	vo.code = code;
@@ -124,6 +126,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	vo.categoryNo = categoryName2;
 	vo.shipCompany = shipCompany;
 	vo.shippingCharge = shippingCharge;
+	vo.editor = editor;
 	
 	var i = 0;
 	var numberOfOption = $('.sizeOptionSelect').length;
@@ -140,7 +143,6 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 		colorArr.push(color);
 		sizeArr.push(size);
 		stockArr.push(stock);
-		console.log(color+"//"+size+"//"+stock);
 	} 
 	
 	var objParams = {

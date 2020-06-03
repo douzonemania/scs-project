@@ -239,4 +239,8 @@ public class ProductService {
 		return  productRepository.updateItem(id,iVo);
 	}
 
+	public int delStock(String id, int itemNo) {
+		return productRepository.delStock(id, itemNo);
+	}
+
 }
