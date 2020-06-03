@@ -1,7 +1,9 @@
 package com.douzonemania.shop.controller.api;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -9,8 +11,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +25,7 @@ import com.douzonemania.shop.service.OrderService;
 import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OptionVo;
+import com.douzonemania.shop.vo.ShipVo;
 
 @Controller("OrderApiController")
 @RequestMapping("api/order")
@@ -81,9 +86,6 @@ public class OrderController {
 		
 		orderService.deleteCart(db,vo.getNo(),cartNo);
 		
-		
-		
-		
 		return JsonResult.success("");
 		
 	}
@@ -107,22 +109,84 @@ public class OrderController {
 	@RequestMapping(value="/order",method=RequestMethod.POST)
 	public JsonResult order(
 			HttpSession session,
-			@RequestParam(value="cartNoList[]") List<Integer> cartNoList
+			@RequestParam(value="cartNoList[]") List<Integer> cartNoList,
+			@RequestParam(value="amountList[]") List<Integer> amountList
 			) {
 		
 		String db = session.getAttribute("db").toString();
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
-		List<ItemVo> list = new ArrayList();
- 		
 		
-		for (Integer integer : cartNoList) {
-			ItemVo temp =orderService.setOrderItem(db,vo.getNo(),integer);
-			list.add(temp);
-		}
 		
+		orderService.setOrderPage(db,vo.getNo(),cartNoList,amountList,session);
 		
 		
 		return JsonResult.success("");
 		
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/insertShip", method = RequestMethod.POST)
+	public JsonResult insertShip(
+			@RequestBody Map<String, Object> map,
+			HttpSession session) {
+		
+		String db = session.getAttribute("db").toString();
+		MemberVo vo = (MemberVo)session.getAttribute("authUser");
+		List<ItemVo> list = (List<ItemVo>)session.getAttribute("orderList");
+	
+		
+		String shipMemo = (String) map.get("shipMemo");
+		
+		orderService.insertShip(db,vo.getNo(),map);
+		
+		orderService.excuteOrder(db,vo.getNo(),list,shipMemo);
+		
+		return JsonResult.success("");
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/excuteOrder", method = RequestMethod.POST)
+	public JsonResult excuteOrder(
+			@RequestBody Map<String, Object> map,
+			HttpSession session) {
+		
+		String db = session.getAttribute("db").toString();
+		MemberVo vo = (MemberVo)session.getAttribute("authUser");
+		List<ItemVo> list = (List<ItemVo>)session.getAttribute("orderList");
+	
+		
+		String shipMemo = (String) map.get("shipMemo");
+		
+		orderService.updateShip(db,vo.getNo(),map);
+		
+		orderService.excuteOrder(db,vo.getNo(),list,shipMemo);
+		
+		return JsonResult.success("");
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

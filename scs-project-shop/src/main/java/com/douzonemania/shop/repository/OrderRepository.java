@@ -21,6 +21,7 @@ import com.douzonemania.shop.vo.CategoryVo;
 import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OptionVo;
+import com.douzonemania.shop.vo.ShipVo;
 import com.douzonemania.shop.vo.StockVo;
 
 @Repository
@@ -218,14 +219,106 @@ public class OrderRepository {
 
 	public ItemVo setOrderItem(String db, Long no, Integer cartNo) {
 		
-		System.out.println("DB:"+db+"/USERNO:"+no+"/CARTNO"+cartNo);
-		
 		map.put("db", db);
 		map.put("userNo",no);
 		map.put("cartNo",cartNo);
 		
 		ItemVo temp = sqlSession.selectOne("order.findOrderItem",map);
 		return temp;
+	}
+
+
+	public List<ShipVo> findShipAddressList(String db, Long no) {
+		
+		map.put("db", db);
+		map.put("userNo",no);
+		
+		List<ShipVo> list = sqlSession.selectList("findShipAddressList",map);
+		
+		
+	
+		return list;
+	}
+
+	
+	public Integer findStockNo(String db , long no,int itemNo, int firstOption, int secondOption) {
+		
+		map.put("db",db);
+		map.put("userNo",no);
+		map.put("itemNo",itemNo);
+		map.put("firstOption",firstOption);
+		map.put("secondOption",secondOption);
+		
+		int stockNo = sqlSession.selectOne("findStockNo",map);
+		
+		return stockNo;	
+	}
+
+	public int findRecentOrderNum(String db) {
+		
+		map.put("db",db);	
+		int orderNum = sqlSession.selectOne("findRecentOrderNum",map);
+		return orderNum;	
+	}
+
+
+	public int insertOrder(String db, String orderNum, Long no,String shipMemo) {
+		
+		map.put("db",db);
+		map.put("orderNum",orderNum);
+		map.put("userNo",no);
+		map.put("no",0);
+		map.put("shipMemo",shipMemo);
+		sqlSession.insert("insertOrder",map);
+		int result=(Integer)map.get("no");
+	
+		
+		return result;
+	}
+
+
+	public void insertOrderItem(String db, int orderNo, int stockNo,int amount,int totalPrice,String shipMemo) {
+		
+		map.put("db",db);
+		map.put("orderNum",orderNo);
+		map.put("stockNo",stockNo);
+		map.put("amount",amount);
+		map.put("totalPrice",totalPrice);
+		
+		sqlSession.insert("insertOrderItem",map);
+		
+	}
+
+
+	public void insertShip(String db, Long no, ShipVo vo) {
+		
+		map.put("db",db);
+		map.put("userNo",no);
+		map.put("vo",vo);
+		
+		sqlSession.update("clearShip",map);
+		sqlSession.insert("insertShip",map);
+	}
+
+
+	public void updateShip(String db, long no, ShipVo vo) {
+		
+		map.put("db",db);
+		map.put("vo",vo);
+		map.put("no",no);
+		sqlSession.update("clearShip",map);
+		sqlSession.update("updateShip",map);
+		
+	}
+
+
+	public void updateStock(String db, int stockNo, int amount) {
+		
+		map.put("db",db);
+		map.put("stockNo",stockNo);
+		map.put("amount",amount);
+		
+		sqlSession.update("updateStock",map);
 	}
 
 

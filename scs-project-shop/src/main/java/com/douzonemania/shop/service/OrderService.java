@@ -1,8 +1,13 @@
 package com.douzonemania.shop.service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +17,7 @@ import com.douzonemania.shop.vo.CartVo;
 import com.douzonemania.shop.vo.CategoryVo;
 import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.OptionVo;
+import com.douzonemania.shop.vo.ShipVo;
 import com.douzonemania.shop.vo.StockVo;
 
 
@@ -125,14 +131,7 @@ public class OrderService {
 		for (ItemVo itemVo : list) {
 			int nowSale = itemVo.getSale();
 			
-			if(nowSale !=0) {
-				int nowPrice= itemVo.getNowPrice();
-				double calSale = (nowSale * 0.01);
-				int totalPrice = nowPrice - (int)(nowPrice*calSale);
-				itemVo.setTotalPrice(totalPrice);
-			}else {
-				itemVo.setTotalPrice(itemVo.getNowPrice());
-			}
+			itemVo = setTotalPrice(nowSale, itemVo);
 		}
 		
 		return list;
@@ -151,16 +150,135 @@ public class OrderService {
 		
 	}
 	public ItemVo setOrderItem(String db, Long no, Integer cartNo) {
-		
-		
 		ItemVo temp = orderRepository.setOrderItem(db,no,cartNo);
 		
 		
 		return temp;
 	}
 
+	public void setOrderPage(String db, Long no, List<Integer> cartNoList, List<Integer> amountList, HttpSession session) {
+		List<ItemVo> list = new ArrayList();
+		List<ShipVo> shipList = orderRepository.findShipAddressList(db,no);
+		
+		int index = 0;
+		
+		if(shipList.size()!=0) {
+			session.setAttribute("shipListCheck", true);
+			session.setAttribute("shipList", shipList);
+			ShipVo vo = new ShipVo();
+			for (ShipVo shipVo : shipList) {
+				
+				if(shipVo.isRecent()==true) {
+					vo=shipVo;
+				}
+			}
+			
+			session.setAttribute("recentShip", vo);
+		}else {
+			session.setAttribute("shipListCheck", false);
+			
+		}
+		
+		
+		for (Integer integer : cartNoList) {
+			
+			ItemVo temp =orderRepository.setOrderItem(db,no,integer);
+			temp.setAmount(amountList.get(index++));
+			
+			int nowSale = temp.getSale();
+			
+			temp = setTotalPrice(nowSale, temp);
+			list.add(temp);
+			
+		}
+		
+		
+		session.setAttribute("orderList", list);
+		
+	}
+
+	public void excuteOrder(String db, Long no, List<ItemVo> list,String shipMemo) {
+		
+		String orderNum = makeOrderNum(db);
+		int result = orderRepository.insertOrder(db,orderNum,no,shipMemo);
+		
+		
+		for (ItemVo vo :list) {
+			int itemNo = vo.getNo();
+			int firstOption = vo.getFirstOption();
+			int secondOption = vo.getSecondOption();
+			
+			int amount = vo.getAmount();
+			int totalPrice = vo.getTotalPrice();
+			
+			int stockNo = orderRepository.findStockNo(db,no,itemNo,firstOption,secondOption);
+			
+			
+			orderRepository.insertOrderItem(db,result,stockNo,amount,totalPrice,shipMemo);
+			orderRepository.updateStock(db,stockNo,amount);
+		}
+		
+		
+	}
+	
+	
+	public ItemVo setTotalPrice(int nowSale,ItemVo temp) {
+		
+		
+		if(nowSale !=0) {
+			int nowPrice= temp.getNowPrice();
+			double calSale = (nowSale * 0.01);
+			int totalPrice = nowPrice - (int)(nowPrice*calSale);
+			temp.setTotalPrice(totalPrice);
+		}else {
+			temp.setTotalPrice(temp.getNowPrice());
+		}
+		
+		return temp;
+	}
 
 	
+	public String makeOrderNum(String db) {
+		
+		int recentOrderNum = orderRepository.findRecentOrderNum(db);
+		
+		String convertNum = String.format("%04d", recentOrderNum+1);
+		
+		SimpleDateFormat nowDate = new SimpleDateFormat("yyyyMMdd"); 
+		Date now = new Date();
+		
+		String nowDateString =nowDate.format(now);
+		
+		return nowDateString+"-"+convertNum;
+	}
+
+	public void insertShip(String db, Long no, Map<String, Object> map) {
+		
+		ShipVo vo = new ShipVo();
+		
+		vo.setShipName(map.get("shipName").toString());
+		vo.setPhoneNumber(map.get("phoneNumber").toString());
+		vo.setAddress(map.get("address").toString());
+		
+		
+		orderRepository.insertShip(db,no,vo);
+		
+		
+	}
+
+	public void updateShip(String db, Long no, Map<String, Object> map) {
+		
+		ShipVo vo = new ShipVo();
+		
+		vo.setShipName(map.get("shipName").toString());
+		vo.setPhoneNumber(map.get("phoneNumber").toString());
+		vo.setAddress(map.get("address").toString());
+		vo.setNo((int)map.get("shipNo"));
+		
+		orderRepository.updateShip(db,no,vo);
+		
+		
+	}
 	
 }
 

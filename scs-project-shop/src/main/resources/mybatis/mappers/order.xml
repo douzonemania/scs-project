@@ -24,6 +24,71 @@
 		   <result property="rate" column="rate" />
  		</resultMap>
  		
+ 		
+	<insert id="insertCart" parameterType="map" >
+		<![CDATA[
+			insert into ${db}.cart values(null,#{amount},#{memberNo},#{stockNo});
+		]]>
+	</insert>
+	
+	<insert id="insertOrder" parameterType="map" useGeneratedKeys="true" keyProperty="no">
+		
+			<![CDATA[
+				insert into ${db}.shop_order 
+			values(
+			null,
+			#{orderNum},
+			now(),
+			'주문완료',
+			#{userNo},
+			#{shipMemo});
+			
+			]]>
+			
+			
+	
+	</insert>
+ 		
+ 	<insert id="insertOrderItem" parameterType="map">
+ 		<![CDATA[
+ 			insert into ${db}.order_item values(#{orderNum},#{stockNo},#{amount},#{totalPrice});
+ 		]]>
+ 	</insert>	
+ 		
+ 	<insert id="insertShip" parameterType="map">
+ 		<![CDATA[
+ 			insert into ${db}.ship_address values(null,#{vo.shipName},#{vo.phoneNumber},#{vo.address},1,#{userNo});
+ 		]]>
+ 	</insert>	
+ 		
+ 	<update id = "updateCart" parameterType="map">
+		<![CDATA[
+			update ${db}.cart set amount=#{amount} where no=#{cartNo}
+		]]>
+	</update>
+	
+	<update id="clearShip" parameterType="map">
+		<![CDATA[
+			update ${db}.ship_address set recent = 0 where member_no=#{no};
+		]]>
+		
+	</update>	
+ 		
+	
+	<update id="updateShip" parameterType="map">
+		<![CDATA[
+			update ${db}.ship_address set recent = 1 where no=#{vo.no} and member_no=#{no};
+		]]>
+		
+	</update>	
+ 	
+ 	<update id="updateStock" parameterType="map">
+ 		<![CDATA[
+ 			update ${db}.stock set stock =  stock- #{amount} where no=#{stockNo};
+ 		]]>
+ 	</update>	
+ 		
+ 		
 		<select id="totalCount" resultType="int" parameterType="map" >
 			<choose>
 				<when test='subCategory==null or subCategory==""'>
@@ -153,7 +218,9 @@
 				select no 
 				from ${db}.stock
 				where 
-					item_no=#{itemNo} and first_option=#{firstOption} and second_option=#{secondOption}	
+					item_no=#{itemNo} and 
+					first_option=#{firstOption} and 
+					second_option=#{secondOption}	
 				]]>
 			</otherwise>
 		</choose>
@@ -161,17 +228,7 @@
 	</select>
 
 
-	<insert id="insertCart" parameterType="map" >
-		<![CDATA[
-			insert into ${db}.cart values(null,#{amount},#{memberNo},#{stockNo});
-		]]>
-	</insert>
 	
-	<update id = "updateCart" parameterType="map">
-		<![CDATA[
-			update ${db}.cart set amount=#{amount} where no=#{cartNo}
-		]]>
-	</update>
 	
 	<select id = "setCartList" parameterType="map" resultType="itemvo">
 		<![CDATA[
@@ -192,7 +249,7 @@
 	
 	<select id="findOrderItem" parameterType="map" resultType="itemvo">
 		<![CDATA[
-			select a.no,a.code,a.name,a.now_price as nowPrice,a.sale , a.main_image , b.first_option,b.firstOptionName,b.second_option , b.secondOptionName, b.cartNo,b.amount 
+			select a.no,a.code,a.name,a.now_price as nowPrice,a.sale , a.main_image , b.first_option as firstOption,b.firstOptionName,b.second_option as secondOption, b.secondOptionName, b.cartNo,b.amount 
 			from ${db}.item a, (
 					select a.no,a.item_no,a.first_option,a.firstOptionName,a.second_option,a.secondOptionName,b.no as cartNo,b.amount 
 					from (
@@ -206,7 +263,23 @@
 		]]>
 	</select>
 	
+	<select id = "findShipAddressList" parameterType="map" resultType="shipvo">
+		<![CDATA[
+			 select no,ship_name as shipName, phone_number as phoneNumber , address,recent,member_no as memberNo 
+		 from ${db}.ship_address where member_no = #{memberNo}
+		]]>
+	</select>
 	
+	
+	<select id = "findRecentOrderNum" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(*)
+			from ${db}.shop_order
+			where reg_date=curdate();
+		]]>
+	</select>
+	
+
 	<delete id="deleteCart" parameterType="map">
 		<![CDATA[
 			delete from ${db}.cart where member_no=#{userNo} and no=#{cartNo};

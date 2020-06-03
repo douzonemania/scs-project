@@ -80,8 +80,12 @@ public class OrderController {
 			HttpSession session,
 			Model model
 			) {
-	
-			
+		
+		String db = session.getAttribute("db").toString();
+		MemberVo vo = (MemberVo)session.getAttribute("authUser");
+		
+		
+		
 		return "order/order";
 	}
 	

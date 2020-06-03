@@ -36,22 +36,24 @@
 					}else{
 						$('input[type=checkbox]').prop('checked',false);			
 					}
-					
-					
 				});
 				
 				$('#cart-all-order-btn').click(function(){
 					
 					var cartNoList=[];
+					var amountList=[];
 					$('.mobile-cart').each(function(){
 						cartNoList.push($(this).data('no'));
+						amountList.push($(this).find("input[type=text]").val());
 					});
 					var objParams = {
-						'cartNoList' : cartNoList
+							'cartNoList' : cartNoList,
+							'amountList' : amountList
 					};
 					$.ajax({
 						url : '${pageContext.request.contextPath }/api/order/order',
-						async : true,
+						dataType : 'json',
+						contentType :'application/x-www-form-urlencoded; charset=UTF-8',
 						type : 'post',
 						data : objParams,
 						success : function(response) {
@@ -65,22 +67,26 @@
 				
 				$('#cart-select-order-btn').click(function(){
 					var cartNoList=[];
-				
+					var amountList=[];
+					
 					$('.mobile-cart').each(function(){
 						if($(this).find("input[type=checkbox]").is(':checked')){
 							cartNoList.push($(this).data('no'));
+						    amountList.push($(this).find("input[type=text]").val());  
 						}
-					});
+					});	    
 					
 					if(cartNoList.length ==0){
 						alert("상품을 선택해주세요!");
 					}else{
 						var objParams = {
-								'cartNoList' : cartNoList
-						};
+								'cartNoList' : cartNoList,
+								'amountList' : amountList
+ 						};
 						$.ajax({
 							url : '${pageContext.request.contextPath }/api/order/order',
-							async : true,
+							dataType : 'json',
+							contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 							type : 'post',
 							data : objParams,
 							success : function(response) {
@@ -90,7 +96,7 @@
 								console.error(status + ':' + e);
 							}
 						}); 
-					}	
+					}
 				});
 				
 				$('#delete-all-product').click(function(){
@@ -153,12 +159,8 @@
 					input.val(conInput);
 				
 					
+				
 				});
-				
-				
-				
-				
-				
 			});
 			</script>
 
