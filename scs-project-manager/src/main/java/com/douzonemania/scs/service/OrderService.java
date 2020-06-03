@@ -34,7 +34,9 @@ public class OrderService {
 		System.out.println("total:" + total);
 		List<OrderDeliveryVo> list;
 		list = orderRepository.findDeliveryByDate(startDate, endDate,id, option, keyword, offset, LIST_SIZE);
-		System.out.println(list);
+		for (OrderDeliveryVo orderDeliveryVo : list) {
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + orderDeliveryVo);
+		}
 		
 		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
 		int calCnt=(currentPage%5)==0 ? currentPage-1 : currentPage;
@@ -51,25 +53,25 @@ public class OrderService {
 		
 		for (OrderDeliveryVo orderDeliveryVo : list) {
 			
-			String status = orderDeliveryVo.getStatus();
+			String statement = orderDeliveryVo.getStatement();
 			
-			  if(("주문완료").equals(status)) {
+			  if(("주문완료").equals(statement)) {
 				  dataValue = 1;
-			  } else if(("입금완료").equals(status)) {
+			  } else if(("입금완료").equals(statement)) {
 				  dataValue = 2;
-			  } else if(("배송준비중").equals(status)) {
+			  } else if(("배송준비중").equals(statement)) {
 				  dataValue = 3;
-			  } else if(("배송중").equals(status)) {
+			  } else if(("배송중").equals(statement)) {
 				  dataValue = 4;
-			  } else if(("배송완료").equals(status)) {
+			  } else if(("배송완료").equals(statement)) {
 				  dataValue = 5;
-			  } else if(("취소처리중").equals(status)) {
+			  } else if(("취소처리중").equals(statement)) {
 				  dataValue = 6;
-			  } else if(("교환처리중").equals(status)) {
+			  } else if(("교환처리중").equals(statement)) {
 				  dataValue = 7;
-			  } else if(("환불처리중").equals(status)) {
+			  } else if(("환불처리중").equals(statement)) {
 				  dataValue = 8;
-			  } else if(("처리완료").equals(status)) {
+			  } else if(("처리완료").equals(statement)) {
 				  dataValue = 9;
 			  }
 			  orderDeliveryVo.setDataValue(dataValue);
@@ -97,9 +99,9 @@ public class OrderService {
 		return map;
 	}
 	
-	public int updateStatus(String id, int no, String status) {
+	public int updateStatus(String id, int no, String statement) {
 		
-		return orderRepository.updateStatus(id, no, status);
+		return orderRepository.updateStatus(id, no, statement);
 	}
 	
 	/* Settle 정해진 날짜기간동안 list 출력 */

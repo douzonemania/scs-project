@@ -181,7 +181,7 @@ $(function(){
 	            <col width="180"><col width="*">
 	        </colgroup>
 	        <div class="header-title" style="padding:5px;"><h2>배송사관리</h2>
-				<input type="text" id="text-ship" name="name" style="width:280px; margin-left:10px;">
+				<input type="text" id="text-ship" name="name" style="width:253px; margin-left:15px;">
 				<input type="submit" class="btn btn-secondary btn-sm float-sm-right" style="margin-left:20px;"value="추가" >
 			</div>
 		</table>

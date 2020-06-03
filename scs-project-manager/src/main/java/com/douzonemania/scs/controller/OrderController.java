@@ -32,8 +32,8 @@ public class OrderController {
 			Model model) {
 			
 			
-		      String id = authUser.getId();
-			  System.out.println(startDate + ":" + endDate + ":" +  page + ":" +  option + ":" + keyword);
+		    String id = authUser.getId();
+			System.out.println("!!!!!!!!"+startDate + ":" + endDate + ":" +  page + ":" +  option + ":" + keyword);
 			Map<String, Object> map = orderService.findDeliveryByDate(startDate, endDate, id, page, option, keyword);
 			
 			model.addAttribute("map", map);

@@ -59,12 +59,12 @@ public class OrderController {
 
 		  int no = 0;
 		  no = (int) statusMap.put("no", no);
-		  String status = "";
-		  status = (String) statusMap.put("status", status);
-		  System.out.println("apideliveryupdate:" + no +" : " + status);
+		  String statement = "";
+		  statement = (String) statusMap.put("statement", statement);
+		  System.out.println("apideliveryupdate:" + no +" : " + statement);
 		  String id = authUser.getId();
 		  orderDeliveryVo.setId(id);
-		  orderService.updateStatus(id, no, status);
+		  orderService.updateStatus(id, no, statement);
 		  return JsonResult.success("");
 	}
 	

@@ -125,21 +125,21 @@
 
 	<select id="findDeliveryByDate" parameterType="map" resultType="orderdeliveryvo">
 			<choose>
-				<when test='(startDate  == "" and endDate == "" ) and (option="" and keyword="" ) '>
+				<when test='(startDate  == "" and endDate == "" ) and (option=="" and keyword=="" ) '>
 					<![CDATA[
-						select shop_order.no as 'no', item.name as 'name', DATE_FORMAT(shop_order.reg_date, '%Y-%m-%d') as 'regDate', shop_order.order_number as 'orderNumber', member.id as 'id', shop_order.statement as 'status'
+						select shop_order.no as 'no', item.name as 'name', DATE_FORMAT(shop_order.reg_date, '%Y-%m-%d') as 'regDate', shop_order.order_number as 'orderNumber', member.id as 'id', shop_order.statement as 'statement'
 						  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
 						 where item.no = stock.item_no 
 						   and stock.no = order_item.stock_no
 						   and order_item.order_no = shop_order.no
 						   and shop_order.member_no = member.no
 						   group by 1
-						   limit ${size} offset #{offset}
+						   limit ${size } offset #{offset }
 					]]>
 				</when>
-				<when test='option != "" and keyword=""  '>
+				<when test='option != "" and keyword==""  '>
 					<![CDATA[
-						select shop_order.no as 'no', item.name as 'name', DATE_FORMAT(shop_order.reg_date, '%Y-%m-%d') as 'regDate', shop_order.order_number as 'orderNumber', member.id as 'id', shop_order.statement as 'status'
+						select shop_order.no as 'no', item.name as 'name', DATE_FORMAT(shop_order.reg_date, '%Y-%m-%d') as 'regDate', shop_order.order_number as 'orderNumber', member.id as 'id', shop_order.statement as 'statement'
 						  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
 						 where item.no = stock.item_no 
 						   and stock.no = order_item.stock_no
@@ -147,34 +147,34 @@
 						   and shop_order.member_no = member.no
 						   and shop_order.reg_date >= #{startDate } and shop_order.reg_date <= #{endDate }
 						   group by 1
-						   limit ${size} offset #{offset}
+						   limit ${size } offset #{offset }
 					]]>
 				</when>
 				<when test='startDate  == "" and endDate == "" '>
 					<![CDATA[
-						select shop_order.no as 'no', item.name as 'name', DATE_FORMAT(shop_order.reg_date, '%Y-%m-%d') as 'regDate', shop_order.order_number as 'orderNumber', member.id as 'id', shop_order.statement as 'status'
+						select shop_order.no as 'no', item.name as 'name', DATE_FORMAT(shop_order.reg_date, '%Y-%m-%d') as 'regDate', shop_order.order_number as 'orderNumber', member.id as 'id', shop_order.statement as 'statement'
 						  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
-						 where item.no = stock.item_no 
+						 where item.no = stock.item_no
 						   and stock.no = order_item.stock_no
 						   and order_item.order_no = shop_order.no
 						   and shop_order.member_no = member.no
-						   and #{option} like '%${keyword}%'
+						   and ${option } like '%${keyword }%'
 						   group by 1
-						   limit ${size} offset #{offset}
+						   limit ${size } offset #{offset }
 					]]>
 				</when>
 				<otherwise>
 					<![CDATA[
-						select shop_order.no as 'no', item.name as 'name', DATE_FORMAT(shop_order.reg_date, '%Y-%m-%d') as 'regDate', shop_order.order_number as 'orderNumber', member.id as 'id', shop_order.statement as 'status'
+						select shop_order.no as 'no', item.name as 'name', DATE_FORMAT(shop_order.reg_date, '%Y-%m-%d') as 'regDate', shop_order.order_number as 'orderNumber', member.id as 'id', shop_order.statement as 'statement'
 						  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
 						 where item.no = stock.item_no 
 						   and stock.no = order_item.stock_no
 						   and order_item.order_no = shop_order.no
 						   and shop_order.member_no = member.no
 						   and shop_order.reg_date >= #{startDate } and shop_order.reg_date <= #{endDate }
-						   and #{option} like '%${keyword}%'
+						   and ${option } like '%${keyword }%'
 						   group by 1
-						   limit ${size} offset #{offset}
+						   limit ${size } offset #{offset }
 					]]>
 				</otherwise>
 			</choose>
@@ -182,48 +182,53 @@
 	
 	<select id="countDeliveryList" parameterType="map" resultType="int">
 			<choose>
-<when test='(startDate  == "" and endDate == "" ) and (option="" and keyword="" ) '>
+				<when test='(startDate  == "" and endDate == "" ) and (option=="" and keyword=="" ) '>
+						<![CDATA[
+							select count(*) from (select shop_order.no
+							  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
+							 where item.no = stock.item_no
+							   and stock.no = order_item.stock_no
+							   and order_item.order_no = shop_order.no
+							   and shop_order.member_no = member.no 
+							   group by 1) a
+							   
+						]]>
+					</when>
+				<when test='option != "" and keyword==""  '>
 					<![CDATA[
-						select count(*) as 'count'
-						  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
-						 where item.no = stock.item_no 
-						   and stock.no = order_item.stock_no
-						   and order_item.order_no = shop_order.no
-						   and shop_order.member_no = member.no
-					]]>
-				</when>
-				<when test='option != "" and keyword=""  '>
-					<![CDATA[
-						select count(*) as 'count'
+						select count(*) from (select shop_order.no
 						  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
 						 where item.no = stock.item_no 
 						   and stock.no = order_item.stock_no
 						   and order_item.order_no = shop_order.no
 						   and shop_order.member_no = member.no
 						   and shop_order.reg_date >= #{startDate } and shop_order.reg_date <= #{endDate }
+						    group by 1) a
 					]]>
 				</when>
 				<when test='startDate  == "" and endDate == "" '>
 					<![CDATA[
-						select count(*) as 'count'
+						select count(*) from (select shop_order.no
 						  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
-						 where item.no = stock.item_no 
+						 where item.no = stock.item_no
 						   and stock.no = order_item.stock_no
 						   and order_item.order_no = shop_order.no
 						   and shop_order.member_no = member.no
 						   and #{option} like '%${keyword}%'
+						    group by 1) a
 					]]>
 				</when>
 				<otherwise>
 					<![CDATA[
-						select count(*) as 'count'
+						select count(*) from (select shop_order.no
 						  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
 						 where item.no = stock.item_no 
 						   and stock.no = order_item.stock_no
 						   and order_item.order_no = shop_order.no
 						   and shop_order.member_no = member.no
 						   and shop_order.reg_date >= #{startDate } and shop_order.reg_date <= #{endDate }
-						   and #{option } like '%${keyword }%'
+						   and ${option } like '%${keyword }%'
+						    group by 1) a
 					]]>
 				</otherwise>
 			</choose>
@@ -231,7 +236,7 @@
 	
 	<select id="findDeliveryByNo" parameterType="map" resultType="orderdeliveryvo">
 		<![CDATA[
-			select shop_order.no as 'no', item.name as 'name', DATE_FORMAT(shop_order.reg_date, '%Y-%m-%d') as 'regDate', shop_order.order_number as 'orderNumber', member.id as 'id', shop_order.statement as 'status'
+			select shop_order.no as 'no', item.name as 'name', DATE_FORMAT(shop_order.reg_date, '%Y-%m-%d') as 'regDate', shop_order.order_number as 'orderNumber', member.id as 'id', shop_order.statement as 'statement'
 			  from ${db}.item, ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.member
 			 where item.no = stock.item_no 
 			   and stock.no = order_item.stock_no
@@ -244,7 +249,7 @@
 	<update id="updateStatus" parameterType="map">
 		<![CDATA[
 			update ${db}.shop_order
-			   set statement = #{status }
+			   set statement = #{statement }
 			 where shop_order.no = #{no }
 		
 		]]>
@@ -252,7 +257,7 @@
 	
 	<select id="findStatement" parameterType="map" resultType="string">
 		<![CDATA[
-			select statement as 'status'
+			select statement as 'statement'
 			  from ${db }.shop_order
 			 where no = #{no };
 		

@@ -10,7 +10,15 @@ public class OrderDeliveryVo {
 	private Timestamp regDate;
 	private String orderNumber;
 	private String id;
-	private String status;
+	private String statement;
+	public String getStatement() {
+		return statement;
+	}
+
+	public void setStatement(String statement) {
+		this.statement = statement;
+	}
+
 	private int dataValue;
 
 	public int getDataValue() {
@@ -61,18 +69,10 @@ public class OrderDeliveryVo {
 		this.id = id;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	@Override
 	public String toString() {
 		return "OrderDeliveryVo [no=" + no + ", name=" + name + ", regDate=" + regDate + ", orderNumber=" + orderNumber
-				+ ", id=" + id + ", status=" + status + ", dataValue=" + dataValue + "]";
+				+ ", id=" + id + ", statement=" + statement + ", dataValue=" + dataValue + "]";
 	}
 
 }
