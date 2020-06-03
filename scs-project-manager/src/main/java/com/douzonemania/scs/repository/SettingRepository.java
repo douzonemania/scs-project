@@ -1,5 +1,6 @@
 package com.douzonemania.scs.repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,13 @@ public class SettingRepository {
 	}
 	
 	// html로 policy 업데이트
-	public int updatePolicy(Map<String, Object> map) {
+	public int updatePolicy(String contents, String agreement, String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("contents", contents);
+		map.put("agreement", agreement);
+		map.put("id", id);
+		
+		
 		return sqlSession.update("setting.updatePolicy", map);
 	}
 	
