@@ -286,9 +286,24 @@ $(function() {
 			options.size = size;
 			options.stock = stock;
 			
-			optionsArray.push(options);
-			
+			optionsArray.push(options);			
 		}
+		
+		var queryString = $("form[name=testForm]").serialize() ;
+		 
+        $.ajax({
+            type : 'post',
+            url : '${pageContext.request.contextPath }/${authUser.id}/api/product/image',
+            data : queryString,
+            dataType : 'json',
+            error: function(xhr, status, error){
+                alert(error);
+            },
+            success : function(json){
+                alert(json)
+            },
+        });
+		
 	});
 });
 
@@ -520,7 +535,7 @@ $(function() {
 										<th>이미지 등록</th>
 										<td colspan="4">
 											<div class="img-section">
-												<form action="/" method="post" class="dropzone"	id="img-section-main" name="image-main">
+												<form action="/" method="post" enctype="multipart/form-data" class="dropzone"	id="img-section-main" name="image-main">
 												<input type='button' value='삭제' style="margin-left:50px; position:relative;"/>
 													<div class="fallback">
 														<input name="file" type="file" multiple />
@@ -532,7 +547,7 @@ $(function() {
 											<div class="img-section">
 												<form action="/" method="post" class="dropzone"	id="img-section-sub" name="image-sub">
 													<div class="fallback">
-														<input name="file" type="file" multiple />
+														<input name="main-image" type="file" multiple />
 													</div>
 												</form>
 												<p class="text-muted text-center mt-2 mb-0">부가이미지1</p>
@@ -542,7 +557,7 @@ $(function() {
 												<form action="/" method="post" class="dropzone"
 													id="img-section-sub2">
 													<div class="fallback">
-														<input name="file" type="file" multiple />
+														<input name="image" type="file" multiple />
 													</div>
 												</form>
 												<p class="text-muted text-center mt-2 mb-0">부가이미지2</p>
@@ -552,7 +567,7 @@ $(function() {
 												<form action="/" method="post" class="dropzone"
 													id="img-section-sub3">
 													<div class="fallback">
-														<input name="file" type="file" multiple />
+														<input name="image" type="file" multiple />
 													</div>
 												</form>
 												<p class="text-muted text-center mt-2 mb-0">부가이미지3</p>
@@ -562,7 +577,7 @@ $(function() {
 												<form action="/" method="post" class="dropzone"
 													id="img-section-sub4">
 													<div class="fallback">
-														<input name="file" type="file" multiple />
+														<input name="image-1" type="file" multiple />
 													</div>
 												</form>
 												<p class="text-muted text-center mt-2 mb-0">부가이미지4</p>
@@ -572,7 +587,7 @@ $(function() {
 												<form action="/" method="post" class="dropzone"
 													id="img-section-sub5">
 													<div class="fallback">
-														<input name="file" type="file" multiple />
+														<input name="image-2" type="file" multiple />
 													</div>
 												</form>
 												<p class="text-muted text-center mt-2 mb-0">부가이미지5</p>

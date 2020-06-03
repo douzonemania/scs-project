@@ -27,10 +27,33 @@ public class ProductRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<ItemVo> getItemList(String id) {
+	public int listCount(String id, String option, String keyword) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db",id);
-		return sqlSession.selectList("product.getList", map);
+		map.put("option", option);
+		map.put("keyword", keyword);
+		
+		return sqlSession.selectOne("product.getItemListCount", map);
+	}
+	
+	public List<ItemVo> getItemList(String id, int offset, int size) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("offset", offset);
+		map.put("size", size);
+		
+		return sqlSession.selectList("product.getItemList", map);
+	}
+
+	public List<ItemVo> getSearchItemList(String id, String option, String keyword, int offset, int size) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("option", option);
+		map.put("keyword", keyword);
+		map.put("offset", offset);
+		map.put("size", size);
+
+		return sqlSession.selectList("product.getSearchItemList", map);
 	}
 
 	public int regItem(String id, ItemVo iVo) {

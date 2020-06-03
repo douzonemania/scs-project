@@ -9,15 +9,98 @@
 				]]>
 	</select>
 	
-	<select id="getList" parameterType="map" resultType="itemvo">		
+	<select id="getItemListCount" parameterType="map" resultType="int">
+		<choose>
+				<when test='option==""'>
+					<![CDATA[
+						select count(*)
+						  from ${db}.item
+						 where state=true
+					]]>
+				</when>
+				<when test="option == 'category'">
+					<![CDATA[
+						 select count(*)
+						   from ${db}.item i, ${db}.category c
+						  where i.category_no = c.no
+		                    and i.state = true
+		                    and c.parents_no is not null
+		                    and c.name=#{keyword}
+	                ]]>
+				</when>
+				<when test="option == 'visible'">
+					<![CDATA[
+						 select count(*)
+						   from ${db}.item
+						  where visible=${keyword}
+		                    and state=true
+	                ]]>
+				</when>
+				<otherwise>
+					<![CDATA[
+						select count(*)
+						  from ${db}.item
+						 where state=true
+						   and ${option} like '%${keyword}%'
+					]]>
+				</otherwise>
+			</choose>	
+	</select>
+	
+	<select id="getItemList" parameterType="map" resultType="itemvo">		
 				<![CDATA[
 					select no, code, name, sup_price as 'supPrice', now_price as 'nowPrice', 
 						sale, main_image as 'mainImage', sub_image as 'subImage', 
 						visible, best_item as 'bestItem', new_item as 'newItem', editor, category_no,
 						description, reg_date as 'regDate'
 					from ${db}.item
-					where state = true;
+					where state = true
+					limit ${size} offset #{offset}
 				]]>
+	</select>
+
+	
+	<select id="getSearchItemList" parameterType="map" resultType="itemvo">		
+				<choose>
+			<when test="option == 'category'">
+				<![CDATA[
+					 select i.no, i.code, i.name, i.sup_price as 'supPrice', i.now_price as 'nowPrice', 
+							i.sale, i.main_image as 'mainImage', i.sub_image as 'subImage', 
+							i.visible, i.best_item as 'bestItem', i.new_item as 'newItem', i.editor, i.category_no,
+							c.name as categoryName, i.description, i.reg_date as 'regDate'
+					   from ${db}.item i, ${db}.category c
+					  where i.category_no = c.no
+	                    and i.state = true
+	                    and c.name=#{keyword}
+	                    and c.parents_no is not null
+	                  limit ${size} offset #{offset}
+                ]]>
+			</when>
+			<when test="option == 'visible'">
+					<![CDATA[
+						 select no, code, name, sup_price as 'supPrice', now_price as 'nowPrice', 
+						sale, main_image as 'mainImage', sub_image as 'subImage', 
+						visible, best_item as 'bestItem', new_item as 'newItem', editor, category_no,
+						description, reg_date as 'regDate'
+						   from ${db}.item
+						  where visible=${keyword}
+		                    and state=true
+		                   limit ${size} offset #{offset}
+	                ]]>
+	        </when>
+			<otherwise>
+				<![CDATA[
+					select no, code, name, sup_price as 'supPrice', now_price as 'nowPrice', 
+						sale, main_image as 'mainImage', sub_image as 'subImage', 
+						visible, best_item as 'bestItem', new_item as 'newItem', editor, category_no,
+						description, reg_date as 'regDate'
+					from ${db}.item
+					where state = true
+					  and ${option} like '%${keyword}%'
+					limit ${size} offset #{offset}
+				]]>
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id="findItem" parameterType="map" resultType="itemvo">		

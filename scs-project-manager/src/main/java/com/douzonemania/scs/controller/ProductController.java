@@ -33,24 +33,29 @@ public class ProductController {
 	private ProductService productService;
 	
 	// product-info 상품 리스트 뿌리기
-	@RequestMapping(value = "/info", method = RequestMethod.GET)
-	public String info(
-			Model model,
-			@AuthUser CeoVo authUser) {
-		String id = authUser.getId();
-		List<ItemVo> itemList = productService.getItemList(id);
-		
-		List<String> salePriceList = new ArrayList<>();
-		for (ItemVo vo : itemList) {
-			String price = NumberFormat.getInstance().format( ((int)((double)vo.getNowPrice() * (1 - ((double)vo.getSale() / 100)))+5)/10*10   )+"원";
-			salePriceList.add(price);
+		@RequestMapping(value = "/info", method = {RequestMethod.GET, RequestMethod.POST})
+		public String info(
+				Model model,
+				@AuthUser CeoVo authUser,
+				@RequestParam(value="p", required=true, defaultValue="1") int page,
+				@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
+				@RequestParam(value="op", required=true, defaultValue="") String option) {
+			 String id = authUser.getId();
+			 Map<String, Object> map = productService.getItemList(id, page, keyword, option);
+			 List<ItemVo> itemList = (List<ItemVo>) map.get("list");
+			List<String> salePriceList = new ArrayList<>();
+			for (ItemVo vo : itemList) {
+				String price = NumberFormat.getInstance().format( ((int)((double)vo.getNowPrice() * (1 - ((double)vo.getSale() / 100)))+5)/10*10   )+"원";
+				salePriceList.add(price);
+			}
+			
+			model.addAttribute("salePriceList", salePriceList);
+			model.addAttribute("itemList", itemList);		
+			model.addAttribute("map", map);
+			
+			return "product/info";
 		}
 		
-		model.addAttribute("salePriceList", salePriceList);
-		model.addAttribute("itemList", itemList);		
-		
-		return "product/info";
-	}
 	// 상품 등록 페이지
 	@RequestMapping(value = "/reg", method = RequestMethod.GET)
 	public String reg(

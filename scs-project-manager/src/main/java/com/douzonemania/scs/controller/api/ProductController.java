@@ -349,4 +349,16 @@ public class ProductController {
 
 			return JsonResult.success("");
 		}
+		
+		// 이미지 파싱
+		@RequestMapping(value="/image", method = RequestMethod.POST)
+		public JsonResult image(
+				@AuthUser CeoVo authUser,
+				@RequestBody String queryString					
+				) {
+			String id = authUser.getId();
+			
+			System.err.println(queryString + "폼 데이터");
+			return JsonResult.success("");
+		}
 }
