@@ -65,6 +65,34 @@ $(document).ready(function(){
 	
 });
 
+var removeCheck = function(no) {
+	if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
+	 	console.log("네네네");
+	 	event.preventDefault();
+			$.ajax({
+				url: '${pageContext.servletContext.contextPath }/${authUser.id}/api/member/board/reply/delete/' + no,
+				async: true,
+				type: 'post',
+				dataType: 'json',
+				contentType: 'application/json',
+				data: '',
+				success: function(response){
+					location.href= "${pageContext.request.contextPath }/${authUser.id}/member/board/view/" + no;
+				},
+				error: function(xhr, status, e){
+
+					console.error(status + " : " + e);
+		
+				}
+			});
+	}
+	else {   //취소
+		console.log("아니오오오오");
+		event.preventDefault();
+	    return;
+	}
+} 
+
 </script>
 
 </head>
@@ -165,11 +193,19 @@ $(document).ready(function(){
 								<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board">
 								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
 									목록</button></a>
-								<c:if test="${boardVo.replyState == false}">
-									<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board/reply/${ boardVo.no }">
-								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
-									답글달기</button></a>
-								</c:if>
+								<c:choose>
+									<c:when test="${boardVo.replyState == false}">
+										<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board/reply/${ boardVo.no }">
+									<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
+										답글달기</button></a>
+									</c:when>
+									<c:otherwise>
+										<a href="">
+											<button type="button" class="btn btn-secondary waves-effect" id="btn-list" onClick="removeCheck(${boardVo.no});">
+											답글삭제</button></a>
+									</c:otherwise>
+								</c:choose>
+								
 							</div>
 
 						</div>

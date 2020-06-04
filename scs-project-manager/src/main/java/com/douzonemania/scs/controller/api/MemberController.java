@@ -37,7 +37,7 @@ public class MemberController {
 				@PathVariable("no") int no) {
 		
 		boolean deleteResult = memberService.deleteMember(authUser.getId(), no);
-		
+	
 		return JsonResult.success(deleteResult);
 	}
 	
@@ -56,8 +56,20 @@ public class MemberController {
 			@PathVariable("no") int no, @RequestBody String html) {
 		
 		boolean replyResult = memberService.boardReply(authUser.getId(), no, html);
-		memberService.setBoardReplyTrue(authUser.getId(), no);
+		memberService.updateBoardReplyTrue(authUser.getId(), no);
 		
-		return JsonResult.success(replyResult);
+		return JsonResult.success(replyResult); 
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/board/reply/delete/{no}")
+	public JsonResult deleteBoardReply(@AuthUser CeoVo authUser,
+			@PathVariable("no") int no) {
+
+		boolean deleteResult = memberService.deleteBoardReply(authUser.getId(), no);
+		memberService.updateBoardReplyFalse(authUser.getId(), no);
+		
+		return JsonResult.success(deleteResult);
+	}
+	
 }

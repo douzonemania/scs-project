@@ -147,12 +147,13 @@ public class MemberRepository {
 	}
 
 	// board 답글을 남겼으면, 답글 상태를 true로 변경
-	public int setBoardReplyTrue(String id, int no) {
+	public int updateBoardReply(String id, int no, boolean state) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db", id);
 		map.put("no", no);
+		map.put("state", state);
 		
-		return sqlSession.update("member.setBoardReplyTrue", map);
+		return sqlSession.update("member.updateBoardReply", map);
 	}
 
 	// 회원 이름을 가져오기 위함
@@ -162,6 +163,14 @@ public class MemberRepository {
 		map.put("no", no);
 		
 		return sqlSession.selectOne("member.findNameByNo", map);
+	}
+
+	public int deleteBoardReply(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("no", no);
+		
+		return sqlSession.delete("member.deleteBoardReply", map);
 	}
 
 
