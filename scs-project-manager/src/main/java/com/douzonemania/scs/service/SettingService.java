@@ -22,7 +22,7 @@ import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 @Service
 public class SettingService {
 	private static final String SAVE_PATH = "/scs-uploads";
-	private static final String URL = "/assets/image";
+	private static final String URL = "/assets/scs-manager/images";
 	
 	@Autowired
 	private SettingRepository settingRepository;
