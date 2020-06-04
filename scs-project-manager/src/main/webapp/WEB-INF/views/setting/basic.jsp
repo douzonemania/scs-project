@@ -355,7 +355,7 @@ function preview(input, target) {
                                                     <th>로고</th>
                                                         <td colspan="2">
 	                                                        <div class="col-sm-2">
-	                                                            <img id="preview-logo" src="${pageContext.request.contextPath}${ceoVo.logo }" alt="image"
+	                                                            <img id="preview-logo" src="${pageContext.request.contextPath }${ceoVo.logo }" alt="image"
 	                                                                    class="img-fluid rounded img-scs-logo" style="width:250px; height:80px;"/>
 	                                                        </div>
 	                                                        <div class="box">
@@ -371,7 +371,7 @@ function preview(input, target) {
                                                    <th>파비콘</th>
                                                     <td colspan="2">
                                                         <div class="col-sm-2">
-                                                            <img id="preview-favicon" src="${pageContext.request.contextPath}${ceoVo.favicon}" alt="image"
+                                                            <img id="preview-favicon" src="${pageContext.request.contextPath }${ceoVo.favicon }" alt="image"
                                                                 class="img-fluid avatar-sm rounded mt-2"/>
                                                         </div>
                                                         <div class="box">
