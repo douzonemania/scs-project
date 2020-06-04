@@ -1,6 +1,7 @@
 package com.douzonemania.scs.controller.api;
 
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.ProductService;
@@ -23,6 +24,8 @@ import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
 import com.douzonemania.scs.vo.member.StockVo;
 import com.douzonemania.security.AuthUser;
+
+import javafx.application.Application;
 
 @RestController("ProductApiController")
 @RequestMapping("/{id}/api/product")
@@ -350,15 +353,19 @@ public class ProductController {
 			return JsonResult.success("");
 		}
 		
-		// 이미지 파싱
-		@RequestMapping(value="/image", method = RequestMethod.POST)
+		// 이미지 파싱		
+		@RequestMapping(value="/image", method = RequestMethod.POST     , consumes ={"multipart/form-data"})
 		public JsonResult image(
-				@AuthUser CeoVo authUser,
-				@RequestBody String queryString					
-				) {
-			String id = authUser.getId();
-			
-			System.err.println(queryString + "폼 데이터");
+				@RequestParam(value = "excelFile") MultipartFile excelFile
+				) throws Exception{			
+		
+			System.out.println(excelFile.getOriginalFilename());
+			/*
+		 * String id = authUser.getId();
+		 * 
+		 * System.err.println(mainImage + "폼 데이터"); return JsonResult.success("");
+		 */
 			return JsonResult.success("");
+			
 		}
 }

@@ -66,6 +66,8 @@ $(function() {
 $(document).ready(function(){
 	${viewer}
 	
+	$("#shipCompanyName option:contains('${vo.shipCompany}')").prop('selected', 'selected');
+
 	var i = 0;
 	var itemNo = ${vo.no};
 	var vo={};
@@ -486,7 +488,7 @@ $(function() {
 									<tr>
 										<th>배송사 <span style="color: #FF4040">*</span></th>
 										<td colspan="2">
-											<select class="form-control" style="min-width: 200px" id="ship-company-name">
+											<select class="form-control" style="min-width: 200px" id="shipCompanyName">
 												<option>----</option>
 												<c:forEach var="vo" varStatus="status" items="${shipCompanyList }">
 	                                           	<option value="${vo.no }">${vo.name }</option>

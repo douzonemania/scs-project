@@ -12,6 +12,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.douzonemania.security.AuthUserHandlerMethodArgumentResolver;
 import com.douzonemania.security.AuthUserInterceptor;
@@ -73,4 +74,12 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler(env.getProperty("fileupload.resourceMapping")).addResourceLocations("file:" + env.getProperty("fileupload.uploadLocation"));
 	}
+	
+	@Bean
+	public MappingJackson2JsonView jsonView() {
+		return new MappingJackson2JsonView();
+
+	}
+		
+	
 }
