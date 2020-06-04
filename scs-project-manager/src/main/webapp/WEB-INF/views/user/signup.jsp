@@ -38,6 +38,11 @@
 ​
 <script type="text/javascript">
 
+// 약관 팝업
+function agreement(){
+	window.open('agreement',' scs 이용약관','width=430,height=500,location=no,status=no');
+}
+
 // 주소 api
 $(document).ready(function() {
 	$.fn.checkInfo = function(){
@@ -438,8 +443,7 @@ $(function() {
 														</a>
 														</label>
 														<button type="button"
-															class="btn btn-link btn-xs text-black-50 ml-1"
-															id="sa-long-content">약관보기</button>
+															class="btn btn-link btn-xs text-dark" onclick="agreement()">약관보기</button>
 													</div>
 												</div>
 
