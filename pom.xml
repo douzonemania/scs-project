@@ -33,7 +33,7 @@
 	
 	
 	<modules>
-		<module>scs-project-manager</module>
-		<module>scs-project-shop</module>
+		<module>scs-manager</module>
+		<module>scs-shop</module>
 	</modules>
 </project>
