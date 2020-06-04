@@ -29,7 +29,7 @@
                                 
                                 <div class="text-center mb-4">
                                     <a href="${ pageContext.request.contextPath }/main">
-                                        <span><img src="<%=request.getContextPath() %>/assets/images/logo-scs.png" alt="" height="130"></span>
+                                        <span><img src="${pageContext.request.contextPath}/assets/images/logo-scs.png" alt="" height="130"></span>
                                     </a>
                                 </div>
 
