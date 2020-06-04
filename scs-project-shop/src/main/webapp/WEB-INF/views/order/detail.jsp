@@ -46,7 +46,6 @@
 	var mobileDropDownTemplate = new EJS({url : "${pageContext.request.contextPath }/assets/js/ejs/mobile-dropdown-box-template.ejs"});
 
 	$(function() {
-		
 		var firstOption= $('#firstOption').val();
 		var mobileFirstOption= $('#mobileFirstOption').val();
 		
@@ -65,11 +64,10 @@
 			$('#mobile-detail-cart-btn').attr('disabled',false);
 			$('#mobile-detail-order-btn').attr('disabled',false);
 		}
+
 		
-		$('#detail-cart-page-ok').click(function(){
-			
+		$('#detail-cart-btn').click(function(){
 			var itemNo = ${map.product.no};
-			
 			var firstOption= $('#firstOption').val();
 			var secondOption=0;
 			var quantity=$('#quantityinput').val();
@@ -77,41 +75,152 @@
 			if($(".dynamicDropDown select").length!=0){
 			secondOption =$("#mobileSecondOption").val();
 			}
-			 	$.ajax({
-					url : '${pageContext.request.contextPath }/api/order/cart/insert/'+ itemNo + "/" + firstOption+ "/" + secondOption+"/"+quantity,
-					async : true,
-					type : 'get',
-					ataType : 'json',
-					data : '',
-					success : function(response) {
-						
-						if(response.data==true){
-							location.href="${pageContext.request.contextPath }/${db}/order/cart"
-						}else{
-							location.href="${pageContext.request.contextPath }/${db}/member/login"
-						}
-						
-						
-					},
-					error : function(xhr, status, e) {
-						console.error(status + ":" + e);
-					}
-				});
 			
-			 	
+			if(secondOption=="X"){
+				alert("옵션을 선택해주세요");
+				
+			
+			}else{
+				if(quantity==0){
+					alert("수량을 확인해주세요");
+				} else{
+					$.ajax({
+						url : '${pageContext.request.contextPath }/api/order/cart/insert/'+ itemNo + "/" + firstOption+ "/" + secondOption+"/"+quantity,
+						async : true,
+						type : 'get',
+						ataType : 'json',
+						data : '',
+						success : function(response) {
+							
+						},
+						error : function(xhr, status, e) {
+							console.error(status + ":" + e);
+						}
+					});
+				}
+			}
+			
 			
 		});
 		
+		$('#detail-cart-page-ok').click(function(){
+			
+			
+					if('${authUser.no}'!=null){
+							location.href="${pageContext.request.contextPath }/${db}/order/cart";
+					}else{
+							location.href="${pageContext.request.contextPath }/${db}/member/login";
+					}
+			
+		});
+		
+
 		$("#mobile-detail-cart-page-ok").click(function(){
 			
 		});
 		
+		
+		$("#detail-order-btn").click(function(){
+			var itemNo = ${map.product.no};
+			var firstOption= $('#firstOption').val();
+			var secondOption=0;
+			var quantity=$('#quantityinput').val();
+			var stock = 0;	
+		
+			
+			
+			
+			if($('.dynamicDropDown select').length!=0){
+			secondOption =$('#mobileSecondOption').val();
+			stock = $('#mobileSecondOption').find('option:selected').data('no');
+			
+			}
+			if(secondOption=="X"){
+				alert("옵션을 선택해주세요");
+			}else{
+				
+				if(stock<quantity){
+					alert("죄송합니다. 재고량이 부족합니다 주문가능한 수량은"+stock+"개 입니다.")
+				}else{
+
+					if(quantity==0){
+						alert("수량을 확인해주세요");
+					}else{
+						location.href='${pageContext.request.contextPath }/${db}/order/directorder?itemno='+ itemNo + "&firstoption=" + firstOption+  "&secondoption=" + secondOption+ "&quantity="+quantity;
+						
+					}
+				}
+			}
+			
+		});
+		
+		$("#mobile-detail-order-btn").click(function(){
+			var secondOption =0;
+			var firstOption = $('#mobileFirstOption').val();
+			var stock = 0;	
+			
+			if($(".mobiledynamicDropDown select").length!=0){
+				stock = $('#mobileSecondOption').find('option:selected').data('no');
+				secondOption =$("#mobileSecondOption").val();
+			}
+			
+			var itemNo = ${map.product.no};
+			var quantity=$('#nowQuantity').val();
+			
+			if(secondOption=="X"){
+				alert("옵션을 선택해주세요");
+			}else{
+				if(stock<quantity){
+					alert("죄송합니다. 재고량이 부족합니다 주문가능한 수량은"+stock+"개 입니다.")
+				}else{
+
+					if(quantity==0){
+						alert("수량을 확인해주세요");
+					}else{
+						location.href='${pageContext.request.contextPath }/${db}/order/directorder?itemno='+ itemNo + "&firstoption=" + firstOption+  "&secondoption=" + secondOption+ "&quantity="+quantity;
+						
+					}
+				}
+			}
+		});
+		
+		
+		
 		$('#detail-login-page-ok').click(function(){
 			location.href="${pageContext.request.contextPath }/${db}/member/login"
-		})
+		});
+		
+		
 		$('#mobile-detail-cart-btn').click(function(){
 			$( ".modal fade bs-example-modal-center" ).css("display","none");
+			var secondOption =0;
+			var firstOption = $('#mobileFirstOption').val();
+			if($(".mobiledynamicDropDown select").length!=0){
+				secondOption =$("#mobileSecondOption").val();
+			}
+			
+			var itemNo = ${map.product.no};
+			var quantity=$('#nowQuantity').val();
+			
+				if(quantity==0){
+					alert("수량을 확인해주세요")
+				} else{
+					$.ajax({
+						url : '${pageContext.request.contextPath }/api/order/cart/insert/'+ itemNo + "/" + firstOption+ "/" + secondOption+"/"+quantity,
+						async : true,
+						type : 'get',
+						ataType : 'json',
+						data : '',
+						success : function(response) {
+							
+						},
+						error : function(xhr, status, e) {
+							console.error(status + ":" + e);
+						}
+					});
+				}
 		});
+		
 		
 		$('#firstOption').change(function() {
 				var option = this.value;
@@ -120,14 +229,12 @@
 				FirstOption= $('#firstOption').val();
 	
 				if(FirstOption==0 || FirstOption=="X"){
-					
 					$('#detail-cart-btn').attr('disabled',true);
 					$('#detail-order-btn').attr('disabled',true);
 				} else{
 					$('#detail-cart-btn').attr('disabled',false);
 					$('#detail-order-btn').attr('disabled',false);
 				}
-				
 				
 				if (option == 0) {
 					alert("품절된 상품 입니다");
@@ -165,6 +272,8 @@
 					
 					}
 		});	
+		
+		
 		$('#mobileFirstOption').change(function() {
 			var option = this.value;
 			var no = ${map.product.no};
@@ -214,7 +323,7 @@
 						}
 					});
 			}
-	});
+		});
 		
 		$('#quantityPlusBtn').click(function(){
 			var now = parseInt($("#nowQuantity").val())+1;
@@ -353,20 +462,7 @@
 									<p class="text-muted mb-4 des-info">${map.product.des }</p>
 
 									<form class="form-inline mb-4">
-										<div style="width: 100%; display: inline-flex;">
-											<label class="my-1 mr-2 label-info" for="quantityinput"
-												style="width: 20%; justify-content: left">Quantity</label> <select
-												class="custom-select my-1 mr-sm-3" id="quantityinput"
-												style="width: 40%">
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-											</select>
-										</div>
+										
 
 										<div style="width: 100%; display: inline-flex;">
 											<label class="my-1 mr-2 label-info" for="sizeinput"
@@ -380,16 +476,34 @@
 															<option value="0">${vo.name }&nbsp;&nbsp;[품절]</option>
 														</c:when>
 														<c:otherwise>
-															<option value="${vo.no }">${vo.name }</option>
+															<option data-no="${vo.stock }"value="${vo.no }">${vo.name }</option>
 														</c:otherwise>
 													</c:choose>
 
 												</c:forEach>
 											</select>
+										
+											
 										</div>
-
-										<div class="dynamicDropDown" style='margin-left: 21.5%; width: 54.5%'>
+										<div class="dynamicDropDown" style='margin-left: 21.5%; width: 54.5%; display:block'>
 										</div>
+									
+										<div class ="dynamicQuantity" style="width: 100%; display: inline-flex;">
+											<label class="my-1 mr-2 label-info" for="quantityinput"
+												style="width: 20%; justify-content: left">Quantity</label> 
+											<select
+												class="custom-select my-1 mr-sm-3" id="quantityinput"
+												style="width: 40%">
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+											</select>
+										</div>
+										
 									</form>
 
 									<c:choose>
@@ -478,7 +592,7 @@
 								<c:choose>
 									<c:when test="${not empty authUser  }">
 									<div class="mobile-product-detail-order-btn">
-										<button type="button" class="btn btn-dark waves-effect waves-light" id="mobile-detail-cart-btn" data-toggle="modal" data-target=".bs-example-modal-center mobile-cart">장바구니</button>
+										<button type="button" class="btn btn-dark waves-effect waves-light" id="mobile-detail-cart-btn" data-toggle="modal" data-target=".bs-example-modal-center">장바구니</button>
 										<button type="button" class="btn btn-outline-dark waves-effect waves-light" id="mobile-detail-order-btn"> 구매 하기</button>
 									</div>		
 									</c:when>
@@ -654,7 +768,7 @@
                     </div>
                     <div class="modal-footer">
                          <button type="button" class="btn btn-primary" id="detail-cart-page-ok">확인</button>
-                         <button type="button" class="btn btn-secondary" data-dismiss="modal" >취소</button>
+                         <button type="button" class="btn btn-secondary"  data-dismiss="modal">취소</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

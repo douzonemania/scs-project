@@ -53,9 +53,6 @@
 				
 				
 			}
-			
-			
-			
 			if(shipCheck == false){
 				$('#drop').attr('disabled',true);
 				
@@ -72,6 +69,8 @@
 				var val = $(this).val();
 				
 				if(val=="option1"){
+					
+					no='${recentShip.no}'
 					$('#ship-option').hide();
 					
 					$('#postcode1').val(postArr[0]);
@@ -82,6 +81,8 @@
 					
 					
 				}else if(val=="option2"){
+					no=0;
+					
 					$('#ship-option').hide();
 					$('#postcode1').val('');
 					$('#postcode2').val('');
@@ -89,8 +90,11 @@
 					$('#order-name').val('');
 					$('#order-phoneNumber').val('');
 					
+				
 					
 				}else if(val=="option3"){
+					
+					
 					$('#ship-option').show();
 					
 					$('#ship-option').change(function(){
@@ -105,10 +109,11 @@
 						$('#postcode4').val(postArr[2]);
 						$('#order-name').val($('#ship-data[value='+"'"+$(this).val()+"'"+']').find('#select-shipName').val());
 						$('#order-phoneNumber').val($('#ship-data[value='+"'"+$(this).val()+"'"+']').find('#select-phoneNumber').val());
-						
-						
-						
+						no = $('#ship-data[value='+"'"+$(this).val()+"'"+']').find('#select-no').val();
+					
 					});
+					
+					
 				}
 				
 				
@@ -140,8 +145,11 @@
 						
 				}
 				
+				
+				
 				if($('input[name=radioInline]:checked').val()=="option2"){// 주소록 추가 
 				
+					alert(no);
 					
 					$.ajax({
 						url : '${pageContext.request.contextPath }/api/order/insertShip',
@@ -150,13 +158,15 @@
 						contentType:"application/json;charset=UTF-8",
 						data : JSON.stringify(shipVoList),
 						success : function(response) {
-							location.href='${pageContext.request.contextPath}/${db}/order/complete';
+							location.href='${pageContext.request.contextPath}/${db}/order/complete?orderNum='+response.data;
 						},
 						error : function(xhr, status, e) {
 							console.error(status + ':' + e);
 						}
 					});  
 				}else{// 그냥 오더에 
+					
+					alert(no);
 					$.ajax({
 						url : '${pageContext.request.contextPath }/api/order/excuteOrder',
 						dataType : 'json',
@@ -164,7 +174,7 @@
 						contentType:"application/json;charset=UTF-8",
 						data : JSON.stringify(shipVoList),
 						success : function(response) {
-							location.href='${pageContext.request.contextPath}/${db}/order/complete';
+							location.href='${pageContext.request.contextPath}/${db}/order/complete?orderNum='+response.data;
 						},
 						error : function(xhr, status, e) {
 							console.error(status + ':' + e);
@@ -324,7 +334,7 @@
                     <span>Payment Info</span>결제 정보
                 </div>
 
-                <div class="recipient-name" style ="padding-bottom:100px">
+                <div class="recipient-name" style ="padding-bottom:130px">
                 	<div>
 		                <span style="Font-size:20px; font-weight:Bold; color:#323A46;">결제 예정 금액 :</span> 
 		                <span style="Font-size:20px; font-weight:Bold; color:#ff0000;">&nbsp;&nbsp;

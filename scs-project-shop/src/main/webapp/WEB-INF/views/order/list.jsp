@@ -41,7 +41,7 @@
             <div class="order-title" style="margin-top:40px">
                 <span> Product </span>상품</div>
             <div class="recipient-info">
-                <span style="Font-size:24px; font-weight:Bold; color:#323A46;">CategoryTEST</span> 카테고리
+                <span style="Font-size:24px; font-weight:Bold; color:#323A46;">Category</span> 카테고리
             </div>
 
             <div class="row">
@@ -50,7 +50,7 @@
                         <div class="row product-list-custom">
                           	<c:choose>
                             	<c:when test="${empty map.category }">
-                            		<div>모든 상품을 보여드립니다.</div>q
+                            		<div>모든 상품을 보여드립니다.</div>
                             	</c:when>
                             	<c:otherwise>
                             	 	<div class="col-lg-8 list-span-custom">
@@ -215,7 +215,7 @@
                     <div class="col-12">
                         <ul class="pagination pagination-rounded justify-content-center mb-3">
                             <li class="page-item">
-                                <a class="page-link" href="${pageContext.servletContext.contextPath }/order/list?p=${map.prevPage}&kwd=${map.kwd}" aria-label="Previous">
+                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.prevPage}&kwd=${map.kwd}" aria-label="Previous">
                                     <span aria-hidden="true">«</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
@@ -224,17 +224,17 @@
 								<c:choose>
 									<c:when test="${map.page == (map.beginPage+(i-1)) }">
 										<li class ="page-item active">
-											<a class="page-link" href="${pageContext.servletContext.contextPath }/member/list?p=${map.beginPage+(i-1) }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a>
+											<a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.beginPage+(i-1) }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a>
 										</li>
 									</c:when>
 									<c:otherwise>
-										<li><a  class="page-link" href="${pageContext.servletContext.contextPath }/member/list?p=${map.beginPage+(i-1) }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a></li>
+										<li><a  class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.beginPage+(i-1) }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a></li>
 									</c:otherwise>
 								
 								</c:choose>
 							</c:forEach>
                             <li>
-                                <a class="page-link" href="${pageContext.servletContext.contextPath }/board/list?p=${map.nextPage }&kwd=${map.kwd}" aria-label="Next">
+                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.nextPage }&kwd=${map.kwd}" aria-label="Next">
                                     <span aria-hidden="true">»</span>
                                     <span class="sr-only">Next</span>
                                 </a>

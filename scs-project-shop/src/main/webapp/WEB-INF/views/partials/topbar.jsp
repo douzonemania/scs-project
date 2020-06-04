@@ -103,7 +103,7 @@
                         </a>
                         <div class="dropdown-menu topbar-dropdown">
 		                    <!-- item-->
-		                    <a href="${pageContext.request.contextPath}/${db}/order/list?category=1" class="dropdown-item">
+		                    <a href="${pageContext.request.contextPath}/${db}/order/list?category=0" class="dropdown-item">
 		                      <span>ALL</span>
 		                    </a>
 		                    <c:forEach items="${cgList }" var="vo">

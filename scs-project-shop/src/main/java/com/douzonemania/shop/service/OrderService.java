@@ -24,7 +24,7 @@ import com.douzonemania.shop.vo.StockVo;
 @Service
 public class OrderService {
 
-	private static final int LIST_SIZE =5;
+	private static final int LIST_SIZE =16;
 	private static final int PAGE_SIZE =5;
 	
 	
@@ -112,7 +112,7 @@ public class OrderService {
 	public void setCart(int no, int firstOption, int secondOption, int quantity,String db,long memberNo) {
 	
 		CartVo checkCart = orderRepository.checkAmount(no,firstOption,secondOption,db,memberNo);
-		
+		System.out.println("TEST : "+checkCart);
 		int stockNo = orderRepository.getStockNo(no,firstOption,secondOption,db);
 		if(checkCart.getAmount()==0) {
 			orderRepository.insertCart(memberNo,quantity,stockNo,db);
@@ -152,13 +152,13 @@ public class OrderService {
 	public ItemVo setOrderItem(String db, Long no, Integer cartNo) {
 		ItemVo temp = orderRepository.setOrderItem(db,no,cartNo);
 		
-		
 		return temp;
 	}
 
 	public void setOrderPage(String db, Long no, List<Integer> cartNoList, List<Integer> amountList, HttpSession session) {
 		List<ItemVo> list = new ArrayList();
 		List<ShipVo> shipList = orderRepository.findShipAddressList(db,no);
+		
 		
 		int index = 0;
 		
@@ -191,13 +191,47 @@ public class OrderService {
 			list.add(temp);
 			
 		}
-		
-		
 		session.setAttribute("orderList", list);
-		
 	}
+	
+	public void setOrderPage(String db, Long no, int itemNo,int firstOption, int secondOption,int quantity, HttpSession session) {
+		List<ShipVo> shipList = orderRepository.findShipAddressList(db,no);
+		
+		
+		List<ItemVo> list = new ArrayList();
+		if(shipList.size()!=0) {
+			session.setAttribute("shipListCheck", true);
+			session.setAttribute("shipList", shipList);
+			ShipVo vo = new ShipVo();
+			for (ShipVo shipVo : shipList) {
+				
+				if(shipVo.isRecent()==true) {
+					vo=shipVo;
+				}
+			}
+			
+			session.setAttribute("recentShip", vo);
+		}else {
+			session.setAttribute("shipListCheck", false);
+		}
+		
+		ItemVo itemVo = orderRepository.findItem(itemNo, db);
+		itemVo.setFirstOption(firstOption);
+		if(secondOption!=0) {
+			itemVo.setSecondOption(secondOption);
+		}
+		itemVo.setAmount(quantity);
+		int nowSale = itemVo.getSale();
+		itemVo = setTotalPrice(nowSale, itemVo);
+		
+		list.add(itemVo);
+		session.setAttribute("orderList", list);
+	}
+	
+	
+	
 
-	public void excuteOrder(String db, Long no, List<ItemVo> list,String shipMemo) {
+	public String excuteOrder(String db, Long no, List<ItemVo> list,String shipMemo) {
 		
 		String orderNum = makeOrderNum(db);
 		int result = orderRepository.insertOrder(db,orderNum,no,shipMemo);
@@ -216,9 +250,12 @@ public class OrderService {
 			
 			orderRepository.insertOrderItem(db,result,stockNo,amount,totalPrice,shipMemo);
 			orderRepository.updateStock(db,stockNo,amount);
+			
+			
+			
 		}
 		
-		
+		return orderNum;
 	}
 	
 	
@@ -237,20 +274,6 @@ public class OrderService {
 		return temp;
 	}
 
-	
-	public String makeOrderNum(String db) {
-		
-		int recentOrderNum = orderRepository.findRecentOrderNum(db);
-		
-		String convertNum = String.format("%04d", recentOrderNum+1);
-		
-		SimpleDateFormat nowDate = new SimpleDateFormat("yyyyMMdd"); 
-		Date now = new Date();
-		
-		String nowDateString =nowDate.format(now);
-		
-		return nowDateString+"-"+convertNum;
-	}
 
 	public void insertShip(String db, Long no, Map<String, Object> map) {
 		
@@ -270,16 +293,39 @@ public class OrderService {
 		
 		ShipVo vo = new ShipVo();
 		
+		System.out.println(map);
+		
+		String nowNoStr = map.get("shipNo").toString();
+		int nowNo = Integer.parseInt(nowNoStr);
+		
+		
+		
 		vo.setShipName(map.get("shipName").toString());
 		vo.setPhoneNumber(map.get("phoneNumber").toString());
 		vo.setAddress(map.get("address").toString());
-		vo.setNo((int)map.get("shipNo"));
+		vo.setNo(nowNo);
 		
 		orderRepository.updateShip(db,no,vo);
 		
 		
 	}
 	
+	
+	
+	public String makeOrderNum(String db) {
+		
+		int recentOrderNum = orderRepository.findRecentOrderNum(db);
+		recentOrderNum+=1;
+		String convertNum = String.format("%04d", recentOrderNum);
+		
+		SimpleDateFormat nowDate = new SimpleDateFormat("yyyyMMdd"); 
+		Date now = new Date();
+		
+		String nowDateString =nowDate.format(now);
+		
+		return nowDateString+"-"+convertNum;
+	}
+
 }
 
 

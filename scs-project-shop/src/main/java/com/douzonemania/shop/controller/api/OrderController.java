@@ -114,11 +114,9 @@ public class OrderController {
 			) {
 		
 		String db = session.getAttribute("db").toString();
-		MemberVo vo = (MemberVo)session.getAttribute("authUser");
-		
-		
+		MemberVo vo = (MemberVo)session.getAttribute("authUser");	
+	
 		orderService.setOrderPage(db,vo.getNo(),cartNoList,amountList,session);
-		
 		
 		return JsonResult.success("");
 		
@@ -139,9 +137,9 @@ public class OrderController {
 		
 		orderService.insertShip(db,vo.getNo(),map);
 		
-		orderService.excuteOrder(db,vo.getNo(),list,shipMemo);
+		String orderNum = orderService.excuteOrder(db,vo.getNo(),list,shipMemo);
 		
-		return JsonResult.success("");
+		return JsonResult.success(orderNum);
 	}
 	
 	
@@ -160,9 +158,9 @@ public class OrderController {
 		
 		orderService.updateShip(db,vo.getNo(),map);
 		
-		orderService.excuteOrder(db,vo.getNo(),list,shipMemo);
+		String orderNum = orderService.excuteOrder(db,vo.getNo(),list,shipMemo);
 		
-		return JsonResult.success("");
+		return JsonResult.success(orderNum);
 	}
 }
 

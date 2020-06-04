@@ -15,12 +15,29 @@
             <link rel="shortcut icon" href="../assets/images/favicon.ico">
     
             <!-- Plugins css -->
-            <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
     
             <!-- App css -->
-            <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-            <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-            <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+	
+		    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        
+
+	<script>
+	
+	$(function(){
+		
+		var orderNum = location.href.substr(location.href.lastIndexOf('=') + 1 );
+	
+		$('.order-complete-num').find('a').text(orderNum);
+
+	});
+	
+	
+	</script>
+
 
     </head>
 <body>
@@ -33,7 +50,7 @@
             <div class="order-complete-form">
                 <div class="order-title">
                     <span> Order / Payment </span>
-                    주문/결제
+                		    주문/결제
                 </div>
                 <div class="recipient-info">
                     <span style="Font-size:24px; font-weight:Bold; color:#323A46;">주문 완료</span> 
@@ -41,14 +58,14 @@
 
                 <div class="order-complete-box">
                     <div class="order-complete-title">
-                        고객님의 주문이 완료 되었습니다.
+                   	     고객님의 주문이 완료 되었습니다.
                     </div>
                     </br>
                     <div class="order-complete-num">
-                        주문번호 : <a href="#">1234123491041204</a>
+                    	    주문번호 : <a href="${pageContext.request.contextPath}/order/orderlist"></a>
                     </div>
                     <div class="order-complete-date">
-                        주문날짜 : 2020년 5월 11일 8시 26분
+                     	   주문날짜 : 2020년 5월 11일 8시 26분
                     </div>
 
                     
@@ -63,9 +80,9 @@
     
      <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
     <!-- Vendor js -->
-   <script src="../assets/js/vendor.min.js"></script>
+   <script src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>
 
    <!-- App js-->
-   <script src="../assets/js/app.min.js"></script>
+   <script src="${pageContext.request.contextPath}/assets/js/app.min.js"></script>
 </body>
 </html>

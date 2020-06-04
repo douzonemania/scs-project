@@ -137,6 +137,8 @@ public class OrderRepository {
 
 	public CartVo checkAmount(int no, int firstOption, int secondOption,String db,long memberNo) {
 		
+		System.out.println("NO:"+memberNo+" FIRSTOPTION : "+firstOption +" secondOption :"+secondOption +" itemno:"+no  +" memberno:"+memberNo);
+		
 		map.put("db",db);
 		map.put("memberNo",memberNo);
 		map.put("firstOption",firstOption);
@@ -249,6 +251,10 @@ public class OrderRepository {
 		map.put("firstOption",firstOption);
 		map.put("secondOption",secondOption);
 		
+		
+		System.out.println("NO : "+no+"  ITEMNO:"+itemNo+"  FIRSTOPTION :"+firstOption +" SECONDOPTION :"+secondOption);
+		
+		
 		int stockNo = sqlSession.selectOne("findStockNo",map);
 		
 		return stockNo;	
@@ -306,8 +312,12 @@ public class OrderRepository {
 		map.put("db",db);
 		map.put("vo",vo);
 		map.put("no",no);
+		
+		
 		sqlSession.update("clearShip",map);
 		sqlSession.update("updateShip",map);
+		
+		
 		
 	}
 
@@ -319,6 +329,15 @@ public class OrderRepository {
 		map.put("amount",amount);
 		
 		sqlSession.update("updateStock",map);
+	}
+
+
+	public ItemVo findItem(int itemNo, String db) {
+		
+		map.put("db",db);
+		map.put("itemNo",itemNo);
+		
+		return sqlSession.selectOne("findItem",map);
 	}
 
 

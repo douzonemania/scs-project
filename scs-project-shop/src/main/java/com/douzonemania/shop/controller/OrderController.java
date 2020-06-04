@@ -32,7 +32,7 @@ public class OrderController {
 	public String list(@RequestParam(value="p",required = true,defaultValue = "1")Integer page,
 					   @RequestParam(value="kwd",required=true,defaultValue = "")String keyword,
 					   @RequestParam(value="option",required = true,defaultValue = "name")String option,
-					   @RequestParam(value="category",required = true,defaultValue = "1")Integer category,
+					   @RequestParam(value="category",required = true,defaultValue = "0")Integer category,
 					   @RequestParam(value="subCategory",required = true,defaultValue = "0")Integer subCategory,
 					   Model model,HttpSession session) {
 			String db = session.getAttribute("db").toString();
@@ -50,6 +50,8 @@ public class OrderController {
 		Map<String,Object> map= orderService.findProduct(no,db);
 		
 		List<OptionVo> optionList= orderService.findOptionList(no,db);
+		
+		System.out.println(map);
 		
 		model.addAttribute("map",map);
 		model.addAttribute("option",optionList);
@@ -72,24 +74,45 @@ public class OrderController {
 		List<ItemVo> list = orderService.setCartList(db,vo.getNo());
 		model.addAttribute("list",list);
 		
+		for (ItemVo itemVo : list) {
+			System.out.println(itemVo.toString());
+		}
+		
+		
 		return "order/cart";
 	}
 	
-	@RequestMapping(value = "/order", method = RequestMethod.GET)
+	@RequestMapping(value = "/directorder", method = RequestMethod.GET)
 	public String order(
-			HttpSession session,
-			Model model
+			HttpSession session,Model model,
+			@RequestParam(value="itemno",required = true,defaultValue = "0")Integer itemNo,
+			@RequestParam(value="firstoption",required=true,defaultValue = "")Integer firstOption,
+			@RequestParam(value="secondoption",required = true,defaultValue = "")Integer secondOption,
+			@RequestParam(value="quantity",required = true,defaultValue = "0")Integer quantity
+			
 			) {
-		
+			
 		String db = session.getAttribute("db").toString();
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
 		
-		
+		orderService.setOrderPage(db,vo.getNo(),itemNo,firstOption,secondOption,quantity,session);
 		
 		return "order/order";
 	}
 	
 	
+	
+	
+	@RequestMapping(value = "/order", method = RequestMethod.GET)
+	public String order(
+			HttpSession session,Model model
+			) {
+			
+		String db = session.getAttribute("db").toString();
+		MemberVo vo = (MemberVo)session.getAttribute("authUser");
+		
+		return "order/order";
+	}
 	
 	@RequestMapping(value = "/complete", method = RequestMethod.GET)
 	public String complete() {

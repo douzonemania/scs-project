@@ -42,64 +42,127 @@
 					
 					var cartNoList=[];
 					var amountList=[];
+					var checkList=[];
 					$('.mobile-cart').each(function(){
-						cartNoList.push($(this).data('no'));
-						amountList.push($(this).find("input[type=text]").val());
-					});
-					var objParams = {
-							'cartNoList' : cartNoList,
-							'amountList' : amountList
-					};
-					$.ajax({
-						url : '${pageContext.request.contextPath }/api/order/order',
-						dataType : 'json',
-						contentType :'application/x-www-form-urlencoded; charset=UTF-8',
-						type : 'post',
-						data : objParams,
-						success : function(response) {
-							location.href='${pageContext.request.contextPath }/${db}/order/order'
-						},
-						error : function(xhr, status, e) {
-							console.error(status + ':' + e);
+						
+						 var check = new Object();
+						
+						var nowStock = $(this).data('value');
+						var nowAmount = $(this).find("input[type=text]").val();
+						if(nowStock<nowAmount){
+							check.name=$(this).data('name');
+							check.stock=nowStock;
 						}
-					});  
+						
+						if(check.name!=null){
+							checkList.push(check);
+						}
+						
+						cartNoList.push($(this).data('no'));
+						amountList.push(nowAmount);   
+					
+					});	    
+					
+					
+					 if(cartNoList.length ==0){
+						alert("상품을 선택해주세요!");
+					}else{
+						if(checkList.length!=0){
+							var nowStr="";
+							for(var i=0;i<checkList.length;i++){
+										nowStr += "     상품 이름 : "+checkList[i].name + "남은 재고 : " +checkList[i].stock +"\n"
+							}
+							alert("선택하신 제품에 재고가 부족합니다 \n\n"+nowStr);
+							
+							
+							
+						} else{
+							var objParams = {
+									'cartNoList' : cartNoList,
+									'amountList' : amountList
+	 						};
+							$.ajax({
+								url : '${pageContext.request.contextPath }/api/order/order',
+								dataType : 'json',
+								contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+								type : 'post',
+								data : objParams,
+								success : function(response) {
+									location.href='${pageContext.request.contextPath }/${db}/order/order'
+								},
+								error : function(xhr, status, e) {
+									console.error(status + ':' + e);
+								}
+							});
+						}
+					}  
 				});
 				
 				$('#cart-select-order-btn').click(function(){
 					var cartNoList=[];
 					var amountList=[];
-					
+					var checkList=[];
 					$('.mobile-cart').each(function(){
-						if($(this).find("input[type=checkbox]").is(':checked')){
-							cartNoList.push($(this).data('no'));
-						    amountList.push($(this).find("input[type=text]").val());  
+						
+						if($(this).find('input:checkbox[class=cart-select]').is(':checked')==true){
+							
+							 var check = new Object();
+								
+								var nowStock = $(this).data('value');
+								var nowAmount = $(this).find("input[type=text]").val();
+								if(nowStock<nowAmount){
+									check.name=$(this).data('name');
+									check.stock=nowStock;
+								}
+								
+								if(check.name!=null){
+									checkList.push(check);
+								}
+								
+								cartNoList.push($(this).data('no'));
+								amountList.push(nowAmount);   
+							
 						}
+						
 					});	    
 					
-					if(cartNoList.length ==0){
+					
+					 if(cartNoList.length ==0){
 						alert("상품을 선택해주세요!");
 					}else{
-						var objParams = {
-								'cartNoList' : cartNoList,
-								'amountList' : amountList
- 						};
-						$.ajax({
-							url : '${pageContext.request.contextPath }/api/order/order',
-							dataType : 'json',
-							contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
-							type : 'post',
-							data : objParams,
-							success : function(response) {
-								location.href='${pageContext.request.contextPath }/${db}/order/order'
-							},
-							error : function(xhr, status, e) {
-								console.error(status + ':' + e);
+						if(checkList.length!=0){
+							var nowStr="";
+							for(var i=0;i<checkList.length;i++){
+										nowStr += "     상품 이름 : "+checkList[i].name + "  남은 재고 : " +checkList[i].stock +"\n"
 							}
-						}); 
-					}
+							alert("선택하신 제품에 재고가 부족합니다 \n\n"+nowStr);
+							
+							
+							
+						} else{
+							var objParams = {
+									'cartNoList' : cartNoList,
+									'amountList' : amountList
+	 						};
+							$.ajax({
+								url : '${pageContext.request.contextPath }/api/order/order',
+								dataType : 'json',
+								contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+								type : 'post',
+								data : objParams,
+								success : function(response) {
+									location.href='${pageContext.request.contextPath }/${db}/order/order'
+								},
+								error : function(xhr, status, e) {
+									console.error(status + ':' + e);
+								}
+							});
+						}
+					}  
 				});
 				
 				$('#delete-all-product').click(function(){
+					
 					
 					$.ajax({
 						url : '${pageContext.request.contextPath }/api/order/cart/delete-all/',
@@ -256,7 +319,7 @@
             </div>
          <div class='cart-list-group'>
          	 <c:forEach items='${list }' var='vo' varStatus='status'>
-            <div class='mobile-cart rounded' data-no='${vo.cartNo }'>
+            <div class='mobile-cart rounded' data-no='${vo.cartNo }' data-value='${vo.stock }' data-name='${vo.name }'>
                 <div class='moblie-cart-all-group'>
                     <div class='mobile-cart-list-checkbox m-1' >
                         <div class='checkbox checkbox-blue  ml-1' style='display:inline-block;width:50%' id='mobile-checkbox'>

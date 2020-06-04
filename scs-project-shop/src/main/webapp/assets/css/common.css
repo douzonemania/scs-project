@@ -323,7 +323,8 @@
 		display:block;
 	}
 	.ship-check-list>input,.ship-check-list>label{
-		display:none;
+		display: inline-block;
+		margin-left:3.5px;
 	}
 	.order-ship-group{
 		width:100%;
@@ -344,14 +345,30 @@
 		margin-left:5px;
 	}
 	#ship-option{
-		width:70%;
+		width:55%;
 		margin:0px;
 		margin-top:10px;
 		
+		
+	}
+	.ship-check-list{
+		width:30%;
+	}
+	.ship-list,.ship-check-list{
+		display:inline-block;
+		margin-top:10px;
+		
+	}
+	.ship-check-list>input{
+		width:8px;	
 	}
 	
-	.ship-list,.ship-check-list{
-		display:block;
+	.form-check-inline{
+		font-size:0.6em;
+		
+	}
+	.form-check-inline>input{
+		width:8px;
 	}
 }
 
