@@ -20,7 +20,7 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	/* 주문/배송관리 */
+	/* order-delivery */
 	@RequestMapping(value = "/delivery", method = {RequestMethod.GET, RequestMethod.POST })
 	public String delivery(
 			@AuthUser CeoVo authUser,
@@ -33,7 +33,6 @@ public class OrderController {
 			
 			
 		    String id = authUser.getId();
-			System.out.println("!!!!!!!!"+startDate + ":" + endDate + ":" +  page + ":" +  option + ":" + keyword);
 			Map<String, Object> map = orderService.findDeliveryByDate(startDate, endDate, id, page, option, keyword);
 			
 			model.addAttribute("map", map);
@@ -41,7 +40,7 @@ public class OrderController {
 		return "order/delivery";
 	}
 
-	/* 정산 관리 */
+	/* order-settle */
 	@RequestMapping(value = "/settle", method = {RequestMethod.GET, RequestMethod.POST })
 	public String settle(
 			@AuthUser CeoVo authUser,

@@ -40,7 +40,7 @@ public class OrderRepository {
 		return sqlSession.selectOne("order.countSettleList", map); 
 	}
 	
-	/* Settle 매출 */
+	/* Settle 매출  */
 	public int findTotalPrice(String startDate, String endDate, String id) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db", id);
@@ -61,7 +61,7 @@ public class OrderRepository {
 		return sqlSession.selectOne("order.findTotalMargin", map);
 	}
 	
-	/* Delivery List */
+	/* Delivery List by date */
 	public List<OrderDeliveryVo> findDeliveryByDate(String startDate, String endDate, String id, String option,
 			String keyword, int offset, int listSize) {
 		Map<String, Object> map = new HashMap<>();
@@ -74,6 +74,16 @@ public class OrderRepository {
 		map.put("keyword", keyword);
 		
 		return sqlSession.selectList("order.findDeliveryByDate", map);
+	}
+	
+	/* Delivery List by no */
+	public OrderDeliveryVo findDeliveryByNo(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("db", id);
+		map.put("no", no);
+		
+		return sqlSession.selectOne("order.findDeliveryByNo", map);
 	}
 	
 	/* Delivery Count */
@@ -90,7 +100,18 @@ public class OrderRepository {
 		
 		return sqlSession.selectOne("order.countDeliveryList", map); 
 	}
-	/* Delivery status update */
+	
+	/* Delivery statement list */
+	public String findStatement(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("db", id);
+		map.put("no", no);
+		
+		return sqlSession.selectOne("order.findStatement", map);
+	}
+	
+	/* Delivery statement update */
 	public int updateStatus(String id, int no, String statement) {
 		Map<String, Object> map = new HashMap<>();
 		
@@ -101,24 +122,6 @@ public class OrderRepository {
 		System.out.println(no + " : " + statement);
 		
 		return sqlSession.update("order.updateStatus", map);
-	}
-
-	public OrderDeliveryVo findDeliveryByNo(String id, int no) {
-		Map<String, Object> map = new HashMap<>();
-		
-		map.put("db", id);
-		map.put("no", no);
-		
-		return sqlSession.selectOne("order.findDeliveryByNo", map);
-	}
-
-	public String findStatement(String id, int no) {
-		Map<String, Object> map = new HashMap<>();
-		
-		map.put("db", id);
-		map.put("no", no);
-		
-		return sqlSession.selectOne("order.findStatement", map);
 	}
 	
 	

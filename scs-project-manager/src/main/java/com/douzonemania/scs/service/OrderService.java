@@ -21,7 +21,7 @@ public class OrderService {
 	@Autowired
 	private OrderRepository orderRepository;
 
-	/* Delivery 정해진 날짜기간동안 list 출력 */
+	/* order-delivery 정해진 날짜기간동안 list 출력 */
 	public Map<String, Object> findDeliveryByDate(String startDate, String endDate, String id, int currentPage, String option, String keyword) {
 		Map<String, Object> map = new HashMap<>();
 
@@ -30,13 +30,9 @@ public class OrderService {
 
 		int total = orderRepository.countDeliveryList(startDate, endDate, id, option, keyword);
 		
-		
 		System.out.println("total:" + total);
 		List<OrderDeliveryVo> list;
 		list = orderRepository.findDeliveryByDate(startDate, endDate,id, option, keyword, offset, LIST_SIZE);
-		for (OrderDeliveryVo orderDeliveryVo : list) {
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + orderDeliveryVo);
-		}
 		
 		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
 		int calCnt=(currentPage%5)==0 ? currentPage-1 : currentPage;
@@ -104,7 +100,7 @@ public class OrderService {
 		return orderRepository.updateStatus(id, no, statement);
 	}
 	
-	/* Settle 정해진 날짜기간동안 list 출력 */
+	/* order-settle 정해진 날짜기간동안 list 출력 */
 	public Map<String,Object> findSettleByDate(String startDate, String endDate, String id, int currentPage) {
 		
 		Map<String, Object> map = new HashMap<>();
@@ -113,7 +109,6 @@ public class OrderService {
 		int offset=(currentPage-1)*3;
 
 		int total = orderRepository.countSettleList(startDate, endDate, id);
-		System.out.println("total:" + total);
 		List<OrderSettleVo> list;
 		list = orderRepository.findSettleByDate(startDate, endDate,id, offset, LIST_SIZE);
 		int totalPrice = 0;
@@ -157,11 +152,12 @@ public class OrderService {
 		return map;
 
 	}
-
+	/* order-delivery 주문배송 찾기 */
 	public OrderDeliveryVo findDeliveryByNo(String id, int no) {
 		return orderRepository.findDeliveryByNo(id, no);
 	}
 
+	/* order-delivery 주문배송 상태 찾기 */
 	public String findStatement(String id, int no) {
 		return orderRepository.findStatement(id,no);
 	}

@@ -26,7 +26,7 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	/* 주문/배송관리 */
+	/* delivery ajax 주문/배송관리 list */
 	@ResponseBody
 	@GetMapping("/delivery")
 	public JsonResult orderDeliveryList(
@@ -39,7 +39,6 @@ public class OrderController {
 			Model model){
 
 		String id = authUser.getId();
-		System.out.println(startDate + ":" + endDate + ":" +  page + ":" +  option + ":" + keyword );
 		
 		Map<String, Object> map = orderService.findDeliveryByDate(startDate, endDate, authUser.getId(), page, option, keyword);
 		
@@ -48,7 +47,7 @@ public class OrderController {
 		return JsonResult.success(map);
 	}
 	
-	/* 주문/배송관리 상태 변경 */
+	/* delivery ajax 주문/배송관리 상태 update */
 	@ResponseBody
 	@PostMapping("/delivery/update")
 	public JsonResult orderDeliveryStatusUpdate(
@@ -61,7 +60,6 @@ public class OrderController {
 		  no = (int) statusMap.put("no", no);
 		  String statement = "";
 		  statement = (String) statusMap.put("statement", statement);
-		  System.out.println("apideliveryupdate:" + no +" : " + statement);
 		  String id = authUser.getId();
 		  orderDeliveryVo.setId(id);
 		  orderService.updateStatus(id, no, statement);
@@ -69,7 +67,7 @@ public class OrderController {
 	}
 	
 	
-	/* 정산 관리 */
+	/* settle ajax 정산관리 list */
 	@ResponseBody
 	@GetMapping("/settle")
 	public JsonResult orderSettleList(

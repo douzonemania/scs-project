@@ -23,19 +23,19 @@ public class SettingRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	// ceo 없데이트
+	/* ceo update */
 	public int updateCeo(CeoVo ceoVo) {
 		System.out.println("update한다?????");
 		return sqlSession.update("user.updateCeo",ceoVo);
 	}
 	
-	// id로 agreement 찾기
+	/* 약관 select */
 	public AgreementVo findAgreementById(String id) {
 		System.out.println("agreement 찾는다?");
 		return sqlSession.selectOne("setting.findAgreementById", id);
 	}
 	
-	// html로 policy 업데이트
+	/* 약관 update */
 	public int updatePolicy(String contents, String agreement, String id) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("contents", contents);
@@ -57,25 +57,25 @@ public class SettingRepository {
 		return id;
 	}
 	
-	// 배송사 리스트
+	/* 배송사 select */
 	public List<ShipCompanyVo> getList(String id) {
 		
 		return sqlSession.selectList("setting.getList", id);
 	}
 
-	// 배송사 추가
+	/* 배송사 insert */
 	public int insertShip(ShipCompanyVo shipCompanyVo) {
 	
 		return sqlSession.insert("setting.insertShip", shipCompanyVo);
 	}
 	
-	// 배송사 갯수
+	/* 배송사 count */
 	public int shipCount(String id) {
 		
 		return sqlSession.selectOne("setting.shipCount", id);
 	}
 
-	// 배송사 삭제
+	/* 배송사 delete */
 	public int deleteShip(Long no) {
 		
 		return sqlSession.delete("setting.deleteShip", no);
