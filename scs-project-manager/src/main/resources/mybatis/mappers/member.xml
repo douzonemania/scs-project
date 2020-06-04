@@ -211,10 +211,10 @@
 		]]>
 	</select>
 	
-	<update id="setBoardReplyTrue" parameterType="map">
+	<update id="updateBoardReply" parameterType="map">
 		<![CDATA[
 			update ${db}.board
-			   set reply_state=true
+			   set reply_state=#{state}
 			 where no=#{no} 
 		]]>
 	</update>
@@ -227,4 +227,10 @@
 		]]>
 	</select>
 	
+	<delete id="deleteBoardReply" parameterType="map">
+		<![CDATA[
+			delete from ${db}.reply
+			 where parents_no=#{no}
+		]]>
+	</delete>
 </mapper>

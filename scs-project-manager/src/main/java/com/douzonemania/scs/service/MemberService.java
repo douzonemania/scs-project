@@ -256,7 +256,7 @@ public class MemberService {
 
 		for(int i = 0; i < jArray.length(); i++) {
 			JSONObject obj = jArray.getJSONObject(i);
-			System.out.println("obj:"+obj);
+			
 			if(i == jArray.length() - 1) {
 				contents += obj;
 			}
@@ -278,13 +278,25 @@ public class MemberService {
 		return memberRepository.findReplyByParentsNo(id, no);
 	}
 
-	public boolean setBoardReplyTrue(String id, int no) {
-		int count = memberRepository.setBoardReplyTrue(id, no);
+	public boolean updateBoardReplyTrue(String id, int no) {
+		// 답글 상태를 true로 만들기
+		int count = memberRepository.updateBoardReply(id, no, true);
 		return count == 1;
 	}
 
 	public String findNameByNo(String id, int no) {
 		return memberRepository.findNameByNo(id, no);
+	}
+
+	public boolean deleteBoardReply(String id, int no) {
+		int count = memberRepository.deleteBoardReply(id, no);
+		return count == 1;
+	}
+	
+	public boolean updateBoardReplyFalse(String id, int no) {
+		// 답글 상태를 false로 만들기
+		int count = memberRepository.updateBoardReply(id, no, false);
+		return count == 1;
 	}
 
 }

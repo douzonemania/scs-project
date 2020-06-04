@@ -1,5 +1,7 @@
 package com.douzonemania.scs.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.MemberService;
 import com.douzonemania.scs.service.UserService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
+import com.douzonemania.security.AuthUser;
 
 @Controller
 @RequestMapping("/user")
@@ -94,6 +98,12 @@ public class UserController {
 		Boolean sendPassword = userService.sendPasswordEmail(id, email); 
 		
 		return JsonResult.success(sendPassword);
+	}
+	
+	@RequestMapping(value = "/agreement", method = RequestMethod.GET)
+	public String agreement() {
+
+		return "user/agreement";
 	}
 
 
