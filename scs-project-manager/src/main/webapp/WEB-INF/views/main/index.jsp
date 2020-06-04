@@ -28,8 +28,8 @@
                             <div class="card-body p-4">
                                 
                                 <div class="text-center mb-4">
-                                    <a href="${ pageContext.request.contextPath }/main">
-                                        <span><img src="${pageContext.request.contextPath}/assets/images/logo-scs.png" alt="" height="130"></span>
+                                    <a href="${pageContext.request.contextPath }/main">
+                                        <span><img src="${pageContext.request.contextPath }/assets/images/logo-scs.png" alt="" height="130"></span>
                                     </a>
                                 </div>
 
