@@ -27,30 +27,25 @@ public class SettingService {
 	@Autowired
 	private SettingRepository settingRepository;
 	
-	
-	/*
-	 * basic 
-	 * 
-	 */
-	
-	// ceo 업로드
+	/* setting-basic update */
 	public int updateCeo(CeoVo ceoVo) {
 		return settingRepository.updateCeo(ceoVo);
 	}
 	
+	/* setting-basic 배송사 가져오기 */
 	public List<ShipCompanyVo> getShipList(String id) {
 		List<ShipCompanyVo> list = settingRepository.getList(id);
 		return list;
 	}
 
-
+	/* setting-basic 배송사 추가 */
 	public int insertShip(ShipCompanyVo shipCompanyVo) {
 		
 		return settingRepository.insertShip(shipCompanyVo);
 		
 	}
 
-
+	/* setting-basic 배송사 count */
 	public int shipCount(String id) {
 		//	id처리
 
@@ -58,12 +53,12 @@ public class SettingService {
 
 	}
 
-
+	/* setting-basic 배송사 삭제 */
 	public boolean deleteShip(Long no) {
 		return settingRepository.deleteShip(no) == 1;
 	}
 	
-	// 파일 업로드 시작
+	/* setting-basic 파일 업로드 시작 */
 	public String restore(CeoVo ceoVo, MultipartFile multipartFile) {
 		String url = "";
 		try {
@@ -93,7 +88,7 @@ public class SettingService {
 		System.out.println("url:" + url);
 		return url;
 	}
-
+	/* file 이름변환 */
 	private String generateSaveFilename(String extName) {
 		String filename = "";
 
@@ -109,18 +104,14 @@ public class SettingService {
 
 		return filename;
 	}
-	// 파일 업로드 끝
-	
-	/*
-	 * policy 
-	 * 
-	 */
-	
+
+	/* setting-policy 약관 찾기 */
 	public AgreementVo findAgreementById(String id) {
 		
 		return settingRepository.findAgreementById(id);
 	}
 
+	/* setting-policy 약관 업데이트 */
 	public int updatePolicy(String jsonData, String id) {
 		
 		JSONObject jObject = new JSONObject(jsonData);
@@ -142,7 +133,6 @@ public class SettingService {
 			}
 		}
 
-		
 		return settingRepository.updatePolicy(contents,agreement, id);
 		
 	}

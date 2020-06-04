@@ -15,7 +15,7 @@ $(function() {
 				mode : "inline",
 				inputclass : "form-control-sm"
 			}), $(".inline-select").editable({
-				prepend : "전나게 안되네",
+				prepend : "선택",
 				mode : "inline",
 				inputclass : "form-control-sm",
 				source : [ {

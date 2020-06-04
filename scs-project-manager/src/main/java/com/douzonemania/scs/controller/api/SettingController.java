@@ -27,7 +27,7 @@ public class SettingController {
 	@Autowired
 	private SettingService settingService;
 	
-	
+	/* basic ajax 배송사 리스트 */
 	@GetMapping("/shipAdd")
 	public JsonResult shipList(
 			@AuthUser CeoVo authUser,
@@ -38,6 +38,7 @@ public class SettingController {
 		return JsonResult.success(shipCompanylist);
 	}
 	
+	/* basic ajax 배송사 추가 */
 	@PostMapping("/shipAdd/add")
 	public JsonResult shipListAdd(
 			@AuthUser CeoVo authUser,
@@ -47,13 +48,13 @@ public class SettingController {
 			for(ShipCompanyVo vo : shipCompanylist) {
 				if(shipCompanyVo.getName().equals(vo.getName())) {
 					shipCompanyVo.setNo(vo.getNo());
-					System.out.println(shipCompanyVo.getNo());
 				}
 			}
 			settingService.insertShip(shipCompanyVo);
 		return JsonResult.success(shipCompanyVo);
 	}
 	
+	/* basic ajax 배송사 삭제 */
 	@DeleteMapping("/shipAdd/delete/{no}")
 	public JsonResult shipListDelete(
 			@AuthUser CeoVo authUser,
@@ -67,6 +68,7 @@ public class SettingController {
 		return JsonResult.success(result? no : -1);
 	}
 	
+	/* policy ajax 약관 리스트 */
 	@GetMapping("/policy")
 	public JsonResult policy(
 			@AuthUser CeoVo authUser,
@@ -79,6 +81,7 @@ public class SettingController {
 		return JsonResult.success(agreementVo);
 	}
 	
+	/* policy ajax 약관 리스트 업데이트*/
 	@PostMapping("/policy/update")
 	public JsonResult policyUpdate(
 			@AuthUser CeoVo authUser,

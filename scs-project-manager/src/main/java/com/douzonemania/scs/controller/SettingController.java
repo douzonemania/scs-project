@@ -31,7 +31,7 @@ public class SettingController {
 	@Autowired
 	private UserService userService;
 
-	// setting-basic
+	/* setting-basic */
 	@RequestMapping(value = "/basic", method = RequestMethod.GET)
 	public String info(
 			@AuthUser CeoVo authUser,
@@ -45,7 +45,7 @@ public class SettingController {
 		return "setting/basic";
 	}
 
-	// setting-basic update(get)
+	/* setting-basic update(get) */
 	@RequestMapping(value = "/basic/update", method = RequestMethod.GET)
 	public String update(
 			@AuthUser CeoVo authUser,
@@ -59,7 +59,7 @@ public class SettingController {
 		return "setting/basic";
 	}
 
-	// setting-basic update(post)
+	/* setting-basic update(post) */
 	@RequestMapping(value = "/basic/update", method = RequestMethod.POST)
 	public String update(
 			@AuthUser CeoVo authUser,
@@ -80,7 +80,47 @@ public class SettingController {
 		return "setting/basic";
 	}
 
-	// setting-policy
+	/* setting-basic ship_company list */
+	@RequestMapping(value = "/shipAdd", method = RequestMethod.GET)
+	public String shipList(@ModelAttribute ShipCompanyVo shipCompanyVo,
+			@AuthUser CeoVo authUser,
+			 Model model) {
+
+		shipCompanyVo.setId(authUser.getId()); // authUser처리
+		List<ShipCompanyVo> shipCompanylist = settingService.getShipList(shipCompanyVo.getId());
+		model.addAttribute("shipCompanylist", shipCompanylist);
+
+		return "setting/shipAdd";
+	}
+
+	/* setting-basic ship_company insert */
+	@RequestMapping(value = "/shipAdd/add", method = RequestMethod.POST)
+	public String shipListInsert(@AuthUser CeoVo authUser,
+			@RequestParam(value = "name") String name, Model model) {
+
+		ShipCompanyVo shipCompanyVo = new ShipCompanyVo();
+		shipCompanyVo.setId(authUser.getId()); // authUser 처리
+		shipCompanyVo.setName(name);
+		settingService.insertShip(shipCompanyVo);
+
+		return "redirect:/"+authUser.getId()+"/setting/shipAdd"; // 경로 id추가
+
+	}
+
+	/* setting-basic ship_company delete */
+	@RequestMapping(value = "/shipAdd/delete/{no }", method = RequestMethod.GET)
+	public String shipListDelete(
+			@AuthUser CeoVo authUser,
+			@PathVariable("no") Long no, @ModelAttribute ShipCompanyVo shipCompanyVo) {
+
+		int count = settingService.shipCount(authUser.getId()); // authUser 처리
+		if (count > 1) {
+			settingService.deleteShip(no);
+		}
+		return "redirect:/"+authUser.getId()+"/setting/shipAdd"; // 경로 id추가
+	}
+
+	/* setting-policy */
 	@RequestMapping(value = "/policy", method = RequestMethod.GET)
 	public String policy(
 			@AuthUser CeoVo authUser,
@@ -93,7 +133,6 @@ public class SettingController {
 		
 		agreementVo.setId(authUser.getId());
 		agreementVo = settingService.findAgreementById(authUser.getId());
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!" + agreementVo);
 		String viewer1 = "quill.setContents([ " +
                 agreementVo.getFirstAgree() +
        "]);";
@@ -116,7 +155,7 @@ public class SettingController {
 		return "setting/policy";
 	}
 	
-	// setting-policy update
+	/* setting-policy update */
 	@RequestMapping(value = "/policy/update", method = RequestMethod.POST)
 	public String updatePolicy(
 			@AuthUser CeoVo authUser,
@@ -134,43 +173,4 @@ public class SettingController {
 		return "setting/policy";
 	}
 
-	// 배송사 리스트
-	@RequestMapping(value = "/shipAdd", method = RequestMethod.GET)
-	public String shipList(@ModelAttribute ShipCompanyVo shipCompanyVo,
-			@AuthUser CeoVo authUser,
-			 Model model) {
-
-		shipCompanyVo.setId(authUser.getId()); // authUser처리
-		List<ShipCompanyVo> shipCompanylist = settingService.getShipList(shipCompanyVo.getId());
-		model.addAttribute("shipCompanylist", shipCompanylist);
-
-		return "setting/shipAdd";
-	}
-
-	// 배송사 추가
-	@RequestMapping(value = "/shipAdd/add", method = RequestMethod.POST)
-	public String shipListInsert(@AuthUser CeoVo authUser,
-			@RequestParam(value = "name") String name, Model model) {
-
-		ShipCompanyVo shipCompanyVo = new ShipCompanyVo();
-		shipCompanyVo.setId(authUser.getId()); // authUser 처리
-		shipCompanyVo.setName(name);
-		settingService.insertShip(shipCompanyVo);
-
-		return "redirect:/"+authUser.getId()+"/setting/shipAdd"; // 경로 id추가
-
-	}
-
-	// 배송사 삭제
-	@RequestMapping(value = "/shipAdd/delete/{no }", method = RequestMethod.GET)
-	public String shipListDelete(
-			@AuthUser CeoVo authUser,
-			@PathVariable("no") Long no, @ModelAttribute ShipCompanyVo shipCompanyVo) {
-
-		int count = settingService.shipCount(authUser.getId()); // authUser 처리
-		if (count > 1) {
-			settingService.deleteShip(no);
-		}
-		return "redirect:/"+authUser.getId()+"/setting/shipAdd"; // 경로 id추가
-	}
 }
