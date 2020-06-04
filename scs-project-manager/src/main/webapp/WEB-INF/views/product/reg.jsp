@@ -62,20 +62,8 @@ $(function() {
 		$('#option-add').click(function(){		
 			window.open('optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
 		});
-		$('#option-add').hover(function(){
-			alert("오우오우오우");
-		});
+
 });
-
-
-$(document).ready(function(){
-	console.log("zz");
-	$('.dz-preivew img').hover(function(){
-		alert("오우오우오우");
-	});
-});
-	
-
 
 
 $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
@@ -289,20 +277,29 @@ $(function() {
 			optionsArray.push(options);			
 		}
 		
-		var queryString = $("form[name=testForm]").serialize() ;
-		 
-        $.ajax({
-            type : 'post',
-            url : '${pageContext.request.contextPath }/${authUser.id}/api/product/image',
-            data : queryString,
-            dataType : 'json',
-            error: function(xhr, status, error){
-                alert(error);
-            },
-            success : function(json){
-                alert(json)
-            },
-        });
+		var formData = new FormData($('#image-main')[0]);
+
+		console.log(formData+"-----------");
+
+
+		
+		//formData.append("file", $('input[name=file]')[0]); 
+		$.ajax({
+	        type: "POST",
+	        enctype: 'multipart/form-data',
+	        url: '${pageContext.request.contextPath }/${authUser.id}/api/product/image',
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        cache: false,
+	        timeout: 600000,
+	        success: function (data) {
+	            console.log("SUCCESS : ", data);
+	        },
+	        error: function (e) {
+	            console.log("ERROR : ", e);
+	        }
+	    });
 		
 	});
 });
@@ -322,6 +319,35 @@ $(function() {
 				$('#item-sale-price').val(salePrice);
 			}
 		});
+	
+	 $('#testbtn').click(function(){
+		var form = $('#hi')[0];
+
+		console.log(form);
+		
+		var formData= new FormData(form);
+		console.log(formData);
+		  $.ajax({
+		        type: "POST",
+		        enctype: 'multipart/form-data',
+		        url: '${pageContext.request.contextPath }/${authUser.id}/api/product/image',
+		        data: formData,
+		        processData: false,
+		        contentType: false,
+		        cache: false,
+		        timeout: 600000,
+		        success: function (data) {
+		            console.log("SUCCESS : ", data);
+		        },
+		        error: function (e) {
+		            console.log("ERROR : ", e);
+		        }
+		    }); 
+		  
+		 
+		 
+		 });
+		
 });
 	
 </script>
@@ -534,20 +560,24 @@ $(function() {
 									<tr class="img-reg">
 										<th>이미지 등록</th>
 										<td colspan="4">
+									
 											<div class="img-section">
+											
+												
 												<form action="/" method="post" enctype="multipart/form-data" class="dropzone"	id="img-section-main" name="image-main">
-												<input type='button' value='삭제' style="margin-left:50px; position:relative;"/>
-													<div class="fallback">
-														<input name="file" type="file" multiple />
-													</div>
+									
+															<input name="excelFile" type="file" multiple />
 												</form>
+													
+												
+												
 												<p class="text-muted text-center mt-2 mb-0">대표이미지</p>
 											</div>
 
 											<div class="img-section">
 												<form action="/" method="post" class="dropzone"	id="img-section-sub" name="image-sub">
-													<div class="fallback">
-														<input name="main-image" type="file" multiple />
+													<div class="fallback" >
+														<input name="excelFile" type="file" multiple />
 													</div>
 												</form>
 												<p class="text-muted text-center mt-2 mb-0">부가이미지1</p>
@@ -629,9 +659,17 @@ $(function() {
 												재고량 <input type="text" class="form-control product-info" id="input-stock-0" value="" />
 												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">추가</button>	
 												<button type="button" id="testtest" class="btn btn-secondary waves-effect">실험쥐</button>												
+												
+												<form method="POST" enctype="multipart/form-data" id="excelForm">
+												    <input type="file" name="excelFile"/>
+												    <input type="hidden" name="userId" value="testUser"/>
+												</form>
+												
+
+												<button id="testbtn">test</button>
 											</div>
 											</div>
-											
+												
 										</td>
 									</tr>
 								</tbody>
