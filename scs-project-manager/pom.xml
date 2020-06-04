@@ -8,7 +8,7 @@
 		<artifactId>scs-project</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>scs-project-manager</artifactId>
+	<artifactId>scs-manager</artifactId>
 	<packaging>war</packaging>
 
 	<properties>
