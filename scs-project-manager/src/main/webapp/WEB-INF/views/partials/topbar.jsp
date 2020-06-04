@@ -69,12 +69,12 @@
         <div class="logo-box">
             <a href="index.html" class="logo text-center">
                 <span class="logo-lg">
-                    <img src="<%=request.getContextPath() %>/assets/images/logo-scs.png" alt="ìëíì¸ì" height="56">
+                    <img src="${pageContext.request.contextPath}/assets/images/logo-scs.png" alt="ìëíì¸ì" height="56">
                     <!-- <span class="logo-lg-text-light">UBold</span> -->
                 </span>
                 <span class="logo-sm">
                     <!-- <span class="logo-sm-text-dark">U</span> -->
-                    <img src="<%=request.getContextPath() %>/assets/images/logo-scs.png" alt="" height="56">
+                    <img src="${pageContext.request.contextPath}/assets/images/logo-scs.png" alt="" height="56">
                 </span>
             </a>
         </div>
