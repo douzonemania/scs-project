@@ -5,7 +5,7 @@
     <artifactId>scs-project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>scs-shop</artifactId>
+  <artifactId>scs-project-shop</artifactId>
   <packaging>war</packaging>
   
   	<properties>
