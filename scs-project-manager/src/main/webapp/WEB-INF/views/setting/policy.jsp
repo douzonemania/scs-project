@@ -46,6 +46,8 @@
 </head>
 <script type="text/javascript">
 
+
+
 var fetchList = function(){
 	
 	var agreement = $('#first_agree').attr('id');
@@ -87,6 +89,12 @@ $(document).ready(function(){
 	$("#agreement li").on("click", function() {
        agreement = $(this).attr('id');
     });
+	
+	
+	var toolbar = quill.getModule('toolbar');
+	console.log(toolbar);
+	
+	
 	
 	$('#save-btn').click(function(e){
 		e.preventDefault();
