@@ -146,7 +146,7 @@
 					<url>http://192.168.1.58:8080/manager/text</url>
 					<path>/scs-shop</path>
 					<username>admin</username>
-					<password>admin</password>
+					<password>manager</password>
 				</configuration>
 			</plugin>
 		</plugins>
