@@ -145,7 +145,7 @@ var fetchList = function(startDate, endDate){
                                     </div>
                                     <div class="col-6">
                                         <div class="text-right">
-                                            <h3 class="text-dark mt-1"><span data-plugin="counterup">${map.total }</span>건</h3>
+                                            <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">${map.total }</span>건</h6>
                                             <p class="text-muted mb-1 text-truncate">건수</p>
                                         </div>
                                     </div>
@@ -165,9 +165,9 @@ var fetchList = function(startDate, endDate){
                                     <div class="col-6">
                                     
                                         <div class="text-right">
-                                            <h3 class="text-dark mt-1"><span data-plugin="counterup">${map.totalPrice }</span>원</h3>
+                                            <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">${map.totalPrice }</span>원</h6>
                                             
-                                            <p class="text-muted mb-1 text-truncate">매출</p>
+                                            <p class="text-muted mb-1 text-truncate" >매출</p>
                                         </div>
                                    
                                     </div>
@@ -188,7 +188,7 @@ var fetchList = function(startDate, endDate){
             
                                     <div class="col-6">
                                         <div class="text-right">
-                                            <h3 class="text-dark mt-1"><span data-plugin="counterup">${map.totalMargin }</span>원</h3>
+                                            <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">${map.totalMargin }</span>원</h6>
                                             <p class="text-muted mb-1 text-truncate">순수익</p>
                                         </div>
                                     </div>
