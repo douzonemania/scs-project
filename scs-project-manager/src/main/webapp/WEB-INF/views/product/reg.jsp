@@ -49,14 +49,37 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
+
+function preview(input, target) {
+	if(input.files && input.files[0]){
+	  	var fileName= input.files[0].name;
+	  	var ext=fileName.substr(fileName.length-3, fileName.length);
+	  	var isCheck=false; 
+	  		if(ext.toLowerCase()=='jpg' || ext.toLowerCase()=='gif' || ext.toLowerCase()=='png'){
+	  			isCheck=true;               
+  			}
+  	if(isCheck==false){
+  		alert("이미지 파일 아님");
+  		jQuery(input).val("");
+  		return;
+  	}
+  	var reader = new FileReader();
+  	reader.readAsDataURL(input.files[0]);          
+  	reader.onload = function(e) {
+  	  jQuery(target).attr('src', e.target.result);
+  	}
+	}
+}
+
 var stockAddEjs = new EJS({
 	url:"${pageContext.request.contextPath }/assets/js/ejs/stock-add.ejs"
 });
 var optionsArray = new Array();
 var options = new Object();
-
+var imageSrc ="";
 var index = 1;
-
+var mainImage = "";
+var subImage = "";
 $(function() {
 	/* 옵션 추가 등록 팝업 */
 		$('#option-add').click(function(){		
@@ -73,8 +96,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	var supPrice = document.getElementById("item-sup-price").value;
 	var nowPrice = document.getElementById("item-now-price").value;
 	var sale = document.getElementById("item-sale").value;
-	var mainImage = "abcd";
-	var subImage = "abcd";
+	
 	var editor = JSON.stringify(quill.getContents());
 	
 	if($('input[name="pro-expo"]:checked').val()!="visible")
@@ -103,8 +125,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	vo.supPrice = supPrice;
 	vo.nowPrice = nowPrice;
 	vo.sale = sale;
-	vo.mainImage = mainImage;
-	vo.subImage = subImage;
+	
 	vo.visible = visible;
 	vo.bestItem = bestItem;
 	vo.newItem = newItem;
@@ -138,7 +159,52 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 			'sizeArr' : sizeArr,
 			'stockArr' : stockArr
 	}
+	
+	var form = $('#excelForm')[0];
 
+	console.log(form);
+	
+	var formData= new FormData(form);
+	console.log(formData);
+	  $.ajax({
+	        type: "POST",
+	        enctype: 'multipart/form-data',
+	        url: '${pageContext.request.contextPath }/${authUser.id}/api/product/image',
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        async:false,
+	        cache: false,
+	        success: function (data) {
+	            console.log("SUCCESS : ", data);
+	            imageSrc = data.data;
+	            imageSrc = JSON.stringify(imageSrc);
+	            imageSrc = imageSrc.replace(/\"/g,'');
+	            		            
+	            var imageSrcSplit = imageSrc.split('?');
+	            for ( var i in imageSrcSplit ) {
+	               	console.log(imageSrcSplit[i]);
+	            }
+	            
+	            mainImage = imageSrcSplit[0];
+	            for (var i=1; i<6; i++){
+	            	if(imageSrcSplit[i]!=""){
+	            		if(i != 5)
+	            			subImage = subImage+imageSrcSplit[i]+"?"
+	            	}
+	            }
+	            console.log(mainImage+subImage+":: in ajaxcode");
+	            alert(subImage);
+	        	
+	        },
+	        error: function (e) {
+	            console.log("ERROR : ", e);
+	        }
+	    }); 	
+	console.log(mainImage+subImage+"::");
+	vo.mainImage = mainImage;
+	vo.subImage = subImage;
+	
 	$.ajax({
 		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/regItem',
 		contentType: 'application/json',
@@ -153,7 +219,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 				type: "POST",
 				dataType: 'json',		
 				success : function(response){
-					location.reload();
+					//location.reload();
 				},
 				error: function(xhr, status, e){
 					console.error(status + " : " + e);
@@ -257,52 +323,6 @@ $(function() {
 	});
 });
 
-$(function() {
-	
-	$('#testtest').click(function(){
-		var i = 0;
-		var kk = $('.sizeOptionSelect').length;
-		
-		for(i; i<kk; i++){
-			var color = $("#colorOption-" + i + " option:selected").text();
-			var size = $("#sizeOption-" + i + " option:selected").text();
-			var stock = $("#input-stock-" + i).val();
-			var sibal = $("#item-des").val();
-			
-			options.itemNo = null; // 아이템 번호 넣기
-			options.color = color;
-			options.size = size;
-			options.stock = stock;
-			
-			optionsArray.push(options);			
-		}
-		
-		var formData = new FormData($('#image-main')[0]);
-
-		console.log(formData+"-----------");
-
-
-		
-		//formData.append("file", $('input[name=file]')[0]); 
-		$.ajax({
-	        type: "POST",
-	        enctype: 'multipart/form-data',
-	        url: '${pageContext.request.contextPath }/${authUser.id}/api/product/image',
-	        data: formData,
-	        processData: false,
-	        contentType: false,
-	        cache: false,
-	        timeout: 600000,
-	        success: function (data) {
-	            console.log("SUCCESS : ", data);
-	        },
-	        error: function (e) {
-	            console.log("ERROR : ", e);
-	        }
-	    });
-		
-	});
-});
 
 $(function() {
 	/* 판매가 계산 */
@@ -321,33 +341,9 @@ $(function() {
 		});
 	
 	 $('#testbtn').click(function(){
-		var form = $('#hi')[0];
+		 
+	});
 
-		console.log(form);
-		
-		var formData= new FormData(form);
-		console.log(formData);
-		  $.ajax({
-		        type: "POST",
-		        enctype: 'multipart/form-data',
-		        url: '${pageContext.request.contextPath }/${authUser.id}/api/product/image',
-		        data: formData,
-		        processData: false,
-		        contentType: false,
-		        cache: false,
-		        timeout: 600000,
-		        success: function (data) {
-		            console.log("SUCCESS : ", data);
-		        },
-		        error: function (e) {
-		            console.log("ERROR : ", e);
-		        }
-		    }); 
-		  
-		 
-		 
-		 });
-		
 });
 	
 </script>
@@ -560,69 +556,26 @@ $(function() {
 									<tr class="img-reg">
 										<th>이미지 등록</th>
 										<td colspan="4">
-									
-											<div class="img-section">
-											
-												
-												<form action="/" method="post" enctype="multipart/form-data" class="dropzone"	id="img-section-main" name="image-main">
-									
-															<input name="excelFile" type="file" multiple />
-												</form>
-													
-												
-												
-												<p class="text-muted text-center mt-2 mb-0">대표이미지</p>
-											</div>
-
-											<div class="img-section">
-												<form action="/" method="post" class="dropzone"	id="img-section-sub" name="image-sub">
-													<div class="fallback" >
-														<input name="excelFile" type="file" multiple />
+												<form method="POST" enctype="multipart/form-data" id="excelForm">
+												    <div class="main-section">
+												    	<input type="file" name="excelFile" onchange="preview(this, $('#preview-logo'));"/>
+												    </div>
+												    <div class="sub-section">
+												    	<input type="file" name="excelFile1"/>
+												    </div>
+												    <div class="sub-section">
+												    	<input type="file" name="excelFile2"/>
+												    </div>
+												    <div class="sub-section">
+												    	<input type="file" name="excelFile3"/>
+													</div>
+													<div class="sub-section">
+												    	<input type="file" name="excelFile4"/>
+													</div>
+													<div class="sub-section">
+												    	<input type="file" name="excelFile5"/>
 													</div>
 												</form>
-												<p class="text-muted text-center mt-2 mb-0">부가이미지1</p>
-											</div>
-
-											<div class="img-section">
-												<form action="/" method="post" class="dropzone"
-													id="img-section-sub2">
-													<div class="fallback">
-														<input name="image" type="file" multiple />
-													</div>
-												</form>
-												<p class="text-muted text-center mt-2 mb-0">부가이미지2</p>
-											</div>
-
-											<div class="img-section">
-												<form action="/" method="post" class="dropzone"
-													id="img-section-sub3">
-													<div class="fallback">
-														<input name="image" type="file" multiple />
-													</div>
-												</form>
-												<p class="text-muted text-center mt-2 mb-0">부가이미지3</p>
-											</div>
-
-											<div class="img-section">
-												<form action="/" method="post" class="dropzone"
-													id="img-section-sub4">
-													<div class="fallback">
-														<input name="image-1" type="file" multiple />
-													</div>
-												</form>
-												<p class="text-muted text-center mt-2 mb-0">부가이미지4</p>
-											</div>
-
-											<div class="img-section">
-												<form action="/" method="post" class="dropzone"
-													id="img-section-sub5">
-													<div class="fallback">
-														<input name="image-2" type="file" multiple />
-													</div>
-												</form>
-												<p class="text-muted text-center mt-2 mb-0">부가이미지5</p>
-											</div>
-
 										</td>
 									</tr>
 									<!-- image 등록 종료-->
@@ -660,13 +613,6 @@ $(function() {
 												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">추가</button>	
 												<button type="button" id="testtest" class="btn btn-secondary waves-effect">실험쥐</button>												
 												
-												<form method="POST" enctype="multipart/form-data" id="excelForm">
-												    <input type="file" name="excelFile"/>
-												    <input type="hidden" name="userId" value="testUser"/>
-												</form>
-												
-
-												<button id="testbtn">test</button>
 											</div>
 											</div>
 												

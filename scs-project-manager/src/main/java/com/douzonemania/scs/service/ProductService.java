@@ -1,5 +1,9 @@
 package com.douzonemania.scs.service;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.douzonemania.scs.repository.ProductRepository;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
@@ -24,6 +29,9 @@ public class ProductService {
 
 	private static final int LIST_SIZE =5;
 	private static final int PAGE_SIZE =5;
+	private static final String SAVE_PATH = "D:\\douzone2020\\eclipse-workspace\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\products";
+	//private static final String SAVE_PATH = "C:\\Users\\bit-user\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
+	private static final String URL = "/assets/images/products";
 	
 	@Autowired
 	private ProductRepository productRepository;
@@ -306,5 +314,47 @@ public class ProductService {
 	public int delStock(String id, int itemNo) {
 		return productRepository.delStock(id, itemNo);
 	}
+	//파일 업로드
+	public String restore(String id, MultipartFile excelFile) {
+		String url = "";
+		try {
+			if (excelFile.isEmpty()) {
+				return url;
+			}
 
+			String originFilename = excelFile.getOriginalFilename();
+			String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
+
+			String saveFilename = generateSaveFilename(originFilename, extName);
+			long fileSize = excelFile.getSize();
+
+			byte[] fileData = excelFile.getBytes();
+			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+			os.write(fileData);
+			os.close();
+			url = URL + "/" + saveFilename;
+			
+		} catch (IOException ex) {
+			throw new RuntimeException("file upload error:" + ex);
+		}
+		System.out.println("url:" + url);
+		return url;
+	}
+	// 파일 네임 변환
+	private String generateSaveFilename(String originFileName, String extName) {
+		String filename = "";
+
+		Calendar calendar = Calendar.getInstance();
+		filename += calendar.get(Calendar.YEAR);
+		filename += calendar.get(Calendar.MONTH);
+		filename += calendar.get(Calendar.DATE);
+		filename += calendar.get(Calendar.HOUR);
+		filename += calendar.get(Calendar.MINUTE);
+		filename += calendar.get(Calendar.SECOND);
+		filename += calendar.get(Calendar.MILLISECOND);
+		//filename += ("." + originFileName);
+		filename += ("." + extName);
+
+		return filename;
+	}
 }
