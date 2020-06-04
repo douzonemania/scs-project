@@ -55,7 +55,7 @@
                     		    </a>
                         	</c:when>
                         	<c:otherwise>
-                        		<a class="nav-link dropdown-toggle waves-effect" href="${ pageContext.request.contextPath }${id }/${db }/order/cart?id=${authUser.id}" role="button" aria-haspopup="false" aria-expanded="false">
+                        		<a class="nav-link dropdown-toggle waves-effect" href="${ pageContext.request.contextPath }${id }/${db }/order/cart" role="button" aria-haspopup="false" aria-expanded="false">
                         	   		 <i class="fe-shopping-cart noti-icon"></i>
                         	   		 <span class="badge badge-danger rounded-circle noti-icon-badge">${cartCnt}</span>
                     		    </a>
@@ -71,7 +71,7 @@
                         </a>
 						</c:when>
 						<c:otherwise>
-							 <a class="nav-link dropdown-toggle waves-effect" href="${ pageContext.request.contextPath }/${db }/member/mypage?id=${authUser.id }" role="button" aria-haspopup="false" aria-expanded="false">
+							 <a class="nav-link dropdown-toggle waves-effect" href="${ pageContext.request.contextPath }/${db }/member/mypage" role="button" aria-haspopup="false" aria-expanded="false">
                             <span style="font-weight: bold;">MY</span>
                         </a>
 						</c:otherwise>
@@ -103,7 +103,7 @@
                         </a>
                         <div class="dropdown-menu topbar-dropdown">
 		                    <!-- item-->
-		                    <a href="${pageContext.request.contextPath}/${db}/order/list?category=1" class="dropdown-item">
+		                    <a href="${pageContext.request.contextPath}/${db}/order/list?category=0" class="dropdown-item">
 		                      <span>ALL</span>
 		                    </a>
 		                    <c:forEach items="${cgList }" var="vo">
