@@ -57,30 +57,63 @@ public class SettingService {
 	public boolean deleteShip(Long no) {
 		return settingRepository.deleteShip(no) == 1;
 	}
-	
 	/* setting-basic 파일 업로드 시작 */
 	public String restore(CeoVo ceoVo, MultipartFile multipartFile) {
 		String url = "";
 		try {
 			if (multipartFile.isEmpty()) {
 				return url;
+			}else {
+				String originFilename = multipartFile.getOriginalFilename();
+				String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
+	
+				String saveFilename = generateSaveFilename(extName);
+				long fileSize = multipartFile.getSize();
+	
+				System.out.println("######### " + originFilename);
+				System.out.println("######### " + saveFilename);
+				System.out.println("######### " + fileSize);
+	
+				byte[] fileData = multipartFile.getBytes();
+				OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+				os.write(fileData);
+				os.close();
+				url = URL + "/" + saveFilename;
 			}
-
-			String originFilename = multipartFile.getOriginalFilename();
-			String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
-
-			String saveFilename = generateSaveFilename(extName);
-			long fileSize = multipartFile.getSize();
-
-			System.out.println("######### " + originFilename);
-			System.out.println("######### " + saveFilename);
-			System.out.println("######### " + fileSize);
-
-			byte[] fileData = multipartFile.getBytes();
-			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
-			os.write(fileData);
-			os.close();
-			url = URL + "/" + saveFilename;
+			
+		} catch (IOException ex) {
+			throw new RuntimeException("file upload error:" + ex);
+		}
+		System.out.println("url:" + url);
+		return url;
+	}
+	/* setting-basic 파일 업로드 시작 */
+	public String restore(CeoVo ceoVo, MultipartFile multipartFile, String src) {
+		String url = "";
+		try {
+			if(src != null) {
+				url = src;
+				System.err.println("::::::::URL:::::::::" + url);
+				return url;
+			}else if (multipartFile.isEmpty()) {
+				return url;
+			}else {
+				String originFilename = multipartFile.getOriginalFilename();
+				String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
+	
+				String saveFilename = generateSaveFilename(extName);
+				long fileSize = multipartFile.getSize();
+	
+				System.out.println("######### " + originFilename);
+				System.out.println("######### " + saveFilename);
+				System.out.println("######### " + fileSize);
+	
+				byte[] fileData = multipartFile.getBytes();
+				OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+				os.write(fileData);
+				os.close();
+				url = URL + "/" + saveFilename;
+			}
 			
 		} catch (IOException ex) {
 			throw new RuntimeException("file upload error:" + ex);
