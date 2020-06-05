@@ -92,7 +92,7 @@ public class SettingService {
 	public String restore(CeoVo ceoVo, MultipartFile multipartFile, String src) {
 		String url = "";
 		try {
-			if(src != null) {
+			if(src != null && multipartFile.isEmpty()) {
 				url = src;
 				System.err.println("::::::::URL:::::::::" + url);
 				return url;

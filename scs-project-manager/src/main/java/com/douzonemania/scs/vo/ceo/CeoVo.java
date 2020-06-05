@@ -30,6 +30,24 @@ public class CeoVo {
 	private Integer shipCharge;
 	private String logo;
 	private String favicon;
+	private String sourceLogo;
+	private String sourceFavicon;
+
+	public String getSourceLogo() {
+		return sourceLogo;
+	}
+
+	public void setSourceLogo(String sourceLogo) {
+		this.sourceLogo = sourceLogo;
+	}
+
+	public String getSourceFavicon() {
+		return sourceFavicon;
+	}
+
+	public void setSourceFavicon(String sourceFavicon) {
+		this.sourceFavicon = sourceFavicon;
+	}
 
 	public Integer getShipCharge() {
 
@@ -195,7 +213,7 @@ public class CeoVo {
 				+ faxNumber + ", cpNumber=" + cpNumber + ", address1=" + address1 + ", address2=" + address2
 				+ ", postcode=" + postcode + ", address=" + address + ", siteName=" + siteName + ", coNumber="
 				+ coNumber + ", cmNumber=" + cmNumber + ", shipCharge=" + shipCharge + ", logo=" + logo + ", favicon="
-				+ favicon + "]";
+				+ favicon + ", sourceLogo=" + sourceLogo + ", sourceFavicon=" + sourceFavicon + "]";
 	}
 
 }

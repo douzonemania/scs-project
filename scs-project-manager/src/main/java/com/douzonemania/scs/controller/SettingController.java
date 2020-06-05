@@ -69,12 +69,28 @@ public class SettingController {
 			Model model) {
 		
 		String src = "";
-		System.out.println("update보여준다.");
-		System.out.println(ceoVo);
-		String logo = settingService.restore(ceoVo,multipartFile1, ceoVo.getLogo());
-		ceoVo.setLogo(logo);
-		String favicon = settingService.restore(ceoVo,multipartFile2, ceoVo.getFavicon());
-		ceoVo.setFavicon(favicon);
+
+	
+		String logo = settingService.restore(ceoVo,multipartFile1,ceoVo.getSourceLogo());
+		String favicon = settingService.restore(ceoVo,multipartFile2,ceoVo.getSourceFavicon());
+		CeoVo findVo = userService.findCeoByIdJoin(ceoVo.getId());
+		
+		
+		if(multipartFile2.getSize()!=0) {
+			
+			ceoVo.setFavicon(favicon);
+		} else {
+			
+			ceoVo.setFavicon(findVo.getFavicon());
+		}
+		
+		if(multipartFile1.getSize()!=0) {
+			
+			ceoVo.setLogo(logo);
+		}else {
+			ceoVo.setLogo(findVo.getLogo());
+		}
+		
 		settingService.updateCeo(ceoVo);
 		
 		model.addAttribute("ceoVo", ceoVo);
