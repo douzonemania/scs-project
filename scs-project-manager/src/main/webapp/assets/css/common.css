@@ -95,3 +95,17 @@ margin:2px 0
 	text-align:center;
 	height:30px; 
 }
+.main-section,.sub-section{
+	border:2px dashed #C1C4C7;
+	border-radius: 10px;
+	display:inline-block;
+	max-width:150px;
+	height:150px;
+	margin-right:50px;
+}
+
+.previewSection{
+	padding:auto;
+	max-width:120px;
+	max-height:120px;
+}

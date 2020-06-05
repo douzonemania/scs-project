@@ -1,8 +1,10 @@
 package com.douzonemania.scs.controller.api;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ import com.douzonemania.security.AuthUser;
 import javafx.application.Application;
 
 @RestController("ProductApiController")
-@RequestMapping("/{id}/api/product")
+@RequestMapping("/{id:(?!assets).*}/api/product")
 public class ProductController {
 
 	@Autowired
@@ -206,7 +208,8 @@ public class ProductController {
 		String id = authUser.getId();
 		JSONObject jObject = new JSONObject(iVo.getEditor());
 		JSONArray jArray = jObject.getJSONArray("ops");
-
+		
+		System.err.println(iVo.getMainImage()+"!!!!");
 		String contents = "";
 
 		for(int i = 0; i < jArray.length(); i++) {
@@ -354,18 +357,52 @@ public class ProductController {
 		}
 		
 		// 이미지 파싱		
-		@RequestMapping(value="/image", method = RequestMethod.POST     , consumes ={"multipart/form-data"})
+		@RequestMapping(value="/image", method = RequestMethod.POST, consumes ={"multipart/form-data"})
 		public JsonResult image(
-				@RequestParam(value = "excelFile") MultipartFile excelFile
+				@AuthUser CeoVo authUser,
+				@RequestParam(value = "excelFile") MultipartFile excelFile,
+				@RequestParam(value = "excelFile1") MultipartFile excelFile1,
+				@RequestParam(value = "excelFile2") MultipartFile excelFile2,
+				@RequestParam(value = "excelFile3") MultipartFile excelFile3,
+				@RequestParam(value = "excelFile4") MultipartFile excelFile4,
+				@RequestParam(value = "excelFile5") MultipartFile excelFile5
 				) throws Exception{			
 		
-			System.out.println(excelFile.getOriginalFilename());
-			/*
-		 * String id = authUser.getId();
-		 * 
-		 * System.err.println(mainImage + "폼 데이터"); return JsonResult.success("");
-		 */
-			return JsonResult.success("");
+			String id = authUser.getId();			
+			String mainImage = productService.restore(id, excelFile);
+			String subImage1 = productService.restore(id, excelFile1);
+			String subImage2 = productService.restore(id, excelFile2);
+			String subImage3 = productService.restore(id, excelFile3);
+			String subImage4 = productService.restore(id, excelFile4);
+			String subImage5 = productService.restore(id, excelFile5);
+			String image = mainImage + "?" + subImage1 + "?" + subImage2 + "?" + subImage3 + "?" + subImage4 + "?" + subImage5; 
 			
+			return JsonResult.success(image);
 		}
+		
+		@RequestMapping(value="/image/mod", method = RequestMethod.POST, consumes ={"multipart/form-data"})
+		public JsonResult imageMod(
+				@AuthUser CeoVo authUser,
+				@RequestParam(value = "excelFile") MultipartFile excelFile,
+				@RequestParam(value = "excelFile1") MultipartFile excelFile1,
+				@RequestParam(value = "excelFile2") MultipartFile excelFile2,
+				@RequestParam(value = "excelFile3") MultipartFile excelFile3,
+				@RequestParam(value = "excelFile4") MultipartFile excelFile4,
+				@RequestParam(value = "excelFile5") MultipartFile excelFile5,
+				@RequestParam(value="subSrcArray") List<String> subSrcArray				
+				) throws Exception{			
+			
+			String id = authUser.getId();
+						
+			String mainImage = productService.restore(id, excelFile, subSrcArray.get(0));
+			String subImage1 = productService.restore(id, excelFile1, subSrcArray.get(1));
+			String subImage2 = productService.restore(id, excelFile2, subSrcArray.get(2));
+			String subImage3 = productService.restore(id, excelFile3, subSrcArray.get(3));
+			String subImage4 = productService.restore(id, excelFile4, subSrcArray.get(4));
+			String subImage5 = productService.restore(id, excelFile5, subSrcArray.get(5));
+			String image = mainImage + "?" + subImage1 + "?" + subImage2 + "?" + subImage3 + "?" + subImage4 + "?" + subImage5; 
+			System.err.println(image +"sst");
+			return JsonResult.success(image);
+		}		
+
 }
