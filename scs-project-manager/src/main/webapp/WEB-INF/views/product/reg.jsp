@@ -74,8 +74,8 @@ $(document).ready(function(){
 	//$("#excelForm").children('.previewSection').attr("alt", "zz");
 	$("#excelForm img:nth-child(n)").attr("alt", "zzzzzz");
 	
-	$("#excelForm img").click(function(){
-		alert($('#excelForm img').index(this));
+	$(".imageDelete").click(function(){
+		alert($('.imageDelete').index(this));
 	})
 });
 
