@@ -53,7 +53,12 @@ var mainImage = "";
 var subImage = "";
 var imageSrc ="";
 var mainSrc1 = $('#mainImagePreview').attr("src");
-
+var mainSrc = "${vo.mainImage}";
+var subSrc1 = "${subImageSplit[0]}";
+var subSrc2 = "${subImageSplit[1]}";
+var subSrc3 = "${subImageSplit[2]}";
+var subSrc4 = "${subImageSplit[3]}";
+var subSrc5 = "${subImageSplit[4]}";
 var subSrcArray=[];
 
 var stockAddEjs = new EJS({
@@ -93,6 +98,27 @@ $(function() {
 });
 
 $(document).ready(function(){
+	
+	$(".imageDelete").click(function(){
+		var index = $('.imageDelete').index(this);
+		$('#excelForm img').eq(index).attr("src","");
+		$('.fileInput').eq(index).val("");
+		
+		if(index == '0')
+			mainSrc = "";
+		if(index == '1')
+			subSrc1 = "";
+		if(index == '2')
+			subSrc2 = "";
+		if(index == '3')
+			subSrc3 = "";
+		if(index == '4')
+			subSrc4 = "";
+		if(index == '5')
+			subSrc5 = "";
+		if(index == '6')
+			subSrc6 = "";
+	});
 	
 	${viewer}
 
@@ -183,13 +209,9 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 	var sizeArr = [];
 	var stockArr=[];
 	
+
 	
-	var mainSrc = "${vo.mainImage}";
-	var subSrc1 = "${subImageSplit[0]}";
-	var subSrc2 = "${subImageSplit[1]}";
-	var subSrc3 = "${subImageSplit[2]}";
-	var subSrc4 = "${subImageSplit[3]}";
-	var subSrc5 = "${subImageSplit[4]}";
+
 	var subSrcArray=[mainSrc,subSrc1,subSrc2,subSrc3,subSrc4,subSrc5];
 	
 	  for(i=0; i<numberOfOption; i++){
@@ -591,27 +613,33 @@ $(function() {
 												<form method="POST" enctype="multipart/form-data" id="excelForm">
 												    <div class="main-section">
 												  		<img id="mainImagePreview" src="${pageContext.request.contextPath }${vo.mainImage }" alt="image" class="previewSection"/>
-												    	<input type="file" name="excelFile" onchange="preview(this, $('#mainImagePreview'));" />
+												    	<input type="file" name="excelFile" onchange="preview(this, $('#mainImagePreview'));" class="fileInput" />
+												    	<input type="button" class="imageDelete" value="삭제"/>
 												    </div>
 												    <div class="sub-section">
 												    	<img id="subImagePreview1" src="${pageContext.request.contextPath }${subImageSplit[0] }" alt="image" class="previewSection"/>
-												    	<input type="file" name="excelFile1" onchange="preview(this, $('#subImagePreview1'));"/>
+												    	<input type="file" name="excelFile1" onchange="preview(this, $('#subImagePreview1'));" class="fileInput"/>
+												    	<input type="button" class="imageDelete" value="삭제"/>
 												    </div>
 												    <div class="sub-section">
 												    	<img id="subImagePreview2" src="${pageContext.request.contextPath }${subImageSplit[1] }" alt="image" class="previewSection"/>
-												    	<input type="file" name="excelFile2" onchange="preview(this, $('#subImagePreview2'));"/>
+												    	<input type="file" name="excelFile2" onchange="preview(this, $('#subImagePreview2'));" class="fileInput"/>
+												    	<input type="button" class="imageDelete" value="삭제"/>
 												    </div>
 												    <div class="sub-section">
 												    	<img id="subImagePreview3" src="${pageContext.request.contextPath }${subImageSplit[2] }" alt="image" class="previewSection"/>
-												    	<input type="file" name="excelFile3" onchange="preview(this, $('#subImagePreview3'));"/>
+												    	<input type="file" name="excelFile3" onchange="preview(this, $('#subImagePreview3'));" class="fileInput"/>
+														<input type="button" class="imageDelete" value="삭제"/>
 													</div>
 													<div class="sub-section">
 														<img id="subImagePreview4" src="${pageContext.request.contextPath }${subImageSplit[3] }" alt="image" class="previewSection"/>
-												    	<input type="file" name="excelFile4" onchange="preview(this, $('#subImagePreview4'));"/>
+												    	<input type="file" name="excelFile4" onchange="preview(this, $('#subImagePreview4'));" class="fileInput"/>
+														<input type="button" class="imageDelete" value="삭제"/>
 													</div>
 													<div class="sub-section">
 														<img id="subImagePreview5" src="${pageContext.request.contextPath }${subImageSplit[4] }" alt="image" class="previewSection"/>
-												    	<input type="file" name="excelFile5" onchange="preview(this, $('#subImagePreview5'));"/>
+												    	<input type="file" name="excelFile5" onchange="preview(this, $('#subImagePreview5'));" class="fileInput"/>
+														<input type="button" class="imageDelete" value="삭제"/>
 													</div>
 												</form>
 

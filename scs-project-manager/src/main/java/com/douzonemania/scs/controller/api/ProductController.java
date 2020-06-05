@@ -392,6 +392,7 @@ public class ProductController {
 				@RequestParam(value="subSrcArray") List<String> subSrcArray				
 				) throws Exception{			
 			
+			System.err.println(subSrcArray + ":::::::::::::::::::::::::::::::::::");
 			String id = authUser.getId();
 						
 			String mainImage = productService.restore(id, excelFile, subSrcArray.get(0));

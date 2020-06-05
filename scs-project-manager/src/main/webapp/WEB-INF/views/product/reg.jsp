@@ -69,13 +69,12 @@ $(function() {
 });
 
 $(document).ready(function(){
-	$("#mainImagePreview").attr("alt", "zz");
-	//$('#excelForm [name="excelFile"]').val()
-	//$("#excelForm").children('.previewSection').attr("alt", "zz");
-	$("#excelForm img:nth-child(n)").attr("alt", "zzzzzz");
-	
+
 	$(".imageDelete").click(function(){
-		alert($('.imageDelete').index(this));
+		var index = $('.imageDelete').index(this);
+		$('#excelForm img').eq(index).attr("src","");
+		$('.fileInput').eq(index).val("");
+
 	})
 });
 
@@ -569,32 +568,32 @@ $(function() {
 												<form method="POST" enctype="multipart/form-data" id="excelForm">
 												    <div class="main-section">
 												  		<img id="mainImagePreview" src="" alt="" class="previewSection" style="width:250px; height:80px;"/>
-												    	<input type="file" name="excelFile" onchange="preview(this, $('#mainImagePreview'));"/>
+												    	<input type="file" name="excelFile" onchange="preview(this, $('#mainImagePreview'));" class="fileInput"/>
 												    	<input type="button" class="imageDelete" value="삭제"/>
 												    </div>
 												    <div class="sub-section">
 												   	 <img id="subImagePreview1" src="" alt="" class="previewSection" style="width:250px; height:80px;"/>
-												    	<input type="file" name="excelFile1" onchange="preview(this, $('#subImagePreview1'));"/>
+												    	<input type="file" name="excelFile1" onchange="preview(this, $('#subImagePreview1'));" class="fileInput"/>
 												    	<input type="button" class="imageDelete" value="삭제"/>
 												    </div>
 												    <div class="sub-section">
 												    	<img id="subImagePreview2" src="" alt="" class="previewSection" style="width:250px; height:80px;"/>
-												    	<input type="file" name="excelFile2" onchange="preview(this, $('#subImagePreview2'));"/>
+												    	<input type="file" name="excelFile2" onchange="preview(this, $('#subImagePreview2'));" class="fileInput"/>
 												    	<input type="button" class="imageDelete" value="삭제"/>
 												    </div>
 												    <div class="sub-section">
 												    	<img id="subImagePreview3" src="" alt="" class="previewSection" style="width:250px; height:80px;"/>
-												    	<input type="file" name="excelFile3" onchange="preview(this, $('#subImagePreview3'));"/>
+												    	<input type="file" name="excelFile3" onchange="preview(this, $('#subImagePreview3'));" class="fileInput"/>
 												    	<input type="button" class="imageDelete" value="삭제"/>
 													</div>
 													<div class="sub-section">
 												    	<img id="subImagePreview4" src="" alt="" class="previewSection" style="width:250px; height:80px;"/>
-												    	<input type="file" name="excelFile4" onchange="preview(this, $('#subImagePreview4'));"/>
+												    	<input type="file" name="excelFile4" onchange="preview(this, $('#subImagePreview4'));" class="fileInput"/>
 												    	<input type="button" class="imageDelete" value="삭제"/>
 													</div>
 													<div class="sub-section">
 												    	<img id="subImagePreview5" src="" alt="" class="previewSection" style="width:250px; height:80px;"/>
-												    	<input type="file" name="excelFile5" onchange="preview(this, $('#subImagePreview5'));"/>
+												    	<input type="file" name="excelFile5" onchange="preview(this, $('#subImagePreview5'));" class="fileInput"/>
 												    	<input type="button" class="imageDelete" value="삭제"/>
 													</div>
 												</form>
