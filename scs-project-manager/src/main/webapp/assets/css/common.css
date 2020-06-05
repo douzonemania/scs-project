@@ -103,3 +103,9 @@ margin:2px 0
 	height:150px;
 	margin-right:50px;
 }
+
+.previewSection{
+	padding:auto;
+	max-width:120px;
+	max-height:120px;
+}

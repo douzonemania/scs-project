@@ -2,6 +2,7 @@ package com.douzonemania.scs.controller;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -93,7 +94,10 @@ public class ProductController {
 		List<ShipCompanyVo> shipCompanyList = productService.getShipCompanyList(id);
 		List<StockVo> stockList = productService.getStockListByItemNo(id, no);
 		System.err.println(vo.getEditor()+"zz");
-
+		System.err.println(vo.getSubImage()+"!!!!!!!!!!!!");
+		
+		String[] subImageSplit = vo.getSubImage().split("\\?");			
+		
 		String viewer = "quill.setContents([ " + 
 				vo.getEditor() +
              "]);";
@@ -108,6 +112,7 @@ public class ProductController {
 		model.addAttribute("shipCompanyList", shipCompanyList);		//배송사 리스트
 		model.addAttribute("stockList", stockList);					//재고리스트
 		model.addAttribute("viewer", viewer);						//에디터
+		model.addAttribute("subImageSplit", subImageSplit);
 		return "product/item-mod";
 	}
 	

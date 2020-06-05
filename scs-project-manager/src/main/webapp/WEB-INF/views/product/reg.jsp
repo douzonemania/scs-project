@@ -50,6 +50,25 @@
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
 
+
+var stockAddEjs = new EJS({
+	url:"${pageContext.request.contextPath }/assets/js/ejs/stock-add.ejs"
+});
+var optionsArray = new Array();
+var options = new Object();
+var imageSrc ="";
+var index = 1;
+var mainImage = "";
+var subImage = "";
+$(function() {
+	/* 옵션 추가 등록 팝업 */
+		$('#option-add').click(function(){		
+			window.open('optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
+		});
+
+});
+
+
 function preview(input, target) {
 	if(input.files && input.files[0]){
 	  	var fileName= input.files[0].name;
@@ -70,25 +89,6 @@ function preview(input, target) {
   	}
 	}
 }
-
-var stockAddEjs = new EJS({
-	url:"${pageContext.request.contextPath }/assets/js/ejs/stock-add.ejs"
-});
-var optionsArray = new Array();
-var options = new Object();
-var imageSrc ="";
-var index = 1;
-var mainImage = "";
-var subImage = "";
-$(function() {
-	/* 옵션 추가 등록 팝업 */
-		$('#option-add').click(function(){		
-			window.open('optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
-		});
-
-});
-
-
 $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	var no = null;
 	var code = document.getElementById("item-code").value;
@@ -219,7 +219,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 				type: "POST",
 				dataType: 'json',		
 				success : function(response){
-					//location.reload();
+					location.reload();
 				},
 				error: function(xhr, status, e){
 					console.error(status + " : " + e);
@@ -558,7 +558,8 @@ $(function() {
 										<td colspan="4">
 												<form method="POST" enctype="multipart/form-data" id="excelForm">
 												    <div class="main-section">
-												    	<input type="file" name="excelFile" onchange="preview(this, $('#preview-logo'));"/>
+												  		<img id="mainImagePreview" src="" alt="image" class="previewSection" style="width:250px; height:80px;"/>
+												    	<input type="file" name="excelFile" onchange="preview(this, $('#mainImagePreview'));"/>
 												    </div>
 												    <div class="sub-section">
 												    	<input type="file" name="excelFile1"/>

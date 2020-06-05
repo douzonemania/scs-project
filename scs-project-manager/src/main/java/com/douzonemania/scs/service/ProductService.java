@@ -340,6 +340,36 @@ public class ProductService {
 		System.out.println("url:" + url);
 		return url;
 	}
+	
+	//파일 수정
+	public String restore(String id, MultipartFile excelFile, String src) {
+		String url = "";
+		try {
+			if(src != null && excelFile.isEmpty()) {
+				url = src;
+				System.err.println("::::::::URL:::::::::" + url);
+				return url;
+			}else if(excelFile.isEmpty()){
+				return url;
+			}else {
+			String originFilename = excelFile.getOriginalFilename();
+			System.err.println("!!!!OriginFIleName!!!" + originFilename);	
+			String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
+
+			String saveFilename = generateSaveFilename(originFilename, extName);
+
+			byte[] fileData = excelFile.getBytes();
+			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+			os.write(fileData);
+			os.close();
+			url = URL + "/" + saveFilename;
+			}
+		} catch (IOException ex) {
+			throw new RuntimeException("file upload error:" + ex);
+		}
+		System.out.println("url:" + url);
+		return url;
+	}
 	// 파일 네임 변환
 	private String generateSaveFilename(String originFileName, String extName) {
 		String filename = "";
