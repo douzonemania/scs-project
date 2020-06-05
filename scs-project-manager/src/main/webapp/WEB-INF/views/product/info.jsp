@@ -215,6 +215,7 @@ $(function() {
 										</tr>
 									</thead>
 									<tbody>
+									<c:set var="listCount" value="1"></c:set>
 									<c:forEach var="vo" varStatus="status" items="${itemList }">										
 										<tr>
 											<td>
@@ -224,7 +225,7 @@ $(function() {
 														class="custom-control-label" for="customCheck1">&nbsp;</label>
 												</div>
 											</td>
-											<td class="table-user">${vo.no }</td>
+											<td>${status.count + (map.page - 1) * 5 }</td>
 											<c:choose>
 												<c:when test="${vo.visible == true}">
 											<td><span class="badge bg-soft-danger text-danger">노출</span></td>

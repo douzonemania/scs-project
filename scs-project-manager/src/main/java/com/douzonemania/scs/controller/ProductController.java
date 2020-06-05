@@ -40,10 +40,12 @@ public class ProductController {
 				@RequestParam(value="p", required=true, defaultValue="1") int page,
 				@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
 				@RequestParam(value="op", required=true, defaultValue="") String option) {
-			 String id = authUser.getId();
-			 Map<String, Object> map = productService.getItemList(id, page, keyword, option);
-			 List<ItemVo> itemList = (List<ItemVo>) map.get("list");
+			String id = authUser.getId();
+			Map<String, Object> map = productService.getItemList(id, page, keyword, option);
+			List<ItemVo> itemList = (List<ItemVo>) map.get("list");
 			List<String> salePriceList = new ArrayList<>();
+			
+			
 			for (ItemVo vo : itemList) {
 				String price = NumberFormat.getInstance().format( ((int)((double)vo.getNowPrice() * (1 - ((double)vo.getSale() / 100)))+5)/10*10   )+"원";
 				salePriceList.add(price);

@@ -240,10 +240,10 @@ $(function() {
                             </div>
                             <div class="form-group mb-3 scs-category">
                                 <div class="form-group">
-                                    <input id="delivery-input-box" name="kwd" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
+                                    <input id="delivery-input-box" name="kwd" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on" style="height:37.39px">
                                 </div>
                                 <div>
-                                   	<select id="statement-option" name="kwd" class="custom-select custom-select-sm" style="display:none;">
+                                   	<select id="statement-option" name="kwd" class="custom-select custom-select-sm" style="display:none;" style="height:37.39px">
                                    		<option value="주문완료">주문완료</option>
                                         <option value="입긍완료">입금완료</option>
                                         <option value="배송준비중">배송준비중</option>
@@ -258,7 +258,7 @@ $(function() {
                             </div>
                             <div class="col-sm-6 col-xl-3 scs-submit">
                                 <div class="search-button">
-                                    <button id="list-search-btn" class="btn btn-secondary btn-sm " type="submit"> 검색 </button>
+                                    <button id="list-search-btn" class="btn btn-secondary btn-sm " type="submit" style="height:37.39px"> 검색 </button>
                                 </div>
                             </div>
                         </div>
@@ -306,6 +306,7 @@ $(function() {
                             </tbody>
                         </table>
                          <!-- start paging -->
+                         <div style="padding-top:30px"></div>
                         <nav>
 	                            <ul class="pagination pagination-rounded justify-content-center mb-3">
 	                            <li class="page-item">

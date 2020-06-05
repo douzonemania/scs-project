@@ -195,7 +195,10 @@ var removeCheck = function(no) {
 								</c:forEach>
                             </table>
 
-							<nav>
+							<div style="padding-top:30px"></div>	
+
+							<div style="width:100%;margin: 0 auto">
+								<nav>
 	                            <ul class="pagination pagination-rounded justify-content-center mb-3">
 		                            <li class="page-item">
 		                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/product/board?p=${map.prevPage}&op=${map.option }&kwd=${map.kwd}" aria-label="Previous">
@@ -224,6 +227,8 @@ var removeCheck = function(no) {
 		                            </li>
 	                        	</ul>
                         	</nav>
+							
+							</div>
                             
 
                         </div> <!-- end card-box -->
