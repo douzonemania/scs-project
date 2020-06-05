@@ -29,9 +29,9 @@ public class ProductService {
 
 	private static final int LIST_SIZE =5;
 	private static final int PAGE_SIZE =5;
-	private static final String SAVE_PATH = "/products";
+	private static final String SAVE_PATH = "D:\\douzone2020\\eclipse-workspace\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\products";
 	//private static final String SAVE_PATH = "C:\\Users\\bit-user\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
-	private static final String URL = "/assets/scs-manager/images/products";
+	private static final String URL = "/assets/images/products";
 	
 	@Autowired
 	private ProductRepository productRepository;
