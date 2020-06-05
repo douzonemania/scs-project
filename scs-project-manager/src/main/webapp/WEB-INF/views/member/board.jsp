@@ -225,7 +225,7 @@ var removeCheck = function(no) {
                                 	</tr>
 								</c:forEach>
                             </table>
-
+							<div style="padding-top:30px"></div>
 							<nav>
 	                            <ul class="pagination pagination-rounded justify-content-center mb-3">
 		                            <li class="page-item">

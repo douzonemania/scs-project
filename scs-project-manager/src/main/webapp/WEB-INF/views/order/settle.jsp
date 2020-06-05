@@ -265,7 +265,7 @@ var fetchList = function(startDate, endDate){
                             </tbody>
                             
                         </table>
-						
+						<div style="padding-top:30px"></div>
                         <!-- start paging -->
                             <nav>
                             <input type="hidden" value="${map.page }" id="current-page" />
