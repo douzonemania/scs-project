@@ -68,10 +68,11 @@ public class SettingController {
 			@RequestParam(value="favicon-file") MultipartFile multipartFile2,
 			Model model) {
 		
+		String src = "";
 		System.out.println("update보여준다.");
-		String logo = settingService.restore(ceoVo,multipartFile1);
+		String logo = settingService.restore(ceoVo,multipartFile1, ceoVo.getLogo());
 		ceoVo.setLogo(logo);
-		String favicon = settingService.restore(ceoVo,multipartFile2);
+		String favicon = settingService.restore(ceoVo,multipartFile2, ceoVo.getFavicon());
 		ceoVo.setFavicon(favicon);
 		settingService.updateCeo(ceoVo);
 		
