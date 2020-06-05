@@ -63,23 +63,24 @@ public class SettingService {
 		try {
 			if (multipartFile.isEmpty()) {
 				return url;
-			}else {
-				String originFilename = multipartFile.getOriginalFilename();
-				String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
-	
-				String saveFilename = generateSaveFilename(extName);
-				long fileSize = multipartFile.getSize();
-	
-				System.out.println("######### " + originFilename);
-				System.out.println("######### " + saveFilename);
-				System.out.println("######### " + fileSize);
-	
-				byte[] fileData = multipartFile.getBytes();
-				OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
-				os.write(fileData);
-				os.close();
-				url = URL + "/" + saveFilename;
 			}
+			
+			String originFilename = multipartFile.getOriginalFilename();
+			String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
+
+			String saveFilename = generateSaveFilename(extName);
+			long fileSize = multipartFile.getSize();
+
+			System.out.println("######### " + originFilename);
+			System.out.println("######### " + saveFilename);
+			System.out.println("######### " + fileSize);
+
+			byte[] fileData = multipartFile.getBytes();
+			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+			os.write(fileData);
+			os.close();
+			url = URL + "/" + saveFilename;
+			
 			
 		} catch (IOException ex) {
 			throw new RuntimeException("file upload error:" + ex);
