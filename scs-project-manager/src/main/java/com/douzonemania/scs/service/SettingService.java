@@ -21,8 +21,9 @@ import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 
 @Service
 public class SettingService {
-	private static final String SAVE_PATH = "/scs-uploads";
-	private static final String URL = "/assets/scs-manager/images";
+//	private static final String SAVE_PATH = "/scs-uploads";
+	private static final String SAVE_PATH = "C:\\Users\\bit-user\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
+	private static final String URL = "/assets/images/scs-uploads";
 	
 	@Autowired
 	private SettingRepository settingRepository;
@@ -92,7 +93,7 @@ public class SettingService {
 	public String restore(CeoVo ceoVo, MultipartFile multipartFile, String src) {
 		String url = "";
 		try {
-			if(src != null) {
+			if(src != null && multipartFile.isEmpty()) {
 				url = src;
 				System.err.println("::::::::URL:::::::::" + url);
 				return url;
