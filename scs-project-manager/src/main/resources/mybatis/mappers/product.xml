@@ -236,10 +236,10 @@
 		]]>
 	</insert>
 	
-	<update id="setBoardReplyTrue" parameterType="map">
+	<update id="updateBoardReply" parameterType="map">
 		<![CDATA[
 			update ${db}.item_board
-			   set reply_state=true
+			   set reply_state=#{state}
 			 where no = #{no} 
 		]]>
 	</update>
@@ -284,6 +284,14 @@
 			 where no=#{no}
 			   and reply_state=false
 		]]>
-	</delete>		
+	</delete>
+	
+	<delete id="deleteItemBoardReply" parameterType="map">
+		<![CDATA[
+			delete from ${db}.item_reply
+			 where parents_no=#{no}
+		]]>
+	</delete>
+			
 </mapper>
 
