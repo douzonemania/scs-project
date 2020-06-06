@@ -285,10 +285,18 @@ public class ProductService {
 		return count == 1;
 	}
 
-	public boolean setBoardReplyTrue(String id, int no) {
-		int count = productRepository.setBoardReplyTrue(id, no);
+	public boolean updateItemBoardReplyTrue(String id, int no) {
+		// 답글 상태를 true로 만들기
+		int count = productRepository.updateBoardReply(id, no, true);
 		return count == 1;
 	}
+	
+	public boolean updateItemBoardReplyFalse(String id, int no) {
+		// 답글 상태를 false로 만들기
+		int count = productRepository.updateBoardReply(id, no, false);
+		return count == 1;
+	}
+
 
 	public ItemBoardVo findItemBoardByNo(String id, int no) {
 		return productRepository.findItemBoardByNo(id, no);
@@ -387,4 +395,10 @@ public class ProductService {
 
 		return filename;
 	}
+
+	public boolean deleteItemBoardReply(String id, int no) {
+		int count = productRepository.deleteItemBoardReply(id, no);
+		return count == 1;
+	}
+	
 }

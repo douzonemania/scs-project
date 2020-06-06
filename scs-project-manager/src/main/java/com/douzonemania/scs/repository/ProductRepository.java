@@ -267,13 +267,14 @@ public class ProductRepository {
 		return sqlSession.insert("product.insertBoardReply", map);
 	}
 
-	// board 답글을 남겼으면, 답글 상태를 true로 변경
-	public int setBoardReplyTrue(String id, int no) {
+	// item board 답글을 남겼으면 답글 상태를 true로 변경, 답글을 삭제했으면 상태를 false로 변경
+	public int updateBoardReply(String id, int no, boolean state) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db", id);
 		map.put("no", no);
-
-		return sqlSession.update("product.setBoardReplyTrue", map);
+		map.put("state", state);
+		
+		return sqlSession.update("product.updateBoardReply", map);
 	}
 
 	// board 글에 남긴 답글에 대한 정보를 가져옴
@@ -333,6 +334,14 @@ public class ProductRepository {
 		map.put("db", id);
 		map.put("itemNo", itemNo);
 		return sqlSession.delete("product.delStock",map);
+	}
+
+	public int deleteItemBoardReply(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("no", no);
+		
+		return sqlSession.delete("product.deleteItemBoardReply", map);
 	}
 
 
