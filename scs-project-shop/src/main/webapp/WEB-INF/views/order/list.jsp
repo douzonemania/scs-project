@@ -53,7 +53,7 @@
                             		<div>모든 상품을 보여드립니다.</div>
                             	</c:when>
                             	<c:otherwise>
-                            	 	<div class="col-lg-8 list-span-custom">
+                            	 	<div class="col-lg-8 list-span-custom" >
 		                                <c:forEach items="${map.category }" var="vo">
 		                                	<a href="${pageContext.request.contextPath}/${db}/order/list?category=${vo.parentsNo}&subCategory=${vo.no}">${vo.name }</a>
 		                                	<span>l</span>
@@ -133,7 +133,7 @@
 					<c:if test="${vo.visible ==true }">
 					  <div class="card-box">
 						<div class="product-group" onClick="gotoDetail(${vo.no})">
-							<div class="product-img-bg" >
+							<div class="product-img-bg" style="height:100%" >
 	                        	<!-- img source 받아오기  -->
 	                            <img src="/scs-manager${vo.mainImage }" alt="product-pic" class="img-fluid" />
 	                            	<!-- best, new 노출 -->
