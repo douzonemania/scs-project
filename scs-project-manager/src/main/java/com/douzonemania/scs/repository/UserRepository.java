@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import com.douzonemania.scs.vo.ceo.AgreementVo;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.ceo.SiteVo;
 @Repository
 public class UserRepository {
    @Autowired
@@ -186,8 +189,10 @@ public class UserRepository {
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    
-   public int insert(CeoVo ceoVo) {
-      return sqlSession.insert("user.insert", ceoVo);
+   public int insert(CeoVo ceoVo,AgreementVo agreementVo, SiteVo siteVo) {
+	   sqlSession.insert("user.insert", ceoVo);
+	   sqlSession.insert("user.insertSite", siteVo);
+      return sqlSession.insert("user.insertAgreement", agreementVo);
    }
 
 	public CeoVo findById(String id) {

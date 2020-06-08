@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzonemania.scs.repository.UserRepository;
+import com.douzonemania.scs.vo.ceo.AgreementVo;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.ceo.SiteVo;
 @Service
 public class UserService {
 	@Autowired
@@ -71,8 +73,8 @@ public class UserService {
 
 	/////////////////////////////////////////////////////
 
-	public boolean insert(CeoVo ceoVo) {
-		int count = userRepository.insert(ceoVo);
+	public boolean insert(CeoVo ceoVo,AgreementVo agreementVo, SiteVo siteVo) {
+		int count = userRepository.insert(ceoVo,agreementVo,siteVo);
 		return count == 1;
 	}
 
