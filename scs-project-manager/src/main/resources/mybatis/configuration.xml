@@ -16,6 +16,7 @@
 		<typeAlias alias="replyvo" type="com.douzonemania.scs.vo.member.ReplyVo" />
 		<typeAlias alias="itemboardvo" type="com.douzonemania.scs.vo.member.ItemBoardVo" />
 		<typeAlias alias="itemreplyvo" type="com.douzonemania.scs.vo.member.ItemReplyVo" />
+		<typeAlias alias="sitevo" type="com.douzonemania.scs.vo.ceo.SiteVo" />
 
 	</typeAliases>	
 	<mappers>

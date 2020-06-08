@@ -1,7 +1,5 @@
 package com.douzonemania.scs.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzonemania.scs.dto.JsonResult;
-import com.douzonemania.scs.service.MemberService;
 import com.douzonemania.scs.service.UserService;
+import com.douzonemania.scs.vo.ceo.AgreementVo;
 import com.douzonemania.scs.vo.ceo.CeoVo;
-import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
-import com.douzonemania.security.AuthUser;
+import com.douzonemania.scs.vo.ceo.SiteVo;
 
 @Controller
 @RequestMapping("/user")
@@ -52,8 +49,11 @@ public class UserController {
 		}
 		
 		ceoVo.setAddress(ceoVo.getAddress1() + "!" + ceoVo.getAddress2() + "!" + ceoVo.getPostcode());
-
-		userService.insert(ceoVo);
+		AgreementVo agreementVo = new AgreementVo();
+		agreementVo.setId(ceoVo.getId());
+		SiteVo siteVo = new SiteVo();
+		siteVo.setId(ceoVo.getId());
+		userService.insert(ceoVo,agreementVo,siteVo);
 
 		// 회원 DB와 table 생성
 		String id = ceoVo.getId();
