@@ -338,6 +338,7 @@ public class ProductService {
 
 			byte[] fileData = excelFile.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+			System.out.println("TEST! :"+os.toString());
 			os.write(fileData);
 			os.close();
 			url = URL + "/" + saveFilename;
@@ -368,6 +369,7 @@ public class ProductService {
 
 			byte[] fileData = excelFile.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+			System.out.println("TEST1:" + os.toString());
 			os.write(fileData);
 			os.close();
 			url = URL + "/" + saveFilename;
