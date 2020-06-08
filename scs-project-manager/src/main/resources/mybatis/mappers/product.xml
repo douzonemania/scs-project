@@ -132,6 +132,7 @@
 				]]>
 	</insert>
 	
+	
 	<delete id="delStock" parameterType="map">
 				<![CDATA[
 					delete from ${db}.stock where item_no = #{itemNo};
