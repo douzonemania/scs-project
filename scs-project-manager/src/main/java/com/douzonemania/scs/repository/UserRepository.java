@@ -80,7 +80,7 @@ public class UserRepository {
 				+ "    best_item        BOOLEAN      NOT NULL," + "    new_item         BOOLEAN      NOT NULL,"
 				+ "    editor      TEXT         NULL," + "    category_no INT UNSIGNED NULL," 
 				+ "    description TEXT         NULL," + "    reg_date    DATETIME     NOT NULL,"
-				+ "    ship_address    VARCHAR(30)   NOT NULL," + "    ship_charge    INT UNSIGNED   NOT NULL,"
+				+ "    ship_company    VARCHAR(30)   NOT NULL," + "    ship_charge    INT UNSIGNED   NOT NULL,"
 				+"	   state		BOOLEAN			 NOT NULL," + "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8; ";
 		String shipAddressQry = "CREATE TABLE " + id + ".ship_address("
