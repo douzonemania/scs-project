@@ -33,7 +33,7 @@ public class OrderService {
 	
 	public Map<String,Object> find(int currentPage,String keyword,String option,int category,int subCategory,String db){
 		
-		int offset=(currentPage-1)*5;
+		int offset=(currentPage-1)*16;
 		int total = orderRepository.totalCount(option,keyword,category,subCategory,db);
 		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 :  (total/LIST_SIZE);
 		int calCnt=(currentPage%5)==0 ? currentPage-1 : currentPage;
