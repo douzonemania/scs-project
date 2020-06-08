@@ -186,8 +186,8 @@
             <div class="mobile-product-list">
 	            <c:forEach items="${map.list }" var="vo">
 	           	 <div class="mobile-product card-box" onClick="gotoDetail(${vo.no})">
-                    <div class="mobile-product-img">
-                        <img src="${pageContext.request.contextPath}${vo.mainImage }" alt="product-pic" class="mobile-product-img-mg" />
+                    <div class="mobile-product-img" style="height:100%" >
+                        <img src="/scs-manager${vo.mainImage }" alt="product-pic" class="mobile-product-img-mg" />
                         <!-- best, new 노출 -->
                        	<c:if test="${vo.bestItem ==true }">
                        		 <span class="badge badge-pink" >BEST</span>
