@@ -89,7 +89,8 @@
 				<when test='category=="0"'>
 					select count(*)
 					from ${db}.item a , ${db}.category b
-					where a.category_no=b.no and visible =1;
+					where a.category_no=b.no and visible =1
+					ORDER BY a.no desc;
 				</when>
 				<otherwise>
 					<choose>
@@ -98,7 +99,8 @@
 							select count(*)
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.parents_no=#{category}
-							and visible =1;
+							and visible =1
+							ORDER BY a.no desc;
 							]]>	
 						</when>
 						<otherwise>
@@ -107,6 +109,7 @@
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.no=#{subCategory}
 							and visible =1;
+							ORDER BY a.no desc;
 							]]>	
 						</otherwise>
 					</choose>
@@ -122,7 +125,7 @@
 					select *
 					from ${db}.item a , ${db}.category b
 					where a.category_no=b.no and visible =1
-					limit 16 offset #{offset};
+					ORDER BY a.no desc limit 16 offset #{offset};
 				</when>
 				<otherwise>
 					<choose>
@@ -132,7 +135,7 @@
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.parents_no=#{category}
 							and visible =1
-								limit 16 offset #{offset};
+								ORDER BY a.no desc limit 16 offset #{offset};
 							]]>	
 						</when>
 						<otherwise>
@@ -141,7 +144,7 @@
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.no=#{subCategory}
 							and visible =1
-								limit 16 offset #{offset};
+							ORDER BY a.no desc limit 16 offset #{offset};
 							]]>	
 						</otherwise>
 					</choose>

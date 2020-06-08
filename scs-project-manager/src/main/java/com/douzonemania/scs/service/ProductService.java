@@ -29,9 +29,9 @@ public class ProductService {
 
 	private static final int LIST_SIZE =5;
 	private static final int PAGE_SIZE =5;
-	private static final String SAVE_PATH = "/products";
+	private static final String SAVE_PATH = "/scs-uploads";
 	//private static final String SAVE_PATH = "C:\\Users\\bit-user\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
-	private static final String URL = "/assets/scs-manager/images/products";
+	private static final String URL = "/assets/scs-manager/images";
 	
 	@Autowired
 	private ProductRepository productRepository;
@@ -285,10 +285,18 @@ public class ProductService {
 		return count == 1;
 	}
 
-	public boolean setBoardReplyTrue(String id, int no) {
-		int count = productRepository.setBoardReplyTrue(id, no);
+	public boolean updateItemBoardReplyTrue(String id, int no) {
+		// 답글 상태를 true로 만들기
+		int count = productRepository.updateBoardReply(id, no, true);
 		return count == 1;
 	}
+	
+	public boolean updateItemBoardReplyFalse(String id, int no) {
+		// 답글 상태를 false로 만들기
+		int count = productRepository.updateBoardReply(id, no, false);
+		return count == 1;
+	}
+
 
 	public ItemBoardVo findItemBoardByNo(String id, int no) {
 		return productRepository.findItemBoardByNo(id, no);
@@ -330,6 +338,7 @@ public class ProductService {
 
 			byte[] fileData = excelFile.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+			System.out.println("TEST! :"+os.toString());
 			os.write(fileData);
 			os.close();
 			url = URL + "/" + saveFilename;
@@ -360,6 +369,7 @@ public class ProductService {
 
 			byte[] fileData = excelFile.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+			System.out.println("TEST1:" + os.toString());
 			os.write(fileData);
 			os.close();
 			url = URL + "/" + saveFilename;
@@ -387,4 +397,10 @@ public class ProductService {
 
 		return filename;
 	}
+
+	public boolean deleteItemBoardReply(String id, int no) {
+		int count = productRepository.deleteItemBoardReply(id, no);
+		return count == 1;
+	}
+	
 }

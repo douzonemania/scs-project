@@ -192,8 +192,6 @@ public class MemberService {
 		int total = memberRepository.boardListCount(id, option, keyword);
 
 		
-		System.out.println("TOTAL: " + total);
-		
 		List<BoardVo> list;
 		if(option.equals("")) {
 			list = memberRepository.boardList(id, offset, LIST_SIZE);
@@ -264,7 +262,7 @@ public class MemberService {
 				contents += obj + ",";
 			}
 		}
-
+		
 		int count = memberRepository.boardReply(id, no, contents);
 		return count == 1;
 	}

@@ -237,7 +237,7 @@ $(function() {
 											</c:choose>
 											<td>${vo.code }</td>
 											<td><img
-												src='${pageContext.request.contextPath }/assets/images/${vo.mainImage}'
+												src='${pageContext.request.contextPath }${vo.mainImage}'
 												style="width: 90px; height: 90px"></td>
 											<td>${vo.name }</td>
 											<td> ${salePriceList[status.index]} </td>

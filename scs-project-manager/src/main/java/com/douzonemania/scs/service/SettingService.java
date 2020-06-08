@@ -77,6 +77,7 @@ public class SettingService {
 
 			byte[] fileData = multipartFile.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+			System.out.println("TEST2 :"+os.toString());
 			os.write(fileData);
 			os.close();
 			url = URL + "/" + saveFilename;
@@ -111,6 +112,7 @@ public class SettingService {
 	
 				byte[] fileData = multipartFile.getBytes();
 				OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+				
 				os.write(fileData);
 				os.close();
 				url = URL + "/" + saveFilename;

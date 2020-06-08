@@ -261,7 +261,7 @@ public class ProductController {
 			@PathVariable("no") int no, @RequestBody String html) {
 		
 		boolean replyResult = productService.boardReply(authUser.getId(), no, html);
-		productService.setBoardReplyTrue(authUser.getId(), no);
+		productService.updateItemBoardReplyTrue(authUser.getId(), no);
 		
 		return JsonResult.success(replyResult);
 	}
@@ -271,6 +271,17 @@ public class ProductController {
 	public JsonResult deleteBoard(@AuthUser CeoVo authUser, @PathVariable int no) {
 		
 		boolean deleteResult = productService.deleteItemBoard(authUser.getId(), no);
+		
+		return JsonResult.success(deleteResult);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/board/reply/delete/{no}")
+	public JsonResult deleteBoardReply(@AuthUser CeoVo authUser,
+			@PathVariable("no") int no) {
+
+		boolean deleteResult = productService.deleteItemBoardReply(authUser.getId(), no);
+		productService.updateItemBoardReplyFalse(authUser.getId(), no);
 		
 		return JsonResult.success(deleteResult);
 	}
@@ -392,6 +403,7 @@ public class ProductController {
 				@RequestParam(value="subSrcArray") List<String> subSrcArray				
 				) throws Exception{			
 			
+			System.err.println(subSrcArray + ":::::::::::::::::::::::::::::::::::");
 			String id = authUser.getId();
 						
 			String mainImage = productService.restore(id, excelFile, subSrcArray.get(0));
@@ -404,5 +416,5 @@ public class ProductController {
 			System.err.println(image +"sst");
 			return JsonResult.success(image);
 		}		
-
+		
 }
