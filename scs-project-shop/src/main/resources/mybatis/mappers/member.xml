@@ -16,8 +16,8 @@
 		insert 
 			into ${db}.member 
 		values(
-			null,#{vo.id},#{vo.password},#{vo.phoneNumber},
-			#{vo.email},now(),'일반',#{vo.name})
+			null,#{vo.id},#{vo.name},#{vo.password},#{vo.phoneNumber},
+			#{vo.email},now(),'회원','일반')
 	</insert> 
 
 	<select id="findUser" parameterType = "map" resultType = "int">
