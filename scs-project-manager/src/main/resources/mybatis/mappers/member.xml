@@ -19,6 +19,7 @@
 		]]>
 	</select>
 	
+	
 	<select id="searchMemberList" parameterType="map" resultType="membervo">
 		<![CDATA[
 			select no,

@@ -193,6 +193,7 @@ public class UserRepository {
 	   sqlSession.insert("user.insert", ceoVo);
 	   sqlSession.insert("user.insertSite", siteVo);
       return sqlSession.insert("user.insertAgreement", agreementVo);
+      
    }
 
 	public CeoVo findById(String id) {

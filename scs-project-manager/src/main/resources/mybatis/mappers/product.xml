@@ -108,7 +108,7 @@
 					select no, code, name, sup_price as 'supPrice', now_price as 'nowPrice', 
 						sale, main_image as 'mainImage', sub_image as 'subImage', 
 						visible, best_item as 'bestItem', new_item as 'newItem', editor, category_no,
-						description, reg_date as 'regDate', category_no as 'categoryNo', ship_Company as 'shipCompany', ship_Charge as 'shipCharge'
+						description, reg_date as 'regDate', category_no as 'categoryNo', ship_company as 'shipCompany', ship_charge as 'shipCharge'
 					from ${db}.item
 					where no = #{no}
 				]]>
@@ -131,6 +131,7 @@
 					insert into ${db}.stock values (null, #{itemNo}, #{sVo.firstOption}, #{sVo.secondOption}, #{sVo.stock});
 				]]>
 	</insert>
+	
 	
 	<delete id="delStock" parameterType="map">
 				<![CDATA[
@@ -173,9 +174,9 @@
 									   b.reply_state as replyState,
 					                   i.code,
                   					   m.id
-								  from mall.item_board b,
-									   mall.member m,
-					                   mall.item i
+								  from ${db}.item_board b,
+									   ${db}.member m,
+					                   ${db}.item i
 								 where b.member_no = m.no
 					               and b.item_no = i.no
 								   and m.state='회원') a
@@ -196,9 +197,9 @@
 				   b.reply_state as replyState,
                    i.code,
                    m.id
-			  from mall.item_board b,
-				   mall.member m,
-                   mall.item i
+			  from ${db}.item_board b,
+				   ${db}.member m,
+                   ${db}.item i
 			 where b.member_no = m.no
                and b.item_no = i.no
 			   and m.state='회원'
@@ -218,9 +219,9 @@
 					 	   b.reply_state as replyState,
 		                   i.code,
                    		   m.id
-					  from mall.item_board b,
-						   mall.member m,
-		                   mall.item i
+					  from ${db}.item_board b,
+						   ${db}.member m,
+		                   ${db}.item i
 					 where b.member_no = m.no
 		               and b.item_no = i.no
 					   and m.state='회원') a
