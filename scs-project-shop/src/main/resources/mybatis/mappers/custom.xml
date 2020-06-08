@@ -28,7 +28,7 @@
 			<when test='category=="0"'>
 				select *
 				from ${db}.item a , ${db}.category b
-				where a.category_no=b.no and visible =1 and best_item =1
+				where a.category_no=b.no and visible =1 and best_item =1 and state = 1
 				ORDER BY a.no desc limit 16 offset #{offset};
 			</when>
 			<otherwise>
@@ -38,7 +38,7 @@
 							select *
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.parents_no=#{category}
-							and visible =1 and best_item =1
+							and visible =1 and best_item =1 and state = 1
 							ORDER BY a.no desc limit 16 offset #{offset};
 							]]>
 					</when>
@@ -47,7 +47,7 @@
 							select* 
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.no=#{subCategory}
-							and visible =1 and best_item =1
+							and visible =1 and best_item =1 and state = 1
 							ORDER BY a.no desc limit 16 offset #{offset};
 							]]>
 					</otherwise>
@@ -62,7 +62,7 @@
 			<when test='category=="0"'>
 				select *
 				from ${db}.item a , ${db}.category b
-				where a.category_no=b.no and visible =1 and new_item =1
+				where a.category_no=b.no and visible =1 and new_item =1 and state = 1
 				ORDER BY a.no desc limit 16 offset #{offset};
 			</when>
 			<otherwise>
@@ -72,7 +72,7 @@
 							select *
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.parents_no=#{category}
-							and visible =1 and new_item = 1
+							and visible =1 and new_item = 1 and state = 1
 							ORDER BY a.no desc limit 16 offset #{offset};
 							]]>
 					</when>
@@ -81,7 +81,7 @@
 							select* 
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.no=#{subCategory}
-							and visible =1 and new_item = 1
+							and visible =1 and new_item = 1 and state = 1
 							ORDER BY a.no desc limit 16 offset #{offset};
 							]]>
 					</otherwise>
@@ -96,7 +96,7 @@
 			<when test='category=="0"'>
 				select *
 				from ${db}.item a , ${db}.category b
-				where a.category_no=b.no and visible =1 and sale != 0
+				where a.category_no=b.no and visible =1 and sale != 0 and state = 1
 				ORDER BY a.no desc limit 16 offset #{offset};
 			</when>
 			<otherwise>
@@ -106,7 +106,7 @@
 							select *
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.parents_no=#{category}
-							and visible =1 and sale != 0
+							and visible =1 and sale != 0 and state = 1
 							ORDER BY a.no desc limit 16 offset #{offset};
 							]]>
 					</when>
@@ -115,7 +115,7 @@
 							select* 
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.no=#{subCategory}
-							and visible =1 and sale != 0
+							and visible =1 and sale != 0 and state = 1
 							ORDER BY a.no desc limit 16 offset #{offset};
 							]]>
 					</otherwise>
@@ -130,7 +130,7 @@
 			<when test='category=="0"'>
 				select count(*)
 				from ${db}.item a , ${db}.category b
-				where a.category_no=b.no and visible =1 and best_item=1
+				where a.category_no=b.no and visible =1 and best_item=1 and state = 1
 				ORDER BY a.no desc;
 			</when>
 			<otherwise>
@@ -140,7 +140,7 @@
 							select count(*)
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.parents_no=#{category}
-							and visible =1 and best_item=1
+							and visible =1 and best_item=1 and state = 1
 							ORDER BY a.no desc;
 							]]>
 					</when>
@@ -149,7 +149,7 @@
 							select count(*) 
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.no=#{subCategory}
-							and visible =1 and best_item=1;
+							and visible =1 and best_item=1 and state = 1
 							ORDER BY a.no desc;
 							]]>
 					</otherwise>
@@ -163,7 +163,7 @@
 			<when test='category=="0"'>
 				select count(*)
 				from ${db}.item a , ${db}.category b
-				where a.category_no=b.no and visible =1 and new_item=1
+				where a.category_no=b.no and visible =1 and new_item=1 and state = 1
 				ORDER BY a.no desc;
 			</when>
 			<otherwise>
@@ -173,7 +173,7 @@
 							select count(*)
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.parents_no=#{category}
-							and visible =1 and new_item=1
+							and visible =1 and new_item=1 and state = 1
 							ORDER BY a.no desc;
 							]]>
 					</when>
@@ -182,7 +182,7 @@
 							select count(*) 
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.no=#{subCategory}
-							and visible =1 and new_item=1
+							and visible =1 and new_item=1 and state = 1
 							ORDER BY a.no desc;
 							]]>
 					</otherwise>
@@ -196,7 +196,7 @@
 			<when test='category=="0"'>
 				select count(*)
 				from ${db}.item a , ${db}.category b
-				where a.category_no=b.no and visible =1 and sale !=0
+				where a.category_no=b.no and visible =1 and sale !=0 and state = 1
 				ORDER BY a.no desc;
 			</when>
 			<otherwise>
@@ -206,7 +206,7 @@
 							select count(*)
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.parents_no=#{category}
-							and visible =1 and sale !=0
+							and visible =1 and sale !=0 and state = 1
 							ORDER BY a.no desc;
 							]]>
 					</when>
@@ -215,7 +215,7 @@
 							select count(*) 
 							from ${db}.item a , ${db}.category b
 							where a.category_no=b.no and b.no=#{subCategory}
-							and visible =1 and sale !=0
+							and visible =1 and sale !=0 and state = 1
 							ORDER BY a.no desc;
 							]]>
 					</otherwise>
