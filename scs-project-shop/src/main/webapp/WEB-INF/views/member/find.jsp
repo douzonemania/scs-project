@@ -17,12 +17,12 @@
         <link rel="shortcut icon" href="../assets/images/favicon.ico">
 
         <!-- Plugins css -->
-        <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+        <link href="${pageContext.request.contextPath}/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
 
         <!-- App css -->
-        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="${pageContext.request.contextPath}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="${pageContext.request.contextPath}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -52,7 +52,54 @@
                                 </li>
                                 
                             </ul>
+                           
+                            
+                            <c:choose>
+                            <c:when test="${isPwd=='n' }">
                             <div class="tab-content">
+                                <div class="tab-pane active" id="find-id">
+                                    <form>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="휴대전화 입력">
+                                            
+                                        </div>
+                                        
+                                       <div class="">
+                                        <button type="submit" class="btn btn-light waves-effect complete-join">아이디 찾기</button>
+                                       </div>
+                                        	<br>
+                                        <div>
+                                    		<a href="${pageContext.servletContext.contextPath }/${db }/member/login">
+                                    		<button type="button" class="btn btn-light waves-effect complete-join">로그인하러가기</button></a>
+                                  	  </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="find-pwd">
+                                    <form>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="아이디 입력">
+                                        </div>
+                                        <div class="form-group">
+                                            
+                                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="휴대전화 입력">
+                                        </div>
+                                      
+                                        <div class="">
+                                            <button type="submit" class="btn btn-light waves-effect complete-join">비밀번호 찾기</button>
+                                        </div>
+                                        	<br>
+                                        <div>
+                                    		<a href="${pageContext.servletContext.contextPath }/${db }/member/login">
+                                    		<button type="button" class="btn btn-light waves-effect complete-join">로그인하러가기</button></a>
+                                  	  </div>
+                                    </form>
+                                </div>
+                                
+                            </div>
+                            </c:when>
+                            <c:otherwise>
+                            
+                             <div class="tab-content">
                                 <div class="tab-pane" id="find-id">
                                     <form>
                                         <div class="form-group">
@@ -60,9 +107,14 @@
                                             
                                         </div>
                                         
-                                       <div class="find-custom-btn">
+                                       <div class="">
                                         <button type="submit" class="btn btn-light waves-effect complete-join">아이디 찾기</button>
                                        </div>
+                                        	<br>
+                                        <div>
+                                    		<a href="${pageContext.servletContext.contextPath }/${db }/member/login">
+                                    		<button type="button" class="btn btn-light waves-effect complete-join">로그인하러가기</button></a>
+                                  	  </div>
                                     </form>
                                 </div>
                                 <div class="tab-pane active" id="find-pwd">
@@ -75,13 +127,20 @@
                                             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="휴대전화 입력">
                                         </div>
                                       
-                                        <div class="find-custom-btn">
+                                        <div class="">
                                             <button type="submit" class="btn btn-light waves-effect complete-join">비밀번호 찾기</button>
                                         </div>
+                                        	<br>
+                                        <div>
+                                    		<a href="${pageContext.servletContext.contextPath }/${db }/member/login">
+                                    		<button type="button" class="btn btn-light waves-effect complete-join">로그인하러가기</button></a>
+                                  	  </div>
                                     </form>
                                 </div>
                                 
                             </div>
+                            </c:otherwise>
+                            </c:choose>
                         </div> <!-- end card-box-->
                     </div> <!-- end col -->
             </div>
@@ -90,10 +149,10 @@
    <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
 
    <!-- Vendor js -->
-   <script src="../assets/js/vendor.min.js"></script>
+   <script src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>
 
    <!-- App js-->
-   <script src="../assets/js/app.min.js"></script>
+   <script src="${pageContext.request.contextPath}/assets/js/app.min.js"></script>
 
 </body>
 </html>

@@ -83,9 +83,13 @@
                     <div style="margin-top: 30px;"></div>
 
                     <div class="login-search">
-                        <span>아이디 찾기</span>
+                        <a href="${pageContext.servletContext.contextPath }/${db }/member/find/?isPwd=n">
+                        	<span>아이디 찾기</span>
+                        </a>
                         <span>ㅣ</span>
-                        <span>비밀번호 찾기</span>
+                        <a href="${pageContext.servletContext.contextPath }/${db }/member/find/?isPwd=y">
+                        	<span>비밀번호 찾기</span>
+                        </a>
                     </div>
                     <div style="margin-top: 30px;"></div>
                     <div>

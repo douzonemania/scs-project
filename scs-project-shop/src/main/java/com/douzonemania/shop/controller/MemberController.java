@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.shop.service.MemberService;
 import com.douzonemania.shop.vo.MemberVo;
@@ -27,7 +28,11 @@ public class MemberController {
 	MemberService memberService;
 	
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
-	public String find() {
+	public String find(HttpServletRequest request, @RequestParam("isPwd") String isPwd, Model model) {
+		HttpSession session = request.getSession();
+		String db = session.getAttribute("db").toString();
+		System.err.println(isPwd + "!!!!!");
+		model.addAttribute("isPwd", isPwd);
 		return "member/find";
 	}
 	
