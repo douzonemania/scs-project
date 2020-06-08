@@ -129,11 +129,11 @@
             <!-- end row-->
             <div class="row product-list">
 			<c:forEach items="${map.list }" var="vo">
-            	<div class="col-md-6 col-xl-3">
+            	<div class="col-md-6 col-xl-3" style="height:100%">
 					<c:if test="${vo.visible ==true }">
 					  <div class="card-box">
 						<div class="product-group" onClick="gotoDetail(${vo.no})">
-							<div class="product-img-bg" style="height:100%" >
+							<div class="product-img-bg">
 	                        	<!-- img source 받아오기  -->
 	                            <img src="/scs-manager${vo.mainImage }" alt="product-pic" class="img-fluid" />
 	                            	<!-- best, new 노출 -->
@@ -185,8 +185,8 @@
 
             <div class="mobile-product-list">
 	            <c:forEach items="${map.list }" var="vo">
-	           	 <div class="mobile-product card-box" onClick="gotoDetail(${vo.no})">
-                    <div class="mobile-product-img" style="height:100%" >
+	           	 <div class="mobile-product card-box" style="height:100%" onClick="gotoDetail(${vo.no})"> 
+                    <div class="mobile-product-img" >
                         <img src="/scs-manager${vo.mainImage }" alt="product-pic" class="mobile-product-img-mg" />
                         <!-- best, new 노출 -->
                        	<c:if test="${vo.bestItem ==true }">
