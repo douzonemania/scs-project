@@ -75,7 +75,7 @@ public class ProductController {
 		model.addAttribute("colorOptionList", colorOptionList);		// 컬러 리스트
 		model.addAttribute("shipCompanyList", shipCompanyList);		// 배송사 리스트
 		return "product/reg";
-	}
+	}	
 
 
 	// 아이템 수정
