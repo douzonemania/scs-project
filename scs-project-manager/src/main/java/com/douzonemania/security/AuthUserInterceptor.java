@@ -24,12 +24,11 @@ public class AuthUserInterceptor extends HandlerInterceptorAdapter {
 //		System.out.println("A :"+session.getAttribute("id"));
 		
 	 	
-//	 	if(session.getAttribute("id")==null) {
-//	 		session.setAttribute("id", strArr[1]);
-//	 	} else if(!(session.getAttribute("id").equals(strArr[1]))) {
-//	 		session.setAttribute("id", strArr[1]);
-//	 	}
-	 	
+	 	if(session.getAttribute("id")==null) {
+	 		session.setAttribute("id", strArr[1]);
+	 	} else if(!(session.getAttribute("id").equals(strArr[1]))) {
+	 		session.setAttribute("id", strArr[1]);
+	 	}
 	 	
         return true;
     }

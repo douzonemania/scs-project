@@ -146,7 +146,7 @@ public class MemberRepository {
 		return sqlSession.selectOne("member.findReplyByParentsNo", map);
 	}
 
-	// board 답글을 남겼으면, 답글 상태를 true로 변경
+	// board 답글을 남겼으면 답글 상태를 true로 변경, 답글을 삭제했으면 상태를 false로 변경
 	public int updateBoardReply(String id, int no, boolean state) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db", id);
