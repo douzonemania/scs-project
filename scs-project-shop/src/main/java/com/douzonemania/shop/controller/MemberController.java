@@ -95,10 +95,19 @@ public class MemberController {
 		return "main/index";
 	}
 	
-	
-	
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String myPage() {
+	public String myPage(@ModelAttribute MemberVo vo, HttpServletRequest request, Model model, HttpSession session) {
+		MemberVo nowvo = (MemberVo)session.getAttribute("authUser");
+		memberService.findUserByNo(nowvo.getNo());
+		model.addAttribute("vo", memberService.findUserByNo(nowvo.getNo()));
 		return "member/mypage";
+	}
+	
+	@RequestMapping(value = "/passwordMod", method = RequestMethod.GET)
+	public String passwordMod(HttpSession session, Model model) {
+		MemberVo nowvo = (MemberVo)session.getAttribute("authUser");
+		memberService.findUserByNo(nowvo.getNo());
+		model.addAttribute("vo", memberService.findUserByNo(nowvo.getNo()));
+		return "member/passwordMod";
 	}
 }

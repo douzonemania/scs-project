@@ -1,5 +1,16 @@
 @charset "UTF-8";
 
+.password-mod{
+	margin-left:70px; 
+	margin-top:30px;	
+}
+
+.password-mod tr{
+	height:40px;
+}
+
+
+
 .product-group:hover{
     cursor: pointer;
 }

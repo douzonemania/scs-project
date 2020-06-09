@@ -21,13 +21,20 @@
 
 	<select id="findUser" parameterType = "map" resultType = "int">
 				<![CDATA[
-				select ifnull(no,0)
+				select ifnull(no,0), ifnull(phone_number,0), ifnull(email,0)
 				from ${db}.member
 				where id like #{vo.id} and password like #{vo.password}
 				]]>
 	</select>
 
-
+	<select id="findUserByNo" parameterType = "map" resultType = "membervo">
+				<![CDATA[
+				select no, id, password, phone_number as 'phoneNumber', email, name
+				from ${db}.member
+				where no = #{no}
+				]]>
+	</select>
+	
 	<select id="find" parameterType = "map" resultType = "itemvo">
 				<![CDATA[
 				select * 
@@ -56,6 +63,14 @@
 		<![CDATA[
 			update ${db}.member
 			   set password=#{password}
+			 where id=#{id}
+		]]>
+	</update>
+	
+	<update id="modPassword" parameterType="map">
+		<![CDATA[
+			update ${db}.member
+			   set password=#{newPassword}
 			 where id=#{id}
 		]]>
 	</update>
