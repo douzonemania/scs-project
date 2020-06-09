@@ -627,13 +627,15 @@
 							</ul>
 						</div>
 
-						<div class="info-detail" name="info-detail">
+						<div class="info-detail">
+							<a name="info-detail" ></a>
 							<img
 								src="${pageContext.request.contextPath}/assets/images/detail-image.PNG"
 								alt="" / class="rounded">
 						</div>
 
-						<div class="info-review" name="review-detail">
+						<div class="info-review">
+							<a name="review-detail"></a>
 							<span>REVIEW</span> <span style="display: block;"><div
 									style="font-weight: bold; display: inline;">고객분들의 생생한 후기</div>도
 								함께 만나보세요</span>
@@ -687,7 +689,8 @@
 								</div>
 							</div>
 
-							<div class="qna-group" name="qna-detail">
+							<div class="qna-group">
+								<a name="qna-detail"></a>
 								<span>Q&A</span>
 								<div style="border-bottom: 1px solid #323A46;"></div>
 
