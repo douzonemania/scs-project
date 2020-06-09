@@ -270,7 +270,7 @@
 	
 	<select id = "setCartList" parameterType="map" resultType="itemvo">
 		<![CDATA[
-			select a.no,a.code,a.name,a.now_price as nowPrice,a.sale , a.main_image , b.first_option,b.firstOptionName,b.second_option , b.secondOptionName, b.cartNo, b.amount ,b.stock
+			select a.no, a.code ,a.name ,a.now_price as 'nowPrice' ,a.sale , a.main_image as 'mainImage' , b.first_option as 'firstOption',b.firstOptionName, b.second_option as 'secondOption', b.secondOptionName, b.cartNo, b.amount ,b.stock
 			from ${db}.item a, (
 					select a.no,a.item_no,a.first_option,a.firstOptionName,a.second_option,a.secondOptionName,b.no as cartNo,b.amount,a.stock
 					from (
