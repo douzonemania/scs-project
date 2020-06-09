@@ -36,4 +36,27 @@
 				]]>
 	</select>
 
+	<select id="findIdByPhone" parameterType="map" resultType="string">
+		<![CDATA[
+			select id
+			  from ${db}.member
+			 where phone_number=#{phoneNum}
+		]]>
+	</select>
+	
+	<select id="findEmailById" parameterType="map" resultType="string">
+		<![CDATA[
+			select email
+			  from ${db}.member
+			 where id=#{id}
+		]]>
+	</select>
+	
+	<update id="updatePassword" parameterType="map">
+		<![CDATA[
+			update ${db}.member
+			   set password=#{password}
+			 where id=#{id}
+		]]>
+	</update>
 </mapper>
