@@ -104,8 +104,8 @@ public class OrderController {
 	
 	
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
-	public String order(
-			HttpSession session,Model model
+	public String order(HttpSession session,
+			Model model
 			) {
 			
 		String db = session.getAttribute("db").toString();
