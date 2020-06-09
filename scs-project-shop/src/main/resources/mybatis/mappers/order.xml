@@ -183,7 +183,8 @@
 			select * from 
 				(select ifnull(count(rate),0) as cnt,ifnull(avg(rate),0) as rate,ifnull(item_no,#{no}) as item_no from ${db}.item_review where item_no=#{no}) a,
 				${db}.item b 
-			where a.item_no=b.no;
+			where a.item_no=b.no
+			  and b.sub_image is not null;
 		]]>
 		
 	</select>
@@ -247,19 +248,17 @@
 			<when test="secondOption==0">
 				select no 
 				from ${db}.stock
-				where 
-					item_no=#{item_no} and
-					first_option=#{firstOption} and
-					second_option is NULL; 	
+				where item_no=#{item_no}
+				  and first_option=#{firstOption}
+				  and second_option is NULL; 	
 			</when>
 			<otherwise>
 				<![CDATA[
 				select no 
 				from ${db}.stock
-				where 
-					item_no=#{itemNo} and 
-					first_option=#{firstOption} and 
-					second_option=#{secondOption}	
+				where item_no=#{itemNo}
+				  and first_option=#{firstOption}
+				  and second_option=#{secondOption}	
 				]]>
 			</otherwise>
 		</choose>
@@ -271,7 +270,7 @@
 	
 	<select id = "setCartList" parameterType="map" resultType="itemvo">
 		<![CDATA[
-			select a.no,a.code,a.name,a.now_price as nowPrice,a.sale , a.main_image , b.first_option,b.firstOptionName,b.second_option , b.secondOptionName, b.cartNo,b.amount ,b.stock
+			select a.no,a.code,a.name,a.now_price as nowPrice,a.sale , a.main_image , b.first_option,b.firstOptionName,b.second_option , b.secondOptionName, b.cartNo, b.amount ,b.stock
 			from ${db}.item a, (
 					select a.no,a.item_no,a.first_option,a.firstOptionName,a.second_option,a.secondOptionName,b.no as cartNo,b.amount,a.stock
 					from (
