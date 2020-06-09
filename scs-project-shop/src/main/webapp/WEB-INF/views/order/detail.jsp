@@ -377,15 +377,15 @@
 									</div>
 									<div class="tab-pane" id="product-2-item">
 										<img
-											src="/scs-manager${map.product.subImage }"
+											src="/scs-manager${map.subImages[0] }"
 											alt="" class="img-fluid mx-auto d-block rounded">
 									</div>
 									<div class="tab-pane" id="product-3-item">
-										<img src="assets/images/products/product-11.jpg" alt=""
+										<img src="/scs-manager${map.subImages[1] }" alt=""
 											class="img-fluid mx-auto d-block rounded">
 									</div>
 									<div class="tab-pane" id="product-4-item">
-										<img src="assets/images/products/product-12.jpg" alt=""
+										<img src="/scs-manager${map.subImages[2] }" alt=""
 											class="img-fluid mx-auto d-block rounded">
 									</div>
 								</div>
@@ -400,19 +400,19 @@
 									<li class="nav-item"><a href="#product-2-item"
 										data-toggle="tab" aria-expanded="true"
 										class="nav-link product-thumb"> <img
-											src="/scs-manager${map.product.subImage }"
+											src="/scs-manager${map.subImages[0] }"
 											alt="" class="img-fluid mx-auto d-block rounded">
 									</a></li>
 									<li class="nav-item"><a href="#product-3-item"
 										data-toggle="tab" aria-expanded="false"
 										class="nav-link product-thumb"> <img
-											src="/scs-manager${map.product.subImage }"
+											src="/scs-manager${map.subImages[1] }"
 											alt="" class="img-fluid mx-auto d-block rounded">
 									</a></li>
 									<li class="nav-item"><a href="#product-4-item"
 										data-toggle="tab" aria-expanded="false"
 										class="nav-link product-thumb"> <img
-											src="/scs-manager${map.product.subImage }"
+											src="/scs-manager${map.subImages[2] }"
 											alt="" class="img-fluid mx-auto d-block rounded">
 									</a></li>
 								</ul>

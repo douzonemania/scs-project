@@ -82,6 +82,14 @@ public class OrderService {
 	public Map<String, Object> findProduct(Integer no,String db) {
 		
 		ItemVo vo = orderRepository.findProduct(no,db);
+		System.out.println(vo.getSubImage());
+		String[] subImages = vo.getSubImage().split("\\?");
+		List<String> list = new ArrayList<String>();
+		
+		for(int i=0; i<subImages.length; i++) {
+			System.out.println(subImages[i]);
+			list.add(subImages[i]);
+		}
 		
 		if(vo.getSale()!=0) {
 			vo.setTotalPrice((int) ((int)vo.getNowPrice()-(vo.getNowPrice()*(0.01*vo.getSale()))));
@@ -89,6 +97,9 @@ public class OrderService {
 		Map<String,Object> map=new HashMap<String, Object>();
 		
 		map.put("product", vo);
+		
+		map.put("subImages", list);
+		System.out.println(map);
 		
 		
 		return map;
