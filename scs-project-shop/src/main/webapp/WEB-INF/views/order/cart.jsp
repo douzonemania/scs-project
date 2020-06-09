@@ -334,7 +334,7 @@
                    	
                    
                    	<div class='responsive-cart-img float-left' style="max-width:150px; max-height:150px;">
-                   		<img src='/scs-manager${vo.mainImage }' alt='' class='rounded'>
+                   		<img src='/scs-manager${vo.mainImage }' style="max-width:150px; max-height:150px;" alt='' class='rounded'>
                     </div>
                     <div class='responsive-cart-info float-right''>
                     	<div style='width:60%; display:inline-block;' >
