@@ -97,6 +97,21 @@ public class MemberRepository {
 		return id;
 	}
 
+	public MemberVo findUserByNo(Long no) {
+		String db=getSession();
+		map.put("db", db);
+		map.put("no", no);
+		return sqlSession.selectOne("member.findUserByNo", map);
+	}
+
+	public int modPassword(String id, String newPassword) {
+		String db=getSession();
+		map.put("db", db);
+		map.put("id", id);
+		map.put("newPassword",newPassword);
+		return sqlSession.update("member.modPassword",map);
+	}
+
 
 
 

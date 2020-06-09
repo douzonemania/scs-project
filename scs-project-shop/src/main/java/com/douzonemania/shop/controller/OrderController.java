@@ -77,7 +77,7 @@ public class OrderController {
 		for (ItemVo itemVo : list) {
 			System.out.println(itemVo.toString());
 		}
-		
+		System.err.println(vo + "!!!!");
 		
 		return "order/cart";
 	}

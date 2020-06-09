@@ -44,5 +44,15 @@ public class MemberContorller {
 		
 		return JsonResult.success(sendPassword);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/mod/password")
+	public JsonResult modPassword(@RequestParam(value="id") String id,
+					@RequestParam(value="newPassword") String newPassword) {
+		
+		memberService.modPassword(id, newPassword);
+		
+		return JsonResult.success("");
+	}
 }
 
