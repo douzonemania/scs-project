@@ -68,7 +68,6 @@ public class OrderController {
 		
 		long memberNo = nowUser.getNo();
 		int tempSecondOption = secondOption.isPresent() ? secondOption.get() : 0;
-		
 		orderService.setCart(no,firstOption,tempSecondOption,quantity,db,memberNo);
 		
 		return JsonResult.success(true);
