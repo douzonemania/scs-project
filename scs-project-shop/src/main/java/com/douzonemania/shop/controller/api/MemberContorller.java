@@ -25,5 +25,24 @@ public class MemberContorller {
 			
 			return JsonResult.success(exist);
 		}
+	
+	@ResponseBody
+	@RequestMapping(value="/find/id")
+	public JsonResult findId(@RequestParam(value="phoneNum") String phoneNum) {
+		
+		String id = memberService.findIdByPhone(phoneNum);
+		
+		return JsonResult.success(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/find/password")
+	public JsonResult findPassword(@RequestParam(value="id") String id,
+					@RequestParam(value="phone") String phone) {
+		
+		Boolean sendPassword = memberService.sendPasswordEmail(id, phone); 
+		
+		return JsonResult.success(sendPassword);
+	}
 }
 

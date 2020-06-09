@@ -1,6 +1,7 @@
 package com.douzonemania.shop.repository;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -57,6 +58,30 @@ public class MemberRepository {
 		return count;
 		
 	}
+	
+	public String findIdByPhone(String phoneNum) {
+		String db=getSession();
+		map.put("db", db);
+		map.put("phoneNum", phoneNum);
+		return sqlSession.selectOne("member.findIdByPhone", map);
+	}
+	
+	public String findEmailById(String id) {
+		String db=getSession();
+		map.put("db", db);
+		map.put("id", id);
+		return sqlSession.selectOne("member.findEmailById", map);
+	}
+	
+	public int updatePassword(String id, String password) {
+		String db=getSession();
+		map.put("db", db);
+		map.put("id", id);
+		map.put("password", password);
+		
+		return sqlSession.update("member.updatePassword", map);
+	}
+	
 	public String getSession() {
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
 		
@@ -67,6 +92,8 @@ public class MemberRepository {
 		
 		return id;
 	}
+
+
 
 
 	
