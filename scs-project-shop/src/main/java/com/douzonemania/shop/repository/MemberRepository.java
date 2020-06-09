@@ -51,8 +51,12 @@ public class MemberRepository {
 		String db=getSession();
 		map.put("db",db);
 		map.put("vo",vo);
-		
-		int count =sqlSession.selectOne("member.findUser",map);
+		int count =0;
+		if(sqlSession.selectOne("member.findUser",map)==null) {
+			count =0;
+		}else {
+			count=sqlSession.selectOne("member.findUser",map);
+		}
 		
 		return count;
 		

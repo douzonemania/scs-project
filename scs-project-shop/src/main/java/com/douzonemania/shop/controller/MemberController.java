@@ -62,15 +62,15 @@ public class MemberController {
 	
 	@RequestMapping(value = "/login", method=RequestMethod.POST)
 	public String login(@ModelAttribute MemberVo vo,@PathVariable("db")String db,HttpServletResponse response, HttpServletRequest request) throws Exception{
-		
 		int count = memberService.findUser(vo);
+		
 		HttpSession session = request.getSession();	
 		boolean result = (count>=1)? true:false;
 		
 		if(result==true) {
-			vo.setId("maill");
+			vo.setNo((long)count);
 			session.setAttribute("authUser", vo);
-	
+			
 			return "main/index";
 		}else {
 			response.setContentType("text/html; charset=UTF-8");

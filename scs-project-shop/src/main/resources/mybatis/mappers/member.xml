@@ -21,7 +21,7 @@
 
 	<select id="findUser" parameterType = "map" resultType = "int">
 				<![CDATA[
-				select count(*)
+				select ifnull(no,0)
 				from ${db}.member
 				where id like #{vo.id} and password like #{vo.password}
 				]]>

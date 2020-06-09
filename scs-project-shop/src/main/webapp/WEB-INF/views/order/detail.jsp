@@ -616,30 +616,28 @@
 						<div class="select-category">
 
 							<ul class="nav nav-tabs nav-bordered nav-justified">
-								<li class="nav-item"><a href="#info-detail" data-toggle="tab"
+								<li class="nav-item"><a href="${pageContext.request.contextPath}/${id }/order/detail?no=9#infoSpace" data-toggle="tab"
 									aria-expanded="false" class="nav-link"> INFO </a></li>
-								<li class="nav-item"><a href="#review-detail"
+								<li class="nav-item"><a href="#reviewSpace"
 									data-toggle="tab" aria-expanded="true" class="nav-link active">
 										REVIEW </a></li>
-								<li class="nav-item"><a href="#qna-detail"
+								<li class="nav-item"><a href="#qnaSpace"
 									data-toggle="tab" aria-expanded="false" class="nav-link">
 										FAQ </a></li>
 							</ul>
 						</div>
 
-						<div class="info-detail">
-							<a name="info-detail" ></a>
+						<div class="info-detail" id="infoSpace">
 							<img
 								src="${pageContext.request.contextPath}/assets/images/detail-image.PNG"
 								alt="" / class="rounded">
 						</div>
 
-						<div class="info-review">
-							<a name="review-detail"></a>
+						<div class="info-review" id="reviewSpace">
 							<span>REVIEW</span> <span style="display: block;"><div
 									style="font-weight: bold; display: inline;">고객분들의 생생한 후기</div>도
 								함께 만나보세요</span>
-
+							</a>
 							<div class="review-group">
 								<div class="review-img">
 									<img src="assets/images/review-img.PNG" alt=""
@@ -689,8 +687,7 @@
 								</div>
 							</div>
 
-							<div class="qna-group">
-								<a name="qna-detail"></a>
+							<div class="qna-group" id="qnaSpace"> 
 								<span>Q&A</span>
 								<div style="border-bottom: 1px solid #323A46;"></div>
 
