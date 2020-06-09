@@ -616,24 +616,24 @@
 						<div class="select-category">
 
 							<ul class="nav nav-tabs nav-bordered nav-justified">
-								<li class="nav-item"><a href="#home-b2" data-toggle="tab"
+								<li class="nav-item"><a href="#info-detail" data-toggle="tab"
 									aria-expanded="false" class="nav-link"> INFO </a></li>
-								<li class="nav-item"><a href="#profile-b2"
+								<li class="nav-item"><a href="#review-detail"
 									data-toggle="tab" aria-expanded="true" class="nav-link active">
 										REVIEW </a></li>
-								<li class="nav-item"><a href="#messages-b2"
+								<li class="nav-item"><a href="#qna-detail"
 									data-toggle="tab" aria-expanded="false" class="nav-link">
 										FAQ </a></li>
 							</ul>
 						</div>
 
-						<div class="info-detail">
+						<div class="info-detail" id="info-detail">
 							<img
 								src="${pageContext.request.contextPath}/assets/images/detail-image.PNG"
 								alt="" / class="rounded">
 						</div>
 
-						<div class="info-review">
+						<div class="info-review" id="review-detail">
 							<span>REVIEW</span> <span style="display: block;"><div
 									style="font-weight: bold; display: inline;">고객분들의 생생한 후기</div>도
 								함께 만나보세요</span>
@@ -687,7 +687,7 @@
 								</div>
 							</div>
 
-							<div class="qna-group">
+							<div class="qna-group" id="qna-detail">
 								<span>Q&A</span>
 								<div style="border-bottom: 1px solid #323A46;"></div>
 
