@@ -272,7 +272,7 @@
                     <span style="margin-right: 43px;">배송지 주소</span>
                     <div class="post-code">
                         <input disabled type="text" id="postcode1"  class="form-control order-custom post-title" placeholder="우편번호">
-                        <button style="height:36px; margin-top:11px;" id="order-post-btn" class="btn btn-dark waves-effect waves-light " onClick="openPostCode()">우편 번호 찾기</button>   
+                        <button style="height:36px; margin-top:11px; font-size:11px;" id="order-post-btn" class="btn btn-dark waves-effect waves-light " onClick="openPostCode()">우편 번호 찾기</button>   
                         <input disabled type="text" id="postcode2" class="form-control order-custom post" placeholder="도로명주소">
                         <input type="text" id="postcode4" class="form-control order-custom post" placeholder="상세주소">                     
                     </div>

@@ -40,6 +40,7 @@
 			now(),
 			'주문완료',
 			#{userNo},
+			#{shipNo},
 			#{shipMemo});
 			]]>	
 	</insert>
@@ -50,13 +51,13 @@
  		]]>
  	</insert>	
  		
- 	<insert id="insertShip" parameterType="map">
+ 	<insert id="insertShip" parameterType="map" useGeneratedKeys="true" keyProperty="no">
  		<![CDATA[
  			insert into ${db}.ship_address values(null,#{vo.shipName},#{vo.phoneNumber},#{vo.address},1,#{userNo});
  		]]>
  	</insert>	
  		
- 	<update id = "updateCart" parameterType="map">
+ 	<update id = "updateCart" parameterType="map" >
 		<![CDATA[
 			update ${db}.cart set amount=#{amount} where no=#{cartNo}
 		]]>

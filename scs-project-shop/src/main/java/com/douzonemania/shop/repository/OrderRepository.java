@@ -268,13 +268,14 @@ public class OrderRepository {
 	}
 
 
-	public int insertOrder(String db, String orderNum, Long no,String shipMemo) {
+	public int insertOrder(String db, String orderNum, Long no,String shipMemo, int shipNo) {
 		
 		map.put("db",db);
 		map.put("orderNum",orderNum);
 		map.put("userNo",no);
 		map.put("no",0);
 		map.put("shipMemo",shipMemo);
+		map.put("shipNo", shipNo);
 		sqlSession.insert("insertOrder",map);
 		int result=(Integer)map.get("no");
 	
@@ -296,14 +297,18 @@ public class OrderRepository {
 	}
 
 
-	public void insertShip(String db, Long no, ShipVo vo) {
+	public int insertShip(String db, Long no, ShipVo vo) {
 		
 		map.put("db",db);
 		map.put("userNo",no);
 		map.put("vo",vo);
+		map.put("no",0);
 		
 		sqlSession.update("clearShip",map);
 		sqlSession.insert("insertShip",map);
+		int result=(Integer)map.get("no");
+		
+		return result;
 	}
 
 
@@ -313,9 +318,12 @@ public class OrderRepository {
 		map.put("vo",vo);
 		map.put("no",no);
 		
+		System.out.println(db+"//"+vo.toString()+"//"+no);
+		
 		
 		sqlSession.update("clearShip",map);
 		sqlSession.update("updateShip",map);
+		
 		
 		
 		

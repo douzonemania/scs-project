@@ -134,9 +134,10 @@ public class OrderController {
 		
 		String shipMemo = (String) map.get("shipMemo");
 		
-		orderService.insertShip(db,vo.getNo(),map);
+		int shipNo = orderService.insertShip(db,vo.getNo(),map);
 		
-		String orderNum = orderService.excuteOrder(db,vo.getNo(),list,shipMemo);
+		
+		String orderNum = orderService.excuteOrder(db,vo.getNo(),list,shipMemo,shipNo);
 		
 		return JsonResult.success(orderNum);
 	}
@@ -151,13 +152,13 @@ public class OrderController {
 		String db = session.getAttribute("db").toString();
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
 		List<ItemVo> list = (List<ItemVo>)session.getAttribute("orderList");
-	
-		
 		String shipMemo = (String) map.get("shipMemo");
-		
+		String nowNo = (String) map.get("shipNo");
+		int shipNo = Integer.parseInt(nowNo);
 		orderService.updateShip(db,vo.getNo(),map);
 		
-		String orderNum = orderService.excuteOrder(db,vo.getNo(),list,shipMemo);
+		
+		String orderNum = orderService.excuteOrder(db,vo.getNo(),list,shipMemo,shipNo);
 		
 		return JsonResult.success(orderNum);
 	}
