@@ -372,12 +372,12 @@
 								<div class="tab-content pt-3">
 									<div class="tab-pane active show" id="product-1-item">
 										<img
-											src="${pageContext.request.contextPath}/assets/images/products/product-9.jpg"
+											src="/scs-manager${map.product.mainImage }"
 											alt="" class="img-fluid mx-auto d-block rounded">
 									</div>
 									<div class="tab-pane" id="product-2-item">
 										<img
-											src="${pageContext.request.contextPath}/assets/images/products/product-10.jpg"
+											src="/scs-manager${map.product.subImage }"
 											alt="" class="img-fluid mx-auto d-block rounded">
 									</div>
 									<div class="tab-pane" id="product-3-item">
@@ -394,25 +394,25 @@
 									<li class="nav-item"><a href="#product-1-item"
 										data-toggle="tab" aria-expanded="false"
 										class="nav-link product-thumb active show"> <img
-											src="${pageContext.request.contextPath}/assets/images/products/product-9.jpg"
+											src="/scs-manager${map.product.mainImage }"
 											alt="" class="img-fluid mx-auto d-block rounded">
 									</a></li>
 									<li class="nav-item"><a href="#product-2-item"
 										data-toggle="tab" aria-expanded="true"
 										class="nav-link product-thumb"> <img
-											src="${pageContext.request.contextPath}/assets/images/products/product-10.jpg"
+											src="/scs-manager${map.product.subImage }"
 											alt="" class="img-fluid mx-auto d-block rounded">
 									</a></li>
 									<li class="nav-item"><a href="#product-3-item"
 										data-toggle="tab" aria-expanded="false"
 										class="nav-link product-thumb"> <img
-											src="${pageContext.request.contextPath}/assets/images/products/product-11.jpg"
+											src="/scs-manager${map.product.subImage }"
 											alt="" class="img-fluid mx-auto d-block rounded">
 									</a></li>
 									<li class="nav-item"><a href="#product-4-item"
 										data-toggle="tab" aria-expanded="false"
 										class="nav-link product-thumb"> <img
-											src="${pageContext.request.contextPath}/assets/images/products/product-12.jpg"
+											src="/scs-manager${map.product.subImage }"
 											alt="" class="img-fluid mx-auto d-block rounded">
 									</a></li>
 								</ul>
