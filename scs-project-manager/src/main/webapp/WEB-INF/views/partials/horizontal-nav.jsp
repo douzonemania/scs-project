@@ -81,10 +81,7 @@
                                 <i class="fe-edit"></i>디자인<div class="arrow-down"></div></a>
                             <ul class="submenu">
                                 <li>
-                                    <a href="">메인 메뉴 관리</a>
-                                </li>
-                                <li>
-                                    <a href="">서브 메뉴 관리</a>
+                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/design/main">메인 페이지 디자인</a>
                                 </li>
                             </ul>
                         </li>
