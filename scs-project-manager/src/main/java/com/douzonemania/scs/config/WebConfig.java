@@ -2,6 +2,8 @@ package com.douzonemania.scs.config;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSessionListener;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,7 @@ import com.douzonemania.security.AuthUserHandlerMethodArgumentResolver;
 import com.douzonemania.security.AuthUserInterceptor;
 import com.douzonemania.security.LoginInterceptor;
 import com.douzonemania.security.LogoutInterceptor;
+import com.douzonemania.security.SessionListener;
 
 @Configuration
 @PropertySource("classpath:com/douzonemania/scs/config/config.properties")
@@ -80,6 +83,11 @@ public class WebConfig implements WebMvcConfigurer {
 		return new MappingJackson2JsonView();
 
 	}
-		
+
+	// session timeout
+	@Bean
+	  public HttpSessionListener httpSessionListener(){
+	    return new SessionListener();
+	 }
 	
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="design">
+	<insert id="insertMainMenu" parameterType="map">
+		<![CDATA[
+			insert into scs2.main_menu
+			values (#{mainMenuVo.first}, #{mainMenuVo.second}, #{mainMenuVo.third}, #{mainMenuVo.fourth}, #{mainMenuVo.fifth}, #{db}, true)
+		]]>
+	</insert>
+	
+	<select id="checkInsertOrUpdate" parameterType="string" resultType="mainmenuvo">
+		<![CDATA[
+			select id,
+				   first,
+				   second,
+				   third,
+				   fourth, 
+				   fifth
+			  from scs2.main_menu
+			 where id=#{id}
+		]]>
+	</select>
+	
+	<update id="updateMainMenu" parameterType="map">
+		<![CDATA[
+				update scs2.main_menu
+				   set first=#{mainMenuVo.first},
+					   second=#{mainMenuVo.second},
+					   third=#{mainMenuVo.third},
+					   fourth=#{mainMenuVo.fourth},
+					   fifth=#{mainMenuVo.fifth}
+			     where id=#{db}
+			
+		]]>
+	</update>
+
+</mapper>

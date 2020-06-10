@@ -11,9 +11,6 @@ import com.douzonemania.security.AuthUser;
 @Controller
 public class MainController {
 	
-//	@Autowired
-//	private MainService mainService;
-	
 	@RequestMapping({"/main"})
 	public String index() {
 		

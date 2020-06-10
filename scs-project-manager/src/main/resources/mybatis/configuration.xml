@@ -17,6 +17,7 @@
 		<typeAlias alias="itemboardvo" type="com.douzonemania.scs.vo.member.ItemBoardVo" />
 		<typeAlias alias="itemreplyvo" type="com.douzonemania.scs.vo.member.ItemReplyVo" />
 		<typeAlias alias="sitevo" type="com.douzonemania.scs.vo.ceo.SiteVo" />
+		<typeAlias alias="mainmenuvo" type="com.douzonemania.scs.vo.ceo.MainMenuVo" />
 
 	</typeAliases>	
 	<mappers>
@@ -28,5 +29,6 @@
 		<mapper resource="mybatis/mappers/member.xml" />
 		<mapper resource="mybatis/mappers/option.xml" />
 		<mapper resource="mybatis/mappers/order.xml" />
+		<mapper resource="mybatis/mappers/design.xml" />
 	</mappers>
 </configuration>
