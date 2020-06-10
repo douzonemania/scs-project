@@ -54,5 +54,23 @@ public class MemberContorller {
 		
 		return JsonResult.success("");
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/mod/name")
+	public JsonResult modName(@RequestParam(value="id") String id,
+					@RequestParam(value="name") String name) {
+		
+		memberService.modName(id, name);
+		return JsonResult.success("");
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/mod/phone")
+	public JsonResult modPhone(@RequestParam(value="id") String id,
+					@RequestParam(value="phone") String phone) {
+		
+		memberService.modPhone(id, phone);
+		return JsonResult.success("");
+	}
 }
 

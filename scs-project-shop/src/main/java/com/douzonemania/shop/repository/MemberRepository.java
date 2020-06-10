@@ -112,6 +112,22 @@ public class MemberRepository {
 		return sqlSession.update("member.modPassword",map);
 	}
 
+	public int modName(String id, String name) {
+		String db=getSession();
+		map.put("db", db);
+		map.put("id", id);
+		map.put("name",name);
+		return sqlSession.update("member.modName",map);		
+	}
+
+	public int modPhone(String id, String phone) {
+		String db=getSession();
+		map.put("db", db);
+		map.put("id", id);
+		map.put("phone",phone);
+		return sqlSession.update("member.modPhone",map);	
+	}
+
 
 
 
