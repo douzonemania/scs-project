@@ -6,7 +6,7 @@
 		<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 		<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 	        
-        <title>UBold - Responsive Admin Dashboard Template</title>
+        <title>SCS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -59,12 +59,9 @@
                                     <a href="javascript: void(0);" class="btn btn-blue btn-sm ml-2">
                                         <i class="mdi mdi-autorenew"></i>
                                     </a>
-                                    <a href="javascript: void(0);" class="btn btn-blue btn-sm ml-1">
-                                        <i class="mdi mdi-filter-variant"></i>
-                                    </a>
                                 </form>
                             </div>
-                            <h4 class="page-title">Dashboard</h4>
+                            <h4 class="page-title">관리자페이지 메인입니다.</h4>
                         </div>
                     </div>
                 </div>     
@@ -81,8 +78,8 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h3 class="text-dark mt-1">$<span data-plugin="counterup">58,947</span></h3>
-                                        <p class="text-muted mb-1 text-truncate">Total Revenue</p>
+                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">100000</span>원</h6>
+                                        <p class="text-muted mb-1 text-truncate">총 수익</p>
                                     </div>
                                 </div>
                             </div> <!-- end row-->
@@ -99,8 +96,8 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">127</span></h3>
-                                        <p class="text-muted mb-1 text-truncate">Today's Sales</p>
+                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">127</span>개</h6>
+                                        <p class="text-muted mb-1 text-truncate">오늘의 판매량</p>
                                     </div>
                                 </div>
                             </div> <!-- end row-->
@@ -117,7 +114,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">0.58</span>%</h3>
+                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">78.41</span></h6>
                                         <p class="text-muted mb-1 text-truncate">Conversion</p>
                                     </div>
                                 </div>
@@ -135,7 +132,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">78.41</span>k</h3>
+                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">78.41</span>k</h6>
                                         <p class="text-muted mb-1 text-truncate">Today's Visits</p>
                                     </div>
                                 </div>
