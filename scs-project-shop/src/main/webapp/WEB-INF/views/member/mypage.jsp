@@ -26,10 +26,6 @@
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(function(){
-	
-});
-
-	
 
 	$('#change-pwd-btn').click(function(e){
 		window.open('passwordMod','비밀번호변경','width=490,height=500,location=no,status=no,scrollbars=auto');
@@ -57,6 +53,17 @@ $(function(){
 	$('#change-phone-btn').click(function(e){
 		var id = "${vo.id}"
 		var phone = $('#phone-text').val();
+		
+		var check =/(01[016789])([1-9]{1}[0-9]{2,3})([0-9]{4})$/;
+		
+		if(phone==''){
+			alert("핸드폰 번호를 입력하세요.");
+			return;
+		}
+		if(check.test(phone)== false){
+			alert("휴대번호 형식이 올바르지 않습니다.");
+			return;
+		}
 		$.ajax({
 			url: '${pageContext.request.contextPath }/api/member/mod/phone',
 			async: true,
@@ -71,7 +78,8 @@ $(function(){
 			}
 		}); 
 	
-	});
+	});	
+
 
 });
 </script>
