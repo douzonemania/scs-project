@@ -24,7 +24,7 @@ public class DesignRepository {
 	}
 
 	public MainMenuVo checkInsertOrUpdate(String id) {
-		return sqlSession.selectOne("design.checkInsertOrUpdate", id);
+		return sqlSession.selectOne("design.getMainMenuList", id);
 	}
 
 	public int updateMainMenu(String id, MainMenuVo mainMenuVo) {
@@ -33,6 +33,12 @@ public class DesignRepository {
 		map.put("mainMenuVo", mainMenuVo);
 		
 		return sqlSession.update("design.updateMainMenu", map);
+	}
+
+	public MainMenuVo getMainMenuList(String id) {
+		
+		return sqlSession.selectOne("design.getMainMenuList", id);
+		
 	}
 
 }

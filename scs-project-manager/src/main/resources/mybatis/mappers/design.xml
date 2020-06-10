@@ -9,7 +9,7 @@
 		]]>
 	</insert>
 	
-	<select id="checkInsertOrUpdate" parameterType="string" resultType="mainmenuvo">
+	<select id="getMainMenuList" parameterType="string" resultType="mainmenuvo">
 		<![CDATA[
 			select id,
 				   first,
