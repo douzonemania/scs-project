@@ -26,9 +26,53 @@
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(function(){
+	
+});
+
+	
+
 	$('#change-pwd-btn').click(function(e){
 		window.open('passwordMod','비밀번호변경','width=490,height=500,location=no,status=no,scrollbars=auto');
 	});
+	
+	$('#change-name-btn').click(function(e){
+		var id = "${vo.id}"
+		var name = $('#name-text').val();
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/member/mod/name',
+			async: true,
+			type: 'post',
+			data: {"id":id, "name":name },
+			success: function(response){
+				alert("이름이 변경되었습니다.");
+				location.reload();
+			},
+			error: function(xhr, status, e){
+				console.error(status + " : " + e);
+			}
+		}); 
+	});
+	
+	
+	$('#change-phone-btn').click(function(e){
+		var id = "${vo.id}"
+		var phone = $('#phone-text').val();
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/member/mod/phone',
+			async: true,
+			type: 'post',
+			data: {"id":id, "phone":phone },
+			success: function(response){
+				alert("휴대전화번호가 변경되었습니다.");
+				location.reload();
+			},
+			error: function(xhr, status, e){
+				console.error(status + " : " + e);
+			}
+		}); 
+	
+	});
+
 });
 </script>
 
@@ -68,19 +112,20 @@ $(function(){
                          			</tr>
                            			<tr>
                          				<th>이름</th>
-                         				<td>${vo.name }</td>
+                         				<td><input type="text" class="form-control" value="${vo.name }" style="width:250px" id="name-text"/></td>
                          				<td><input type="button" class="btn btn-dark waves-effect cart-delete-button" id="change-name-btn" 
                          				value="이름 변경" style="width:120px"/></td>
-                         			</tr>
+                         			</tr>                         			
                          			<tr>
                          				<th>이메일</th>
                          				<td>${vo.email }</td>
-                         				<td><input type="button" class="btn btn-dark waves-effect cart-delete-button" id="change-email-btn" 
-                         				value="이메일 변경" style="width:120px"/></td>
+                         				<td>
                          			</tr>
+                         			<!-- <input type="button" class="btn btn-dark waves-effect cart-delete-button" id="change-email-btn" 
+                         				value="이메일 변경" style="width:120px"/></td> -->
                          			<tr>
                          				<th>휴대전화</th>
-                         				<td>${vo.phoneNumber }</td>
+                         				<td><input type="text" class="form-control" value="${vo.phoneNumber }" style="width:250px" id="phone-text"/></td>
                          				<td><input type="button" class="btn btn-dark waves-effect cart-delete-button" id="change-phone-btn" 
                          				value="휴대전화 변경" style="width:120px"/></td>
                          			</tr>                         			
@@ -91,6 +136,8 @@ $(function(){
                 </div>
              </div>
              
+             <br>
+             <br>
             <div class="mypage-order-group">
                 
                 <div class="recipient-info">

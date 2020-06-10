@@ -74,4 +74,20 @@
 			 where id=#{id}
 		]]>
 	</update>
+	
+	<update id="modName" parameterType="map">
+		<![CDATA[
+			update ${db}.member
+			   set name=#{name}
+			 where id=#{id}
+		]]>
+	</update>
+	
+	<update id="modPhone" parameterType="map">
+		<![CDATA[
+			update ${db}.member
+			   set phone_number=#{phone}
+			 where id=#{id}
+		]]>
+	</update>
 </mapper>

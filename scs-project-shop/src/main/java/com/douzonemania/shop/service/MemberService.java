@@ -132,4 +132,13 @@ public Boolean sendPasswordEmail(String id, String phone) {
 		return memberRepository.modPassword(id, newPassword);
 	}
 
+	public int modName(String id, String name) {
+		return memberRepository.modName(id, name);
+		
+	}
+
+	public int modPhone(String id, String phone) {
+		return memberRepository.modPhone(id, phone);
+	}
+
 }
