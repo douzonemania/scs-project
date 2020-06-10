@@ -31,7 +31,7 @@ public class AuthUserInterceptor extends HandlerInterceptorAdapter {
 //	 	}
 
 	 	CeoVo vo = new CeoVo();
-	 	vo.setId("mall");
+	 	vo.setId("mall2");
 	 	session.setAttribute("authUser", vo);
 	 	
         return true;
