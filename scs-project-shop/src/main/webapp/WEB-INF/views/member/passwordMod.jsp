@@ -90,7 +90,7 @@ $(function(){
 	});
 	$('#cancle').click(function(e){
 		self.close();
-	})
+	});
 });
 	
 
