@@ -148,9 +148,7 @@
 				
 				
 				if($('input[name=radioInline]:checked').val()=="option2"){// 주소록 추가 
-				
-					alert(no);
-					
+									
 					$.ajax({
 						url : '${pageContext.request.contextPath }/api/order/insertShip',
 						dataType : 'json',
@@ -166,7 +164,6 @@
 					});  
 				}else{// 그냥 오더에 
 					
-					alert(no);
 					$.ajax({
 						url : '${pageContext.request.contextPath }/api/order/excuteOrder',
 						dataType : 'json',

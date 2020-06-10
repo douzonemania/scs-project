@@ -233,7 +233,7 @@
                                     </a>
                                 </form>
                             </div>
-                            <h4 class="page-title">Dashboard</h4>
+                            <h4 class="page-title">메인페이지</h4>
                         </div>
                     </div>
                 </div>     
@@ -304,7 +304,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">78.41</span>k</h3>
+                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">0</span>k</h3>
                                         <p class="text-muted mb-1 text-truncate">Today's Visits</p>
                                     </div>
                                 </div>
