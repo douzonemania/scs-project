@@ -333,9 +333,8 @@
                     </div>
                    	
                    
-                   	<div class='responsive-cart-img float-left'>
-                   		<img src='/assets/images/review-img.png' alt='' class='rounded'>
-                   		dd
+                   	<div class='responsive-cart-img float-left' style="max-width:150px; max-height:92px;">
+                   		<img src='/scs-manager${vo.mainImage }' style="max-width:150px; max-height:92px;" alt='' class='rounded'>
                     </div>
                     <div class='responsive-cart-info float-right''>
                     	<div style='width:60%; display:inline-block;' >

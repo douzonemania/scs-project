@@ -93,7 +93,9 @@
                     </div>
                     <div style="margin-top: 30px;"></div>
                     <div>
-                        <button id="join-btn" type="button" class="btn btn-dark waves-effect waves-light custom-login">회원가입</button>
+                    	<a href="${pageContext.servletContext.contextPath }/${db }/member/join">
+              		  		<button id="join-btn" type="button" class="btn btn-dark waves-effect waves-light custom-login">회원가입</button>
+                    	</a>
                     </div>
                 </div><!-- END LOGIN FORM-->
 

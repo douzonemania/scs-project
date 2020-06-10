@@ -20,6 +20,69 @@
             <link href="${ pageContext.request.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
             <link href="${ pageContext.request.contextPath }/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
             <link href="${ pageContext.request.contextPath }/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+			
+			<script src="https://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(function(){
+
+	$('#change-pwd-btn').click(function(e){
+		window.open('passwordMod','비밀번호변경','width=490,height=500,location=no,status=no,scrollbars=auto');
+	});
+	
+	$('#change-name-btn').click(function(e){
+		var id = "${vo.id}"
+		var name = $('#name-text').val();
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/member/mod/name',
+			async: true,
+			type: 'post',
+			data: {"id":id, "name":name },
+			success: function(response){
+				alert("이름이 변경되었습니다.");
+				location.reload();
+			},
+			error: function(xhr, status, e){
+				console.error(status + " : " + e);
+			}
+		}); 
+	});
+	
+	
+	$('#change-phone-btn').click(function(e){
+		var id = "${vo.id}"
+		var phone = $('#phone-text').val();
+		
+		var check =/(01[016789])([1-9]{1}[0-9]{2,3})([0-9]{4})$/;
+		
+		if(phone==''){
+			alert("핸드폰 번호를 입력하세요.");
+			return;
+		}
+		if(check.test(phone)== false){
+			alert("휴대번호 형식이 올바르지 않습니다.");
+			return;
+		}
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/member/mod/phone',
+			async: true,
+			type: 'post',
+			data: {"id":id, "phone":phone },
+			success: function(response){
+				alert("휴대전화번호가 변경되었습니다.");
+				location.reload();
+			},
+			error: function(xhr, status, e){
+				console.error(status + " : " + e);
+			}
+		}); 
+	
+	});	
+
+
+});
+</script>
 
     </head>
 <body>
@@ -27,13 +90,69 @@
      <c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import>
     <div class="wrapper">
         <div class="container-fluid">
+        
+             <div class="mypage-order-group">
+                <div class="recipient-info">
+                    <span >나의 정보</span> 
+                    <span class="mypage-main-order float-right"> 전체</span>
+                </div>
+                
+                <div class="mypage-my-info">
+                	<div class="row">
+                         <div class="col-12">	
+                         	<table class="table table-striped mb-0" style="line-height:40px">
+                         		<colgroup>
+                         			<col style="width:190px">
+                         			<col style="width:*">
+                         			<col style="width:50%">
+                         		</colgroup>
+                         		<tbody>
+                         			<tr>
+                         				<th>아이디</th>
+                         				<td>${vo.id }</td>
+                         				<td></td>
+                         			</tr>
+                           			<tr>
+                         				<th>비밀번호</th>
+                         				<td>********</td>
+                         				<td><input type="button" class="btn btn-dark waves-effect cart-delete-button" id="change-pwd-btn" 
+                         				value="비밀번호 변경" style="width:120px"/></td>
+                         			</tr>
+                           			<tr>
+                         				<th>이름</th>
+                         				<td><input type="text" class="form-control" value="${vo.name }" style="width:250px" id="name-text"/></td>
+                         				<td><input type="button" class="btn btn-dark waves-effect cart-delete-button" id="change-name-btn" 
+                         				value="이름 변경" style="width:120px"/></td>
+                         			</tr>                         			
+                         			<tr>
+                         				<th>이메일</th>
+                         				<td>${vo.email }</td>
+                         				<td>
+                         			</tr>
+                         			<!-- <input type="button" class="btn btn-dark waves-effect cart-delete-button" id="change-email-btn" 
+                         				value="이메일 변경" style="width:120px"/></td> -->
+                         			<tr>
+                         				<th>휴대전화</th>
+                         				<td><input type="text" class="form-control" value="${vo.phoneNumber }" style="width:250px" id="phone-text"/></td>
+                         				<td><input type="button" class="btn btn-dark waves-effect cart-delete-button" id="change-phone-btn" 
+                         				value="휴대전화 변경" style="width:120px"/></td>
+                         			</tr>                         			
+                         		</tbody>
+                         	</table> 
+                         </div>
+                    </div>
+                </div>
+             </div>
+             
+             <br>
+             <br>
             <div class="mypage-order-group">
                 
                 <div class="recipient-info">
                     <span >주문 내역</span> 
                     <span class="mypage-main-order float-right"> 전체</span>
                 </div>
-
+                
                 <div class="mypage-main-order-list">
                     <a href="#" class="mobile-visible"><span class="mypage-order-list-category ">입금/결제:&nbsp; 0</span></a>
                     <a href="#" class="mobile-visible"><span class="mypage-order-list-category">배송중:&nbsp; 0</span></a>
@@ -46,7 +165,7 @@
                 
                     <div class="margin-box-30"></div>
 
-
+					
                     <div class="mypage-main-order-table">
                        <div class="row">
                            <div class="col-12">

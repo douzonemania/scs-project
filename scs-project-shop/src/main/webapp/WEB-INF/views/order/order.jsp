@@ -148,9 +148,7 @@
 				
 				
 				if($('input[name=radioInline]:checked').val()=="option2"){// 주소록 추가 
-				
-					alert(no);
-					
+									
 					$.ajax({
 						url : '${pageContext.request.contextPath }/api/order/insertShip',
 						dataType : 'json',
@@ -166,7 +164,6 @@
 					});  
 				}else{// 그냥 오더에 
 					
-					alert(no);
 					$.ajax({
 						url : '${pageContext.request.contextPath }/api/order/excuteOrder',
 						dataType : 'json',
@@ -272,7 +269,7 @@
                     <span style="margin-right: 43px;">배송지 주소</span>
                     <div class="post-code">
                         <input disabled type="text" id="postcode1"  class="form-control order-custom post-title" placeholder="우편번호">
-                        <button style="height:36px; margin-top:11px;" id="order-post-btn" class="btn btn-dark waves-effect waves-light " onClick="openPostCode()">우편 번호 찾기</button>   
+                        <button style="height:36px; margin-top:11px; font-size:11px;" id="order-post-btn" class="btn btn-dark waves-effect waves-light " onClick="openPostCode()">우편 번호 찾기</button>   
                         <input disabled type="text" id="postcode2" class="form-control order-custom post" placeholder="도로명주소">
                         <input type="text" id="postcode4" class="form-control order-custom post" placeholder="상세주소">                     
                     </div>
@@ -297,7 +294,7 @@
                 <div class='moblie-cart-all-group'>
                     
                    <div class='responsive-cart-img float-left'>
-                   		<img src='/assets/images/review-img.png' alt='' class='rounded'>
+                   		<img src='/scs-manager${vo.mainImage }' style="max-height:150px; max-height:100px;"alt='' class='rounded'>
                    		
                     </div>
                     <div class='responsive-cart-info float-right''>

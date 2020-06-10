@@ -77,7 +77,7 @@ public class OrderController {
 		for (ItemVo itemVo : list) {
 			System.out.println(itemVo.toString());
 		}
-		
+		System.err.println(vo + "!!!!");
 		
 		return "order/cart";
 	}
@@ -104,8 +104,8 @@ public class OrderController {
 	
 	
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
-	public String order(
-			HttpSession session,Model model
+	public String order(HttpSession session,
+			Model model
 			) {
 			
 		String db = session.getAttribute("db").toString();

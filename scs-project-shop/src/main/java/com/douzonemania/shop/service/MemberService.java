@@ -124,4 +124,21 @@ public Boolean sendPasswordEmail(String id, String phone) {
 		}
 	}
 
+	public MemberVo findUserByNo(Long no) {
+		return memberRepository.findUserByNo(no);
+	}
+
+	public int modPassword(String id, String newPassword) {
+		return memberRepository.modPassword(id, newPassword);
+	}
+
+	public int modName(String id, String name) {
+		return memberRepository.modName(id, name);
+		
+	}
+
+	public int modPhone(String id, String phone) {
+		return memberRepository.modPhone(id, phone);
+	}
+
 }

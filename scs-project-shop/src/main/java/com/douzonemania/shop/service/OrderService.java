@@ -242,10 +242,10 @@ public class OrderService {
 	
 	
 
-	public String excuteOrder(String db, Long no, List<ItemVo> list,String shipMemo) {
+	public String excuteOrder(String db, Long no, List<ItemVo> list,String shipMemo, int shipNo) {
 		
 		String orderNum = makeOrderNum(db);
-		int result = orderRepository.insertOrder(db,orderNum,no,shipMemo);
+		int result = orderRepository.insertOrder(db,orderNum,no,shipMemo,shipNo);
 		
 		
 		for (ItemVo vo :list) {
@@ -269,7 +269,8 @@ public class OrderService {
 		return orderNum;
 	}
 	
-	
+
+		
 	public ItemVo setTotalPrice(int nowSale,ItemVo temp) {
 		
 		
@@ -286,7 +287,7 @@ public class OrderService {
 	}
 
 
-	public void insertShip(String db, Long no, Map<String, Object> map) {
+	public int insertShip(String db, Long no, Map<String, Object> map) {
 		
 		ShipVo vo = new ShipVo();
 		
@@ -295,9 +296,9 @@ public class OrderService {
 		vo.setAddress(map.get("address").toString());
 		
 		
-		orderRepository.insertShip(db,no,vo);
+		int shipNo = orderRepository.insertShip(db,no,vo);
 		
-		
+		return shipNo;
 	}
 
 	public void updateShip(String db, Long no, Map<String, Object> map) {
@@ -316,9 +317,8 @@ public class OrderService {
 		vo.setAddress(map.get("address").toString());
 		vo.setNo(nowNo);
 		
-		orderRepository.updateShip(db,no,vo);
-		
-		
+		 orderRepository.updateShip(db,no,vo);
+	
 	}
 	
 	
@@ -336,6 +336,7 @@ public class OrderService {
 		
 		return nowDateString+"-"+convertNum;
 	}
+
 
 }
 
