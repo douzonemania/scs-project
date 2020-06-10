@@ -53,6 +53,15 @@ $(function(){
 		var inputNewPassword = $('#newPassword').val();
 		var id = "${vo.id}";
 		
+		if(inputNewPassword==''){
+			alert("비밀번호를 입력하세요.");
+			return;
+		}
+		if(inputNewPassword.length < 4 || inputNewPassword.length > 12){
+			alert("비밀번호는 4~12자 입니다.");
+			return;
+		}
+		
 		if(!$.fn.checkCurPassword()){
 			alert("현재 비밀번호를 다시 입력하세요");
 		}else if(!$.fn.checkNewPassword()){
