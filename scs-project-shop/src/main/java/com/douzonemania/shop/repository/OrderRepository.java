@@ -233,7 +233,7 @@ public class OrderRepository {
 	public List<ShipVo> findShipAddressList(String db, Long no) {
 		
 		map.put("db", db);
-		map.put("userNo",no);
+		map.put("memberNo",no);
 		
 		List<ShipVo> list = sqlSession.selectList("findShipAddressList",map);
 		
