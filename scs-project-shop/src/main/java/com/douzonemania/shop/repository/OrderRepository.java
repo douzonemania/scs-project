@@ -251,9 +251,7 @@ public class OrderRepository {
 		map.put("firstOption",firstOption);
 		map.put("secondOption",secondOption);
 		
-		
-		System.out.println("NO : "+no+"  ITEMNO:"+itemNo+"  FIRSTOPTION :"+firstOption +" SECONDOPTION :"+secondOption);
-		
+	
 		
 		int stockNo = sqlSession.selectOne("findStockNo",map);
 		
