@@ -18,7 +18,7 @@
 				   fourth, 
 				   fifth
 			  from scs2.main_menu
-			 where id=#{id}
+			 where id=#{db}
 		]]>
 	</select>
 	
@@ -34,5 +34,96 @@
 			
 		]]>
 	</update>
+	
+	<insert id="insertCustomMenu" parameterType="map">
+		<![CDATA[
+			insert into scs2.sub_menu
+				 values (null, #{menuIndex}, #{name}, #{db}, true)
+		]]>
+	</insert>
+	
+	<select id="getSubMenuById" resultType="submenuvo">
+		<![CDATA[
+			select no, 
+				   menu_index as menuIndex,
+				   name,
+				   id,
+				state
+			  from scs2.sub_menu
+			 where id=#{db}
+		  order by menu_index
+		]]>
+	</select>
+	
+	<select id="getMaxSubMenuIndex" parameterType="string" resultType="int">
+		<![CDATA[
+			select max(menu_index) 
+			  from scs2.sub_menu
+			 where id=#{db}
+		]]>
+	</select>
 
+<!-- //////////////////////////// -->	
+	
+	<insert id="insertCustoms" parameterType="map"  useGeneratedKeys="true" keyProperty="no">
+		<![CDATA[
+			insert into scs2.custom
+			values (null,#{customIndex},#{designId},#{submenuNum})
+		]]>
+	</insert>
+	
+	
+	<insert id="insertContents" parameterType="map"  useGeneratedKeys="true" keyProperty="no">
+		<![CDATA[
+			insert into scs2.contents
+			values (null,#{customNo},#{index},#{contents})
+		]]>
+	</insert>
+	
+	<update id="updateCustoms" parameterType="map">
+		<![CDATA[
+			update scs2.custom
+			set design_id=#{designId}
+			where custom_index=#{customIndex} and menu_no=#{submenuNum}
+		]]>
+		
+	</update>
+	
+	<update id="updateContents" parameterType="map">
+		<![CDATA[
+			update scs2.contents
+			set content=#{contents}
+			where custom_no=#{customNo} and contents_index=#{index}
+		]]>
+	</update>
+	
+	
+	
+	
+	<select id="findSubmenuNum" parameterType="map" resultType="int">
+		<![CDATA[
+				select no
+				from scs2.sub_menu
+				where menu_index=#{index} and id=#{id}
+		]]>
+	
+	</select>
+	
+	<select id="findCustoms" parameterType="map" resultType="map">
+		<![CDATA[
+			select count(*),ifnull(no,0) as no
+			from scs2.custom
+			where custom_index=#{customIndex} and menu_no=#{submenuNum}
+		]]>
+		
+	</select>
+
+	<select id="findContents" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(*)
+			from scs2.contents
+			where custom_no =#{customNo} and
+					contents_index=#{index}
+		]]>
+	</select>
 </mapper>

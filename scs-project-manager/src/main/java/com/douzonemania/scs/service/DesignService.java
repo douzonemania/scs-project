@@ -4,14 +4,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
+import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.douzonemania.scs.repository.DesignRepository;
+import com.douzonemania.scs.vo.ceo.CustomDesignVo;
 import com.douzonemania.scs.vo.ceo.MainMenuVo;
+import com.douzonemania.scs.vo.ceo.SubMenuVo;
 
 @Service
 public class DesignService {
@@ -119,6 +123,67 @@ public class DesignService {
 		//filename += ("." + originFileName);
 		filename += ("." + extName);
 		return filename;
+	}
+
+	public Boolean insertCustomMenu(int menuIndex, String name, String id) {
+		int count = designRepository.insertCustomMenu(menuIndex, name, id);
+		return count == 1;
+	}
+
+	public List<SubMenuVo> getSubMenuById(String id) {
+		return designRepository.getSubMenuById(id);
+	}
+
+	public int getMaxSubMenuIndex(String id) {
+		return designRepository.getMaxSubMenuIndex(id);
+	}
+	
+	public void setDesign(String map,String id) {
+		
+		
+		System.out.println(map);
+		
+		JSONObject jObject = new JSONObject(map);
+		JSONArray jArray = jObject.getJSONArray("form");
+		
+		int index =jObject.getInt("index");
+		
+		int submenuNum = designRepository.findSubmenuNum(index,id);
+		System.out.println("SUBMENUINDEX : "+submenuNum);
+		
+		
+		for(int i=0;i<jArray.length()-1;i++) {
+			//파싱
+			JSONObject obj =jArray.getJSONObject(i);
+			
+			CustomDesignVo vo = new CustomDesignVo();
+			
+			vo.setCustomIndex(obj.getInt("id"));
+			vo.setDesignID(obj.getString("element"));
+			
+			
+			JSONObject elementData = obj.getJSONObject("elementData");
+			
+			int check = designRepository.findCustoms(vo,submenuNum);
+			
+			if(check ==0) {
+				check = designRepository.insertCustoms(vo,submenuNum);
+			}else {
+				//update
+				designRepository.updateCustoms(vo,submenuNum);
+			}
+	
+			for(int j=1;j<=elementData.length();j++) {
+				int result = designRepository.findContents(check,j);
+				
+				if(result==0) {
+					designRepository.insertContents(j,elementData.get(j+"").toString(),check);
+				}else {
+					designRepository.updateContents(j,elementData.get(j+"").toString(),check);
+				}
+				
+			}
+		}
 	}
 	
 }
