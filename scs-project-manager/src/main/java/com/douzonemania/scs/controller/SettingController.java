@@ -1,5 +1,6 @@
 package com.douzonemania.scs.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,29 +147,39 @@ public class SettingController {
 			@ModelAttribute AgreementVo agreementVo,
 			Model model) {
 		
-		System.out.println("policy보여준다.");
-		
-		
 		agreementVo.setId(authUser.getId());
 		agreementVo = settingService.findAgreementById(authUser.getId());
-		String viewer1 = "quill.setContents([ " +
-                agreementVo.getFirstAgree() +
-       "]);";
 		
-		System.out.println(viewer1);
-		String viewer2 = "quill.setContents([ " +
-                agreementVo.getSecondAgree() +
-       "]);";
-		String viewer3 = "quill.setContents([ " +
-                agreementVo.getThirdAgree() +
-       "]);";
+		Boolean[] agreeCheck = new Boolean[3];
+		Arrays.fill(agreeCheck, false);
+		String viewer1 = "";
+		String viewer2 = "";
+		String viewer3 = "";
+		if(!agreementVo.getFirstAgree().equals("")) {
+			viewer1 = "quill.setContents([ " +
+	                agreementVo.getFirstAgree() +
+	       "]);";
+			agreeCheck[0] = true;
+		}
 		
+		if(!agreementVo.getSecondAgree().equals("")) {
+			viewer2 = "quill.setContents([ " +
+	                agreementVo.getSecondAgree() +
+	       "]);";
+			agreeCheck[1] = true;
+		}
+		if(!agreementVo.getThirdAgree().equals("")) {
+			viewer3 = "quill.setContents([ " +
+	                agreementVo.getThirdAgree() +
+	       "]);";
+			agreeCheck[2] = true;
+		}
 		
 		model.addAttribute("viewer1", viewer1);
 		model.addAttribute("viewer2", viewer2);
 		model.addAttribute("viewer3", viewer3);
+		model.addAttribute("agreeCheck", agreeCheck);
 		model.addAttribute("agreementVo", agreementVo);
-
 		
 		return "setting/policy";
 	}
