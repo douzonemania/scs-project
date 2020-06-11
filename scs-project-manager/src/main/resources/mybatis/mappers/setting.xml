@@ -19,7 +19,16 @@
 			 where id = #{id }
 		]]>
 	</select>
-	
+	<insert id="insertPolicy" parameterType="map">
+		<![CDATA[
+			insert
+			  into agreement
+			  values ('','','',#{id})
+		
+		
+		]]>
+		
+	</insert>
 	<update id="updatePolicy" parameterType="map">
 		<![CDATA[
 			update agreement

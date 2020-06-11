@@ -146,6 +146,10 @@ public class SettingService {
 		
 		return settingRepository.findAgreementById(id);
 	}
+	
+	public int insertPolicy(String id) {
+		return settingRepository.insertPolicy(id);
+	}
 
 	/* setting-policy 약관 업데이트 */
 	public int updatePolicy(String jsonData, String id) {

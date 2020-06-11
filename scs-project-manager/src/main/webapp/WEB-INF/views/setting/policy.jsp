@@ -183,7 +183,7 @@ $(document).ready(function(){
 	                        <div class="tab-content">
 	                            <div class="tab-pane show active">
 	                                <div id="snow-editor" class="editor-class" style="height: 300px;" contentEditable="true">
-	                                	
+	                                	Default값입니다.
 	                                </div> 
 	                           </div>
 		                     
