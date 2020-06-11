@@ -481,7 +481,7 @@ $(function(){
         
                                 <div class="mobile-cart-count-btn">
                                     <button class="btn btn-dark waves-effect "><i class="fe-plus"></i></button>
-                                    <input type="text" class="form-control " id="validationCustom01"  value="1" required>
+                                    <input type="text" class="form-control " id="validationCustom02"  value="1" required>
                                     <button class="btn btn-dark waves-effect "><i class="fe-minus"></i></button>
                                 </div>
                             </div>
@@ -510,7 +510,7 @@ $(function(){
         
                                 <div class="mobile-cart-count-btn">
                                     <button class="btn btn-dark waves-effect "><i class="fe-plus"></i></button>
-                                    <input type="text" class="form-control " id="validationCustom01"  value="1" required>
+                                    <input type="text" class="form-control " id="validationCustom03"  value="1" required>
                                     <button class="btn btn-dark waves-effect "><i class="fe-minus"></i></button>
                                 </div>
                             </div>
