@@ -1,13 +1,16 @@
 package com.douzonemania.scs.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.douzonemania.scs.vo.ceo.CustomDesignVo;
 import com.douzonemania.scs.vo.ceo.MainMenuVo;
+import com.douzonemania.scs.vo.ceo.SubMenuVo;
 
 @Repository
 public class DesignRepository {
@@ -38,6 +41,102 @@ public class DesignRepository {
 	public MainMenuVo getMainMenuList(String id) {
 		
 		return sqlSession.selectOne("design.getMainMenuList", id);
+		
+	}
+
+	public int insertCustomMenu(int menuIndex, String name, String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("menuIndex", menuIndex);
+		map.put("name", name);
+		
+		return sqlSession.insert("design.insertCustomMenu", map);
+	}
+
+	public List<SubMenuVo> getSubMenuById(String id) {
+		return sqlSession.selectList("design.getSubMenuById", id);
+	}
+
+	public int getMaxSubMenuIndex(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		
+		return sqlSession.selectOne("design.getMaxSubMenuIndex", id);
+	}
+	
+	///////////////////////
+	
+public int findSubmenuNum(int index, String id) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("index",index);
+		map.put("id",id);
+		
+		return sqlSession.selectOne("design.findSubmenuNum",map);
+	}
+
+	public int insertCustoms(CustomDesignVo vo, int submenuNum) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("customIndex",vo.getCustomIndex());
+		map.put("designId",vo.getDesignID());
+		map.put("submenuNum",submenuNum);
+		map.put("no",0);
+		sqlSession.insert("design.insertCustoms",map);
+		
+		return (Integer)map.get("no");
+		
+	}
+
+	public int findCustoms(CustomDesignVo vo, int submenuNum) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("customIndex",vo.getCustomIndex());
+		map.put("designId",vo.getDesignID());
+		map.put("submenuNum",submenuNum);
+	
+
+		map = sqlSession.selectOne("design.findCustoms",map);
+		int now = Integer.parseInt(map.get("no").toString());
+		return now;
+	}
+
+	public void updateCustoms(CustomDesignVo vo, int submenuNum) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("customIndex",vo.getCustomIndex());
+		map.put("designId",vo.getDesignID());
+		map.put("submenuNum",submenuNum);
+	
+		sqlSession.update("design.updateCustoms",map);
+		
+		
+		
+	}
+
+	public int findContents(int customNo, int index) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("customNo",customNo);
+		map.put("index",index);
+		
+		return sqlSession.selectOne("design.findContents",map);
+			
+	}
+
+	public void insertContents(int index, String contents, int customNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("customNo",customNo);
+		map.put("index",index);
+		map.put("contenst",contents);
+		sqlSession.insert("design.insertContents",map);
+	}
+
+	public void updateContents(int index, String contents, int customNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("customNo",customNo);
+		map.put("index",index);
+		map.put("contents",contents);
+		sqlSession.insert("design.updateContents",map);
 		
 	}
 

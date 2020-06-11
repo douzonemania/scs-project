@@ -2,24 +2,25 @@ package com.douzonemania.scs.vo.ceo;
 
 public class SubMenuVo {
 	private int no;
-	private int index;
+	private int menuIndex;
 	private String name;
 	private String id;
+	private Boolean state;
 
 	public int getNo() {
 		return no;
 	}
-	
+
 	public void setNo(int no) {
 		this.no = no;
 	}
 
-	public int getIndex() {
-		return index;
+	public int getMenuIndex() {
+		return menuIndex;
 	}
 
-	public void setIndex(int index) {
-		this.index = index;
+	public void setMenuIndex(int menuIndex) {
+		this.menuIndex = menuIndex;
 	}
 
 	public String getName() {
@@ -38,11 +39,18 @@ public class SubMenuVo {
 		this.id = id;
 	}
 
+	public Boolean getState() {
+		return state;
+	}
+
+	public void setState(Boolean state) {
+		this.state = state;
+	}
+
 	@Override
 	public String toString() {
-		return "SubMenuVo [no=" + no + ", index=" + index + ", name=" + name + ", id=" + id + "]";
+		return "SubMenuVo [no=" + no + ", menuIndex=" + menuIndex + ", name=" + name + ", id=" + id + ", state=" + state
+				+ "]";
 	}
-	
-	
 
 }

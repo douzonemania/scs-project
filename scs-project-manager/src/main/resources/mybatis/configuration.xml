@@ -18,6 +18,7 @@
 		<typeAlias alias="itemreplyvo" type="com.douzonemania.scs.vo.member.ItemReplyVo" />
 		<typeAlias alias="sitevo" type="com.douzonemania.scs.vo.ceo.SiteVo" />
 		<typeAlias alias="mainmenuvo" type="com.douzonemania.scs.vo.ceo.MainMenuVo" />
+		<typeAlias alias="submenuvo" type="com.douzonemania.scs.vo.ceo.SubMenuVo" />
 
 	</typeAliases>	
 	<mappers>

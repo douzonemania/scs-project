@@ -1,7 +1,9 @@
 package com.douzonemania.scs.controller.api;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,6 +20,7 @@ import com.douzonemania.scs.service.DesignService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.scs.vo.ceo.CustomDesignVo;
 import com.douzonemania.scs.vo.ceo.MainMenuVo;
+import com.douzonemania.scs.vo.ceo.SubMenuVo;
 import com.douzonemania.security.AuthUser;
 
 @Controller("DesignApiController")
@@ -59,29 +62,43 @@ public class DesignController {
 	
 	@ResponseBody
 	@RequestMapping("/insertDesign")
-	public JsonResult insertDesign(@RequestBody String map ) {
-		
+	public JsonResult insertDesign(@RequestBody String map ,@AuthUser CeoVo ceoVo) {
+		System.out.println("test");
 		System.out.println(map);
 		
-		List<CustomDesignVo> list = new ArrayList<CustomDesignVo>();
-		
-		JSONObject jObject = new JSONObject(map);
-		JSONArray jArray = jObject.getJSONArray("form");
-		
-		for(int i=0;i<jArray.length()-1;i++) {
-			//파싱
-			JSONObject obj =jArray.getJSONObject(i);
-			CustomDesignVo vo = new CustomDesignVo();
-			
-			vo.setCustomIndex(obj.getInt("id"));
-			vo.setDesignID(obj.getString("element"));
-			//cusotm insert -> no -> insert
-			
-			vo.setContentsGroup(obj.getJSONObject("elementData"));
-			System.out.println(vo.toString());
-			list.add(vo);
-		}
+		//designService.setDesign(map,ceoVo.getId());
 		
 		return JsonResult.success("");
 	}
+	
+	@ResponseBody
+	@RequestMapping("/customMenu/insert")
+	public JsonResult insertCustomMenu(@AuthUser CeoVo authUser, 
+						@RequestBody String jsonData) {
+
+		JSONObject obj = new JSONObject(jsonData);
+
+		int menuIndex = obj.getInt("menuIndex");
+		String name = obj.getString("name");
+	
+		Boolean insertSuccess = designService.insertCustomMenu(menuIndex, name, authUser.getId());
+		
+		return JsonResult.success(insertSuccess);
+	}
+	 
+	@ResponseBody
+	@RequestMapping("/subMenu/get")
+	public JsonResult insertCustomMenu(@AuthUser CeoVo authUser) {
+		
+		List<SubMenuVo> subMenuList = designService.getSubMenuById(authUser.getId());
+		int maxMenuIndex = designService.getMaxSubMenuIndex(authUser.getId());
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("subMenuList", subMenuList);
+		map.put("maxMenuIndex", maxMenuIndex);
+
+		
+		return JsonResult.success(map);
+	}
+			
 }
