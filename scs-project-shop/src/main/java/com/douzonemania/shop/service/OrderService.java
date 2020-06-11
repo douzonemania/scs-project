@@ -210,13 +210,9 @@ public class OrderService {
 	public void setOrderPage(String db, Long no, int itemNo,int firstOption, int secondOption,int quantity, HttpSession session) {
 		
 		
-		System.out.println(db+"//"+no+"//"+itemNo+"//"+firstOption+"//"+secondOption+"//"+quantity);
 		
 		List<ShipVo> shipList = orderRepository.findShipAddressList(db,no);
 		List<ItemVo> list = new ArrayList();
-		System.out.println("SIZE : "+ shipList.size());
-		
-		
 		if(shipList.size()!=0) {
 			session.setAttribute("shipListCheck", true);
 			session.setAttribute("shipList", shipList);
