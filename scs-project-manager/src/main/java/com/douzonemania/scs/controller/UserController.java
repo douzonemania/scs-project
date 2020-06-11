@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzonemania.scs.dto.JsonResult;
+import com.douzonemania.scs.service.SettingService;
 import com.douzonemania.scs.service.UserService;
 import com.douzonemania.scs.vo.ceo.AgreementVo;
 import com.douzonemania.scs.vo.ceo.CeoVo;
@@ -24,6 +25,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	private SettingService settingService;
 	
 	// 아이디 중복 검사
 	@ResponseBody
@@ -60,6 +64,7 @@ public class UserController {
 		userService.createDB(id);
 		userService.createTable(id);
 		userService.alterTable(id);
+		settingService.insertPolicy(id);
 		
 		return "user/join-success";
 	}

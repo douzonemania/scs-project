@@ -34,6 +34,16 @@ public class SettingRepository {
 		System.out.println("agreement 찾는다?");
 		return sqlSession.selectOne("setting.findAgreementById", id);
 	}
+	public int insertPolicy(String id) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("firstAgree", "");
+		map.put("secondAgree", "");
+		map.put("thirdAgree", "");
+		map.put("id", id);
+		return sqlSession.insert("setting.insertPolicy", map);
+	}
+	
 	
 	/* 약관 update */
 	public int updatePolicy(String contents, String agreement, String id) {
