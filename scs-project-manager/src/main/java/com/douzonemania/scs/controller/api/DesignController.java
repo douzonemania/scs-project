@@ -33,7 +33,7 @@ public class DesignController {
 	@RequestMapping("/saveImg")
 	public JsonResult saveImg(@RequestParam("file") MultipartFile excelFile) {
 		
-		String url=designService.restore(excelFile);
+		String url="/scs-manager"+designService.restore(excelFile);
 		
 		System.out.println(url);
 		return JsonResult.success(url);

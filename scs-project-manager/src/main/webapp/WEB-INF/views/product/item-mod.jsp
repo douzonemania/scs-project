@@ -93,7 +93,7 @@ $(function() {
 	
 	/* 옵션 추가 등록 팝업 */
 		$('#option-add').click(function(){		
-			window.open('http://localhost:8888/scs-manager/mall/product/optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
+			window.open('${pageContext.request.contextPath }/${authUser.id}/product/optionAdd','옵션등록','width=490,height=500,location=no,status=no,scrollbars=auto');
 		});
 });
 
@@ -238,7 +238,7 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 	var formData= new FormData(form);
 	
 	formData.append("subSrcArray", subSrcArray);
-	alert("!!TEST!! : "+subSrcArray);
+	
 	$.ajax({
 	        type: "POST",
 	        enctype: 'multipart/form-data',

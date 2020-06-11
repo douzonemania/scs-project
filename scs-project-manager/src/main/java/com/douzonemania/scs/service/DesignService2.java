@@ -11,8 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class DesignService2 {
 //	private static final String SAVE_PATH = "/scs-uploads";
-	private static final String SAVE_PATH = "C:\\Users\\bit\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
-	//private static final String URL = "/assets/scs-manager/images";
+	private static final String SAVE_PATH = "C:\\Users\\R35\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
+	//private static final String SAVE_PATH = "D:\\douzone2020\\eclipse-workspace\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
 	private static final String URL = "/assets/images/scs-uploads";
 	
 	public String restore(MultipartFile excelFile) {
