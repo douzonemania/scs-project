@@ -66,7 +66,7 @@ public class DesignController {
 		System.out.println("test");
 		System.out.println(map);
 		
-		//designService.setDesign(map,ceoVo.getId());
+		designService.setDesign(map,ceoVo.getId());
 		
 		return JsonResult.success("");
 	}
