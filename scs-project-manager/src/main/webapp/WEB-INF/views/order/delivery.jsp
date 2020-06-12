@@ -294,7 +294,14 @@ $(function() {
                                 <tr>
                                 	
                                     <td>${status.count + (map.page - 1) * 5 }</td>
-                                    <td>${vo.name }</td>
+                                    <c:choose>
+	                                    <c:when test="${vo.count == 1} ">
+	                                    	<td>${vo.name }</td>
+	                                    </c:when>
+	                                    <c:otherwise>
+	                                    	<td>${vo.name } 외 ${vo.count - 1 }건</td>
+	                                    </c:otherwise>
+                                    </c:choose>
                                     <td>${vo.regDate }</td>
                                     <td>${vo.orderNumber }</td>
                                     <td>${vo.id }</td>
