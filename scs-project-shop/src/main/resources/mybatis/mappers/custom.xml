@@ -223,5 +223,31 @@
 			</otherwise>
 		</choose>
 	</select>
+	
+	<select id="getCustomDesignBySubMenu" parameterType="int" resultType="customdesignvo">
+			<![CDATA[
+				select custom_index as 'customIndex', design_id as 'designID' from custom where menu_no = #{subMenuNo};
+			]]>
+	</select>
+	
+	<select id="getContentsByCustomNo" parameterType="int" resultType="contentsvo">
+			<![CDATA[
+				select contents_index as 'index', content from contents where custom_no = #{customNo}
+			]]>
+	</select>
+	
+	<select id="getSubMenuById" resultType="submenuvo">
+		<![CDATA[
+			select no,
+				   menu_index as menuIndex,
+				   name,
+				   id,
+				state
+			  from scs2.sub_menu
+			 where id=#{db}
+			   and state=true
+		  order by menu_index
+		]]>
+	</select>	
 
 </mapper>

@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.douzonemania.shop.repository.CustomRepository;
 import com.douzonemania.shop.vo.CategoryVo;
+import com.douzonemania.shop.vo.ContentsVo;
+import com.douzonemania.shop.vo.CustomDesignVo;
 import com.douzonemania.shop.vo.ItemVo;
+import com.douzonemania.shop.vo.SubMenuVo;
 
 @Service
 public class CustomService {
@@ -165,5 +168,17 @@ public class CustomService {
 		
 		return map;
 		
+	}
+	
+	public List<CustomDesignVo> getCustomDesignBySubMenu(int subMenuNo) {
+		return customRepository.getCustomDesignBySubMenu(subMenuNo);
+	}
+
+	public List<ContentsVo> getContentsByCustomNo(int customNo) {
+		return customRepository.getContentsByCustomNo(customNo);
+	}
+
+	public List<SubMenuVo> getSubMenuById(String id) {
+		return customRepository.getSubMenuById(id);
 	}
 }

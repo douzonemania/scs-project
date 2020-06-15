@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.douzonemania.shop.vo.CategoryVo;
+import com.douzonemania.shop.vo.ContentsVo;
+import com.douzonemania.shop.vo.CustomDesignVo;
 import com.douzonemania.shop.vo.ItemVo;
+import com.douzonemania.shop.vo.SubMenuVo;
 
 @Repository
 public class CustomRepository {
@@ -122,5 +125,17 @@ public class CustomRepository {
 
 		List<CategoryVo> list = sqlSession.selectList("order.findCategoryList", map);
 		return list;
+	}
+	
+	public List<CustomDesignVo> getCustomDesignBySubMenu(int subMenuNo) {		
+		return sqlSession.selectList("custom.getCustomDesignBySubMenu", subMenuNo);
+	}
+
+	public List<ContentsVo> getContentsByCustomNo(int customNo) {
+		return sqlSession.selectList("custom.getContentsByCustomNo", customNo);
+	}
+	
+	public List<SubMenuVo> getSubMenuById(String id) {
+		return sqlSession.selectList("custom.getSubMenuById", id);
 	}
 }

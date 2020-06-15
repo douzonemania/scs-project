@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
     <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-        
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
@@ -114,7 +114,7 @@
                 </div> <!-- end container-fluid-->
             </div>
             <!-- end Topbar -->
-
+		<c:import url='/WEB-INF/views/custom/left-nav.jsp'/>
         <div class="topbar-menu">
             <div class="container-fluid">
                 <div id="navigation">

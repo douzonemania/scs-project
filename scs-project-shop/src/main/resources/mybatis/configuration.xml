@@ -10,6 +10,12 @@
 		<typeAlias alias="stockvo" type="com.douzonemania.shop.vo.StockVo"/>
 		<typeAlias alias="cartvo" type="com.douzonemania.shop.vo.CartVo"/>
 		<typeAlias alias="shipvo" type="com.douzonemania.shop.vo.ShipVo"/>
+		<typeAlias alias="customvo" type="com.douzonemania.shop.vo.CustomVo"/>
+		<typeAlias alias="customdesignvo" type="com.douzonemania.shop.vo.CustomDesignVo"/>
+		<typeAlias alias="mainmenuvo" type="com.douzonemania.shop.vo.MainMenuVo"/>
+		<typeAlias alias="submenuvo" type="com.douzonemania.shop.vo.SubMenuVo"/>
+		<typeAlias alias="contentsvo" type="com.douzonemania.shop.vo.ContentsVo"/>
+		
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/order.xml" />
