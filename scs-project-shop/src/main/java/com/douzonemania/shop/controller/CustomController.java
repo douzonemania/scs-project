@@ -1,5 +1,6 @@
 package com.douzonemania.shop.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.shop.service.CustomService;
+import com.douzonemania.shop.vo.ContentsVo;
+import com.douzonemania.shop.vo.CustomDesignVo;
+import com.douzonemania.shop.vo.SubMenuVo;
 
 @Controller
 @RequestMapping("/{db}/custom")
@@ -19,6 +23,17 @@ public class CustomController {
 
 	@Autowired
 	private CustomService customService;
+	
+	@RequestMapping({"","/main"})
+	public String home(Model model) {
+		List<CustomDesignVo> list = customService.getCustomDesignBySubMenu(33);
+		List<ContentsVo> contentsList = customService.getContentsByCustomNo(14);
+		//System.err.println("::::" + contentsList.get(1).getContent());
+		System.err.println("::::" + contentsList);
+		model.addAttribute("list", list);
+		model.addAttribute("contentsList",contentsList);
+		return "custom/main";
+	}
 	
 	@RequestMapping(value = "/BEST", method = RequestMethod.GET)
 	public String bestList(@RequestParam(value="p",required = true,defaultValue = "1")Integer page,
@@ -64,4 +79,17 @@ public class CustomController {
 		
 		return "custom/sale";
 	}
+	
+	
+	@RequestMapping(value = "/left-nav")
+	public String leftBar(Model model,HttpSession session) {
+		String db = session.getAttribute("db").toString();
+		List<SubMenuVo> subMenuList = customService.getSubMenuById(db);
+		System.err.println(subMenuList+"!!!");
+		model.addAttribute("subMenuList",subMenuList);
+		return "custom/left-nav";
+	}
+	
+	
+
 }
