@@ -1,5 +1,6 @@
 package com.douzonemania.scs.repository;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.douzonemania.scs.vo.ceo.AgreementVo;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.ceo.MainStatementVo;
 import com.douzonemania.scs.vo.ceo.SiteVo;
 @Repository
 public class UserRepository {
@@ -236,5 +238,23 @@ public class UserRepository {
 		
 		return sqlSession.update("user.updatePassword", map);
 	}
+	
+	public int getTotalRevenue(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		return sqlSession.selectOne("user.getTotalRevenue", map);
+	}
+	public int getSales(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		return sqlSession.selectOne("user.getSales", map);
+	}
+	
+	public List<Integer> getStatement(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		return sqlSession.selectList("user.getStatement", map);
+	}
+
 
 }
