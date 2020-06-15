@@ -52,19 +52,19 @@
                     </div>
                 </div>     
                 <!-- end page title --> 
-
                 <div class="row">
+                	
                     <div class="col-md-6 col-xl-4">
                         <div class="widget-rounded-circle card-box">
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="avatar-lg rounded-circle bg-soft-primary border-primary border">
-                                        <i class="fe-heart font-22 avatar-title text-primary"></i>
+                                    <div class="avatar-lg rounded-circle bg-primary">
+                                        <i class="fe-heart-on font-22 avatar-title text-white"></i>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">100000</span>원</h6>
+                                        <h4 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#6658DD;">${map.totalRevenue }</span>원</h4>
                                         <p class="text-muted mb-1 text-truncate">총 수익</p>
                                     </div>
                                 </div>
@@ -76,34 +76,36 @@
                         <div class="widget-rounded-circle card-box">
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
-                                        <i class="fe-shopping-cart font-22 avatar-title text-success"></i>
+                                    <div class="avatar-lg rounded-circle bg-primary">
+                                        <i class="fe-star-on font-22 avatar-title text-white"></i>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">127</span>개</h6>
-                                        <p class="text-muted mb-1 text-truncate">오늘의 판매량</p>
+                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#6658DD;">${map.sales }</span>개</h6>
+                                        <p class="text-muted mb-1 text-truncate">총 판매량</p>
                                     </div>
                                 </div>
                             </div> <!-- end row-->
                         </div> <!-- end widget-rounded-circle-->
                     </div> <!-- end col-->
-
+	
+					
                     
 
                     <div class="col-md-6 col-xl-4">
                         <div class="widget-rounded-circle card-box">
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="avatar-lg rounded-circle bg-soft-warning border-warning border">
-                                        <i class="fe-eye font-22 avatar-title text-warning"></i>
+                                    <div class="avatar-lg rounded-circle bg-primary">
+                                        <i class="fe-thumbs-up font-22 avatar-title text-white"></i>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">78.41</span>k</h6>
+                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#6658DD;"></span>k</h6>
                                         <p class="text-muted mb-1 text-truncate">뭐넣냐 진짜 ㅋㅋ</p>
+                                        
                                     </div>
                                 </div>
                             </div> <!-- end row-->
@@ -111,65 +113,165 @@
                     </div> <!-- end col-->
                 </div>
                 <!-- end row-->
-
+				
                 <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card-box">
-                             <h4 class="header-title mb-3" style="font-weight: bold">현황</h4>
-	                        <div class="col-md-5 col-xl-3" >
-		                        <div class="widget-rounded-circle card-box" style="border: 1px solid black">
-		                            <div class="row">
-		                                <div class="col-5">
-		                                    <div class="avatar-lg rounded-circle bg-soft-warning border-warning border">
-		                                        <i class="fe-eye font-22 avatar-title text-warning"></i>
-		                                    </div>
-		                                </div>
-		                                <div class="col-5">
-		                                    <div class="text-right">
-		                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">78.41</span>k</h6>
-		                                        <p class="text-muted mb-1 text-truncate">1</p>
-		                                    </div>
-		                                </div>
-		                        	</div> <!-- end widget-rounded-circle-->
-		                   		</div> <!-- end col-->
-		                   		<div class="widget-rounded-circle card-box" style="border: 1px solid black">
-		                            <div class="row">
-		                                <div class="col-5">
-		                                    <div class="avatar-lg rounded-circle bg-soft-warning border-warning border">
-		                                        <i class="fe-eye font-22 avatar-title text-warning"></i>
-		                                    </div>
-		                                </div>
-		                                <div class="col-5">
-		                                    <div class="text-right">
-		                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">78.41</span>k</h6>
-		                                        <p class="text-muted mb-1 text-truncate">1</p>
-		                                    </div>
-		                                </div>
-		                        	</div> <!-- end widget-rounded-circle-->
-		                   		</div> <!-- end col-->
-	                        </div>
-	                        <div class="col-md-5 col-xl-3">
-		                        <div class="widget-rounded-circle card-box" style="border: 1px solid black">
-		                            <div class="row">
-		                                <div class="col-5">
-		                                    <div class="avatar-lg rounded-circle bg-soft-warning border-warning border">
-		                                        <i class="fe-eye font-22 avatar-title text-warning"></i>
-		                                    </div>
-		                                </div>
-		                                <div class="col-5">
-		                                    <div class="text-right">
-		                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px;">78.41</span>k</h6>
-		                                        <p class="text-muted mb-1 text-truncate">2</p>
-		                                    </div>
-		                                </div>
-		                        	</div> <!-- end widget-rounded-circle-->
-		                   		</div> <!-- end col-->
-	                        </div>
-                        </div>
-                    </div> <!-- end col -->
-
-                </div>
-                <!-- end row -->
+                        <div class="col-md-2 col-xl-2" >
+	                        <div class="widget-rounded-circle card-box">
+	                            <div class="row">	                                
+                            		<div class="col-6">
+	                                    <div class="avatar-lg rounded-circle bg-warning">
+	                                        <i class="mdi mdi-rocket font-22 avatar-title text-white"></i>
+	                                    </div>
+	                                </div>
+	                                <div class="col-6">
+	                                    <div class="text-right">
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F7B84B;">${map.vo.get(1) }</span>건</h6>
+	                                        <p class="text-muted mb-1 text-truncate">입금완료</p>
+	                                    </div>
+	                                </div> <!-- end col -->
+	                        	</div> <!-- end row -->
+	                   		</div> <!-- end widget-rounded-circle-->
+                        </div> <!--  end col-md, col-xl -->
+                        <div class="col-md-2 col-xl-2" >
+	                        <div class="widget-rounded-circle card-box">
+	                            <div class="row">	                                
+                            		<div class="col-6">
+	                                    <div class="avatar-lg rounded-circle bg-warning">
+	                                        <i class="fe-truck font-22 avatar-title text-white"></i>
+	                                    </div>
+	                                </div>
+	                                <div class="col-6">
+	                                    <div class="text-right">
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F7B84B;">${map.vo.get(2) }</span>건</h6>
+	                                        <p class="text-muted mb-1 text-truncate">배송준비중</p>
+	                                    </div>
+	                                </div> <!-- end col -->
+	                        	</div> <!-- end row -->
+	                   		</div> <!-- end widget-rounded-circle-->
+                        </div> <!--  end col-md, col-xl -->
+                        <div class="col-md-3 col-xl-4" >
+	                        <div class="widget-rounded-circle card-box">
+	                            <div class="row">	                                
+                            		<div class="col-6">
+	                                    <div class="avatar-lg rounded-circle bg-success">
+	                                        <i class="fe-users font-22 avatar-title text-white"></i>
+	                                    </div>
+	                                </div>
+	                                <div class="col-6">
+	                                    <div class="text-right">
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#1ABC9C;">${map.vo.get(0) }</span>건</h6>
+	                                        <p class="text-muted mb-1 text-truncate">주문완료</p>
+	                                    </div>
+	                                </div> <!-- end col -->
+	                        	</div> <!-- end row -->
+	                   		</div> <!-- end widget-rounded-circle-->
+                        </div> <!--  end col-md, col-xl -->
+                        <div class="col-md-2 col-xl-2" >
+	                        <div class="widget-rounded-circle card-box">
+	                            <div class="row">	                                
+                            		<div class="col-6">
+	                                    <div class="avatar-lg rounded-circle bg-danger border">
+	                                        <i class="mdi mdi-emoticon-devil font-22 avatar-title text-white"></i>
+	                                    </div>
+	                                </div>
+	                                <div class="col-6">
+	                                    <div class="text-right">
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F1556C;">${map.vo.get(5) }</span>건</h6>
+	                                        <p class="text-muted mb-1 text-truncate">취소처리중</p>
+	                                    </div>
+	                                </div> <!-- end col -->
+	                        	</div> <!-- end row -->
+	                   		</div> <!-- end widget-rounded-circle-->
+                        </div> <!--  end col-md, col-xl -->
+                        <div class="col-md-2 col-xl-2" >
+	                        <div class="widget-rounded-circle card-box">
+	                            <div class="row">	                                
+                            		<div class="col-6">
+	                                    <div class="avatar-lg rounded-circle bg-danger border">
+	                                        <i class="mdi mdi-emoticon-devil font-22 avatar-title text-white"></i>
+	                                    </div>
+	                                </div>
+	                                <div class="col-6">
+	                                    <div class="text-right">
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F1556C;">${map.vo.get(6) }</span>건</h6>
+	                                        <p class="text-muted mb-1 text-truncate">교환처리중</p>
+	                                    </div>
+	                                </div> <!-- end col -->
+	                        	</div> <!-- end row -->
+	                   		</div> <!-- end widget-rounded-circle-->
+                        </div> <!--  end col-md, col-xl -->
+                </div> <!-- end row -->
+                <div class="row">
+                        <div class="col-md-2 col-xl-2" >
+	                        <div class="widget-rounded-circle card-box">
+	                            <div class="row">	                                
+                            		<div class="col-6">
+	                                    <div class="avatar-lg rounded-circle bg-warning">
+	                                        <i class="fe-truck font-22 avatar-title text-white"></i>
+	                                    </div>
+	                                </div>
+	                                <div class="col-6">
+	                                    <div class="text-right">
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F7B84B;">${map.vo.get(3) }</span>건</h6>
+	                                        <p class="text-muted mb-1 text-truncate">배송중</p>
+	                                    </div>
+	                                </div> <!-- end col -->
+	                        	</div> <!-- end row -->
+	                   		</div> <!-- end widget-rounded-circle-->
+                        </div> <!--  end col-md, col-xl -->
+                        <div class="col-md-2 col-xl-2" >
+	                        <div class="widget-rounded-circle card-box">
+	                            <div class="row">	                                
+                            		<div class="col-6">
+	                                    <div class="avatar-lg rounded-circle bg-warning">
+	                                        <i class="fe-truck font-22 avatar-title text-white"></i>
+	                                    </div>
+	                                </div>
+	                                <div class="col-6">
+	                                    <div class="text-right">
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F7B84B;">${map.vo.get(4) }</span>건</h6>
+	                                        <p class="text-muted mb-1 text-truncate">배송완료</p>
+	                                    </div>
+	                                </div> <!-- end col -->
+	                        	</div> <!-- end row -->
+	                   		</div> <!-- end widget-rounded-circle-->
+                        </div> <!--  end col-md, col-xl -->
+                        <div class="col-md-3 col-xl-4" >
+	                        <div class="widget-rounded-circle card-box">
+	                            <div class="row">	                                
+                            		<div class="col-6">
+	                                    <div class="avatar-lg rounded-circle bg-success">
+	                                        <i class="fe-users font-22 avatar-title text-white"></i>
+	                                    </div>
+	                                </div>
+	                                <div class="col-6">
+	                                    <div class="text-right">
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#1ABC9C;">${map.vo.get(8) }</span>건</h6>
+	                                        <p class="text-muted mb-1 text-truncate">처리완료</p>
+	                                    </div>
+	                                </div> <!-- end col -->
+	                        	</div> <!-- end row -->
+	                   		</div> <!-- end widget-rounded-circle-->
+                        </div> <!--  end col-md, col-xl -->
+                        <div class="col-md-2 col-xl-2" >
+	                        <div class="widget-rounded-circle card-box">
+	                            <div class="row">	                                
+                            		<div class="col-6">
+	                                    <div class="avatar-lg rounded-circle bg-danger border">
+	                                        <i class="mdi mdi-emoticon-devil font-22 avatar-title text-white"></i>
+	                                    </div>
+	                                </div>
+	                                <div class="col-6">
+	                                    <div class="text-right">
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F1556C;">${map.vo.get(7) }</span>건</h6>
+	                                        <p class="text-muted mb-1 text-truncate">환불처리중</p>
+	                                    </div>
+	                                </div> <!-- end col -->
+	                        	</div> <!-- end row -->
+	                   		</div> <!-- end widget-rounded-circle-->
+                        </div> <!--  end col-md, col-xl -->
+                </div> <!-- end row -->               
+                
                 <div class="row">
                     <div class="col-xl-6">
                         <div class="card-box">
