@@ -54,12 +54,12 @@
                 <!-- end page title --> 
                 <div class="row">
                 	
-                    <div class="col-md-6 col-xl-4">
+                    <div class="col-md-6 col-xl-6">
                         <div class="widget-rounded-circle card-box">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="avatar-lg rounded-circle bg-primary">
-                                        <i class="fe-heart-on font-22 avatar-title text-white"></i>
+                                        <i class="fe-dollar-sign font-22 avatar-title text-white"></i>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -72,40 +72,18 @@
                         </div> <!-- end widget-rounded-circle-->
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-4">
+                    <div class="col-md-6 col-xl-6">
                         <div class="widget-rounded-circle card-box">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="avatar-lg rounded-circle bg-primary">
-                                        <i class="fe-star-on font-22 avatar-title text-white"></i>
+                                        <i class="fe-bar-chart-2 font-22 avatar-title text-white"></i>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
                                         <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#6658DD;">${map.sales }</span>개</h6>
                                         <p class="text-muted mb-1 text-truncate">총 판매량</p>
-                                    </div>
-                                </div>
-                            </div> <!-- end row-->
-                        </div> <!-- end widget-rounded-circle-->
-                    </div> <!-- end col-->
-	
-					
-                    
-
-                    <div class="col-md-6 col-xl-4">
-                        <div class="widget-rounded-circle card-box">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="avatar-lg rounded-circle bg-primary">
-                                        <i class="fe-thumbs-up font-22 avatar-title text-white"></i>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="text-right">
-                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#6658DD;"></span>k</h6>
-                                        <p class="text-muted mb-1 text-truncate">뭐넣냐 진짜 ㅋㅋ</p>
-                                        
                                     </div>
                                 </div>
                             </div> <!-- end row-->
