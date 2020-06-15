@@ -51,6 +51,7 @@
 				state
 			  from scs2.sub_menu
 			 where id=#{db}
+			   and state=true
 		  order by menu_index
 		]]>
 	</select>
@@ -97,16 +98,13 @@
 		]]>
 	</update>
 	
-	
-	
-	
+	<!-- submenu no를 get  -->
 	<select id="findSubmenuNum" parameterType="map" resultType="int">
 		<![CDATA[
 				select no
 				from scs2.sub_menu
 				where menu_index=#{index} and id=#{id}
 		]]>
-	
 	</select>
 	
 	<select id="findCustoms" parameterType="map" resultType="map">
@@ -122,8 +120,41 @@
 		<![CDATA[
 			select count(*)
 			from scs2.contents
-			where custom_no =#{customNo} and
-					contents_index=#{index}
+			where custom_no =#{customNo} 
+			  and contents_index=#{index}
 		]]>
 	</select>
+	
+	<update id="deleteCustomMenu" parameterType="map">
+		<![CDATA[
+			update scs2.sub_menu
+			   set state=false
+			 where id=#{db}
+			   and menu_index=#{index}		
+		]]>
+	</update>
+
+	<!-- menu_no로 해당 custom page의 custom list를 받아옴(index 1~5) -->	
+	<select id="getCustomBySubmenuNo" resultType="customvo">
+		<![CDATA[
+			select no, 
+				   custom_index as customIndex, 
+			       design_id as designId, 
+				   menu_no as menuNo
+			  from scs2.custom
+			 where menu_no=#{no}
+		]]>
+	</select>
+	
+	<select id="getContentsByCustomNo" parameterType="int" resultType="contentsvo">
+			<![CDATA[
+				select no,
+					   custom_no as customNo,
+					   contents_index as 'index', 
+					   content 
+				  from scs2.contents
+				 where custom_no = #{no}
+			]]>
+	</select>
+	
 </mapper>

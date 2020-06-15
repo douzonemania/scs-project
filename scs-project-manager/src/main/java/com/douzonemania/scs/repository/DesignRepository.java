@@ -8,7 +8,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.douzonemania.scs.vo.ceo.ContentsVo;
 import com.douzonemania.scs.vo.ceo.CustomDesignVo;
+import com.douzonemania.scs.vo.ceo.CustomVo;
 import com.douzonemania.scs.vo.ceo.MainMenuVo;
 import com.douzonemania.scs.vo.ceo.SubMenuVo;
 
@@ -66,7 +68,7 @@ public class DesignRepository {
 	
 	///////////////////////
 	
-public int findSubmenuNum(int index, String id) {
+	public int findSubmenuNum(int index, String id) {
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("index",index);
@@ -109,8 +111,6 @@ public int findSubmenuNum(int index, String id) {
 	
 		sqlSession.update("design.updateCustoms",map);
 		
-		
-		
 	}
 
 	public int findContents(int customNo, int index) {
@@ -127,7 +127,7 @@ public int findSubmenuNum(int index, String id) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("customNo",customNo);
 		map.put("index",index);
-		map.put("contenst",contents);
+		map.put("contents",contents);
 		sqlSession.insert("design.insertContents",map);
 	}
 
@@ -138,6 +138,31 @@ public int findSubmenuNum(int index, String id) {
 		map.put("contents",contents);
 		sqlSession.insert("design.updateContents",map);
 		
+	}
+
+	// custom menu의 state를 false로 만들기(custom menu delete)
+	public int deleteCustomMenu(String id, int index) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("index",index);
+		
+		return sqlSession.update("design.deleteCustomMenu", map);
+	}  
+
+	public List<CustomVo> getCustomBySubmenuNo(int no, String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("no",no);
+		map.put("id",id);
+		
+		return sqlSession.selectList("design.getCustomBySubmenuNo", map);
+	}
+
+	public List<ContentsVo> getContentsByCustomNo(int no, String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("no",no);
+		map.put("id",id);
+		
+		return sqlSession.selectList("design.getContentsByCustomNo", map);
 	}
 
 }
