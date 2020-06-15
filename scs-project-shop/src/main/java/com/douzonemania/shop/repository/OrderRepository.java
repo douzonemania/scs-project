@@ -233,7 +233,7 @@ public class OrderRepository {
 	public List<ShipVo> findShipAddressList(String db, Long no) {
 		
 		map.put("db", db);
-		map.put("userNo",no);
+		map.put("memberNo",no);
 		
 		List<ShipVo> list = sqlSession.selectList("findShipAddressList",map);
 		
@@ -251,9 +251,7 @@ public class OrderRepository {
 		map.put("firstOption",firstOption);
 		map.put("secondOption",secondOption);
 		
-		
-		System.out.println("NO : "+no+"  ITEMNO:"+itemNo+"  FIRSTOPTION :"+firstOption +" SECONDOPTION :"+secondOption);
-		
+	
 		
 		int stockNo = sqlSession.selectOne("findStockNo",map);
 		

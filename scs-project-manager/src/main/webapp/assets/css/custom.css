@@ -1,0 +1,505 @@
+  
+/*************************/
+/*** designSource3 CSS ***/
+/*************************/
+#designSource3{
+    width:100%;
+    height:40vh;
+    overflow:hidden;
+  }
+  
+  .designSource3MainImgBox{
+    float:right;
+    width:39.5%;
+    height:100%;
+        
+  }
+
+  .designSource3MainImgSector{
+    width:100%;
+    height: 390px;
+    background-color: #efefef;
+  }
+
+
+  .designSource3TextBox{
+    display:inline-block;
+    width:60%;
+    height:100%;
+    border:1px solid transparent;    
+  }
+
+  .designSource3Title{
+      
+      border:5px solid transparent;
+      border-bottom:1px solid black;
+      width:98.5%;
+      font-size: 50px;
+      text-align: center;
+      padding-bottom: 0%;
+      margin:auto;
+  }
+
+  .designSource3Title:hover{
+    border: 3px dashed darkgray;     
+  }
+
+   .designSource3Space{
+      height:10px;
+  }
+
+  .designSource3TextArea{
+    font-size:24px;
+    width:97%;
+    height:140px;
+    border:1px solid transparent;
+    resize:none;
+    overflow: hidden;
+    margin-top:0%;
+    padding-left:2%;        
+  }
+
+  .designSource3TextArea:hover{
+    border: 2px dashed darkgray;      
+  }
+
+  .designSource3SubImgBox{
+    width:100.75%;
+    height:136px;
+    float:bottom;
+    padding:0px;
+    padding-top:3.5px;
+    margin:0px;
+  }
+
+  .designSource3SubImgSector{
+    width:100%;
+    height: 100%;
+    background-color: #efefef;
+  }
+
+  .fullImg{
+    width: 100%;
+    height: 100%
+  }
+  
+  
+/*************************/
+/*** designSource4 CSS ***/
+/*************************/
+#designSource4 {
+	width: 100%;
+	height: 40vh;
+	overflow: hidden;
+}
+
+.designSource4ImageBox {
+	width: 100%;
+	height: 50%;
+	float: bottom;
+}
+
+.designSource4ImgSector {
+	width: 100%;
+	height: 165px;
+	background-color: #efefef;
+}
+
+.designSource4TextBox {
+	width: 100%;
+	height: 50%;
+	border: 1px solid transparent;
+	float: top;
+}
+
+.fullImg {
+	width: 100%;
+	height: 100%
+}
+
+.designSource4Content {
+	border: 1px solid transparent;
+	width: 98.5%;
+	overflow: hidden;
+	text-align: center;
+}
+
+.designSource4Title {
+	border: 5px solid transparent;
+	border-bottom: 1px solid black;
+	width: 98.5%;
+	font-size: 40px;
+	text-align: center;
+	font-weight: bolder;
+	padding-bottom: 2%;
+	margin: auto;
+}
+
+.designSource4Title:hover {
+	border: 3px dashed darkgray;
+}
+
+.designSource4Content:hover {
+	border: 2px dashed darkgray;
+}
+
+.designSource4Space {
+	height: 10px;
+}
+
+/*************************/
+/*** designSource6 CSS ***/
+/*************************/
+#designSource6{
+    width:100%;
+    height:40vh;
+    overflow:hidden;
+  }
+
+  .designSource6ImgFrame{
+    width:100%;
+    height: 300px;
+    margin:auto;
+    border: 0px transparent;
+  }
+
+  .designSource6Imgbox{
+   
+    margin-left: 13.5%;
+    margin-top : 3.5%;
+    display: inline-block;
+    width:280px;
+    height:260px;
+    border: 0px solid transparent;
+    position: relative;
+  }
+
+  .designSource6Imgbox:hover{
+    border: 3px dashed darkgray;
+  }
+
+  .designSource6ImgSector{
+    width:100%;
+    height:100%;
+    position: relative;
+  }
+
+  .designSource6Title{   
+    border:0px transparent;     
+    font-size: 32px;
+    font-weight: bolder;
+    text-align: center;
+    width:80%;          
+    position: absolute;
+    top:8%;
+    left:8%;
+    z-index: 1;
+    color:white; 
+    background-color: transparent;
+  }
+
+  .designSource6Title:hover{
+    border: 3px dashed darkgray;
+    border-radius: 7%;
+  }
+
+  .designSource6Text{
+    border:0px transparent;
+    width:98%;
+    position: absolute;
+    top:70%;
+    font-size:20px;
+    color:white;
+    background-color: transparent;
+  }
+
+  .designSource6Text:hover{
+    border: 2px dashed darkgray;
+    border-radius: 7%;
+  }
+
+  .fullImg{
+    width: 100%;
+    height: 100%
+  }
+ 
+ 
+/*************************/
+/*** designSource7 CSS ***/
+/*************************/
+
+#designSource7{
+    width:100%;
+    height:40vh;
+    overflow:hidden;
+  }
+
+  .designSource7Textbox{
+    width: 100%;
+    height: 100%;
+    padding-top : 20px;
+  }
+
+  .designSource7Underline{
+    border:5px solid transparent;
+    border-top:2px solid black;
+    margin-top : 20px;
+    width:99%;
+  }
+  .designSource7Title{      
+      border:5px solid transparent;      
+      width:98.5%;
+      font-size: 40px;
+      text-align: left;
+      padding-top: 2%;
+      padding-left: 3.5%;
+      padding-bottom: 2%;
+      margin:auto;
+  }
+
+  .designSource7Title:hover{
+    border : 3px dashed darkgray;
+  }
+
+  .designSource7TextArea{
+    border:0px solid transparent;  
+    font-size : 18px;
+    width:98%;
+    height:130px;
+    resize: none;
+    overflow: hidden;
+    line-height: 130%;
+    padding-left:3.5%;
+    padding-top:1%;
+  }
+
+  .designSource7TextArea:hover{
+    border : 2px dashed darkgray;
+  }
+
+/*************************/
+/*** designSource8 CSS ***/
+/*************************/
+#designSource8{
+    width:100%;
+    height:40vh;
+    overflow:hidden;
+  }
+  
+  .designSource8ImageBox{
+    margin:0 auto;
+    width:80%;
+    height:390px;
+    position: relative;        
+  }
+
+  .designSource8ImageBox:hover{
+    border:4px dashed darkgray;      
+  }
+
+  .designSource8ImgSector{
+    width:100%;
+    height: 100%;
+    background-color: #efefef;       
+  }
+
+  .designSource8Preview{
+  width:100%;
+  height:100%;
+}
+
+.designSource8Picker{
+  float:right;
+  margin-top:1%;
+}
+
+
+/*************************/
+/*** designSource9 CSS ***/
+/*************************/
+#designSource9 {
+	width: 100%;
+	height: 40vh;
+	overflow: hidden;
+}
+
+.designSource9ImgBox {
+	margin-top: -13.5%;
+	margin-left: 55%;
+	width: 28%;
+	height: 250px;
+	z-index: 1;
+	border: 0px transparent;
+}
+
+.designSource9ImgBox:hover {
+	border: 2px dashed darkgray;
+}
+
+.designSource9ImgSector {
+	width: 100%;
+	height: 100%;
+	background-color: #efefef;
+}
+
+.designSource9Picker {
+	margin-top: 1%;
+	float: right;
+}
+
+.designSource9file {
+	margin-left: 60%;
+}
+
+.designSource9TextBox {
+	margin-left: 2%;
+	margin-top: 2%;
+	width: 55%;
+	height: 90%;
+	display: inline-block;
+}
+
+.designSource9Title {
+	background-color: transparent;
+	border: 0px transparent;
+	width: 70%;
+	font-size: 46px;
+	margin-left: 25%;
+	margin-top: 5%;
+	display: inline-block;
+	color: black;
+}
+
+.designSource9Title:hover {
+	border: 3px dashed darkgray;
+}
+
+.designSource9TextArea {
+	width: 70%;
+	background-color: transparent;
+	border: 0px transparent;
+	height: 150px;
+	font-size: 30px;
+	margin-left: 25%;
+	margin-top: -2%;
+	display: inline-block;
+	color: black;
+	overflow: hidden;
+	resize: none;
+}
+
+.designSource9TextArea:hover {
+	border: 2px dashed darkgray;
+}
+
+.fullImg {
+	width: 100%;
+	height: 100%
+}
+
+/*************************/
+/*** designSource10 CSS ***/
+/*************************/
+#designSource10 {
+	width: 100%;
+	height: 40vh;
+	overflow: hidden;
+}
+
+.designSource10CardBox {
+	width: 100%;
+	height: 100%;
+	margin-top: 2.5%;
+	padding-top: 3%;
+	padding-bottom: 3%;
+}
+
+.designSource10Card {
+	display: inline-block;
+	margin-left: 12.5%;
+	width: 300px;
+	height: 150px;
+	border: 1px solid darkgray;
+	border-bottom: 4px solid darkgray;
+	border-right: 4px solid darkgray;
+}
+
+.designSource10Title {
+	padding-top: 0%;
+	padding-bottom: 3%;
+	border: 0px transparent;
+	font-size: 24px;
+	font-weight: bolder;
+	background-color: transparent;
+	text-align: center;
+	width: 98%;
+}
+
+.designSource10Title:hover {
+	border: 2px dashed darkgray;
+}
+
+.designSource10Text {
+	padding-left: 5%;
+	width: 94%;
+	margin-top: 0%;
+	margin-bottom: 0%; border : 0px transparent;
+	background-color: transparent;
+	border: 0px transparent;
+}
+
+.designSource10Text:hover {
+	border: 2px dashed darkgray;
+}
+
+.designSource10Picker {
+	margin-top: 2%;
+	float: right;
+}
+
+/*************************/
+/*** designSource11 CSS **/
+/*************************/
+#designSource11 {
+	width: 100%;
+	height: 40vh;
+	overflow: hidden;
+}
+
+.designSource11ImageBox {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.designSource11ImageBox:hover {
+	border: 4px dashed darkgray;
+}
+
+.designSource11ImgSector {
+	width: 100%;
+	height: 100%;
+	background-color: #efefef;
+}
+
+.designSource11TextBox {
+	position: absolute;
+	left: 0%;
+	top: 35%;
+	width: 100%;
+	text-align: center;
+	z-index: 1;
+}
+
+.designSource11Text {
+	text-align: center;
+	width: 100%;
+	color: black;
+	border: solid 1px transparent;
+	background-color: transparent;
+	font-size: 36px;
+}
+
+.designSource11Text:hover {
+	border: 2px dashed darkgray;
+}

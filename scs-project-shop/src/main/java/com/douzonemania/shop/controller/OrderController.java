@@ -92,6 +92,8 @@ public class OrderController {
 			
 			) {
 			
+		System.out.println("TEST");
+		
 		String db = session.getAttribute("db").toString();
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
 		

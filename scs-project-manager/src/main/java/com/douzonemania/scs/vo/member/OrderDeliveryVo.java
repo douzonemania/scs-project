@@ -6,7 +6,7 @@ public class OrderDeliveryVo {
 
 	private int no;
 	private String name;
-
+	private int count;
 	private Timestamp regDate;
 	private String orderNumber;
 	private String id;
@@ -18,7 +18,13 @@ public class OrderDeliveryVo {
 	public void setStatement(String statement) {
 		this.statement = statement;
 	}
+	public int getCount() {
+		return count;
+	}
 
+	public void setCount(int count) {
+		this.count = count;
+	}
 	private int dataValue;
 
 	public int getDataValue() {
@@ -71,8 +77,9 @@ public class OrderDeliveryVo {
 
 	@Override
 	public String toString() {
-		return "OrderDeliveryVo [no=" + no + ", name=" + name + ", regDate=" + regDate + ", orderNumber=" + orderNumber
-				+ ", id=" + id + ", statement=" + statement + ", dataValue=" + dataValue + "]";
+		return "OrderDeliveryVo [no=" + no + ", name=" + name + ", count=" + count + ", regDate=" + regDate
+				+ ", orderNumber=" + orderNumber + ", id=" + id + ", statement=" + statement + ", dataValue="
+				+ dataValue + "]";
 	}
 
 }

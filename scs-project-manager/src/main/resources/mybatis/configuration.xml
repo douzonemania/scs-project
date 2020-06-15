@@ -21,7 +21,7 @@
 		<typeAlias alias="submenuvo" type="com.douzonemania.scs.vo.ceo.SubMenuVo" />
 		<typeAlias alias="customvo" type="com.douzonemania.scs.vo.ceo.CustomVo" />
 		<typeAlias alias="contentsvo" type="com.douzonemania.scs.vo.ceo.ContentsVo" />
-
+		<typeAlias alias="mainstatementvo" type="com.douzonemania.scs.vo.ceo.MainStatementVo" />
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/main.xml" />

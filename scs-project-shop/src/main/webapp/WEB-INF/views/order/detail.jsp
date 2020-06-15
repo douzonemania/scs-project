@@ -268,8 +268,6 @@
 								console.error(status + ":" + e);
 							}
 						});
-					
-					
 					}
 		});	
 		
