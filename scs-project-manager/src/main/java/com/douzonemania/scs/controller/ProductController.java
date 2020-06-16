@@ -241,4 +241,20 @@ public class ProductController {
 		
 		return "product/board-view";
 	}
+	
+	// 각 상품 통계 팝업
+	@RequestMapping(value = "/statistics/{itemNo}", method = RequestMethod.GET)
+	public String productStatistics(
+			@AuthUser CeoVo authUser,
+			@PathVariable("itemNo") int no,
+			Model model) {				
+		String id = authUser.getId();
+		System.err.println(no);
+
+		ItemVo iVo = productService.findItem(id, no);
+//		List<StockVo> stockList = productService.getStockListByItemNo(id, no);
+		
+		model.addAttribute("iVo", iVo);
+		return "product/product-statistics";
+	}
 }
