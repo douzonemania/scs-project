@@ -39,7 +39,6 @@ public class SettingController {
 			@ModelAttribute("ceoVo") CeoVo ceoVo,
 			Model model) {
 		
-		System.out.println("info보여준다.");
 		ceoVo = userService.findCeoByIdJoin(authUser.getId());
 		model.addAttribute("ceoVo", ceoVo);
 		
@@ -52,7 +51,6 @@ public class SettingController {
 			@AuthUser CeoVo authUser,
 			@ModelAttribute("ceoVo") CeoVo ceoVo,
 			Model model) {
-		System.out.println("update get 보여준다.");
 		ceoVo.setId(authUser.getId());
 		
 		model.addAttribute("ceoVo", ceoVo);
@@ -192,7 +190,6 @@ public class SettingController {
 			@ModelAttribute AgreementVo agreementVo,
 			Model model) {
 			
-		System.out.println("policy(update)보여준다.");
 		agreementVo.setId(authUser.getId());
 		settingService.updatePolicy(html, authUser.getId());
 		
