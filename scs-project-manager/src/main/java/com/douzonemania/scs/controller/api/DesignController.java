@@ -133,7 +133,7 @@ public class DesignController {
 	@ResponseBody
 	@RequestMapping("/FAQ/insert")
 	public JsonResult insertFAQ(@AuthUser CeoVo authUser, @RequestBody String map) {
-		System.out.println("faq: " + map);
+		
 		boolean insertSuccess = designService.insertFQA(authUser.getId(), map);
 		
 		return JsonResult.success(insertSuccess);
@@ -150,23 +150,11 @@ public class DesignController {
 		CustomVo vo = customList.get(0);
 
 		List<ContentsVo> contentsList = designService.getContentsByCustomNo(vo.getNo(), authUser.getId());
-		for (ContentsVo contentsVo : contentsList) {
-			System.out.println(contentsVo);
-		}
-		System.out.println("-----------------------------------------------------------");
-		JSONArray jArray = new JSONArray();
-		for(int i = 0; i < contentsList.size()/2; i++) {
-			JSONObject obj = new JSONObject();
-			obj.put("q", contentsList.get(i*2).getContent());
-			obj.put("a", contentsList.get(i*2+1).getContent());
-			jArray.put(obj);
-		}
 		
-		System.out.println("jArray:"+jArray);
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", contentsList);
 		
-		return JsonResult.success(jArray.toString());
+		return JsonResult.success(map);
 	}
 	
 			
