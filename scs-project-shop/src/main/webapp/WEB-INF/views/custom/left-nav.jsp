@@ -28,7 +28,11 @@
 		
 			<ul style=" margin-top:200px">				
 				 <c:forEach var="vo" varStatus="status" items="${subMenuList}">
-	              	<li><button class="subButton" value="${vo.no }">${vo.name }</button></li>
+				 	<c:if test="${status.index>1 }">
+	              		<li><a href ="${ pageContext.request.contextPath }/${db }/custom/${vo.no}">
+	              			<button class="subButton" value="${vo.no }">${vo.name }</button>
+	              			</a></li>
+	              	</c:if>
 	      		 </c:forEach>  
 			</ul>
 			  

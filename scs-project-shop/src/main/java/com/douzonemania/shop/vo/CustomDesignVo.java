@@ -3,6 +3,15 @@ package com.douzonemania.shop.vo;
 import org.json.JSONObject;
 
 public class CustomDesignVo {
+	private int no;
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
 	private int customIndex;
 	private String designID;
 	private JSONObject contentsGroup;
@@ -33,8 +42,8 @@ public class CustomDesignVo {
 
 	@Override
 	public String toString() {
-		return "CustomDesignVo [customIndex=" + customIndex + ", designID=" + designID + ", contentsGroup="
-				+ contentsGroup + "]";
+		return "CustomDesignVo [no=" + no + ", customIndex=" + customIndex + ", designID=" + designID
+				+ ", contentsGroup=" + contentsGroup + "]";
 	}
 
 }
