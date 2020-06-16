@@ -1,5 +1,5 @@
   <!-- Vendor js -->
-    <script src="<%=request.getContextPath() %>/assets/js/vendor.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/vendor.min.js"></script>
     
     <!-- Plugins js-->
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/libs/flatpickr/flatpickr.min.js"></script>
@@ -32,13 +32,15 @@
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/libs/ladda/spin.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/libs/ladda/ladda.js"></script>
 
+
+    
     <!-- Init js-->
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/form-pickers.init.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/form-xeditable.init.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/form-fileuploads.init.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/form-advanced.init.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/form-quilljs.init.js"></script>
-
+    <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/morris.init.js"></script>
     <!-- Buttons init js-->
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/loading-btn.init.js"></script>
 

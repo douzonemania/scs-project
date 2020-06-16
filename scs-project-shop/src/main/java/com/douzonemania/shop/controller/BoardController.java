@@ -21,7 +21,12 @@ public class BoardController {
 		return "board/faq";
 	}
 	@RequestMapping(value = "/qna")
-	public String qna() {
+	public String qnaWrite() {
+		return "board/qna";
+	}
+	
+	@RequestMapping(value = "/qna/list")
+	public String qnaList() {
 		return "board/qna";
 	}
 	

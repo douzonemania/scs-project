@@ -15,13 +15,14 @@
 		<typeAlias alias="mainmenuvo" type="com.douzonemania.shop.vo.MainMenuVo"/>
 		<typeAlias alias="submenuvo" type="com.douzonemania.shop.vo.SubMenuVo"/>
 		<typeAlias alias="contentsvo" type="com.douzonemania.shop.vo.ContentsVo"/>
-		
+		<typeAlias alias="boardvo" type="com.douzonemania.shop.vo.BoardVo"/>
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/order.xml" />
 		<mapper resource="mybatis/mappers/member.xml" />
 		<mapper resource="mybatis/mappers/main.xml" />
-		<mapper resource="mybatis/mappers/custom.xml" />			
+		<mapper resource="mybatis/mappers/custom.xml" />	
+		<mapper resource="mybatis/mappers/board.xml" />			
 	</mappers>
  	
 </configuration>
