@@ -1,5 +1,7 @@
 package com.douzonemania.shop.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,14 +27,35 @@ public class CustomController {
 	@Autowired
 	private CustomService customService;
 	
-	@RequestMapping({"","/main"})
-	public String home(Model model) {
-		List<CustomDesignVo> list = customService.getCustomDesignBySubMenu(33);
+	@RequestMapping("/{no}")
+	public String home(Model model, 
+			@PathVariable("no") int no
+			) {
+		
+		List<Map> contentList = new ArrayList();
+		List<ContentsVo> cVo = new ArrayList();		
+		
+		List<CustomDesignVo> list = customService.getCustomDesignBySubMenu(no);
+		System.err.println(":::subMenu:::" + list);
 		List<ContentsVo> contentsList = customService.getContentsByCustomNo(14);
 		//System.err.println("::::" + contentsList.get(1).getContent());
-		System.err.println("::::" + contentsList);
+		System.err.println("::::" + contentList);
+		
+		for(CustomDesignVo i: list){
+			Map<String, Object> map = new HashMap<>();
+			cVo = customService.getContentsByCustomNo(i.getNo());
+			System.err.println(cVo+"::::cVo");
+			for(int index =0; index<cVo.size(); index++) {				
+				map.put(Integer.toString(index+1),cVo.get(index).getContent());	
+			}
+			contentList.add(map);
+			
+		}
+		model.addAttribute("contentList",contentList);
 		model.addAttribute("list", list);
 		model.addAttribute("contentsList",contentsList);
+		
+	
 		return "custom/main";
 	}
 	
@@ -90,6 +114,10 @@ public class CustomController {
 		return "custom/left-nav";
 	}
 	
+	@RequestMapping("/designSource10")
+	public String custom9(Model model) {
+		return "custom/designSource10";
+	}	
 	
 
 }

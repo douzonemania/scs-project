@@ -10,6 +10,10 @@
 <%@page import="java.util.ArrayList"%>
 
 
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
+
 
 <head>
 <meta charset="UTF-8">
@@ -50,13 +54,33 @@
 	<div style="border:5px solid black; margin-top:5%">
 		<c:import url='/WEB-INF/views/custom/designSource6.jsp'/>
 	</div> --%>	
-
 	
-< 	<c:forEach var="vo" varStatus="status" items="${list}">
-		<div style="border:5px solid black; margin-top:5%">
-			<c:import url='/WEB-INF/views/custom/${vo.designID }.jsp'/>
-			<%-- <c:param name="list" value="${contentsList }"></c:param> --%>
-		</div>		
+	--${contentList.get(0)["1"]}--
+	--${contentList.get(0)["2"]}--
+	==${contentList.get(2).size()}==
+
+ 	<c:forEach var="vo" varStatus="status" items="${list}">
+		<div style="border:5px solid black; margin-top:5%" id="${vo.no}">	
+			
+			 <c:import url='/WEB-INF/views/custom/${vo.designID }.jsp'>	
+				
+				<c:param name="map" value='${contentList.get(status.index) }'></c:param>
+				
+			</c:import>	 
+					
+		<%-- <c:url var="urlWithQueryString" value="/WEB-INF/views/custom/designSource7.jsp">
+		    <c:forEach var="thisParam" varStatus = "status" items="${contentList}">
+		        <c:param name="${status.index}">${thisParam.get(status.index)}</c:param>
+		    </c:forEach>
+		</c:url>
+		
+		<c:import url="${urlWithQueryString}"/> --%>
+			
+		</div>	
+		
+		
+		
+
 	</c:forEach> 
 </body>
 </html>

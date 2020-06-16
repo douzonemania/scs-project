@@ -226,7 +226,7 @@
 	
 	<select id="getCustomDesignBySubMenu" parameterType="int" resultType="customdesignvo">
 			<![CDATA[
-				select custom_index as 'customIndex', design_id as 'designID' from custom where menu_no = #{subMenuNo};
+				select no, custom_index as 'customIndex', design_id as 'designID' from custom where menu_no = #{subMenuNo};
 			]]>
 	</select>
 	
