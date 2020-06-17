@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.scs.service.ProductService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.ceo.ProductStatisticsVo;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemBoardVo;
@@ -246,9 +247,10 @@ public class ProductController {
 		System.err.println(no);
 
 		ItemVo iVo = productService.findItem(id, no);
-//		List<StockVo> stockList = productService.getStockListByItemNo(id, no);
+		List<ProductStatisticsVo> list = productService.getStatisticsByItemNo(id, no);
 		
 		model.addAttribute("iVo", iVo);
+		model.addAttribute("list", list);
 		return "product/product-statistics";
 	}
 }

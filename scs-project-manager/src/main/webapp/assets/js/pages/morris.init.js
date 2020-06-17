@@ -40,15 +40,15 @@ File: Morris charts init js
 
         //create line chart
         var $data  = [
-            { period: '2020-06-17', a: 10},
-            { period: '2020-06-18', a: 30},
-            { period: '2020-06-19', a: 50},
-            { period: '2020-06-20', a: 50},
-            { period: '2020-06-21', a: 30},
-            { period: '2020-06-22', a: 50},
-            { period: '2020-06-23', a: 80}
+            { period: 'a', a: 'a2'},
+            { period: 'b', a: 'b2'},
+            { period: 'c', a: 'c2'},
+            { period: 'd', a: 'd2'},
+            { period: 'e', a: 'e2'},
+            { period: 'f', a: 'f2'},
+            { period: 'g', a: 'g2'}
           ];
-        this.createLineChart('morris-line-example', $data, 'period', ['a'], ["이름이 무엇일까?"],['0.1'],['#ffffff'],['#999999'], ['#f672a7']);
+        this.createLineChart('morris-line-example', $data, 'period', ['a'], ["ㅇㅇ"],['0.1'],['#ffffff'],['#999999'], ['#f672a7']);
 
     },
     //init

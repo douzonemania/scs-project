@@ -3,9 +3,12 @@ package com.douzonemania.scs.service;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.douzonemania.scs.repository.ProductRepository;
+import com.douzonemania.scs.vo.ceo.ProductStatisticsVo;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.BoardVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
@@ -402,5 +406,46 @@ public class ProductService {
 		int count = productRepository.deleteItemBoardReply(id, no);
 		return count == 1;
 	}
+
+	public List<ProductStatisticsVo> getStatisticsByItemNo(String id, int no) {
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH ) + 1;
+		int date = cal.get(Calendar.DATE);
+		
+		List<ProductStatisticsVo> list = new ArrayList<ProductStatisticsVo>();
+		for(int i=0; i<7; i++) {
+			ProductStatisticsVo vo = new ProductStatisticsVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			list.add(vo);
+		}
+		List<ProductStatisticsVo> returnList = productRepository.getStatisticsByItemNo(id,no, list.get(6).getDate(), list.get(0).getDate());
+		for (ProductStatisticsVo vo : returnList) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(list.get(i).getDate())) {
+					list.get(i).setCount(vo.getCount());
+				}
+			}
+		}
+		
+		for (ProductStatisticsVo vo : list) {
+			System.out.println(vo);
+		}
+		return list;
+	}
+	
+	private String get7DayAgoDate(int year , int month , int day, int i) {
+		Calendar cal = Calendar
+				.getInstance();
+		cal.set(year, month-1, day);
+		cal.add(Calendar.DATE, -i);
+		java.util.Date weekago = cal.getTime();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",
+				Locale.getDefault());
+		return formatter.format(weekago);
+	}
+	
+	
 	
 }

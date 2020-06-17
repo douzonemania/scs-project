@@ -43,23 +43,21 @@
 		<script type="text/javascript"
 			src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 			
-        <!--Morris Chart-->
-	    <script src="<%=request.getContextPath() %>/assets/libs/morris-js/morris.min.js"></script>
+		 <!--Morris Chart-->
+	    <script src="<%=request.getContextPath() %>/assets/libs/morris-js/morris.min.js"></script> 
 	    <script src="<%=request.getContextPath() %>/assets/libs/raphael/raphael.min.js"></script>
-	    <script src="<%=request.getContextPath() %>/assets/js/pages/morris.init.js"></script>
+ 
 </head>
 <body>
-	
 <div class="wrapper">
             <div class="container-fluid">
-
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="card-box" dir="ltr">
                             <h5 class="header-title mb-3">일별 통계</h5>
                             <div class="text-center">
                                 <p class="text-muted font-15 font-family-secondary mb-0">
-                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-pink"></i> E?</span>
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-blue"></i>&nbsp;${iVo.name }</span>
                                 </p>
                             </div>
                             <div id="morris-line-example" style="height: 350px;" class="morris-chart"></div>
@@ -70,12 +68,80 @@
             </div> <!-- end container -->
         </div>
         <!-- end wrapper -->
-  
-  
-          <!-- Right bar overlay-->
+        <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div>
         
 
         <c:import url ='/WEB-INF/views/partials/script.jsp'/>
 </body>
+<script>
+	var a = "${list.get(6).date}";
+	var b = "${list.get(5).date}";
+	var c = "${list.get(4).date}";
+	var d = "${list.get(3).date}";
+	var e = "${list.get(2).date}";
+	var f = "${list.get(1).date}";
+	var g = "${list.get(0).date}";
+	var a2 = ${list.get(6).count};
+	var b2 = ${list.get(5).count};
+	var c2 = ${list.get(4).count};
+	var d2 = ${list.get(3).count};
+	var e2 = ${list.get(2).count};
+	var f2 = ${list.get(1).count};
+	var g2 = ${list.get(0).count};
+
+	!function($) {
+	    "use strict";
+	    var MorrisCharts = function() {};
+	    //creates line chart
+	    MorrisCharts.prototype.createLineChart = function(element, data, xkey, ykeys, labels, opacity, Pfillcolor, Pstockcolor, lineColors) {
+	        Morris.Line({
+	          element: element,
+	          data: data,
+	          xkey: xkey,
+	          ykeys: ykeys,
+	          labels: labels,
+	          fillOpacity: opacity,
+	          pointFillColors: Pfillcolor,
+	          pointStrokeColors: Pstockcolor,
+	          behaveLikeLine: true,
+	          gridLineColor: '#eef0f2',
+	          hideHover: 'auto',
+	          lineWidth: '3px',
+	          pointSize: 0,
+	          preUnits: '',
+	          resize: true, //defaulted to true
+	          lineColors: lineColors
+	        });
+	    },
+
+	    MorrisCharts.prototype.init = function() {
+
+
+	        //create line chart
+	        var $data  = [
+	        	// period 형식: 'yyyy-mm-dd', a 형식: int값 
+	            { period: a+'', a: a2},
+	            { period: b+'', a: b2},
+	            { period: c+'', a: c2},
+	            { period: d+'', a: d2},
+	            { period: e+'', a: e2},
+	            { period: f+'', a: f2},
+	            { period: g+'', a: g2}
+	          ];
+	        this.createLineChart('morris-line-example', $data, 'period', ['a'], ["count"],['0.1'],['#ffffff'],['#999999'], ['#4A81D4']);
+
+	    },
+	    //init
+	    $.MorrisCharts = new MorrisCharts, $.MorrisCharts.Constructor = MorrisCharts
+	}(window.jQuery),
+
+	//initializing 
+	function($) {
+	    "use strict";
+	    $.MorrisCharts.init();
+	}(window.jQuery);
+	
+	
+</script>
 </html>

@@ -22,6 +22,7 @@
 		<typeAlias alias="customvo" type="com.douzonemania.scs.vo.ceo.CustomVo" />
 		<typeAlias alias="contentsvo" type="com.douzonemania.scs.vo.ceo.ContentsVo" />
 		<typeAlias alias="mainstatementvo" type="com.douzonemania.scs.vo.ceo.MainStatementVo" />
+		<typeAlias alias="productstatisticsvo" type="com.douzonemania.scs.vo.ceo.ProductStatisticsVo" />
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/main.xml" />

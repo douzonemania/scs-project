@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.douzonemania.scs.vo.ceo.ProductStatisticsVo;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.BoardVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
@@ -342,6 +343,15 @@ public class ProductRepository {
 		map.put("no", no);
 		
 		return sqlSession.delete("product.deleteItemBoardReply", map);
+	}
+
+	public List<ProductStatisticsVo> getStatisticsByItemNo(String id, int no, String date1, String date2) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("no", no);
+		map.put("date1", date1);
+		map.put("date2", date2);
+		return sqlSession.selectList("product.getStatisticsByItemNo", map);
 	}
 
 
