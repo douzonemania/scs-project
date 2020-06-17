@@ -6,7 +6,7 @@
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     
-        <title></title>
+        <title>상품 정보</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />

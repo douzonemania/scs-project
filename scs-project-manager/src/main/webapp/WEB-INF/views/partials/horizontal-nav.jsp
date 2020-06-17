@@ -130,6 +130,17 @@
                                     </li>                            
                                 </ul>
                         </li>
+                        <li class="has-submenu">
+                            <a href="#"> <i class="fe-bar-chart-2"></i>통계 <div class="arrow-down"></div></a>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="${pageContext.request.contextPath }/${ authUser.id }/statistics/category">카테고리 별</a>
+                                    </li>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath }/${ authUser.id }/statistics/products">상품 별</a>
+                                    </li>                            
+                                </ul>
+                        </li>
                     <!-- End navigation menu -->
                     <div class="clearfix"></div>
                 </div>
