@@ -106,7 +106,7 @@ public class OrderService {
 		Map<String, Object> map = new HashMap<>();
 
 		// start index 결정
-		int offset=(currentPage-1)*3;
+		int offset=(currentPage-1)*5;
 
 		int total = orderRepository.countSettleList(startDate, endDate, id);
 		List<OrderSettleVo> list;
