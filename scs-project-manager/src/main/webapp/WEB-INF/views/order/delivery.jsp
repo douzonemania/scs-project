@@ -203,7 +203,8 @@ $(function() {
             <!-- start 검색 부분 -->
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="card-box">                        <h4 class="header-title">주문 검색</h4>
+                    <div class="card-box">                        
+                    <h4 class="header-title">주문 검색</h4>
                         <p class="sub-header">찾고자 하는 날짜와 카테고리를 고르시오.</p>
 
 

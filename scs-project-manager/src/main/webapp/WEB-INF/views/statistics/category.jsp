@@ -5,7 +5,8 @@
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-    
+    <%@ page import="java.util.*"%>
+	<%@ page import="java.text.SimpleDateFormat"%>
         <title>카테고리 별 통계</title>
 		<!-- App favicon -->
         <link rel="shortcut icon" href="<%=request.getContextPath() %>/assets/images/favicon.ico">
@@ -45,9 +46,23 @@
 		 <!--Morris Chart-->
 	    <script src="<%=request.getContextPath() %>/assets/libs/morris-js/morris.min.js"></script> 
 	    <script src="<%=request.getContextPath() %>/assets/libs/raphael/raphael.min.js"></script>
- 
+ 		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />      
+       
 </head>
 <body>
+<%
+
+ Date now = new Date();
+ SimpleDateFormat sf = new SimpleDateFormat("MM/dd/yyyy");
+ 
+ String today = sf.format(now);
+ Calendar week = Calendar.getInstance();
+ week.add(Calendar.DATE , -7);
+ String beforeWeek = new java.text.SimpleDateFormat("MM/dd/yyyy").format(week.getTime());
+%>
 
 	<header>
 	<!-- horizontal-nav -->
@@ -73,10 +88,37 @@
 								<li class="breadcrumb-item"><a href="javascript: void(0);">통계</a></li>
 								<li class="breadcrumb-item active">카테고리 별</li>
 							</ol>
+						<div class="page-title-right" style="width:220px; margin-bottom:10px;">
+							<label>날짜 검색</label>
+                            <span class="input-group-addon">
+								<i class="fa fa-calendar bigger-110"></i>
+							</span>
+							<input type="text" id="date-range-picker" name="dates" value="<%=beforeWeek %> - <%=today %>" class="form-control" />
+							<script>
+							
+							
+							
+							 $('input[id="date-range-picker"]').daterangepicker({
+								 "showCustomRangeLabel": true,
+									"drops": "auto"
+								}, function(start, end) {
+									console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+									startDate = start.format('YYYY-MM-DD');
+									endDate = end.format('YYYY-MM-DD');
+							});
+													
+							</script>
 						</div>
+						</div>
+						
 						<h4 class="page-title">카테고리 별 통계</h4>
 					</div>
+					<div class="page-title-box">
+                        
+                    </div>
 				</div>
+				  
+					  
 			</div>
 			<div class="row">
                     <div class="col-lg-6">
