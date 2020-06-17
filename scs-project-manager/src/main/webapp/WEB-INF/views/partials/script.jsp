@@ -36,6 +36,10 @@
 	<script type="text/javascript" src="<%=request.getContextPath() %>/assets/libs/morris-js/morris.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/assets/libs/raphael/raphael.min.js"></script>
 	
+    <!--C3 Chart-->
+    <script type="text/javascript" src="<%=request.getContextPath() %>/assets/libs/d3/d3.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath() %>/assets/libs/c3/c3.min.js"></script>
+
     <!-- Init js-->
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/form-pickers.init.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/form-xeditable.init.js"></script>
@@ -43,6 +47,8 @@
 	<script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/form-advanced.init.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/form-quilljs.init.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/morris.init.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/c3.init.js"></script>
+    
     <!-- Buttons init js-->
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/loading-btn.init.js"></script>
 

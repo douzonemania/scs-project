@@ -26,7 +26,9 @@
         <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
-
+        <!-- C3 Chart css -->
+        <link href="<%=request.getContextPath() %>/assets/libs/c3/c3.min.css" rel="stylesheet" type="text/css" />
+        
         <!-- third party css -->
         <link href="<%=request.getContextPath() %>/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
@@ -52,6 +54,33 @@
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />      
        
 </head>
+<script type="text/javascript">
+
+
+
+var fetchList = function(startDate, endDate){
+
+	$.ajax({
+		url: '<%=request.getContextPath() %>/${authUser.id}/api/statistics/category',
+		async: true,
+		type: 'get',
+		dataType: 'json',
+		contentType: 'application/json',
+		data: { "startDate": startDate, "endDate": endDate },
+		success: function(response){
+
+			console.log(response.data);
+			location.href="<%=request.getContextPath() %>/${authUser.id}/statistics/category?startDate="+startDate+"&endDate="+endDate;
+		},
+		error: function(xhr, status, e){
+			console.error(status + " : " + e);
+		}
+	});	
+}
+
+
+
+</script>
 <body>
 <%
 
@@ -105,6 +134,9 @@
 									console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
 									startDate = start.format('YYYY-MM-DD');
 									endDate = end.format('YYYY-MM-DD');
+									
+									$('#date-range-picker').attr( 'value', startDate+ ' ~ ' + endDate );
+									fetchList(startDate, endDate);
 							});
 													
 							</script>
@@ -113,9 +145,6 @@
 						
 						<h4 class="page-title">카테고리 별 통계</h4>
 					</div>
-					<div class="page-title-box">
-                        
-                    </div>
 				</div>
 				  
 					  
@@ -167,12 +196,14 @@
 
                     <div class="col-lg-6">
                         <div class="card-box" dir="ltr">
-                            <h4 class="header-title mb-3">Bar Chart</h4>
+                            <h4 class="header-title mb-3">카테고리별 일간 매출</h4>
                             <div class="text-center">
                                 <p class="text-muted font-15 font-family-secondary mb-0">
-                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-info"></i> Bitcoin</span>
-                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> Ethereum</span>
-                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-muted"></i> Litecoin</span>
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-primary"></i> 상의</span>
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-info"></i> 하의</span>
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> 아우터</span>
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-danger"></i> 신발</span>
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-pink"></i> 악세사리</span>
                                 </p>
                             </div>
                             <div id="morris-bar-example" style="height: 350px;" class="morris-chart"></div>
@@ -198,19 +229,40 @@
 
                     <div class="col-lg-6">
                         <div class="card-box" dir="ltr">
-                            <h4 class="header-title mb-3">Donut Chart</h4>
+                            <h4 class="header-title mb-3">카테고리별 TOP 5 구매율</h4>
                             <div id="morris-donut-example" style="height: 350px;" class="morris-chart"></div>
                             <div class="text-center">
                                 <p class="text-muted font-15 font-family-secondary mb-0">
-                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-primary"></i> Bitcoin</span>
-                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-info"></i> Ethereum</span>
-                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-light"></i> Litecoin</span>
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-primary"></i> 상의</span>
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-info"></i> 하의</span>
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> 아우터</span>
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-danger"></i> 신발</span>
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-pink"></i> 악세사리</span>
                                 </p>
                             </div>
                         </div> <!-- end card-box-->
                     </div> <!-- end col-->
                 </div>
                 <!-- end row -->
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card-box">
+                            <h4 class="header-title mb-3">Roated Chart</h4>
+
+                            <div id="roated-chart" style="height: 300px;" dir="ltr"></div>
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+
+                    <div class="col-lg-6">
+                        <div class="card-box">
+                            <h4 class="header-title mb-3">카테고리 별 선호도 및 구매 현황</h4>
+
+                            <div id="combine-chart" style="height: 300px;" dir="ltr"></div>
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+                </div>
+                <!-- End row -->
 
             </div> <!-- end container -->
         </div>
