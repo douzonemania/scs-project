@@ -165,15 +165,15 @@ File: Morris charts init js
 
         //creating bar chart
         var $barData  = [
-            { y: '2012', a: 100, b: 90 , c: 40 },
-            { y: '2013', a: 75,  b: 65 , c: 20 },
-            { y: '2014', a: 50,  b: 40 , c: 50 },
-            { y: '2015', a: 75,  b: 65 , c: 95 },
-            { y: '2016', a: 50,  b: 40 , c: 22 },
-            { y: '2017', a: 75,  b: 65 , c: 56 },
-            { y: '2018', a: 100, b: 90 , c: 60 }
+            { y: '2020-06-17', a: 100000, b: 90000 , c: 40000, d: 150000, e: 35000 },
+            { y: '2020-06-18', a: 75000,  b: 65000 , c: 20000, d: 210000, e: 33000 },
+            { y: '2020-06-19', a: 50000,  b: 40000 , c: 50000, d: 170000, e: 13000 },
+            { y: '2020-06-20', a: 75000,  b: 65000 , c: 95000, d: 50000, e: 20000 },
+            { y: '2020-06-21', a: 50000,  b: 40000 , c: 22000, d: 90000, e: 15000 },
+            { y: '2020-06-22', a: 75000,  b: 65000 , c: 56000, d: 110000, e: 4000 },
+            { y: '2020-06-23', a: 100000, b: 90000 , c: 60000, d: 130000, e: 25000 }
         ];
-        this.createBarChart('morris-bar-example', $barData, 'y', ['a', 'b', 'c'], ["Bitcoin", "Ethereum", "Litecoin"], ['#02c0ce','#0acf97', '#ebeff2']);
+        this.createBarChart('morris-bar-example', $barData, 'y', ['a', 'b', 'c','d','e'], ["상의", "하의", "아우터","신발","악세사리"], ['#4fc6e1','#6658dd', '#1ABC9C','#F1556C','#F672A7']);
 
         //creating area chart with dotted
         var $areaDotData = [
@@ -189,11 +189,13 @@ File: Morris charts init js
 
         //creating donut chart
         var $donutData = [
-                {label: "Ethereum", value: 12},
-                {label: "Bitcoin", value: 30},
-                {label: "Litecoin", value: 20}
+                {label: "상의", value: 12},
+                {label: "하의", value: 30},
+                {label: "아우터", value: 20},
+                {label: "신발", value: 10},
+                {label: "악세사리", value: 5}
             ];
-        this.createDonutChart('morris-donut-example', $donutData, ['#4fc6e1','#6658dd', '#ebeff2']);
+        this.createDonutChart('morris-donut-example', $donutData, ['#4fc6e1','#6658dd', '#1ABC9C','#F1556C','#F672A7']);
     },
     //init
     $.MorrisCharts = new MorrisCharts, $.MorrisCharts.Constructor = MorrisCharts

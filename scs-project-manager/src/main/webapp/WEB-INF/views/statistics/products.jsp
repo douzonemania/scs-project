@@ -52,6 +52,34 @@
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />      
        
 </head>
+<script type="text/javascript">
+
+
+
+var fetchList = function(startDate, endDate){
+
+	var page = $('#current-page').val();
+	$.ajax({
+		url: '<%=request.getContextPath() %>/${authUser.id}/api/statistics/products',
+		async: true,
+		type: 'get',
+		dataType: 'json',
+		contentType: 'application/json',
+		data: { "startDate": startDate, "endDate": endDate },
+		success: function(response){
+
+			console.log(response.data);
+			location.href="<%=request.getContextPath() %>/${authUser.id}/statistics/products?startDate="+startDate+"&endDate="+endDate;
+		},
+		error: function(xhr, status, e){
+			console.error(status + " : " + e);
+		}
+	});	
+}
+
+
+
+</script>
 <body>
 <%
 
@@ -105,6 +133,9 @@
 									console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
 									startDate = start.format('YYYY-MM-DD');
 									endDate = end.format('YYYY-MM-DD');
+									
+									$('#date-range-picker').attr( 'value', startDate+ ' ~ ' + endDate );
+									fetchList(startDate, endDate);
 							});
 													
 							</script>
@@ -113,9 +144,6 @@
 						
 						<h4 class="page-title">상품 별 통계</h4>
 					</div>
-					<div class="page-title-box">
-                        
-                    </div>
 				</div>
 				  
 					  
