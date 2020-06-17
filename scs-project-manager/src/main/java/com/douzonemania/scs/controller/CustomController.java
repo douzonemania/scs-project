@@ -20,12 +20,15 @@ public class CustomController {
 	
 	@RequestMapping({"","/main"})
 	public String home(Model model) {
-		List<CustomDesignVo> list = customService.getCustomDesignBySubMenu(33);
-		List<ContentsVo> contentsList = customService.getContentsByCustomNo(14);
+		/*
+		 * List<CustomDesignVo> list = customService.getCustomDesignBySubMenu(33);
+		 * List<ContentsVo> contentsList = customService.getContentsByCustomNo(14);
+		 */
 		//System.err.println("::::" + contentsList.get(1).getContent());
-		System.err.println("::::" + contentsList);
-		model.addAttribute("list", list);
-		model.addAttribute("contentsList",contentsList);
+		/*
+		 * System.err.println("::::" + contentsList); model.addAttribute("list", list);
+		 * model.addAttribute("contentsList",contentsList);
+		 */
 		return "custom/main";
 	}
 	
