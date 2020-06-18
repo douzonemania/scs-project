@@ -247,7 +247,7 @@ public class ProductRepository {
 		return sqlSession.selectList("product.itemBoardList", map);
 	}
 
-	public List<BoardVo> searchItemBoaardList(String id, String option, String keyword, int offset, int size) {
+	public List<BoardVo> searchItemBoardList(String id, String option, String keyword, int offset, int size) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db",id);
 		map.put("option", option);
@@ -255,7 +255,7 @@ public class ProductRepository {
 		map.put("offset", offset);
 		map.put("size", size);
 
-		return sqlSession.selectList("product.searchItemBoaardList", map);
+		return sqlSession.selectList("product.searchItemBoardList", map);
 	}
 
 	// board의 no(parentsNo)에 대한 답글을 insert

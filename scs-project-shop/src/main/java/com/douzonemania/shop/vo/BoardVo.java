@@ -10,7 +10,9 @@ public class BoardVo {
 	private String contents;
 	private int memberNo;
 	private Timestamp regDate;
-	private boolean state;
+	private String id; // member id
+	private String name; // member name
+	private boolean replyState; // 답글 여부
 
 	public int getNo() {
 		return no;
@@ -60,18 +62,35 @@ public class BoardVo {
 		this.regDate = regDate;
 	}
 
-	public boolean isState() {
-		return state;
+	public boolean isReplyState() {
+		return replyState;
 	}
 
-	public void setState(boolean state) {
-		this.state = state;
+	public void setReplyState(boolean replyState) {
+		this.replyState = replyState;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
 		return "BoardVo [no=" + no + ", category=" + category + ", title=" + title + ", contents=" + contents
-				+ ", memberNo=" + memberNo + ", regDate=" + regDate + ", state=" + state + "]";
+				+ ", memberNo=" + memberNo + ", regDate=" + regDate + ", replyState=" + replyState + ", id=" + id
+				+ ", name=" + name + "]";
 	}
 
 }
