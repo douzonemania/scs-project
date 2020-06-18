@@ -1,5 +1,6 @@
 package com.douzonemania.shop.service;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,8 +18,8 @@ import com.douzonemania.shop.vo.CartVo;
 import com.douzonemania.shop.vo.CategoryVo;
 import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.OptionVo;
+import com.douzonemania.shop.vo.OrderListVo;
 import com.douzonemania.shop.vo.ShipVo;
-import com.douzonemania.shop.vo.StockVo;
 
 
 @Service
@@ -339,6 +340,70 @@ public class OrderService {
 		
 		return nowDateString+"-"+convertNum;
 	}
+
+	public List<OrderListVo> getOrderList(String db, long no) {
+		return orderRepository.getOrderList(db, no);
+	}
+
+	public List<OrderListVo> getOrderList(String db, Long no, String statement) {
+		return orderRepository.getOrderListByStatemnet(db, no, statement);
+	}
+	
+	public int convertOption(String db, List<OrderListVo> oVo) {
+		return orderRepository.ConvertOption(db, oVo);
+		
+	}
+
+	public List<String> convertPrice(List<OrderListVo> oVo) {
+		String price="";
+		List<String> totalPriceList = new ArrayList<>();
+		for(int i=0; i<oVo.size(); i++) {
+			price = NumberFormat.getInstance().format( ((int)((double)oVo.get(i).getTotalPrice())))+"원";
+			totalPriceList.add(price);					
+		}
+		return totalPriceList;
+	}
+
+	public List<Integer> getCountStatement(List<OrderListVo> oVo) {
+		List<Integer> stList = new ArrayList<>();
+		//('주문완료', '입금완료', '배송준비중', '배송중', '배송완료', '취소처리중', '교환처리중', '환불처리중', '처리완료')
+		int oc= 0;		// 주문완료
+		int depc= 0;	// 입금완료
+		int pfd= 0;		// 배송준비중
+		int sip= 0;		// 배송중
+		int delc= 0;	// 배송완료
+		int canp= 0;	// 취소처리중
+		int chanp= 0;	// 교환처리중
+		int rp= 0;		// 환불처리중
+		int pc= 0;		// 처리완료
+		
+		for(int i=0; i<oVo.size(); i++) {
+			if( ("주문완료").equals(oVo.get(i).getStatement().toString()) ) {
+				oc++;
+			}else if(("입금완료").equals(oVo.get(i).getStatement().toString())) {
+				depc++;
+			}else if(("배송준비중").equals(oVo.get(i).getStatement().toString())) {
+				pfd++;
+			}else if(("배송중").equals(oVo.get(i).getStatement().toString())) {
+				sip++;
+			}else if(("배송완료").equals(oVo.get(i).getStatement().toString())) {
+				delc++;
+			}else if(("취소처리중").equals(oVo.get(i).getStatement().toString())) {
+				canp++;
+			}else if(("교환처리중").equals(oVo.get(i).getStatement().toString())) {
+				chanp++;
+			}else if(("환불처리중").equals(oVo.get(i).getStatement().toString())) {
+				rp++;
+			}else if(("처리완료").equals(oVo.get(i).getStatement().toString())) {
+				pc++;
+			}			
+		}
+		stList.add(oc);	stList.add(depc);	stList.add(pfd);	stList.add(sip);	
+		stList.add(delc); stList.add(canp); stList.add(chanp); 	 stList.add(rp);	stList.add(pc);
+		return stList;
+	}
+
+
 
 
 }

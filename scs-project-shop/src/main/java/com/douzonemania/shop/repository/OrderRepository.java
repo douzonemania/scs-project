@@ -21,6 +21,7 @@ import com.douzonemania.shop.vo.CategoryVo;
 import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OptionVo;
+import com.douzonemania.shop.vo.OrderListVo;
 import com.douzonemania.shop.vo.ShipVo;
 import com.douzonemania.shop.vo.StockVo;
 
@@ -347,6 +348,34 @@ public class OrderRepository {
 	}
 
 
+	public List<OrderListVo> getOrderList(String db, long no) {
+		map.put("db",db);
+		map.put("no",no);
+		return sqlSession.selectList("order.getOrderList", map);
+	}
+	
+	public List<OrderListVo> getOrderListByStatemnet(String db, Long no, String statement) {
+		map.put("db",db);
+		map.put("no",no);
+		map.put("statement",statement);
+		return sqlSession.selectList("order.getOrderListByStatement", map);
+	}
+
+	public int ConvertOption(String db, List<OrderListVo> oVo) {
+		map.put("db",db);
+		for(int i=0; i<oVo.size(); i++) {
+			map.put("no",oVo.get(i).getColor());
+			String tempColor = sqlSession.selectOne("order.convertOpiton", map);
+			map.put("no",oVo.get(i).getSize());
+			String tempSize = sqlSession.selectOne("order.convertOpiton", map);
+			oVo.get(i).setSize(tempSize);
+			oVo.get(i).setColor(tempColor);			
+		}
+		return 0;
+	}
+
+
+	
 	
 
 
