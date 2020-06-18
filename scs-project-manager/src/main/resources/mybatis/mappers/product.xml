@@ -207,7 +207,7 @@
 		]]>
 	</select>
 	
-	<select id="searchItemBoaardList" parameterType="map" resultType="itemboardvo">
+	<select id="searchItemBoardList" parameterType="map" resultType="itemboardvo">
 		<![CDATA[
 			select * 
 			  from (select b.no,
@@ -293,6 +293,20 @@
 			 where parents_no=#{no}
 		]]>
 	</delete>
+	
+	<select id="getStatisticsByItemNo" parameterType="map" resultType="productstatisticsvo">
+		<![CDATA[
+			  select count(*) as 'count', DATE_FORMAT(shop_order.reg_date,'%Y-%m-%d') as 'date'
+			  from ${db}.stock, ${db}.order_item, ${db}.shop_order, ${db}.item
+			 where stock.no = order_item.stock_no
+			   and order_item.order_no = shop_order.no
+			   and item.no = stock.item_no
+			   and item.no = #{no }
+			   and shop_order.reg_date >= #{date1 }
+			   and shop_order.reg_date <= #{date2 }
+			   group by DATE_FORMAT(shop_order.reg_date,'%Y-%m-%d')
+		]]>
+	</select>
 			
 </mapper>
 

@@ -158,4 +158,37 @@
 			 where id=#{id}
 		]]>
 	</update>
+	
+	<select id="getTotalRevenue" parameterType="map" resultType="int">
+		<![CDATA[
+			select ifnull(truncate((sum(item.now_price -(item.now_price * sale / 100)) - sum(item.sup_price)),0), 0)
+			  from ${id}.item, ${id}.stock, ${id}.order_item, ${id}.shop_order, ${id}.member
+			 where item.no = stock.item_no 
+			   and stock.no = order_item.stock_no
+			   and order_item.order_no = shop_order.no
+			   and shop_order.member_no = member.no
+		]]>
+	</select>
+	
+	<select id="getSales" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(*)
+			from (select shop_order.order_number as orderNumber
+					  from ${id}.item, ${id}.stock, ${id}.order_item, ${id}.shop_order, ${id}.member
+					 where item.no = stock.item_no
+					   and stock.no = order_item.stock_no
+					   and order_item.order_no = shop_order.no
+					   and shop_order.member_no = member.no
+	                         group by shop_order.order_number) a
+		]]>
+	</select>
+	
+	<select id="getStatement" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(statement)
+			  from ${id}.shop_order
+			  group by statement
+		]]>
+	</select>
+	
 </mapper>

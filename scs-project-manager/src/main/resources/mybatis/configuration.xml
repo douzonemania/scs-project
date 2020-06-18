@@ -19,7 +19,10 @@
 		<typeAlias alias="sitevo" type="com.douzonemania.scs.vo.ceo.SiteVo" />
 		<typeAlias alias="mainmenuvo" type="com.douzonemania.scs.vo.ceo.MainMenuVo" />
 		<typeAlias alias="submenuvo" type="com.douzonemania.scs.vo.ceo.SubMenuVo" />
-
+		<typeAlias alias="customvo" type="com.douzonemania.scs.vo.ceo.CustomVo" />
+		<typeAlias alias="contentsvo" type="com.douzonemania.scs.vo.ceo.ContentsVo" />
+		<typeAlias alias="mainstatementvo" type="com.douzonemania.scs.vo.ceo.MainStatementVo" />
+		<typeAlias alias="productstatisticsvo" type="com.douzonemania.scs.vo.ceo.ProductStatisticsVo" />
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/main.xml" />

@@ -3,6 +3,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.douzonemania.scs.repository.UserRepository;
 import com.douzonemania.scs.vo.ceo.AgreementVo;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.ceo.MainStatementVo;
 import com.douzonemania.scs.vo.ceo.SiteVo;
 @Service
 public class UserService {
@@ -25,6 +29,23 @@ public class UserService {
 	@Autowired
 	MemberService memberService;
 
+	public Map<String, Object> mainView(String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int totalRevenue = userRepository.getTotalRevenue(id);				// 총 수익
+		int sales = userRepository.getSales(id);							// 오늘의 판매량
+																			// ??
+		
+		List<Integer> vo = userRepository.getStatement(id);				// statement 갯수
+		System.out.println(vo);
+		map.put("totalRevenue", totalRevenue);
+		map.put("sales", sales);
+		map.put("vo", vo);
+		
+		return map;
+		
+	}
+	
 	public void createDB(String databaseName) {
 		Connection conn = null;
 		Statement stmt = null;
@@ -122,5 +143,7 @@ public class UserService {
 		int count = userRepository.updatePassword(id, newPassword);
 		return count == 1;
 	}
+
+
 
 }

@@ -203,7 +203,8 @@ $(function() {
             <!-- start 검색 부분 -->
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="card-box">                        <h4 class="header-title">주문 검색</h4>
+                    <div class="card-box">                        
+                    <h4 class="header-title">주문 검색</h4>
                         <p class="sub-header">찾고자 하는 날짜와 카테고리를 고르시오.</p>
 
 
@@ -294,7 +295,14 @@ $(function() {
                                 <tr>
                                 	
                                     <td>${status.count + (map.page - 1) * 5 }</td>
-                                    <td>${vo.name }</td>
+                                    <c:choose>
+	                                    <c:when test="${vo.count == 1} ">
+	                                    	<td>${vo.name }</td>
+	                                    </c:when>
+	                                    <c:otherwise>
+	                                    	<td>${vo.name } 외 ${vo.count - 1 }건</td>
+	                                    </c:otherwise>
+                                    </c:choose>
                                     <td>${vo.regDate }</td>
                                     <td>${vo.orderNumber }</td>
                                     <td>${vo.id }</td>

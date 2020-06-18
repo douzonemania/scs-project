@@ -6,7 +6,7 @@
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     
-        <title></title>
+        <title>상품 정보</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -41,9 +41,12 @@
         <link href="<%=request.getContextPath() %>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />        
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!--Morris Chart-->
+	    <script src="<%=request.getContextPath() %>/assets/libs/morris-js/morris.min.js"></script>
+	    <script src="<%=request.getContextPath() %>/assets/libs/raphael/raphael.min.js"></script>
+	    <script src="<%=request.getContextPath() %>/assets/js/pages/morris.init.js"></script>
 <script>
 $(function() {
 	$('#item-search-option').change(function(){
@@ -71,6 +74,16 @@ $(function() {
 	/* 상품 삭제 버튼*/
 	$('.btn-del').click(function(){
 		alert('삭제되었습니다.')
+	});
+	
+	/* 통계 팝업 */
+	$(document).on("click", ".btn-secondary.statistics",function(){		
+		var itemNo= $(this).data('no')
+		console.log(itemNo);
+		window.name = "Statistics";
+		window.open("statistics/"+itemNo,'상품통계','width=900,height=700,location=no,status=no,scrollbars=auto');
+		//openWin.document.getElementById("cInput").value = document.getElementById("pInput").value;
+		
 	});
 });
 
@@ -252,8 +265,7 @@ $(function() {
 													<input class="btn-secondary" style="height: 20px; font-size: 11px" type="button" value="수정"></a> 
 												<a href="${pageContext.request.contextPath }/${authUser.id }/product/delete-item/${vo.no}">
 													<input class="btn-secondary btn-del" style="height: 20px; font-size: 11px" type="button" value="삭제"></a> 
-												<a href="">
-													<input class="btn-secondary" style="height: 20px; font-size: 11px" type="button" value="통계"></a>
+													<input class="btn-secondary statistics"style="height: 20px; font-size: 11px" type="button" data-no='${vo.no }' id="btn-statistics-${vo.no }" value="통계">
 											</td>
 										</tr>
 									

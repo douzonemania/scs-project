@@ -28,7 +28,7 @@ import com.douzonemania.shop.vo.OptionVo;
 import com.douzonemania.shop.vo.ShipVo;
 
 @Controller("OrderApiController")
-@RequestMapping("api/order")
+@RequestMapping("/api/order")
 public class OrderController {
 
 	@Autowired

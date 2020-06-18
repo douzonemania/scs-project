@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.douzonemania.scs.repository.DesignRepository;
+import com.douzonemania.scs.vo.ceo.ContentsVo;
 import com.douzonemania.scs.vo.ceo.CustomDesignVo;
+import com.douzonemania.scs.vo.ceo.CustomVo;
 import com.douzonemania.scs.vo.ceo.MainMenuVo;
 import com.douzonemania.scs.vo.ceo.SubMenuVo;
 
@@ -24,7 +26,7 @@ public class DesignService {
 	DesignRepository designRepository;
 	
 //	private static final String SAVE_PATH = "/scs-uploads";
-	private static final String SAVE_PATH = "C:\\Users\\R35\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
+	private static final String SAVE_PATH = "C:\\Users\\Bit\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
 	//private static final String SAVE_PATH = "D:\\douzone2020\\eclipse-workspace\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
 	private static final String URL = "/assets/images/scs-uploads";
 	
@@ -139,18 +141,12 @@ public class DesignService {
 	}
 	
 	public void setDesign(String map,String id) {
-		
-		
-		System.out.println(map);
-		
 		JSONObject jObject = new JSONObject(map);
 		JSONArray jArray = jObject.getJSONArray("form");
 		
 		int index =jObject.getInt("index");
 		
 		int submenuNum = designRepository.findSubmenuNum(index,id);
-		System.out.println("SUBMENUINDEX : "+submenuNum);
-		
 		
 		for(int i=0;i<jArray.length()-1;i++) {
 			//파싱
@@ -184,6 +180,59 @@ public class DesignService {
 				
 			}
 		}
+	}
+
+	public Boolean deleteCustomMenu(String id, int index) {
+		int count = designRepository.deleteCustomMenu(id, index);
+		return count == 1;
+	}
+
+	public boolean insertFQA(String id, String map) {
+		// faq array length만큼 insert(index는 1부터 시작)
+		
+		JSONObject jObject = new JSONObject(map);
+		JSONArray jArray = jObject.getJSONArray("FAQ");
+		
+		int submenuNum = designRepository.findSubmenuNum(2,id);
+		CustomDesignVo vo = new CustomDesignVo();
+		vo.setCustomIndex(0); 		// faq custom index : 1
+		vo.setDesignID("FAQ");		// faq design id : FAQ
+		
+		int check = designRepository.findCustoms(vo,submenuNum);
+		if(check == 0) {
+			check = designRepository.insertCustoms(vo,submenuNum);
+		}
+		
+		for(int i = 0; i < jArray.length(); i++) {
+			JSONObject obj =jArray.getJSONObject(i);
+			int result = designRepository.findContents(check,i*2+1);
+			if(result == 0) {
+				// insert
+				designRepository.insertContents(i*2+1, obj.getString("q"), check);
+				designRepository.insertContents(i*2+2, obj.getString("a"), check);
+				
+			} else {
+				// update
+				designRepository.updateContents(i*2+1, obj.getString("q"), check);
+				designRepository.updateContents(i*2+2, obj.getString("a"), check);
+			}
+			
+			
+		}
+		
+		return true;
+	}
+
+	public List<CustomVo> getCustomBySubmenuNo(int no, String id) {
+		return designRepository.getCustomBySubmenuNo(no, id);
+	}
+
+	public int findSubmenuNum(int no, String id) {
+		return designRepository.findSubmenuNum(no, id);
+	}
+
+	public List<ContentsVo> getContentsByCustomNo(int no, String id) {
+		return designRepository.getContentsByCustomNo(no, id);
 	}
 	
 }

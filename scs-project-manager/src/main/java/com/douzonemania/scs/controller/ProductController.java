@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.scs.service.ProductService;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.ceo.ProductStatisticsVo;
 import com.douzonemania.scs.vo.ceo.ShipCompanyVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
 import com.douzonemania.scs.vo.member.ItemBoardVo;
@@ -95,8 +96,6 @@ public class ProductController {
 		List<CategoryVo> category2NameList = productService.getCategory2NameList(id, cVo.getParentNo());
 		List<ShipCompanyVo> shipCompanyList = productService.getShipCompanyList(id);
 		List<StockVo> stockList = productService.getStockListByItemNo(id, no);
-		System.err.println(vo.getEditor()+"zz");
-		System.err.println(vo.getSubImage()+"!!!!!!!!!!!!");
 		
 		String[] subImageSplit = vo.getSubImage().split("\\?");			
 		
@@ -178,11 +177,9 @@ public class ProductController {
 			@PathVariable("itemNo") int no,
 			Model model) {				
 		String id = authUser.getId();
-		System.err.println(no);
 
 		ItemVo iVo = productService.findItem(id, no);
 		List<StockVo> stockList = productService.getStockListByItemNo(id, no);
-		System.err.println(stockList);
 		
 		model.addAttribute("iVo", iVo);
 		model.addAttribute("stockList", stockList);
@@ -234,11 +231,26 @@ public class ProductController {
 			
 			model.addAttribute("reply", reply);	
 			model.addAttribute("itemReplyVo", itemReplyVo);	 // 관리자가 작성한 답글
-		
-			System.out.println("itemReplyVo");
-			System.out.println(itemReplyVo);
+
 		}
 		
 		return "product/board-view";
+	}
+	
+	// 각 상품 통계 팝업
+	@RequestMapping(value = "/statistics/{itemNo}", method = RequestMethod.GET)
+	public String productStatistics(
+			@AuthUser CeoVo authUser,
+			@PathVariable("itemNo") int no,
+			Model model) {				
+		String id = authUser.getId();
+		System.err.println(no);
+
+		ItemVo iVo = productService.findItem(id, no);
+		List<ProductStatisticsVo> list = productService.getStatisticsByItemNo(id, no);
+		
+		model.addAttribute("iVo", iVo);
+		model.addAttribute("list", list);
+		return "product/product-statistics";
 	}
 }
