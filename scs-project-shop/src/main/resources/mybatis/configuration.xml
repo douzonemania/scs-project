@@ -16,6 +16,9 @@
 		<typeAlias alias="submenuvo" type="com.douzonemania.shop.vo.SubMenuVo"/>
 		<typeAlias alias="contentsvo" type="com.douzonemania.shop.vo.ContentsVo"/>
 		<typeAlias alias="boardvo" type="com.douzonemania.shop.vo.BoardVo"/>
+		<typeAlias alias="replyvo" type="com.douzonemania.shop.vo.ReplyVo"/>
+		<typeAlias alias="itemboardvo" type="com.douzonemania.shop.vo.ItemBoardVo"/>
+		<typeAlias alias="itemreplyvo" type="com.douzonemania.shop.vo.ItemReplyVo"/>
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/order.xml" />
@@ -25,4 +28,4 @@
 		<mapper resource="mybatis/mappers/board.xml" />			
 	</mappers>
  	
-</configuration>
+</configuration> 

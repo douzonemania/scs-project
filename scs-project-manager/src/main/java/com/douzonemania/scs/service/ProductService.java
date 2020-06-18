@@ -227,7 +227,7 @@ public class ProductService {
 			list = productRepository.itemBoardList(id, offset, LIST_SIZE);
 		}
 		else {
-			list = productRepository.searchItemBoaardList(id, option, keyword, offset, LIST_SIZE);
+			list = productRepository.searchItemBoardList(id, option, keyword, offset, LIST_SIZE);
 		}
 
 		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);

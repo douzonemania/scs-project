@@ -207,7 +207,7 @@
 		]]>
 	</select>
 	
-	<select id="searchItemBoaardList" parameterType="map" resultType="itemboardvo">
+	<select id="searchItemBoardList" parameterType="map" resultType="itemboardvo">
 		<![CDATA[
 			select * 
 			  from (select b.no,

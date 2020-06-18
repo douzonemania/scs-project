@@ -22,8 +22,6 @@
         <link href="<%=request.getContextPath() %>/assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
-        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
-        <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
 
         <!-- third party css -->
@@ -52,18 +50,18 @@ $(document).ready(function(){
 		
 		var title = $('#title').val();
 		html.title = title;
-		console.log("!!!!!!!!1111");
- 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/board/qna/write',
-			async: true,
+		
+		// item no를 받아와야함(item detail page에서 글 작성)
+ 		var no = 1;
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/board/itemboard/write/' + no,
 			type: 'post',
 			dataType: 'json',
 			contentType: 'application/json',
 			data: JSON.stringify(html),
 			success: function(response){
-				console.log("!!!!!!!!2222");
 				console.log(response.data);
-				location.href= "${pageContext.request.contextPath }${authUser.id }/board/qna/list";	// list로 바꾸기
+				location.href= "${pageContext.request.contextPath }/${db}/board/itemboard/list";	// list로 바꾸기
 			},
 			error: function(xhr, status, e){
 
@@ -75,13 +73,7 @@ $(document).ready(function(){
 		}); 
  		
 	});
-	
-	$('#qna-custom-cancel-btn').click(function(e){
-		e.preventDefault();
-		location.href= "${pageContext.request.contextPath }/${authUser.id}/board/qna/list";
- 		
-	});
-	
+
 });
 
 </script>
@@ -98,28 +90,17 @@ $(document).ready(function(){
             <div class="container-fluid">                
                 
                 <div class="recipient-info">
-                    <span>QNA</span> 문의 게시판
+                    <span>상품 문의 게시판</span>
                 </div>
                 <!-- mail-info 시작-->
                 <div class="margin-box-30">
                 <form>
                 <div class="col-lg-12">
                     <div class="card-box">
-                        <div class="qna-board-title">
-                            <span >문의 유형</span>
-        					<div class="form-group mr-2" style="margin-left:5px; width:10%; display:inline-block">
-                                    <select id="qna-search-option" class="custom-select custom-select-sm" name="op">
-                                                <option value="주문">주문</option>
-                                                <option value="배송">배송</option>
-                                                <option value="교환환불취소">교환환불취소</option>
-                                                <option value="기타">기타</option>
-                                    </select>
-                            </div>
-                        </div>
 	                    <div>
-		                    <div class="qna-board-title" style="margin-left:5px; width:50%; display:inline-block">
+		                    <div class="qna-board-title" style="margin-left:5px; width:100%; display:inline-block">
 		                        <span >제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</span>
-		                        <input type="text" class="form-control mail-custom" id="title" name="title" style="margin-left:5px; width:50%; display:inline-block"/>
+		                        <input type="text" class="form-control mail-custom" id="title" name="title" style="margin-left:15px; width:50%; display:inline-block"/>
 		    
 		                    </div>
   						</div>
@@ -129,9 +110,11 @@ $(document).ready(function(){
 	                    <div id="snow-editor" style="height:300px; "></div>
 	                   
 	    
-	                    <div class="btn-submit-section qna-custom-btn-group" style="margin-top: 30px;"	>
-	                        <button type="submit" id="qna-custom-btn" class="btn btn-secondary waves-effect">문의하기</button>
-	                        <button type="submit" id="qna-custom-cancel-btn" class="btn btn-secondary waves-effect">취소</button>
+	                    <div class="btn-submit-section qna-custom-btn-group" style="width: 100%;margin-top: 30px;"	>
+	                        <button type="submit" id="qna-custom-btn" class="btn btn-secondary waves-effect" style="margin-left: 45%;">문의하기</button>
+	                    	<a href="${pageContext.servletContext.contextPath }/${db }/board/itemboard/list">
+	                        	<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
+									취소</button></a>
 	                    </div>
                 	</div>            
                </div>
@@ -148,16 +131,6 @@ $(document).ready(function(){
                 <!-- Vendor js -->
                 <script src="<%=request.getContextPath() %>/assets/js/vendor.min.js"></script>
                 
-
-                <script src="<%=request.getContextPath() %>/assets/libs/jquery-nice-select/jquery.nice-select.min.js"></script>
-                <script src="<%=request.getContextPath() %>/assets/libs/switchery/switchery.min.js"></script>
-                <script src="<%=request.getContextPath() %>/assets/libs/multiselect/jquery.multi-select.js"></script>
-                <script src="<%=request.getContextPath() %>/assets/libs/select2/select2.min.js"></script>
-                <script src="<%=request.getContextPath() %>/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
-                <script src="<%=request.getContextPath() %>/assets/libs/autocomplete/jquery.autocomplete.min.js"></script>
-                <script src="<%=request.getContextPath() %>/assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
-                <script src="<%=request.getContextPath() %>/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
-                <script src="<%=request.getContextPath() %>/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
 
                 <!-- third party js -->
                 <script src="<%=request.getContextPath() %>/assets/libs/datatables/jquery.dataTables.min.js"></script>
