@@ -15,6 +15,7 @@
 		<typeAlias alias="mainmenuvo" type="com.douzonemania.shop.vo.MainMenuVo"/>
 		<typeAlias alias="submenuvo" type="com.douzonemania.shop.vo.SubMenuVo"/>
 		<typeAlias alias="contentsvo" type="com.douzonemania.shop.vo.ContentsVo"/>
+		<typeAlias alias="orderlistvo" type="com.douzonemania.shop.vo.OrderListVo"/>
 		
 	</typeAliases>	
 	<mappers>
