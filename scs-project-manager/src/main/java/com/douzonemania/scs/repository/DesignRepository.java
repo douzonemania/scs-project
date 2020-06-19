@@ -165,4 +165,40 @@ public class DesignRepository {
 		return sqlSession.selectList("design.getContentsByCustomNo", map);
 	}
 
+///////////////////////////////////////0619 jungeun start////////////////////////////////////////////////
+	
+	public int deleteQnaByIndex(int index, String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("index1",index * 2 - 1);
+		map.put("index2", index * 2);
+		
+		int customNo = sqlSession.selectOne("design.findCustomNo", id);
+		map.put("customNo", customNo);
+		sqlSession.delete("design.deleteQnaByIndex1", map);
+		sqlSession.delete("design.deleteQnaByIndex2", map);
+		
+		int count = sqlSession.selectOne("design.QnaCountByCustomIndex", customNo);
+		
+		int start = index * 2 + 1;
+		int end = count + 2;
+		
+		int oldIndex = 0;
+		int newIndex = 0;
+		for(int i = start; i <= end; i++) {
+			oldIndex = i;
+			newIndex = i - 2;
+			map.put("oldIndex", oldIndex);
+			map.put("newIndex", newIndex);
+			
+			System.out.println(map.get("oldIndex") + ":" + map.get("newIndex"));
+			
+			sqlSession.update("design.updateQnaIndex", map);
+		}
+		
+		return 1;
+	}
+
+	
+	
+
 }

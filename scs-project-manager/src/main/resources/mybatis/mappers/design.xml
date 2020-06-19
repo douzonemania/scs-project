@@ -157,8 +157,51 @@
 				  from scs2.custom a, scs2.contents b
 				 where a.no = b.custom_no 
 				   and b.custom_no = #{no}
+				order by b.contents_index
 				   
 			]]>
 	</select>
+	
+	<!-- ///////////////////////////////////////0619 jungeun start//////////////////////////////////////////////// -->
+	
+	<select id="findCustomNo" parameterType="string" resultType="int">
+		<![CDATA[
+		select b.no from scs2.sub_menu a, scs2.custom b
+		 where a.no = b.menu_no
+		   and id=#{db}
+		   and menu_index=2;
+	]]>
+	</select>
+	
+	<delete id="deleteQnaByIndex1">
+		<![CDATA[
+			delete from scs2.contents
+			 where custom_no=#{customNo}
+    		   and contents_index=#{index1}
+		]]>
+	</delete>
+	
+	<delete id="deleteQnaByIndex2">
+		<![CDATA[
+			delete from scs2.contents
+			 where custom_no=#{customNo}
+    		   and contents_index=#{index2}
+		]]>
+	</delete>
+	
+	<select id="QnaCountByCustomIndex" parameterType="int" resultType="int">
+		<![CDATA[
+			select count(*) from scs2.contents
+			 where custom_no=#{customNo}
+		]]>
+	</select>
+	
+	<update id="updateQnaIndex" parameterType="map">
+		<![CDATA[
+			update scs2.contents 
+			   set contents_index=#{newIndex} 
+			 where contents_index=#{oldIndex}
+		]]>
+	</update>
 	
 </mapper>
