@@ -154,6 +154,7 @@ public class DesignController {
 		List<ContentsVo> contentsList = designService.getContentsByCustomNo(vo.getNo(), authUser.getId());
 		
 		Map<String, Object> map = new HashMap<>();
+		
 		map.put("list", contentsList);
 		
 		return JsonResult.success(map);
@@ -168,29 +169,32 @@ public class DesignController {
 		
 		List<CustomVo> customList = designService.getCustomBySubmenuNo(menuNo, authUser.getId());
 		
-		
 		List<ContentsVo> contentsList = new ArrayList<ContentsVo>();
 		List<List<ContentsVo>> list = new ArrayList<List<ContentsVo>>();
 		
 		for(int i=0;i<customList.size();i++) {
-			
 			int no  = customList.get(i).getNo();
 			
 			contentsList = designService.getContentsByCustomNo(no, authUser.getId());
 			
 			list.add(contentsList);
 		}
-		
-
-		for (List<ContentsVo> list2 : list) {
-			System.out.println(list2);
-		}
-		
+	
 		map.put("list", list);
-		
 			
 		return JsonResult.success(map);
 	}
 	
-			
+	///////////////////////////////////////0619 jungeun start////////////////////////////////////////////////
+	
+	@ResponseBody
+	@RequestMapping("/faq/delete/{index}")
+	public JsonResult deleteQNA(@AuthUser CeoVo authUser, @PathVariable int index) {
+		
+		designService.deleteQnaByIndex(index, authUser.getId());
+		
+		return JsonResult.success("");
+	}
+	
+	
 }

@@ -231,4 +231,11 @@ public class DesignService {
 		return designRepository.getContentsByCustomNo(no, id);
 	}
 	
+///////////////////////////////////////0619 jungeun start////////////////////////////////////////////////
+
+	public boolean deleteQnaByIndex(int index, String id) {
+		int count = designRepository.deleteQnaByIndex(index, id);
+		return count == 1;
+	}
+	
 }

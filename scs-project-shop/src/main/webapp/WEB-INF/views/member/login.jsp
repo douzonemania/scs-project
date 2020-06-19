@@ -28,7 +28,7 @@
 
 		<script>
 		$(document).ready(function(e){
-			e.preventDefault()l
+			e.preventDefault();
 			$('#join-btn').click(function(){
 				location.href="${pageContext.request.contextPath}/member/join";
 			})
@@ -51,9 +51,9 @@
                     <div style="margin-top:100px;"></div>
                     <form method="post" action="${ pageContext.request.contextPath }/${db }/member/login">
                     	<div class="login-input">
-                        <input class ="input--text" type="text" placeholder="아이디" name="id">
+                        <input class ="input--text" type="text" placeholder="아이디" name="id" style="width: 100%;">
                         <div class="login-border"></div>
-                        <input class ="input--text" type="password" placeholder="패스워드" name="password">
+                        <input class ="input--text" type="password" placeholder="패스워드" name="password" style="width: 100%;">
                         <div class="login-border"></div>
                     </div>
                     
@@ -61,7 +61,11 @@
 
                         <button type="submit" class="btn btn-dark waves-effect waves-light custom-login">로그인</button>
                     </form>
-                 
+                    <div>
+                    	<a href="${pageContext.servletContext.contextPath }/${db }/member/join">
+              		  		<button id="join-btn" type="button" class="btn btn-dark waves-effect waves-light custom-login">회원가입</button>
+                    	</a>
+                    </div>
 
                     <div style="margin-top: 30px;"></div>
 
@@ -91,12 +95,7 @@
                         	<span>비밀번호 찾기</span>
                         </a>
                     </div>
-                    <div style="margin-top: 30px;"></div>
-                    <div>
-                    	<a href="${pageContext.servletContext.contextPath }/${db }/member/join">
-              		  		<button id="join-btn" type="button" class="btn btn-dark waves-effect waves-light custom-login">회원가입</button>
-                    	</a>
-                    </div>
+                    
                 </div><!-- END LOGIN FORM-->
 
             </div>
