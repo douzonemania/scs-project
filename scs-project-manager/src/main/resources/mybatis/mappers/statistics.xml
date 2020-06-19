@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="statistics">
+
+	<select id="findDonut" parameterType="map" resultType="categorydonutvo" >
+		<![CDATA[
+			select parents_no as 'categoryNo', sum(a.amount) as 'count'
+			  from (select parents_no, amount
+					  from ${db}.category c, (select category_no, amount, item_no 
+												from ${db}.item i, (select item_no, amount 
+																	  from ${db}.stock s, (select no as order_no, stock_no, amount 
+																							from ${db}.shop_order o, ${db}.order_item oi
+																							where o.no = oi.order_no) a
+																	where a.stock_no = s.no) b
+											  where i.no=b.item_no) d
+					  where c.no=d.category_no) a
+			  group by a.parents_no
+			  order by count desc
+			  limit 5
+		]]>
+	</select>
+	<select id="findName" parameterType="map" resultType="string" >
+		<![CDATA[
+			select name as 'categoryName'
+			  from ${db }.category 
+			 where no=#{no };
+		]]>
+	</select>
+	
+	<select id= "findBar" parameterType="map" resultType="categorybarvo">
+		<![CDATA[
+			select c.parents_no as 'categoryNo', sum(total_price*amount) as 'totalPrice', d.date as 'date'
+			  from ${db}.category c, (select category_no, amount, item_no, total_price, b.date
+										from ${db}.item i, (select item_no, amount , total_price, a.date
+															  from ${db}.stock s, (select o.no as order_no, stock_no, amount, total_price, DATE_FORMAT(o.reg_date,'%Y-%m-%d') as 'date'
+																					from ${db}.shop_order o, ${db}.order_item oi
+																					where o.no = oi.order_no
+																					and o.reg_date >= #{startDate }
+																					and o.reg_date <= #{endDate }
+																					group by o.reg_date) a
+															where a.stock_no = s.no) b
+									  where i.no=b.item_no) d
+			  where c.no=d.category_no
+				and c.parents_no = #{categoryNo }
+			 group by categoryNo, date	
+			 order by date;
+		]]>
+	
+	</select>
+	
+	<select id="findSales" parameterType="map" resultType="productssalesvo">
+		<![CDATA[
+			select sum(amount*total_price) as 'totalSales', a.date as 'date'
+						  from ${db }.stock s, (select o.no as order_no, stock_no, amount, total_price, DATE_FORMAT(o.reg_date,'%Y-%m-%d') as 'date'
+												 from ${db }.shop_order o, ${db }.order_item oi
+												where o.no = oi.order_no
+												  and o.reg_date >= #{startDate }
+												  and o.reg_date <= #{endDate }
+											 group by o.reg_date) a
+						where a.stock_no = s.no
+						 group by a.date
+		]]>
+	</select>
+	
+	<select id="findSales2" parameterType="map" resultType="productspaymentamountvo">
+		<![CDATA[
+			select sum(amount*total_price) as 'totalPrice', a.date as 'date', count(*) as 'count' 
+			  from ${db }.stock s, (select member_no, o.no as order_no, stock_no, amount, total_price, DATE_FORMAT(o.reg_date,'%Y-%m-%d') as 'date', count(*) as 'count'
+									 from ${db }.shop_order o, ${db }.order_item oi
+									where o.no = oi.order_no
+									  and o.reg_date >= #{startDate }
+									  and o.reg_date <= #{endDate }
+								 group by o.reg_date) a
+			where a.stock_no = s.no
+			 group by a.date, a.member_no
+		]]>
+	</select>
+	<select id="findSales3" parameterType="map" resultType="productspaymentmarginvo">
+		<![CDATA[
+			select ifnull(truncate((sum(i.now_price -(i.now_price * sale / 100)) - sum(i.sup_price)),0), 0) as 'totalMargin', b.date as 'date'
+			  from ${db }.item i, (select a.date as 'date', s.item_no
+									  from ${db }.stock s, (select member_no, o.no as order_no, stock_no, amount, total_price, DATE_FORMAT(o.reg_date,'%Y-%m-%d') as 'date'
+															 from ${db }.shop_order o, ${db }.order_item oi
+															where o.no = oi.order_no
+															  and o.reg_date >=  #{startDate }
+															  and o.reg_date <=  #{endDate }
+														 group by o.reg_date) a
+									where a.stock_no = s.no) b
+			where i.no = b.item_no
+			group by date
+		]]>
+	
+	</select>
+	<select id="findSales4" parameterType="map" resultType="productscountvo">
+		<![CDATA[
+			select  count(*) as 'count', DATE_FORMAT(a.reg_date,'%Y-%m-%d') as 'date'
+			from ${db }.shop_order a, ${db }.order_item b
+			where a.no=b.order_no
+			and a.reg_date >= #{startDate }
+			and a.reg_date <= #{endDate }
+			and b.amount = #{amount }
+			group by date
+		]]>
+	
+	</select>
+</mapper>

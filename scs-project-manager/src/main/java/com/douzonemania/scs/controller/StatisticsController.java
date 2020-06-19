@@ -27,9 +27,11 @@ public class StatisticsController {
 			@RequestParam(value="endDate", required=true, defaultValue="") String endDate,
 			Model model) {
 		
+
 		String id = authUser.getId();
 		Map<String, Object> map = statisticsService.categoryGraphByDate(startDate, endDate, id);
-		
+		model.addAttribute("map", map);
+	
 		return "statistics/category";
 	}
 	
@@ -40,7 +42,9 @@ public class StatisticsController {
 			@RequestParam(value="endDate", required=true, defaultValue="") String endDate,
 			Model model) {
 		
-		
+		String id = authUser.getId();
+		Map<String, Object> map = statisticsService.productsGraphByDate(startDate, endDate, id);
+		model.addAttribute("map", map);
 		
 		return "statistics/products";
 	}

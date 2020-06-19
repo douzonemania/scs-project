@@ -46,8 +46,6 @@
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/form-fileuploads.init.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/form-advanced.init.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/form-quilljs.init.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/morris.init.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/c3.init.js"></script>
     
     <!-- Buttons init js-->
     <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/pages/loading-btn.init.js"></script>
