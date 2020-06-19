@@ -148,12 +148,16 @@
 	
 	<select id="getContentsByCustomNo" parameterType="int" resultType="contentsvo">
 			<![CDATA[
-				select no,
-					   custom_no as customNo,
-					   contents_index as 'index', 
-					   content 
-				  from scs2.contents
-				 where custom_no = #{no}
+				select b.no,
+					   b.custom_no as customNo,
+					   b.contents_index as 'index', 
+					   b.content,
+					   a.design_id as designId,
+					   a.custom_index as customIndex
+				  from scs2.custom a, scs2.contents b
+				 where a.no = b.custom_no 
+				   and b.custom_no = #{no}
+				   
 			]]>
 	</select>
 	

@@ -1,5 +1,6 @@
 package com.douzonemania.scs.controller.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,6 +128,7 @@ public class DesignController {
 		map.put("subMenuList", subMenuList);
 		map.put("maxMenuIndex", maxMenuIndex);
 		
+		
 		return JsonResult.success(map);
 	}
 	
@@ -154,6 +156,39 @@ public class DesignController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", contentsList);
 		
+		return JsonResult.success(map);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/source/get/{index}")
+	public JsonResult getSource(@AuthUser CeoVo authUser, @PathVariable int index) {
+		
+		Map<String, Object> map = new HashMap<>();
+		int menuNo = designService.findSubmenuNum(index, authUser.getId());
+		
+		List<CustomVo> customList = designService.getCustomBySubmenuNo(menuNo, authUser.getId());
+		
+		
+		List<ContentsVo> contentsList = new ArrayList<ContentsVo>();
+		List<List<ContentsVo>> list = new ArrayList<List<ContentsVo>>();
+		
+		for(int i=0;i<customList.size();i++) {
+			
+			int no  = customList.get(i).getNo();
+			
+			contentsList = designService.getContentsByCustomNo(no, authUser.getId());
+			
+			list.add(contentsList);
+		}
+		
+
+		for (List<ContentsVo> list2 : list) {
+			System.out.println(list2);
+		}
+		
+		map.put("list", list);
+		
+			
 		return JsonResult.success(map);
 	}
 	
