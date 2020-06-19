@@ -138,4 +138,13 @@ public class CustomRepository {
 	public List<SubMenuVo> getSubMenuById(String id) {
 		return sqlSession.selectList("custom.getSubMenuById", id);
 	}
+
+	public int findSubMenuNo(String db,int no) {
+	
+		map.put("no", no);
+		map.put("db", db);
+
+		
+		return sqlSession.selectOne("custom.findSubMenuNo",map);
+	}
 }

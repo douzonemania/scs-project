@@ -31,16 +31,10 @@ public class CustomController {
 	public String home(Model model, 
 			@PathVariable("no") int no
 			) {
-		
 		List<Map> contentList = new ArrayList();
 		List<ContentsVo> cVo = new ArrayList();		
-		
 		List<CustomDesignVo> list = customService.getCustomDesignBySubMenu(no);
-		System.err.println(":::subMenu:::" + list);
 		List<ContentsVo> contentsList = customService.getContentsByCustomNo(14);
-		//System.err.println("::::" + contentsList.get(1).getContent());
-		System.err.println("::::" + contentList);
-		
 		for(CustomDesignVo i: list){
 			Map<String, Object> map = new HashMap<>();
 			cVo = customService.getContentsByCustomNo(i.getNo());

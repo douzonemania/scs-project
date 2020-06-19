@@ -226,13 +226,16 @@
 	
 	<select id="getCustomDesignBySubMenu" parameterType="int" resultType="customdesignvo">
 			<![CDATA[
-				select no, custom_index as 'customIndex', design_id as 'designID' from custom where menu_no = #{subMenuNo};
+				select no, custom_index as 'customIndex', design_id as 'designID' 
+				from custom 
+				where menu_no = #{subMenuNo};
 			]]>
 	</select>
 	
 	<select id="getContentsByCustomNo" parameterType="int" resultType="contentsvo">
 			<![CDATA[
-				select contents_index as 'index', content from contents where custom_no = #{customNo}
+				select contents_index as 'index', content 
+				from contents where custom_no = #{customNo}
 			]]>
 	</select>
 	
@@ -249,5 +252,18 @@
 		  order by menu_index
 		]]>
 	</select>	
+	
+	
+	<select id="findSubMenuNo" parameterType="map" resultType="int">
+		<![CDATA[
+			select no
+			from sub_menu
+			where menu_index =#{no} and id =#{db}
+		]]>
+	
+	</select>
+	
+	
+	
 
 </mapper>

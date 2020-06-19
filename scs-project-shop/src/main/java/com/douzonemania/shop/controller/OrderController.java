@@ -49,8 +49,6 @@ public class OrderController {
 		
 		List<OptionVo> optionList= orderService.findOptionList(no,db);
 		
-		System.out.println(map);
-		
 		model.addAttribute("map",map);
 		model.addAttribute("option",optionList);
 		
@@ -71,12 +69,7 @@ public class OrderController {
 		}
 		List<ItemVo> list = orderService.setCartList(db,vo.getNo());
 		model.addAttribute("list",list);
-		
-		for (ItemVo itemVo : list) {
-			System.out.println(itemVo.toString());
-		}
-		System.err.println(vo + "!!!!");
-		
+			
 		return "order/cart";
 	}
 	
@@ -90,7 +83,6 @@ public class OrderController {
 			
 			) {
 			
-		System.out.println("TEST");
 		
 		String db = session.getAttribute("db").toString();
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");

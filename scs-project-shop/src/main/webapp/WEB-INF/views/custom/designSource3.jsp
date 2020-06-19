@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="UTF-8">
-<head>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.HashMap"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
-</script>
-</head>
-
-	<c:set var="mapT" value="<%=new java.util.HashMap()%>" />
+<c:set var="mapT" value="<%=new java.util.HashMap()%>" />
 
 
 <c:forEach var="test" varStatus="status" items="${param.map }">
@@ -29,18 +20,16 @@
 	</c:choose>	
 </c:forEach>
 
-<div id='designSource3' >
-	<div id='title' class="designSource3TextBox">
-		<p id="1" class="designSource3Title">${mapT.key_0}</p>
+<div id='design-source1' >
+	<div  class="designSource3TextBox">
+		<h1 class="designSource3Title">test</h1>
 		<div class="designSource3Space"></div>
-		<p id="2" class="designSource3TextArea">${mapT.key_1} area</p>
+		<p id="2" class="designSource3TextArea">test</br></br></br>test</p>
 		<div class="designSource3SubImgBox">
-			<div class="designSource3SubImgSector"><img src="${mapT.key_2}" class=""/></div>
+			<img src="${mapT.key_2}" class=""/>
 		</div>
 	</div>
 	<div class="designSource3MainImgBox">
-		<div class="designSource3MainImgSector">
 		<img src="${mapT.key_3}" class=""/>
-		</div>
 	</div>
 </div>
