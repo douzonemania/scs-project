@@ -191,4 +191,18 @@
 		]]>
 	</select>
 	
+	<insert id="insertMainPageMenu" parameterType="string" >
+		<![CDATA[
+			insert into scs2.sub_menu
+				 values (null, 1, '메인페이지', #{db}, true)
+		]]>
+	</insert>
+	
+	<insert id="insertFAQMenu" parameterType="string" >
+		<![CDATA[
+			insert into scs2.sub_menu
+				 values (null, 2, 'FAQ', #{db}, true)
+		]]>
+	</insert>
+	
 </mapper>

@@ -1,5 +1,7 @@
 package com.douzonemania.security;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -34,9 +36,21 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			request
 				.getRequestDispatcher("/WEB-INF/views/user/login.jsp")
 				.forward(request, response);
-			return false;
-		}
+			
+			System.out.println("???????");
+			
+			
 		
+			response.setContentType("text/html; charset=UTF-8");
+			 
+			PrintWriter out = response.getWriter();
+			 
+			out.println("<script>alert('로그인 정보를 확인해주세요.'); location.href='${pageContext.request.contextPath }/main';</script>");
+			 
+			out.flush();
+
+			return false;
+		} 
 		
 		// session 처리
 		HttpSession session = request.getSession(true);
