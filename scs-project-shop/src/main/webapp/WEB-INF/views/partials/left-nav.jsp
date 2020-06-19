@@ -22,11 +22,11 @@
 
 </head>
 <body>
-<div style="padding-top: 109px;">
-	<div class="left-nav float-left" style="height:2150px;">
+<div >
+	<div class="left-nav float-left" style="height:auto;">
 		<div class = "menuGroup">
 		
-			<ul style=" margin-top:200px">				
+			<ul style=" margin-top:150px">				
 				 <c:forEach var="vo" varStatus="status" items="${subMenuList}">
 				 	<c:if test="${status.index>1 }">
 	              		<li><a href ="${ pageContext.request.contextPath }/${db }/custom/${vo.no}">

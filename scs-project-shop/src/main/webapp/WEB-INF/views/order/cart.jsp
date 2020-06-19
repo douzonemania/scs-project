@@ -231,7 +231,8 @@
 <body>
     <!-- Navigation Bar-->
      <c:import url='/WEB-INF/views/partials/topbar.jsp'></c:import>
-
+	 <c:import url='/WEB-INF/views/partials/left-nav.jsp'></c:import>
+	
 
 
     <div class='wrapper'>
