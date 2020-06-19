@@ -22,8 +22,8 @@ body {
 <body >
 	<div class="col-lg-6 card-body" style="margin: 0 auto; margin-top: 10%;">
 		<div style="margin-top: 10%; margin-left: 4%;">
-			<img src="${ pageContext.request.contextPath }/assets/images/404error.jpg" alt="404 png 2" style="width: 835px;">
-			<!-- <a style="font-size: 2.8rem;color: #253445; text-shadow:3px 3px 3px rgba(0,0,0,0.5);">PAGE NOT FOUND =(</a> -->
+			<img src="${ pageContext.request.contextPath }/assets/images/404error.jpg" alt="404 png 2" style="width: 340px;">
+			<a style="font-size: 2.8rem;color: #253445; text-shadow:3px 3px 3px rgba(0,0,0,0.5);">PAGE NOT FOUND =(</a>
 		</div>
 		
 		<div class="text-center" style="margin-top: 1%; margin-right: 40%; width: 100%;">
