@@ -18,7 +18,14 @@
 	.imgSector{margin :10px; height:180px;}
 	.first-input{margin-top:20px; font-size:1.6em;}
 	.second-input{font-size:1em; margin-left:10px; margin-top:15px;}
+	
 	.img-preview{margin:5px; width:120px; height:150px}
+	
+	.designSource3MainImgBox{height:200px}
+	.designSource3SubImgBox{height:80px; margin-top:5px;}
+	.designSource3Title{font-size:2em}
+	.designSource3Space{display:none}
+	.designSource3TextArea{font-size:1em; height:60px;}
 }
 /*************************/
 /*** designSource2 CSS ***/
@@ -35,6 +42,8 @@
 .designSource3Title{ border-bottom:1px solid #9e9e9e; width:98.5%; font-size: 3em; margin-left:10px;}
 .designSource3Space{height:10px;}
 .designSource3TextArea{font-size:1em; width:97%;height:80px;resize:none;overflow: hidden;margin-left:15px}
+
+
 
 /*************************/
 /*** designSource4 CSS ***/
