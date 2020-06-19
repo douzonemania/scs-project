@@ -22,9 +22,9 @@
 
 <div id='design-source1' >
 	<div  class="designSource3TextBox">
-		<h1 class="designSource3Title">test</h1>
+		<h1 class="designSource3Title">tes1t</h1>
 		<div class="designSource3Space"></div>
-		<p id="2" class="designSource3TextArea">test</br></br></br>test</p>
+		<p id="2" class="designSource3TextArea">tes1t</br></br></br>t1est</p>
 		<div class="designSource3SubImgBox">
 			<img src="${mapT.key_2}" class=""/>
 		</div>
