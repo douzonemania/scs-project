@@ -23,6 +23,12 @@
 		<typeAlias alias="contentsvo" type="com.douzonemania.scs.vo.ceo.ContentsVo" />
 		<typeAlias alias="mainstatementvo" type="com.douzonemania.scs.vo.ceo.MainStatementVo" />
 		<typeAlias alias="productstatisticsvo" type="com.douzonemania.scs.vo.ceo.ProductStatisticsVo" />
+		<typeAlias alias="categorydonutvo" type="com.douzonemania.scs.vo.ceo.CategoryDonutVo" />
+		<typeAlias alias="categorybarvo" type="com.douzonemania.scs.vo.ceo.CategoryBarVo" />
+		<typeAlias alias="productssalesvo" type="com.douzonemania.scs.vo.ceo.ProductsSalesVo" />
+		<typeAlias alias="productspaymentamountvo" type="com.douzonemania.scs.vo.ceo.ProductsPaymentAmountVo" />
+		<typeAlias alias="productspaymentmarginvo" type="com.douzonemania.scs.vo.ceo.ProductsPaymentMarginVo" />
+		<typeAlias alias="productscountvo" type="com.douzonemania.scs.vo.ceo.ProductsCountVo" />
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/main.xml" />
@@ -34,5 +40,6 @@
 		<mapper resource="mybatis/mappers/option.xml" />
 		<mapper resource="mybatis/mappers/order.xml" />
 		<mapper resource="mybatis/mappers/design.xml" />
+		<mapper resource="mybatis/mappers/statistics.xml" />
 	</mappers>
 </configuration>
