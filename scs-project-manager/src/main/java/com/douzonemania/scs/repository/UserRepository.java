@@ -255,6 +255,11 @@ public class UserRepository {
 		map.put("id", id);
 		return sqlSession.selectList("user.getStatement", map);
 	}
+	
+	public void insertSubMenu(String id) {
+		sqlSession.insert("user.insertMainPageMenu", id);
+		sqlSession.insert("user.insertFAQMenu", id);
+	}
 
 
 }

@@ -144,6 +144,9 @@ public class UserService {
 		return count == 1;
 	}
 
-
+	// 1번 mainMenu, 2번 FAQ insert
+	public void insertSubMenu(String id) {
+		userRepository.insertSubMenu(id);
+	}
 
 }

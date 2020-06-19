@@ -32,7 +32,7 @@
 $(function(){
 	
 	// id찾기 input값이 다 들어와야 버튼이 눌리도록
-	$.fn.checkIdInfo = function() {
+/* 	$.fn.checkIdInfo = function() {
 		var check = false;
 		var name = $('#inputName').val();
 		var phoneNum = $('#inputPhoneNum').val();
@@ -74,7 +74,7 @@ $(function(){
 		if($.fn.checkPasswordInfo()) {
 			$('#find-password-btn').attr('disabled', false);
 		}
-	});
+	}); */
 	
 	
 	$("#find-id-btn").click(function(e) {
@@ -168,7 +168,7 @@ $("#find-password-btn").click(function() {
                                             <div class="form-group">
                                                 <input type="text" class="form-control" id="inputPhoneNum" aria-describedby="emailHelp" placeholder="휴대폰번호  입력">
                                             </div>
-                                            <button type="button" id="find-id-btn" class="btn btn-light waves-effect complete-join" disabled="">아이디 찾기</button>
+                                            <button type="button" id="find-id-btn" class="btn btn-light waves-effect complete-join">아이디 찾기</button>
                                         
                                     </div>
                                     <div class="tab-pane " id="find-pwd">
@@ -179,7 +179,7 @@ $("#find-password-btn").click(function() {
                                             <div class="form-group">
                                                 <input type="text" class="form-control" id="inputEmail" placeholder="이메일 입력">
                                             </div>
-                                            <button type="button" id="find-password-btn" class="btn btn-light waves-effect complete-join" disabled="">비밀번호 찾기</button>
+                                            <button type="button" id="find-password-btn" class="btn btn-light waves-effect complete-join">비밀번호 찾기</button>
                                         
                                     </div>
                                     <br/>

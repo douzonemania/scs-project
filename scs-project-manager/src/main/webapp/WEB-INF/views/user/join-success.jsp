@@ -9,7 +9,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<title></title>
+<title>SCS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
 <meta content="Coderthemes" name="author" />
@@ -47,7 +47,7 @@
 <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
 </head>
-<body>
+ <body style="background-image:url('<%=request.getContextPath() %>/assets/images/back.jpg');">
 
 	<!-- footer -->
 	<c:import url='/WEB-INF/views/partials/footer.jsp' />
@@ -56,23 +56,21 @@
 	<!-- Start Page Content here -->
 	<!-- ============================================================== -->
 
-
-
-	<div class="text-center mb-4" style="margin-top: 70px;">
-		<a href="${ pageContext.request.contextPath }/main"> <span><img
-				src="<%=request.getContextPath() %>/assets/images/logo-scs.png" alt="" height="130"></span>
-		</a>
+	<div class="text-center" style="height: 150px; background-color: #ffffff;">
+                                    <a href="${pageContext.request.contextPath }/main">
+                                        <span><img src="${pageContext.request.contextPath }/assets/images/logo-scs.png" alt="" height="130" style="margin-top: 10px;"></span>
+                                    </a>
 	</div>
 
-		<div class="container-fluid" style="margin-bottom: 30px;">
+		<div class="container-fluid" style="margin-top: 105px;">
 			
 				<div class="col-lg-12"
-					style="background-color: #FFFFFF; padding: 40px; width: 800px; height: 500px; margin: 0 auto; margin-top: 50px;">
+					style="background-color: rgba(211, 211, 211,0.6); padding: 40px; width: 800px; height: 500px; margin: 0 auto; margin-top: 50px;">
 						<br/>
 						<h1 class="fe-check mt-3" style="font-size: 100px; margin-bottom: 20px"></h1>
 						<h2 class="mt-3 mt-lg-0">회원 가입이 완료되었습니다.</h2>
 						<br/><br/><br/><br/><br/><br/>
-                        <p class="mt-3 mt-lg-0"><a href="${pageContext.request.contextPath }/main">로그인 하러가기</a></p>
+                        <p class="mt-3 mt-lg-0"><a href="${pageContext.request.contextPath }/main" style="color: #242424; font-size: 20px;'">로그인 하러가기</a></p>
 				</div>
 		</div>
 		<!-- end container -->
