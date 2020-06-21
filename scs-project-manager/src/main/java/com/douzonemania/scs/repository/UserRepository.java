@@ -25,7 +25,8 @@ public class UserRepository {
 		String itemReviewQry = "CREATE TABLE " + id + ".item_review(" + "   no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    rate INT UNSIGNED NOT NULL," + "    title VARCHAR(30)  NOT NULL," + "    content TEXT NOT NULL,"
 				+ "    image VARCHAR(50)  NULL," + "    item_no INT UNSIGNED NULL," + "    member_no INT UNSIGNED NULL,"
-				+ "    reg_date    DATETIME          NOT NULL, "
+				+ "    reg_date    DATETIME          NOT NULL, " + "    color    VARCHAR(20)     NULL, "
+				+ "    size    VARCHAR(20)     NULL, "
 				+ "    primary key(no)" + ")engine=InnoDB character set=utf8;";
 		String itemBoardQry = "CREATE TABLE " + id + ".item_board(" + "    no INT UNSIGNED NOT NULL  AUTO_INCREMENT,"
 				+ "    title VARCHAR(50)  NOT NULL," + "    contents  TEXT         NOT NULL,"
