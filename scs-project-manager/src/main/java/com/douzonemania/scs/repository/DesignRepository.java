@@ -190,8 +190,6 @@ public class DesignRepository {
 			map.put("oldIndex", oldIndex);
 			map.put("newIndex", newIndex);
 			
-			System.out.println(map.get("oldIndex") + ":" + map.get("newIndex"));
-			
 			sqlSession.update("design.updateQnaIndex", map);
 		}
 		

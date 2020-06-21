@@ -186,4 +186,8 @@ public class CustomService {
 
 		return customRepository.findSubMenuNo(db,no);
 	}
+	
+	public int getCustomNo(int index, String id) {
+		return customRepository.getCustomNo(index, id);
+	}
 }
