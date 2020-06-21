@@ -388,7 +388,7 @@
 	
 		<insert id="regReview" parameterType="map" >
 		<![CDATA[
-			insert into ${db}.item_review values(null,#{rVo.rate},#{rVo.title},#{rVo.contents},#{rVo.image},#{rVo.itemNo},#{rVo.memberNo}, now());
+			insert into ${db}.item_review values(null,#{rVo.rate},#{rVo.title},#{rVo.contents},#{rVo.image},#{rVo.itemNo},#{rVo.memberNo}, now(),#{rVo.color},#{rVo.size});
 		]]>
 	</insert>
 	
