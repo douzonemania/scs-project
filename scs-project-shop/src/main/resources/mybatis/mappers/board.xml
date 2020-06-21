@@ -226,6 +226,7 @@
 					 	   b.reply_state as replyState,
 		                   i.code,
                    		   m.id,
+                   		   m.name,
 		                   i.main_image as mainImage,
 		                   i.name as itemName
 					  from ${db}.item_board b,

@@ -104,8 +104,9 @@
 	          		<c:forEach items="${map.list }" var="vo" varStatus="status">  
 			  			<tr>
 			  				<td>&nbsp; [${status.count + (map.page - 1) * 5 }] &nbsp;&nbsp;&nbsp;
-			  					<!-- img source 받아오기  -->
-	                            					<img src="/scs-manager${vo.mainImage }" style="max-height:280px"  class="img-fluid" />
+			  					<a href="${ pageContext.request.contextPath }/${db}/order/detail?no=${vo.itemNo}">
+	                            	<img src="/scs-manager${vo.mainImage }" style="max-height:280px"  class="img-fluid" />
+			  					</a>	
 			  				</td>
 			  				<td>${vo.itemName }</td>
 			  				<td>

@@ -144,7 +144,7 @@ $(function(){
            </div>
           
           	<c:if test="${authUser.id  != null}">
-            <div style="border: none; float: right;">
+            <div style="border: none; float: right; margin-top: 10px;">
             	<a href="${pageContext.servletContext.contextPath }/${db }/board/qna/write">
 	            	<button style="border: 1px solid #BEBEBE; padding: 10px; font-weight: bold;">글쓰기</button></a>
             </div>

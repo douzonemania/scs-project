@@ -170,12 +170,12 @@ public class BoardService {
 		int total = boardRepository.itemBoardListCount(id, option, keyword);
 
 
-		List<BoardVo> list;
+		List<ItemBoardVo> list;
 		if(option.equals("")) {
 			list = boardRepository.itemBoardList(id, offset, LIST_SIZE);
 		}
 		else {
-			list = boardRepository.searchItemBoaardList(id, option, keyword, offset, LIST_SIZE);
+			list = boardRepository.searchItemBoardList(id, option, keyword, offset, LIST_SIZE);
 		}
 
 		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
