@@ -1,7 +1,5 @@
 package com.douzonemania.shop.controller.api;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -9,9 +7,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,10 +21,10 @@ import com.douzonemania.shop.service.OrderService;
 import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OptionVo;
-import com.douzonemania.shop.vo.ShipVo;
+import com.douzonemania.shop.vo.ReviewVo;
 
 @Controller("OrderApiController")
-@RequestMapping("/api/order")
+@RequestMapping("api/order")
 public class OrderController {
 
 	@Autowired
@@ -161,6 +157,16 @@ public class OrderController {
 		String orderNum = orderService.excuteOrder(db,vo.getNo(),list,shipMemo,shipNo);
 		
 		return JsonResult.success(orderNum);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/regReview", method = RequestMethod.POST)
+	public JsonResult regReview(
+			@RequestBody ReviewVo rVo, HttpSession session
+			) {
+		String db = session.getAttribute("db").toString();
+		orderService.regReview(db, rVo);
+		return JsonResult.success("");
 	}
 }
 

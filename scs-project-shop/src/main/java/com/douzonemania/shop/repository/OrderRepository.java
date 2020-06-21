@@ -1,5 +1,6 @@
 package com.douzonemania.shop.repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OptionVo;
 import com.douzonemania.shop.vo.OrderListVo;
+import com.douzonemania.shop.vo.ReviewVo;
 import com.douzonemania.shop.vo.ShipVo;
 import com.douzonemania.shop.vo.StockVo;
 
@@ -354,12 +356,23 @@ public class OrderRepository {
 		return sqlSession.selectList("order.getOrderList", map);
 	}
 	
-	public List<OrderListVo> getOrderListByStatemnet(String db, Long no, String statement) {
+	
+	  public List<OrderListVo> getOrderListByStatemnet(String db, Long no, String
+	  statement) { map.put("db",db); map.put("no",no);
+	  map.put("statement",statement);
+	  
+	  return sqlSession.selectList("order.getOrderListByStatement", map); }
+	 
+	
+	public List<OrderListVo> getOrderListByStatemnet(String db, Long no, String statement, String date1, String date2) {
 		map.put("db",db);
 		map.put("no",no);
 		map.put("statement",statement);
-		return sqlSession.selectList("order.getOrderListByStatement", map);
+		map.put("date1", date1);
+		map.put("date2", date2);
+		return sqlSession.selectList("order.getOrderListByStatementAndDate", map);
 	}
+
 
 	public int ConvertOption(String db, List<OrderListVo> oVo) {
 		map.put("db",db);
@@ -373,6 +386,35 @@ public class OrderRepository {
 		}
 		return 0;
 	}
+
+
+	public List<Integer> getCountStatement(String db, List<OrderListVo> oVo) {
+		String[] statementArr = {"주문완료", "입금완료", "배송준비중", "배송중", "배송완료", "취소처리중", "교환처리중", "환불처리중","처리완료"};
+		List<Integer> stList = new ArrayList<>();
+		map.put("db",db);
+		for(int i=0; i<statementArr.length; i++) {
+			map.put("statement", statementArr[i]);
+			int temp = sqlSession.selectOne("order.getCountStatement", map);
+			stList.add(temp);
+		}
+		return stList;
+	}
+
+
+	public int regReview(String db, ReviewVo rVo) {
+		map.put("db", db);
+		map.put("rVo", rVo);
+		return sqlSession.insert("order.regReview", map);
+	}
+
+
+	public List<ReviewVo> getReviewList(Integer no, String db) {
+		map.put("db", db);
+		map.put("no", no);
+		return sqlSession.selectList("order.getReviewList", map);
+	}
+
+
 
 
 	

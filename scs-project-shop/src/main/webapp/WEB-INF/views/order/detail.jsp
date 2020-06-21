@@ -621,45 +621,46 @@
 										REVIEW </a></li>
 								<li class="nav-item"><a href="#qnaSpace"
 									data-toggle="tab" aria-expanded="false" class="nav-link">
-										FAQ </a></li>
+										FAQ</a></li>
 							</ul>
 						</div>
 
 						<div class="info-detail" id="infoSpace">
 							<img
 								src="${pageContext.request.contextPath}/assets/images/detail-image.PNG"
-								alt="" / class="rounded">
-						</div>
-
+								alt="" class="rounded">
+						</div>						
 						<div class="info-review" id="reviewSpace">
-							<span>REVIEW</span> <span style="display: block;"><div
-									style="font-weight: bold; display: inline;">고객분들의 생생한 후기</div>도
-								함께 만나보세요</span>
-							</a>
-							<div class="review-group">
-								<div class="review-img">
-									<img src="assets/images/review-img.PNG" alt=""
-										/ class="rounded">
-								</div>
-								<div class="review-box">
-									<div class="pl-xl-3 mt-3 mt-xl-3">
-										<!--리뷰 별-->
-										<p class="text-muted mr-3">
-											<span class="mdi mdi-star text-warning"></span> <span
-												class="mdi mdi-star text-warning"></span> <span
-												class="mdi mdi-star text-warning"></span> <span
-												class="mdi mdi-star text-warning"></span> <span
-												class="mdi mdi-star"></span>
-										</p>
-										<span style="margin-right: 4px;">id</span> <span>l</span> <span>날짜</span>
-										<span>l</span> <span>옵션</span>
-										<p class="text-muted mb-4 des-info"
-											style="margin-top: 8px; color: #323A46;">리뷰내용//height 맞추기</p>
-
+							<span>REVIEW</span> <span style="display: block;">
+							<div style="font-weight: bold; display: inline;">고객분들의 생생한 후기</div>도	함께 만나보세요</span>
+													
+							
+							
+<!-- 								<div class="review-group">
+									<div class="review-img">
+										<img src="assets/images/review-img.PNG" alt=""
+											/ class="rounded">
 									</div>
-								</div>
-							</div>
-
+									<div class="review-box">
+										<div class="pl-xl-3 mt-3 mt-xl-3">
+											리뷰 별
+											<p class="text-muted mr-3">
+												<span class="mdi mdi-star text-warning"></span> <span
+													class="mdi mdi-star text-warning"></span> <span
+													class="mdi mdi-star text-warning"></span> <span
+													class="mdi mdi-star text-warning"></span> <span
+													class="mdi mdi-star"></span>
+											</p>
+											<span style="margin-right: 4px;">id</span> <span>l</span> <span>날짜</span>
+											<span>l</span> <span>옵션</span>
+											<p class="text-muted mb-4 des-info"
+												style="margin-top: 8px; color: #323A46;">리뷰내용//height 맞추기</p>
+	
+										</div>
+									</div>
+								</div> -->
+							
+							<c:forEach items="${reviewList }" var="vo" varStatus="status">
 							<div class="review-group">
 								<div class="review-img">
 									<img
@@ -676,7 +677,7 @@
 												class="mdi mdi-star text-warning"></span> <span
 												class="mdi mdi-star"></span>
 										</p>
-										<span style="margin-right: 4px;">id</span> <span>l</span> <span>날짜</span>
+										<span style="margin-right: 4px;">id</span> <span>l</span> <span>${vo.regDate }</span>
 										<span>l</span> <span>옵션</span>
 										<p class="text-muted mb-4 des-info"
 											style="margin-top: 8px; color: #323A46;">리뷰내용</p>
@@ -684,6 +685,7 @@
 									</div>
 								</div>
 							</div>
+							</c:forEach>
 
 							<div class="qna-group" id="qnaSpace"> 
 								<span>Q&A</span>

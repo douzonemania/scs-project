@@ -15,12 +15,12 @@
             <link rel="shortcut icon" href="../assets/images/favicon.ico">
     
             <!-- Plugins css -->
-            <link href="../assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
     
             <!-- App css -->
-            <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-            <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-            <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
     </head>
 <body>
@@ -275,10 +275,10 @@
 
  <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
     <!-- Vendor js -->
-   <script src="../assets/js/vendor.min.js"></script>
+   <script src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>
 
    <!-- App js-->
-   <script src="../assets/js/app.min.js"></script>
+   <script src="${pageContext.request.contextPath}/assets/js/app.min.js"></script>
 
 </body>
 </html>

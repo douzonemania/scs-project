@@ -18,6 +18,7 @@ import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OptionVo;
 import com.douzonemania.shop.vo.OrderListVo;
+import com.douzonemania.shop.vo.ReviewVo;
 
 @Controller
 @RequestMapping("/{db}/order")
@@ -48,7 +49,10 @@ public class OrderController {
 		Map<String,Object> map= orderService.findProduct(no,db);
 		
 		List<OptionVo> optionList= orderService.findOptionList(no,db);
+		List<ReviewVo> reviewList= orderService.getReviewList(no,db);
+		System.out.println(map);
 		
+		model.addAttribute("reviewList",reviewList);
 		model.addAttribute("map",map);
 		model.addAttribute("option",optionList);
 		
@@ -69,7 +73,11 @@ public class OrderController {
 		}
 		List<ItemVo> list = orderService.setCartList(db,vo.getNo());
 		model.addAttribute("list",list);
-			
+		
+		for (ItemVo itemVo : list) {
+			System.out.println(itemVo.toString());
+		}		
+		
 		return "order/cart";
 	}
 	
@@ -83,6 +91,7 @@ public class OrderController {
 			
 			) {
 			
+		System.out.println("TEST");
 		
 		String db = session.getAttribute("db").toString();
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
@@ -118,56 +127,65 @@ public class OrderController {
 	public String review() {
 		return "order/review";
 	}
+	
+	@RequestMapping(value = "/regReview", method = RequestMethod.POST)
+	public String regReview(HttpSession session,Model model,
+			@RequestParam(value="itemNo") int itemNo,
+			@RequestParam(value="memberNo") int memberNo,
+			@RequestParam(value="image") String image,
+			@RequestParam(value="itemName") String itemName,
+			@RequestParam(value="itemSize") String itemSize,
+			@RequestParam(value="itemColor") String itemColor) {
+		
+		model.addAttribute("itemNo", itemNo);
+		model.addAttribute("memberNo", memberNo);
+		model.addAttribute("image", image);
+		model.addAttribute("itemName", itemName);
+		model.addAttribute("itemSize", itemSize);
+		model.addAttribute("itemColor", itemColor);
+		return "order/review-reg";
+	}	
 
-	@RequestMapping(value = "/orderlist", method = RequestMethod.GET)
+	@RequestMapping(value = "/orderlist", method = {RequestMethod.POST,RequestMethod.GET})
 	public String orderlist(HttpSession session,Model model
 			) {
 		String db = session.getAttribute("db").toString();
+		String statement ="init";
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
 		List<OrderListVo> oVo = orderService.getOrderList(db, vo.getNo());
 		List<String> priceList = orderService.convertPrice(oVo);
-		List<Integer> stList = orderService.getCountStatement(oVo);
+		List<Integer> stList = orderService.getCountStatement(db, oVo);
 		orderService.convertOption(db, oVo);
+		model.addAttribute("statement", statement); 
 		model.addAttribute("stList",stList);
 		model.addAttribute("priceList", priceList);
 		model.addAttribute("orderList", oVo);
 		return "order/orderlist";
 	}
 	
-	@RequestMapping(value = "/orderlist/{statement}", method = RequestMethod.GET)
+	@RequestMapping(value = "/orderlist/{statement}", method = {RequestMethod.POST,RequestMethod.GET})
 	public String orderListByStatement(HttpSession session,Model model,
-			@PathVariable("statement") String statement
-			) {
-		if("oc".equals(statement)) {
-			statement="주문완료";
-		}else if("depc".equals(statement)) {
-			statement="입금완료";
-		}else if("pfd".equals(statement)) {
-			statement="배송준비중";
-		}else if("sip".equals(statement)) {
-			statement="배송중";
-		}else if("delc".equals(statement)) {
-			statement="배송완료";
-		}else if("canp".equals(statement)) {
-			statement="취소처리중";
-		}else if("chanp".equals(statement)) {
-			statement="교환처리중";
-		}else if("rp".equals(statement)) {
-			statement="환불처리중";
-		}else if("pc".equals(statement)) {
-			statement="처리완료";
-		}
+			@PathVariable("statement") String statement,
+			@RequestParam(value="date", defaultValue="noneDate") String date
+			) {	
+		model.addAttribute("statement",statement);
+
 		String db = session.getAttribute("db").toString();
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
-		List<OrderListVo> oVo = orderService.getOrderList(db, vo.getNo(), statement);
+		List<OrderListVo> oVo;
+		if("noneDate".equals(date)) {
+			oVo = orderService.getOrderList(db, vo.getNo(), statement);
+		}else {
+			oVo = orderService.getOrderList(db, vo.getNo(), statement, date);
+		}
 		List<String> priceList = orderService.convertPrice(oVo);
-		List<Integer> stList = orderService.getCountStatement(oVo);
+		List<Integer> stList = orderService.getCountStatement(db, oVo);
 		orderService.convertOption(db, oVo);
 		model.addAttribute("stList",stList);
 		model.addAttribute("priceList", priceList);
 		model.addAttribute("orderList", oVo);
 		return "order/orderlist";
-	}
-	
+	}	
+
 
 }
