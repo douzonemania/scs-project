@@ -44,8 +44,8 @@ $( document ).ready(function() {
 		vo.itemNo = ${itemNo}
 		vo.memberNo = ${memberNo}
 		vo.regDate= null;
-		vo.color= ${itemColor};
-		vo.size= ${itemSize};
+		vo.color= "${itemColor}";
+		vo.size= "${itemSize}";
 		
 		$.ajax({
 			url: '${pageContext.request.contextPath }/api/order/regReview',
