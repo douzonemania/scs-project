@@ -38,87 +38,30 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div id="accordion" class="mb-3">
-                        <div class="card mb-1">
-                            <div class="card-header" id="headingOne">
-                                <h5 class="m-0">
-                                    <a class="text-dark" data-toggle="collapse" href="#collapseOne" aria-expanded="true">
-                                        <i class="mdi mdi-help-circle mr-1 text-primary"></i> 
-                                        배송 준비 중 / 발송 후 주소지를 변경할 수 있나요?
-                                    </a>
-                                </h5>
-                            </div>
-                
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                <div class="card-body">
-                                    배송 준비 중 부터는 주문 정보 변경이 불가능합니다.
-                                </div>
-                            </div>
+                    
+                    <c:forEach items="${list }" var="vo" varStatus="status">
+                    	<div class="card mb-1">
+                    	<c:choose>
+                    		<c:when test="${ status.index % 2 == 0}">
+                    			<div class="card-header" id="headingOne">
+	                                <h4 class="m-0">
+	                                    <a class="text-dark" data-toggle="collapse" href="#collapseOne" aria-expanded="true">
+	                                        <i class="mdi mdi-help-circle mr-1 text-primary"></i> 
+	                                       		&nbsp; ${ vo.content}
+	                                    </a>
+	                                </h4>
+                            	</div>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<div id="collapseOne1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                               		 <div class="card-body">
+                                  	 	 ${ vo.content}
+                                	</div>
+                           		 </div>
+                    		</c:otherwise>
+                    	</c:choose>
                         </div>
-                        <div class="card mb-1">
-                            <div class="card-header" id="headingTwo">
-                                <h5 class="m-0">
-                                    <a class="text-dark" data-toggle="collapse" href="#collapseTwo" aria-expanded="false">
-                                        <i class="mdi mdi-help-circle mr-1 text-primary"></i> 
-                                       주문한 상품이 일부만 도착했어요.
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                <div class="card-body">
-                                    브랜드에 따라 출고지가 다르므로 다수의 브랜드를 주문하신 경우 각각 배송됩니다.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card mb-1">
-                            <div class="card-header" id="headingThree">
-                                <h5 class="m-0">
-                                    <a class="text-dark" data-toggle="collapse" href="#collapseThree" aria-expanded="false">
-                                        <i class="mdi mdi-help-circle mr-1 text-primary"></i> 
-                                        입금 전 주문 취소는 어떻게 하나요?
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                <div class="card-body">
-                                    마이페이지에서 가능합니다.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card mb-1">
-                            <div class="card-header" id="headingFour">
-                                <h5 class="m-0">
-                                    <a class="text-dark" data-toggle="collapse" href="#collapseFour2" aria-expanded="false">
-                                        <i class="mdi mdi-help-circle mr-1 text-primary"></i> 
-                                        교환 배송비는 어떻게 보내야 하나요?
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapseFour2" class="collapse" aria-labelledby="collapseFour" data-parent="#accordion">
-                                <div class="card-body">
-                                    교환 배송비를 동봉하지 않으신 경우 계좌로 입금 가능합니다.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card mb-1">
-                            <div class="card-header" id="headingFour">
-                                <h5 class="m-0">
-                                    <a class="text-dark" data-toggle="collapse" href="#collapseFour3" aria-expanded="false">
-                                        <i class="mdi mdi-help-circle mr-1 text-primary"></i> 
-                                       입금 전 다른 사이즈으로 교환하고 싶어요
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapseFour3" class="collapse" aria-labelledby="collapseFour" data-parent="#accordion">
-                                <div class="card-body">
-                                  주문 접수 상태인 경우 주문 취소 후 재주문 해주셔야 합니다.
-                                </div>
-                            </div>
-                        </div>
-
-               
-
+                     </c:forEach>   
                         
                     </div> <!-- end #accordions-->
                 </div> <!-- end col -->
