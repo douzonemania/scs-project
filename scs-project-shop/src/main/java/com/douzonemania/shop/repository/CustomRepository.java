@@ -147,4 +147,11 @@ public class CustomRepository {
 		
 		return sqlSession.selectOne("custom.findSubMenuNo",map);
 	}
+	
+	public int getCustomNo(int index, String id) {
+		map.put("index", index);
+		map.put("db", id);
+		
+		return sqlSession.selectOne("custom.getCustomNo", map);
+	}
 }

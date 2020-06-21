@@ -1,5 +1,6 @@
 package com.douzonemania.shop.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.douzonemania.shop.repository.BoardRepository;
 import com.douzonemania.shop.service.BoardService;
+import com.douzonemania.shop.service.CustomService;
 import com.douzonemania.shop.vo.BoardVo;
+import com.douzonemania.shop.vo.ContentsVo;
 import com.douzonemania.shop.vo.ItemBoardVo;
 import com.douzonemania.shop.vo.ItemReplyVo;
 import com.douzonemania.shop.vo.MemberVo;
@@ -26,14 +28,21 @@ import com.douzonemania.shop.vo.ReplyVo;
 public class BoardController {
 
 	@Autowired
-	BoardRepository boardRepository;
-	
-	@Autowired
 	BoardService boardService;
 	
+	@Autowired
+	CustomService customService;
+	
 	@RequestMapping(value = "/faq")
-	public String faq() {
-		boardRepository.getSession();
+	public String faq(Model model, HttpSession session) {
+		String db = session.getAttribute("db").toString(); 
+		/* boardRepository.getSession(); */
+		int customNo = customService.getCustomNo(2, db);
+		
+		List<ContentsVo> list = customService.getContentsByCustomNo(customNo);
+		
+		model.addAttribute("list", list);
+	
 		return "board/faq";
 	}
 	
