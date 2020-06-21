@@ -196,6 +196,15 @@ public class DesignRepository {
 		return 1;
 	}
 
+	public void deleteContents(int j,int check) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("index",j);
+		map.put("customNo",check);
+		
+		sqlSession.delete("design.deleteContents",map);
+		
+	}
+
 	
 	
 
