@@ -12,3 +12,7 @@
 .check-font{
 	margin:8px;
 }
+body{background-color: #ffffff;}
+.navbar-custom.shop-topbar-custom{border-bottom:1px solid #cecece}
+@font-face{font-family:custom-font;src:url('/scs-shop/assets/fonts/Jua-Regular.ttf');}
+*{font-family:custom-font;}
