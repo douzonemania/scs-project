@@ -356,7 +356,7 @@ var fetchGraph = function(startDate, endDate){
 	            hideHover: 'auto',
 	            resize: true, //defaulted to true
 	            gridLineColor: '#eeeeee',
-	            barSizeRatio: 0.2,
+	            barSizeRatio: 0.3,
 	            xLabelAngle: 35,
 	            barColors: lineColors
 	        });
