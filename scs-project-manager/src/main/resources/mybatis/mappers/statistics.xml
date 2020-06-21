@@ -76,6 +76,7 @@
 			 group by a.date, a.member_no
 		]]>
 	</select>
+	
 	<select id="findSales3" parameterType="map" resultType="productspaymentmarginvo">
 		<![CDATA[
 			select ifnull(truncate((sum(i.now_price -(i.now_price * sale / 100)) - sum(i.sup_price)),0), 0) as 'totalMargin', b.date as 'date'
@@ -90,18 +91,29 @@
 			where i.no = b.item_no
 			group by date
 		]]>
-	
 	</select>
+	
 	<select id="findSales4" parameterType="map" resultType="productscountvo">
+		<![CDATA[
+			select sum(amount) as 'count', DATE_FORMAT(a.reg_date,'%Y-%m-%d') as 'date'
+			from ${db }.shop_order a, ${db }.order_item b
+			where a.no=b.order_no
+			and a.reg_date >= #{startDate }
+			and a.reg_date <= #{endDate }
+			group by order_no
+		]]>
+	</select>
+	
+	<select id="findSales5" parameterType="map" resultType="productspricevo">
 		<![CDATA[
 			select  count(*) as 'count', DATE_FORMAT(a.reg_date,'%Y-%m-%d') as 'date'
 			from ${db }.shop_order a, ${db }.order_item b
 			where a.no=b.order_no
 			and a.reg_date >= #{startDate }
 			and a.reg_date <= #{endDate }
-			and b.amount = #{amount }
-			group by date
+			and b.total_price >= #{startPrice }
+			and b.total_price < #{endPrice }
+			group by b.total_price, date
 		]]>
-	
 	</select>
 </mapper>

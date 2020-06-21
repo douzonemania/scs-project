@@ -18,6 +18,7 @@ import com.douzonemania.scs.vo.ceo.CategoryDonutVo;
 import com.douzonemania.scs.vo.ceo.ProductsCountVo;
 import com.douzonemania.scs.vo.ceo.ProductsPaymentAmountVo;
 import com.douzonemania.scs.vo.ceo.ProductsPaymentMarginVo;
+import com.douzonemania.scs.vo.ceo.ProductsPriceVo;
 import com.douzonemania.scs.vo.ceo.ProductsSalesVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
 
@@ -371,17 +372,30 @@ public class StatisticsService {
 			productsCountVo5.add(vo);
 		}
 		
-		System.out.println(productsCountVo1);
-		System.out.println(productsCountVo2);
-		System.out.println(productsCountVo3);
-		System.out.println(productsCountVo4);
-		System.out.println(productsCountVo5);
+		List<ProductsCountVo> totalCountList = statisticsRepository.findSales4(productsCountVo1.get(6).getDate(),productsCountVo1.get(0).getDate(), id);
 		
-		List<ProductsCountVo> productstCountVo1 = statisticsRepository.findSales4(productsCountVo1.get(6).getDate(),productsCountVo1.get(0).getDate(), id, 1);
-		List<ProductsCountVo> productstCountVo2 = statisticsRepository.findSales4(productsCountVo2.get(6).getDate(),productsCountVo2.get(0).getDate(), id, 2);
-		List<ProductsCountVo> productstCountVo3 = statisticsRepository.findSales4(productsCountVo3.get(6).getDate(),productsCountVo3.get(0).getDate(), id, 3);
-		List<ProductsCountVo> productstCountVo4 = statisticsRepository.findSales4(productsCountVo4.get(6).getDate(),productsCountVo4.get(0).getDate(), id, 4);
-		List<ProductsCountVo> productstCountVo5 = statisticsRepository.findSales4(productsCountVo5.get(6).getDate(),productsCountVo5.get(0).getDate(), id, 5);
+		System.out.println(totalCountList);
+		
+		List<ProductsCountVo> productstCountVo1 = new ArrayList<ProductsCountVo>();
+		List<ProductsCountVo> productstCountVo2 = new ArrayList<ProductsCountVo>();
+		List<ProductsCountVo> productstCountVo3 = new ArrayList<ProductsCountVo>();
+		List<ProductsCountVo> productstCountVo4 = new ArrayList<ProductsCountVo>();
+		List<ProductsCountVo> productstCountVo5 = new ArrayList<ProductsCountVo>();
+		
+		for (ProductsCountVo vo : totalCountList) {
+			if(vo.getCount() == 1) {
+				productstCountVo1.add(vo);
+			} else if(vo.getCount() == 2) {
+				productstCountVo2.add(vo);
+			} else if(vo.getCount() == 3) {
+				productstCountVo3.add(vo);
+			} else if(vo.getCount() == 4) {
+				productstCountVo4.add(vo);
+			} else {
+				productstCountVo5.add(vo);
+			} 
+			
+		}
 		
 		for (ProductsCountVo vo : productstCountVo1) {
 			String returnDate = vo.getDate();
@@ -429,6 +443,100 @@ public class StatisticsService {
 			}
 		}
 
+		/*  5  */
+		List<ProductsPriceVo> productsPriceVo1 = new ArrayList<ProductsPriceVo>();
+		List<ProductsPriceVo> productsPriceVo2 = new ArrayList<ProductsPriceVo>();
+		List<ProductsPriceVo> productsPriceVo3 = new ArrayList<ProductsPriceVo>();
+		List<ProductsPriceVo> productsPriceVo4 = new ArrayList<ProductsPriceVo>();
+		List<ProductsPriceVo> productsPriceVo5 = new ArrayList<ProductsPriceVo>();
+		ProductsPriceVo tempVo5 = new ProductsPriceVo();
+		tempVo5.setDate(get7DayAgoDate(year, month, date, 0));
+		productsPriceVo1.add(tempVo5);
+		for(int i=1; i<7; i++) {
+			ProductsPriceVo vo = new ProductsPriceVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			productsPriceVo1.add(vo);
+		}
+		productsPriceVo2.add(tempVo5);
+		for(int i=1; i<7; i++) {
+			ProductsPriceVo vo = new ProductsPriceVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			productsPriceVo2.add(vo);
+		}
+		productsPriceVo3.add(tempVo5);
+		for(int i=1; i<7; i++) {
+			ProductsPriceVo vo = new ProductsPriceVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			productsPriceVo3.add(vo);
+		}
+		productsPriceVo4.add(tempVo5);
+		for(int i=1; i<7; i++) {
+			ProductsPriceVo vo = new ProductsPriceVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			productsPriceVo4.add(vo);
+		}
+		productsPriceVo5.add(tempVo5);
+		for(int i=1; i<7; i++) {
+			ProductsPriceVo vo = new ProductsPriceVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			productsPriceVo5.add(vo);
+		}
+		
+		List<ProductsPriceVo> productsPriceResultVo1 = statisticsRepository.findSales5(productsPriceVo1.get(6).getDate(),productsPriceVo1.get(0).getDate(), id, 0, 20000);
+		List<ProductsPriceVo> productsPriceResultVo2 = statisticsRepository.findSales5(productsPriceVo2.get(6).getDate(),productsPriceVo2.get(0).getDate(), id, 20000, 40000);
+		List<ProductsPriceVo> productsPriceResultVo3 = statisticsRepository.findSales5(productsPriceVo3.get(6).getDate(),productsPriceVo3.get(0).getDate(), id, 40000, 60000);
+		List<ProductsPriceVo> productsPriceResultVo4 = statisticsRepository.findSales5(productsPriceVo4.get(6).getDate(),productsPriceVo4.get(0).getDate(), id, 60000, 80000);
+		List<ProductsPriceVo> productsPriceResultVo5 = statisticsRepository.findSales5(productsPriceVo5.get(6).getDate(),productsPriceVo5.get(0).getDate(), id, 80000, 999999);
+		
+		for (ProductsPriceVo vo : productsPriceResultVo1) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(productsPriceVo1.get(i).getDate())) {
+					productsPriceVo1.get(i).setCount(vo.getCount());
+					productsPriceVo1.get(i).setDate(vo.getDate());
+				}
+			}
+		}
+		for (ProductsPriceVo vo : productsPriceResultVo2) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(productsPriceVo2.get(i).getDate())) {
+					productsPriceVo2.get(i).setCount(vo.getCount());
+					productsPriceVo2.get(i).setDate(vo.getDate());
+				}
+			}
+		}
+		for (ProductsPriceVo vo : productsPriceResultVo3) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(productsPriceVo3.get(i).getDate())) {
+					productsPriceVo3.get(i).setCount(vo.getCount());
+					productsPriceVo3.get(i).setDate(vo.getDate());
+				}
+			}
+		}
+		for (ProductsPriceVo vo : productsPriceResultVo4) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(productsPriceVo4.get(i).getDate())) {
+					productsPriceVo4.get(i).setCount(vo.getCount());
+					productsPriceVo4.get(i).setDate(vo.getDate());
+				}
+			}
+		}
+		for (ProductsPriceVo vo : productsPriceResultVo5) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(productsPriceVo5.get(i).getDate())) {
+					productsPriceVo5.get(i).setCount(vo.getCount());
+					productsPriceVo5.get(i).setDate(vo.getDate());
+				}
+			}
+		}
+		
+		
+		
+		
 		
 		map.put("oneResultList", oneResultList);
 		map.put("twoResultList", twoResultList);
@@ -439,6 +547,12 @@ public class StatisticsService {
 		map.put("productsCountVo3", productsCountVo3);
 		map.put("productsCountVo4", productsCountVo4);
 		map.put("productsCountVo5", productsCountVo5);
+		
+		map.put("productsPriceVo1", productsPriceVo1);
+		map.put("productsPriceVo2", productsPriceVo2);
+		map.put("productsPriceVo3", productsPriceVo3);
+		map.put("productsPriceVo4", productsPriceVo4);
+		map.put("productsPriceVo5", productsPriceVo5);
 		
 		map.put("temp", temp);
 		
