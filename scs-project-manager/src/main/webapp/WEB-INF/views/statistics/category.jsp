@@ -140,7 +140,7 @@ var fetchList = function(startDate, endDate){
 
                     <div class="col-lg-6">
                         <div class="card-box" dir="ltr">
-                            <h4 class="header-title mb-3">카테고리별 일간 매출</h4>
+                            <h4 class="header-title mb-3">카테고리별 TOP 5 일간 매출</h4>
                             <div class="text-center">
                                 <p class="text-muted font-15 font-family-secondary mb-0">
                                 	<c:forEach var="list" items="${map.categoryList }" varStatus="status">
@@ -190,11 +190,17 @@ var fetchList = function(startDate, endDate){
                 
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="card-box">
-                            <h4 class="header-title mb-3">Roated Chart</h4>
-                            <div id="roated-chart" style="height: 300px;" dir="ltr"></div>
-                        </div> <!-- end card-->
-                    </div> <!-- end col-->
+                        <div class="card-box" dir="ltr">
+                            <h4 class="header-title mb-3">Total 구매건수와 매출</h4>
+                            <div class="text-center">
+                                <p class="text-muted font-15 font-family-secondary mb-0">
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-blue"></i> 구매 건수</span>
+                                    <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-pink"></i> 매출</span>
+                                </p>
+                            </div>
+                            <div id="morris-line-example" style="height: 350px;" class="morris-chart"></div>
+                        </div> <!-- card-box -->
+                    </div> <!-- end row -->
                 </div>
                 <!-- End row -->
 
@@ -220,9 +226,6 @@ var fetchList = function(startDate, endDate){
 	var a2 = ${map.donutList.get(0).count};
 	var b2 = ${map.donutList.get(1).count};
 	var c2 = ${map.donutList.get(2).count};
-
-	
-	console.log(a,b,c,a2,b2,c2);
 	
 	// 0 이 최근, 6이 일주일전
 	var barDataTop1TotalPrice1 = ${map.dateList1.get(6).totalPrice};
@@ -273,13 +276,24 @@ var fetchList = function(startDate, endDate){
 	var date6 = "${map.dateList1.get(1).date}";
 	var date7 = "${map.dateList1.get(0).date}";
 	
+	var lineDataCount1 = ${map.countLineList.get(6).count};
+	var lineDataCount2 = ${map.countLineList.get(5).count};
+	var lineDataCount3 = ${map.countLineList.get(4).count};
+	var lineDataCount4 = ${map.countLineList.get(3).count};
+	var lineDataCount5 = ${map.countLineList.get(2).count};
+	var lineDataCount6 = ${map.countLineList.get(1).count};
+	var lineDataCount7 = ${map.countLineList.get(0).count};
 	
-	console.log(barDataTop1TotalPrice1, barDataTop1TotalPrice2, barDataTop1TotalPrice3, barDataTop1TotalPrice4, barDataTop1TotalPrice5, barDataTop1TotalPrice6, barDataTop1TotalPrice7);
-	console.log(barDataTop2TotalPrice1, barDataTop2TotalPrice2, barDataTop2TotalPrice3, barDataTop2TotalPrice4, barDataTop2TotalPrice5, barDataTop2TotalPrice6, barDataTop2TotalPrice7);
-	console.log(barDataTop3TotalPrice1, barDataTop3TotalPrice2, barDataTop3TotalPrice3, barDataTop3TotalPrice4, barDataTop3TotalPrice5, barDataTop3TotalPrice6, barDataTop3TotalPrice7);
-	console.log(barDataTop4TotalPrice1, barDataTop4TotalPrice2, barDataTop4TotalPrice3, barDataTop4TotalPrice4, barDataTop4TotalPrice5, barDataTop4TotalPrice6, barDataTop4TotalPrice7);
-	console.log(barDataTop5TotalPrice1, barDataTop5TotalPrice2, barDataTop5TotalPrice3, barDataTop5TotalPrice4, barDataTop5TotalPrice5, barDataTop5TotalPrice6, barDataTop5TotalPrice7);
-
+	var lineDataPrice1 = ${map.salesLineList.get(6).totalPrice};
+	var lineDataPrice2 = ${map.salesLineList.get(5).totalPrice};
+	var lineDataPrice3 = ${map.salesLineList.get(4).totalPrice};
+	var lineDataPrice4 = ${map.salesLineList.get(3).totalPrice};
+	var lineDataPrice5 = ${map.salesLineList.get(2).totalPrice};
+	var lineDataPrice6 = ${map.salesLineList.get(1).totalPrice};
+	var lineDataPrice7 = ${map.salesLineList.get(0).totalPrice};
+	
+	
+	
 	
 		!function($) {
 		    "use strict";
@@ -300,6 +314,27 @@ var fetchList = function(startDate, endDate){
 		            barSizeRatio: 0.4,
 		            xLabelAngle: 35,
 		            barColors: lineColors
+		        });
+		    },
+		    //creates line chart
+		    MorrisCharts.prototype.createLineChart = function(element, data, xkey, ykeys, labels, opacity, Pfillcolor, Pstockcolor, lineColors) {
+		        Morris.Line({
+		          element: element,
+		          data: data,
+		          xkey: xkey,
+		          ykeys: ykeys,
+		          labels: labels,
+		          fillOpacity: opacity,
+		          pointFillColors: Pfillcolor,
+		          pointStrokeColors: Pstockcolor,
+		          behaveLikeLine: true,
+		          gridLineColor: '#eef0f2',
+		          hideHover: 'auto',
+		          lineWidth: '3px',
+		          pointSize: 5,
+		          preUnits: '',
+		          resize: true, //defaulted to true
+		          lineColors: lineColors
 		        });
 		    },
 		        
@@ -333,6 +368,19 @@ var fetchList = function(startDate, endDate){
 		                {label: c+"", value: c2}
 		            ];
 		        this.createDonutChart('morris-donut-example', $donutData, ['#4fc6e1','#6658dd', '#1ABC9C','#F1556C','#F672A7']);
+		        
+		      //create line chart
+		        var $data  = [
+		        	// y: 일자, a:구매건수, b:매출max
+		            { y: date1+'', a: lineDataCount1, b: lineDataPrice1},
+		            { y: date2+'', a: lineDataCount2, b: lineDataPrice2},
+		            { y: date3+'', a: lineDataCount3, b: lineDataPrice3},
+		            { y: date4+'', a: lineDataCount4, b: lineDataPrice4},
+		            { y: date5+'', a: lineDataCount5, b: lineDataPrice5},
+		            { y: date6+'', a: lineDataCount6, b: lineDataPrice6}
+		          ];
+		        this.createLineChart('morris-line-example', $data, 'y', ['a', 'b'], ["최대 구매 건수:"	, "최대 매출: "],['0.5'],['#ffffff'],['#999999'], ['#4a81d4', '#f672a7']);
+
 		    },
 		    //init
 		    $.MorrisCharts = new MorrisCharts, $.MorrisCharts.Constructor = MorrisCharts
@@ -344,50 +392,5 @@ var fetchList = function(startDate, endDate){
 		    $.MorrisCharts.init();
 		}(window.jQuery);
 </script>
-<script>
-!function($) {
-    "use strict";
 
-    var ChartC3 = function() {};
-
-    ChartC3.prototype.init = function () {
-        
-        //roated chart
-        c3.generate({
-            bindto: '#roated-chart',
-            data: {
-                columns: [
-                ['Desktops', 30, 200, 100, 400, 150, 250],
-                ['Tablets', 50, 20, 10, 40, 15, 25]
-                ],
-                types: {
-                Desktops: 'bar'
-                },
-                colors: {
-	                Desktops: '#1abc9c',
-	                Tablets: '#4a81d4'
-	            },
-            },
-            axis: {
-                rotated: true,
-                x: {
-                type: 'categorized'
-                }
-            }
-        });
-
-    },
-    $.ChartC3 = new ChartC3, $.ChartC3.Constructor = ChartC3
-
-}(window.jQuery),
-
-//initializing 
-function($) {
-    "use strict";
-    $.ChartC3.init()
-}(window.jQuery);
-
-
-
-</script>
 </html>

@@ -15,6 +15,8 @@ import com.douzonemania.scs.repository.ProductRepository;
 import com.douzonemania.scs.repository.StatisticsRepository;
 import com.douzonemania.scs.vo.ceo.CategoryBarVo;
 import com.douzonemania.scs.vo.ceo.CategoryDonutVo;
+import com.douzonemania.scs.vo.ceo.CategoryLineCountVo;
+import com.douzonemania.scs.vo.ceo.CategoryLineSalesVo;
 import com.douzonemania.scs.vo.ceo.ProductsCountVo;
 import com.douzonemania.scs.vo.ceo.ProductsPaymentAmountVo;
 import com.douzonemania.scs.vo.ceo.ProductsPaymentMarginVo;
@@ -50,7 +52,7 @@ public class StatisticsService {
 		temp.add("text-pink");
 
 		
-		/* 카테고리별 일간 매출 */
+		/* 카테고리별 TOP 5 일간 매출 */
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH ) + 1;
@@ -59,7 +61,6 @@ public class StatisticsService {
 		
 		
 		List<CategoryVo> categoryList = productRepository.getCategoryNameList(id); 
-		System.out.println(categoryList.size());
 		List<CategoryBarVo> dateList1 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> dateList2 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> dateList3 = new ArrayList<CategoryBarVo>();
@@ -213,14 +214,58 @@ public class StatisticsService {
 			}
 		}
 
-		System.out.println(dateList1);
+		/* Total 구매건수와 매출 */
+		List<CategoryLineCountVo> countLineList = new ArrayList<CategoryLineCountVo>();
+		List<CategoryLineSalesVo> salesLineList = new ArrayList<CategoryLineSalesVo>();
 		
+		CategoryLineCountVo tempVo6 = new CategoryLineCountVo();
+		tempVo6.setDate(get7DayAgoDate(year, month, date, 0));
+		countLineList.add(tempVo6);
+		for(int i=1; i<7; i++) {
+			CategoryLineCountVo vo = new CategoryLineCountVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			countLineList.add(vo);
+		}
+		CategoryLineSalesVo tempVo7 = new CategoryLineSalesVo();
+		tempVo7.setDate(get7DayAgoDate(year, month, date, 0));
+		salesLineList.add(tempVo7);
+		for(int i=1; i<7; i++) {
+			CategoryLineSalesVo vo = new CategoryLineSalesVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			salesLineList.add(vo);
+		}
+		
+		
+		List<CategoryLineCountVo> tempcountLineList = statisticsRepository.findLineCount(countLineList.get(6).getDate(), countLineList.get(0).getDate(), id);
+		List<CategoryLineSalesVo> tempsalesLineList = statisticsRepository.findLineSales(salesLineList.get(6).getDate(), salesLineList.get(0).getDate(), id);
+		
+		for (CategoryLineCountVo vo : tempcountLineList) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(countLineList.get(i).getDate())) {
+					countLineList.get(i).setCount(vo.getCount());
+					countLineList.get(i).setDate(vo.getDate());
+				}
+			}
+		}
+		for (CategoryLineSalesVo vo : tempsalesLineList) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(salesLineList.get(i).getDate())) {
+					salesLineList.get(i).setTotalPrice(vo.getTotalPrice());
+					salesLineList.get(i).setDate(vo.getDate());
+				}
+			}
+		}
 		map.put("donutList", donutList);
 		map.put("dateList1", dateList1);
 		map.put("dateList2", dateList2);
 		map.put("dateList3", dateList3);
 		map.put("dateList4", dateList4);
 		map.put("dateList5", dateList5);
+		map.put("countLineList", countLineList);
+		map.put("salesLineList", salesLineList);
+		
 		map.put("categoryList", categoryList);
 		map.put("temp", temp);
 		
@@ -374,7 +419,6 @@ public class StatisticsService {
 		
 		List<ProductsCountVo> totalCountList = statisticsRepository.findSales4(productsCountVo1.get(6).getDate(),productsCountVo1.get(0).getDate(), id);
 		
-		System.out.println(totalCountList);
 		
 		List<ProductsCountVo> productstCountVo1 = new ArrayList<ProductsCountVo>();
 		List<ProductsCountVo> productstCountVo2 = new ArrayList<ProductsCountVo>();
