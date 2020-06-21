@@ -13,6 +13,7 @@ import com.douzonemania.scs.vo.ceo.CategoryDonutVo;
 import com.douzonemania.scs.vo.ceo.ProductsCountVo;
 import com.douzonemania.scs.vo.ceo.ProductsPaymentAmountVo;
 import com.douzonemania.scs.vo.ceo.ProductsPaymentMarginVo;
+import com.douzonemania.scs.vo.ceo.ProductsPriceVo;
 import com.douzonemania.scs.vo.ceo.ProductsSalesVo;
 
 @Repository
@@ -79,14 +80,23 @@ public class StatisticsRepository {
 		return sqlSession.selectList("statistics.findSales3", map);
 	}
 
-	/* Products Sales4*/
-	public List<ProductsCountVo> findSales4(String startDate, String endDate, String id, int amount) {
+	/* Products Sales4 */
+	public List<ProductsCountVo> findSales4(String startDate, String endDate, String id) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db", id);
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
-		map.put("amount", amount);
 		return sqlSession.selectList("statistics.findSales4", map);
+	}
+	/* Products Sales5 */
+	public List<ProductsPriceVo> findSales5(String startDate, String endDate, String id, int startPrice, int endPrice) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		map.put("startPrice", startPrice);
+		map.put("endPrice", endPrice);
+		return sqlSession.selectList("statistics.findSales5", map);
 	}
 	
 	

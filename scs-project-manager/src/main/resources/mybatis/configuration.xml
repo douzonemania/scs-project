@@ -29,6 +29,7 @@
 		<typeAlias alias="productspaymentamountvo" type="com.douzonemania.scs.vo.ceo.ProductsPaymentAmountVo" />
 		<typeAlias alias="productspaymentmarginvo" type="com.douzonemania.scs.vo.ceo.ProductsPaymentMarginVo" />
 		<typeAlias alias="productscountvo" type="com.douzonemania.scs.vo.ceo.ProductsCountVo" />
+		<typeAlias alias="productspricevo" type="com.douzonemania.scs.vo.ceo.ProductsPriceVo"/>
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/main.xml" />

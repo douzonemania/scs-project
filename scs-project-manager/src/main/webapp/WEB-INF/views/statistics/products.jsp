@@ -192,7 +192,7 @@ var fetchGraph = function(startDate, endDate){
                                 <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-pink"></i> 2</span>
                                 <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> 3</span>
                                 <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-danger"></i> 4</span>
-                                <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-info"></i> 5</span>
+                                <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-info"></i> 5개 이상</span>
                             </p>
                         </div>
                         <div id="morris-bar-example4" style="height: 350px;" class="morris-chart"></div>
@@ -203,9 +203,6 @@ var fetchGraph = function(startDate, endDate){
                         <h4 class="header-title mb-3">한번에 결제되는 금액</h4>
                         <div class="text-center">
                             <p class="text-muted font-15 font-family-secondary mb-0">
-                                <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-info"></i> Bitcoin</span>
-                                <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> Ethereum</span>
-                                <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-muted"></i> Litecoin</span>
                             </p>
                         </div>
                         <div id="morris-bar-example5" style="height: 350px;" class="morris-chart"></div>
@@ -300,8 +297,45 @@ var fetchGraph = function(startDate, endDate){
 	var oneClick5Count6 = ${map.productsCountVo5.get(1).count};
 	var oneClick5Count7 = ${map.productsCountVo5.get(0).count};
 
+	var oneClick1Price1 = ${map.productsPriceVo1.get(6).count};
+	var oneClick1Price2 = ${map.productsPriceVo1.get(5).count};
+	var oneClick1Price3 = ${map.productsPriceVo1.get(4).count};
+	var oneClick1Price4 = ${map.productsPriceVo1.get(3).count};
+	var oneClick1Price5 = ${map.productsPriceVo1.get(2).count};
+	var oneClick1Price6 = ${map.productsPriceVo1.get(1).count};
+	var oneClick1Price7 = ${map.productsPriceVo1.get(0).count};
 	
+	var oneClick2Price1 = ${map.productsPriceVo2.get(6).count};
+	var oneClick2Price2 = ${map.productsPriceVo2.get(5).count};
+	var oneClick2Price3 = ${map.productsPriceVo2.get(4).count};
+	var oneClick2Price4 = ${map.productsPriceVo2.get(3).count};
+	var oneClick2Price5 = ${map.productsPriceVo2.get(2).count};
+	var oneClick2Price6 = ${map.productsPriceVo2.get(1).count};
+	var oneClick2Price7 = ${map.productsPriceVo2.get(0).count};
 	
+	var oneClick3Price1 = ${map.productsPriceVo3.get(6).count};
+	var oneClick3Price2 = ${map.productsPriceVo3.get(5).count};
+	var oneClick3Price3 = ${map.productsPriceVo3.get(4).count};
+	var oneClick3Price4 = ${map.productsPriceVo3.get(3).count};
+	var oneClick3Price5 = ${map.productsPriceVo3.get(2).count};
+	var oneClick3Price6 = ${map.productsPriceVo3.get(1).count};
+	var oneClick3Price7 = ${map.productsPriceVo3.get(0).count};
+	
+	var oneClick4Price1 = ${map.productsPriceVo4.get(6).count};
+	var oneClick4Price2 = ${map.productsPriceVo4.get(5).count};
+	var oneClick4Price3 = ${map.productsPriceVo4.get(4).count};
+	var oneClick4Price4 = ${map.productsPriceVo4.get(3).count};
+	var oneClick4Price5 = ${map.productsPriceVo4.get(2).count};
+	var oneClick4Price6 = ${map.productsPriceVo4.get(1).count};
+	var oneClick4Price7 = ${map.productsPriceVo4.get(0).count};
+	
+	var oneClick5Price1 = ${map.productsPriceVo5.get(6).count};
+	var oneClick5Price2 = ${map.productsPriceVo5.get(5).count};
+	var oneClick5Price3 = ${map.productsPriceVo5.get(4).count};
+	var oneClick5Price4 = ${map.productsPriceVo5.get(3).count};
+	var oneClick5Price5 = ${map.productsPriceVo5.get(2).count};
+	var oneClick5Price6 = ${map.productsPriceVo5.get(1).count};
+	var oneClick5Price7 = ${map.productsPriceVo5.get(0).count};
 	
 	
 	
@@ -368,18 +402,18 @@ var fetchGraph = function(startDate, endDate){
 	        ];
 	        //creating bar chart
 	        var $barData5  = [
-	            { y: date1+'', a: TotalSales1},
-	            { y: date2+'', a: TotalSales2},
-	            { y: date3+'', a: TotalSales3},
-	            { y: date4+'', a: TotalSales4},
-	            { y: date5+'', a: TotalSales5},
-	            { y: date6+'', a: TotalSales6}
+	        	{ y: date1+'', a: oneClick1Price1, b: oneClick2Price1, c: oneClick3Price1, d: oneClick4Price1, e: oneClick5Price1},
+	            { y: date2+'', a: oneClick1Price2, b: oneClick2Price2, c: oneClick3Price2, d: oneClick4Price2, e: oneClick5Price2},
+	            { y: date3+'', a: oneClick1Price3, b: oneClick2Price3, c: oneClick3Price3, d: oneClick4Price3, e: oneClick5Price3},
+	            { y: date4+'', a: oneClick1Price4, b: oneClick2Price4, c: oneClick3Price4, d: oneClick4Price4, e: oneClick5Price4},
+	            { y: date5+'', a: oneClick1Price5, b: oneClick2Price5, c: oneClick3Price5, d: oneClick4Price5, e: oneClick5Price5},
+	            { y: date6+'', a: oneClick1Price6, b: oneClick2Price6, c: oneClick3Price6, d: oneClick4Price6, e: oneClick5Price6}
 	        ];
 	        this.createBarChart('morris-bar-example1', $barData1, 'y', ['a'], ["매출액:"], ['#4fc6e1']);
 	        this.createBarChart('morris-bar-example2', $barData2, 'y', ['a'], ["1인당 평균 결제금액"], ['#6658dd']);
 	        this.createBarChart('morris-bar-example3', $barData3, 'y', ['a'], ["순 이익"], ['#1ABC9C']);
-	        this.createBarChart('morris-bar-example4', $barData4, 'y', ['a', 'b', 'c', 'd', 'e'], ["1:","2:","3:","4:","5:"], ['#6658dd','#F672A7', '#1ABC9C','#F1556C','#4fc6e1']);
-	        this.createBarChart('morris-bar-example5', $barData5, 'y', ['a', 'b', 'c','d','e'], ["상의", "하의", "아우터","신발","악세사리"], ['#6658dd','#4fc6e1', '#1ABC9C','#F1556C','#F672A7']);
+	        this.createBarChart('morris-bar-example4', $barData4, 'y', ['a', 'b', 'c', 'd', 'e'], ["1:","2:","3:","4:","5개 이상:"], ['#6658dd','#F672A7', '#1ABC9C','#F1556C','#4fc6e1']);
+	        this.createBarChart('morris-bar-example5', $barData5, 'y', ['a', 'b', 'c', 'd', 'e'], ["0~20,000원","20,000~40,000원","40,000~60,000원","60,000~80,000원","80,000원~"], ['#6658dd','#F672A7', '#1ABC9C','#F1556C','#4fc6e1']);
 	    },
 	    //init
 	    $.MorrisCharts = new MorrisCharts, $.MorrisCharts.Constructor = MorrisCharts
