@@ -138,7 +138,7 @@ public class BoardRepository {
 		return sqlSession.selectOne("board.itemBoardListCount", map);
 	}
 
-	public List<BoardVo> itemBoardList(String id, int offset, int size) {
+	public List<ItemBoardVo> itemBoardList(String id, int offset, int size) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db",id);
 		map.put("offset", offset);
@@ -147,7 +147,7 @@ public class BoardRepository {
 		return sqlSession.selectList("board.itemBoardList", map);
 	}
 
-	public List<BoardVo> searchItemBoaardList(String id, String option, String keyword, int offset, int size) {
+	public List<ItemBoardVo> searchItemBoardList(String id, String option, String keyword, int offset, int size) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db",id);
 		map.put("option", option);
