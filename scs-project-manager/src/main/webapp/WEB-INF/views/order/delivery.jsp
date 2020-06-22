@@ -300,7 +300,12 @@ $(function() {
 	                                    	<td>${vo.name }</td>
 	                                    </c:when>
 	                                    <c:otherwise>
-	                                    	<td>${vo.name } 외 ${vo.count - 1 }건</td>
+	                                    	<c:if test="${vo.count - 1  eq 0}">
+	                                    		<td>${vo.name }</td>
+	                                    	</c:if>
+	                                    	<c:if test="${vo.count - 1  ne 0}">
+	                                    		<td>${vo.name }외 ${vo.count-1} 건</td>
+	                                    	</c:if>
 	                                    </c:otherwise>
                                     </c:choose>
                                     <td>${vo.regDate }</td>
