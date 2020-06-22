@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.douzonemania.scs.vo.ceo.CategoryBarVo;
+import com.douzonemania.scs.vo.ceo.CategoryBestVo;
 import com.douzonemania.scs.vo.ceo.CategoryDonutVo;
 import com.douzonemania.scs.vo.ceo.CategoryLineCountVo;
 import com.douzonemania.scs.vo.ceo.CategoryLineSalesVo;
+import com.douzonemania.scs.vo.ceo.CategoryNewVo;
+import com.douzonemania.scs.vo.ceo.CategoryNormalVo;
 import com.douzonemania.scs.vo.ceo.ProductsCountVo;
 import com.douzonemania.scs.vo.ceo.ProductsPaymentAmountVo;
 import com.douzonemania.scs.vo.ceo.ProductsPaymentMarginVo;
@@ -74,6 +77,36 @@ public class StatisticsRepository {
 		return sqlSession.selectList("statistics.findLineSales", map);
 	}
 	
+	/* Best Count */
+	public List<CategoryBestVo> findBestCount(String startDate, String endDate, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		map.put("db", id);
+		
+		return sqlSession.selectList("statistics.findBestCount", map);
+	}
+
+	/* New Count */
+	public List<CategoryNewVo> findNewCount(String startDate, String endDate, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		map.put("db", id);
+		
+		return sqlSession.selectList("statistics.findNewCount", map);
+	}
+	
+	/* Normal Count */
+	public List<CategoryNormalVo> findNormalCount(String startDate, String endDate, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		map.put("db", id);
+		
+		return sqlSession.selectList("statistics.findNormalCount", map);
+	}
+	
 	/* Products Sales1 */
 	public List<ProductsSalesVo> findSales(String startDate, String endDate, String id) {
 		Map<String, Object> map = new HashMap<>();
@@ -120,6 +153,8 @@ public class StatisticsRepository {
 		map.put("endPrice", endPrice);
 		return sqlSession.selectList("statistics.findSales5", map);
 	}
+
+
 
 	
 }

@@ -52,9 +52,9 @@
 	<select id= "findLineCount" parameterType="map" resultType="categorylinecountvo">
 		<![CDATA[
 			select sum(amount) as 'count',  d.date as 'date'
-			  from ${db}.category c, (select category_no, amount, item_no, total_price, b.date
-										from ${db}.item i, (select item_no, amount , total_price, a.date
-															  from ${db}.stock s, (select o.no as order_no, stock_no, amount, total_price, DATE_FORMAT(o.reg_date,'%Y-%m-%d') as 'date'
+			  from ${db}.category c, (select category_no, amount, item_no, b.date
+										from ${db}.item i, (select item_no, amount , a.date
+															  from ${db}.stock s, (select o.no as order_no, stock_no, amount, DATE_FORMAT(o.reg_date,'%Y-%m-%d') as 'date'
 																					from ${db}.shop_order o, ${db}.order_item oi
 																					where o.no = oi.order_no
 																					and o.reg_date >= #{startDate }
@@ -87,6 +87,67 @@
 			 order by date
 		]]>
 	
+	</select>
+	
+	<select id="findBestCount" parameterType="map" resultType="categorybestvo">
+		<![CDATA[
+			select sum(amount) as 'count',  d.date as 'date'
+			  from ${db}.category c, (select category_no, amount, i.best_item, item_no, b.date
+										from ${db}.item i, (select item_no, amount , a.date
+															  from ${db}.stock s, (select o.no as order_no, stock_no, amount, DATE_FORMAT(o.reg_date,'%Y-%m-%d') as 'date'
+																					from ${db}.shop_order o, ${db}.order_item oi
+																					where o.no = oi.order_no
+																					and o.reg_date >= #{startDate }
+																					and o.reg_date <= #{endDate }
+																					group by o.reg_date) a
+															where a.stock_no = s.no) b
+									  where i.no=b.item_no) d
+			  where c.no=d.category_no
+			    and d.best_item = true
+			 group by date	
+			 order by date
+		]]>
+	</select>
+	
+	<select id="findNewCount" parameterType="map" resultType="categorynewvo">
+		<![CDATA[
+			select sum(amount) as 'count',  d.date as 'date'
+			  from ${db}.category c, (select category_no, amount, i.new_item, item_no, b.date
+										from ${db}.item i, (select item_no, amount , a.date
+															  from ${db}.stock s, (select o.no as order_no, stock_no, amount, DATE_FORMAT(o.reg_date,'%Y-%m-%d') as 'date'
+																					from ${db}.shop_order o, ${db}.order_item oi
+																					where o.no = oi.order_no
+																					and o.reg_date >= #{startDate }
+																					and o.reg_date <= #{endDate }
+																					group by o.reg_date) a
+															where a.stock_no = s.no) b
+									  where i.no=b.item_no) d
+			  where c.no=d.category_no
+			    and d.new_item = true
+			 group by date	
+			 order by date	
+		]]>
+	</select>
+	
+	<select id="findNormalCount" parameterType="map" resultType="categorynormalvo">
+		<![CDATA[
+			select sum(amount) as 'count',  d.date as 'date'
+			  from ${db}.category c, (select category_no, amount, i.new_item, i.best_item, item_no, b.date
+										from ${db}.item i, (select item_no, amount , a.date
+															  from ${db}.stock s, (select o.no as order_no, stock_no, amount, DATE_FORMAT(o.reg_date,'%Y-%m-%d') as 'date'
+																					from ${db}.shop_order o, ${db}.order_item oi
+																					where o.no = oi.order_no
+																					and o.reg_date >= #{startDate }
+																					and o.reg_date <= #{endDate }
+																					group by o.reg_date) a
+															where a.stock_no = s.no) b
+									  where i.no=b.item_no) d
+			  where c.no=d.category_no
+			    and d.new_item = false
+			    and d.best_item = false
+			 group by date	
+			 order by date	
+		]]>
 	</select>
 	
 	

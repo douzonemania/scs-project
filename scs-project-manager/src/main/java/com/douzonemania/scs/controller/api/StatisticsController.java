@@ -1,17 +1,21 @@
 package com.douzonemania.scs.controller.api;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.StatisticsService;
+import com.douzonemania.scs.vo.ceo.CategoryBarVo;
 import com.douzonemania.scs.vo.ceo.CeoVo;
 import com.douzonemania.security.AuthUser;
 
@@ -23,30 +27,58 @@ public class StatisticsController {
 	private StatisticsService statisticsService;
 	
 	@ResponseBody
-	@GetMapping("/category")
+	@PostMapping("/category/{startDate}/{endDate}")
 	public JsonResult statistcistCategoryList(
 			@AuthUser CeoVo authUser,
-			@RequestParam(value="startDate", required=true, defaultValue="") String startDate,
-			@RequestParam(value="endDate", required=true, defaultValue="") String endDate,
+			@PathVariable String startDate,
+			@PathVariable String endDate,
 			Model model) {
 		
+		/* 지정된 날짜 */
 		String id = authUser.getId();
-		Map<String, Object> map = statisticsService.categoryGraphByDate(startDate, endDate, id);
-		
-		
+		CategoryBarVo tempVo = new CategoryBarVo();
+		String [] temp  = endDate.split("-");
+		int year = Integer.parseInt(temp[0]);
+		int month = Integer.parseInt(temp[1]);
+		int day = Integer.parseInt(temp[2]);
+		tempVo.setDate(get7DayAgoDate(year, month, day, 7));
+		String realStartDate = tempVo.getDate();
+		System.out.println(realStartDate +":"+endDate);
+		Map<String, Object> map = statisticsService.categoryGraphByDate(realStartDate, endDate, id, false);
 		
 		return JsonResult.success(map);
 	}
 	
 	@ResponseBody
-	@GetMapping("/products")
+	@PostMapping("/products/{startDate}/{endDate}")
 	public JsonResult statistcistProductsList(
 			@AuthUser CeoVo authUser,
-			@RequestParam(value="startDate", required=true, defaultValue="") String startDate,
-			@RequestParam(value="endDate", required=true, defaultValue="") String endDate,
+			@PathVariable String startDate,
+			@PathVariable String endDate,
 			Model model) {
 		
+		String id = authUser.getId();
+		CategoryBarVo tempVo = new CategoryBarVo();
+		String [] temp  = endDate.split("-");
+		int year = Integer.parseInt(temp[0]);
+		int month = Integer.parseInt(temp[1]);
+		int day = Integer.parseInt(temp[2]);
+		tempVo.setDate(get7DayAgoDate(year, month, day, 7));
+		String realStartDate = tempVo.getDate();
+		System.out.println(realStartDate +":"+endDate);
+		Map<String, Object> map = statisticsService.productsGraphByDate(realStartDate, endDate, id, false);
 		
-		return JsonResult.success("");
+		return JsonResult.success(map);
+	}
+	
+	private String get7DayAgoDate(int year , int month , int day, int i) {
+		Calendar cal = Calendar
+				.getInstance();
+		cal.set(year, month-1, day);
+		cal.add(Calendar.DATE, -i);
+		java.util.Date weekago = cal.getTime();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",
+				Locale.getDefault());
+		return formatter.format(weekago);
 	}
 }
