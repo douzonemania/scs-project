@@ -381,5 +381,9 @@
 	.form-check-inline>input{
 		width:8px;
 	}
+	.detail-review-title{
+		font-size:32px;
+		color:#C0C0C0;
+	}
 }
 

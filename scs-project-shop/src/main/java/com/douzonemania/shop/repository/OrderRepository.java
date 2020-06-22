@@ -415,6 +415,29 @@ public class OrderRepository {
 	}
 
 
+	public int updateReState(String db, int stockNo, String orderNo) {
+		map.put("db", db);
+		map.put("stockNo", stockNo);
+		map.put("orderNo", orderNo);
+		return sqlSession.update("order.updateReState", map);
+	}
+
+
+	public List<Integer> getRestate(String db, List<OrderListVo> oVo) {
+		List<Integer> restateList = new ArrayList<>();
+		map.put("db", db);
+		for(int i=0; i<oVo.size(); i++) {
+			int orderNo = oVo.get(i).getOrderNoPrime();
+			String stockNo = oVo.get(i).getStockNo();
+			map.put("orderNo", orderNo);
+			map.put("stockNo", stockNo);
+			int restate = sqlSession.selectOne("order.getRestate", map);
+			restateList.add(restate);
+		}
+		return restateList;
+	}
+
+
 
 
 	
