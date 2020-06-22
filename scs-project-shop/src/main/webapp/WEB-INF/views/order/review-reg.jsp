@@ -27,6 +27,7 @@
 
 <script>
 $( document ).ready(function() {
+	
 	$( ".star_rating a" ).click(function() {
 	    $(this).parent().children("a").removeClass("on");
 	    $(this).addClass("on").prevAll("a").addClass("on");
@@ -39,9 +40,11 @@ $( document ).ready(function() {
 		vo.no = null;
 		vo.rate = $('.on').length
 		vo.title = $("#title").val();
-		vo.contents = $("#review-textarea").val();
+		vo.content = $("#review-textarea").val();
 		vo.image = null;
 		vo.itemNo = ${itemNo}
+		vo.orderNo = "${orderNo}"
+		vo.stockNo = ${stockNo}
 		vo.memberNo = ${memberNo}
 		vo.regDate= null;
 		vo.color= "${itemColor}";
@@ -81,7 +84,7 @@ $( document ).ready(function() {
 <body>	
 	<div class="review-top"> 후기작성</div>
 	<div class="review-item-info">
-		<div class="review-image"> <img src="${pageContext.request.contextPath}${image}"></div>
+		<div class="review-image"> <img src="scs-manager${image}"></div>
 			<div class="review-itemName">${itemName }</div>
 			<div class="review-option">${itemSize } / ${itemColor }</div>
 	</div>

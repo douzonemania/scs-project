@@ -677,10 +677,10 @@
 												class="mdi mdi-star text-warning"></span> <span
 												class="mdi mdi-star"></span>
 										</p>
-										<span style="margin-right: 4px;">id</span> <span>l</span> <span>${vo.regDate }</span>
-										<span>l</span> <span>옵션</span>
-										<p class="text-muted mb-4 des-info"
-											style="margin-top: 8px; color: #323A46;">리뷰내용</p>
+										<span style="margin-right: 4px;">${authUser.id}</span> <span>l</span> <span>${vo.regDate }</span>
+										<span>l</span> <span>${vo.size } / ${vo.color }</span>
+										<p style="font-size:24px; color: #A9A7AD; margin-bottom:0px;">${vo.title }</p>
+										<p style="color: #A9A7AD;"> ${vo.content }</p>
 
 									</div>
 								</div>

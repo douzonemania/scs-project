@@ -5,13 +5,27 @@ public class ReviewVo {
 	private int no;
 	private int rate;
 	private String title;
-	private String contents;
+	private String content;
 	private String image;
 	private int itemNo;
 	private int memberNo;
+	private int stockNo;
+	private String orderNo;
 	private String regDate;
 	private String size;
 	private String color;
+	public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+	public int getStockNo() {
+		return stockNo;
+	}
+	public void setStockNo(int stockNo) {
+		this.stockNo = stockNo;
+	}
 	public String getSize() {
 		return size;
 	}
@@ -49,11 +63,11 @@ public class ReviewVo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContents() {
-		return contents;
+	public String getContent() {
+		return content;
 	}
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public String getImage() {
 		return image;
@@ -75,9 +89,9 @@ public class ReviewVo {
 	}
 	@Override
 	public String toString() {
-		return "ReviewVo [no=" + no + ", rate=" + rate + ", title=" + title + ", contents=" + contents + ", image="
-				+ image + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", regDate=" + regDate + ", size=" + size
-				+ ", color=" + color + "]";
+		return "ReviewVo [no=" + no + ", rate=" + rate + ", title=" + title + ", content=" + content + ", image="
+				+ image + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", stockNo=" + stockNo + ", orderNo="
+				+ orderNo + ", regDate=" + regDate + ", size=" + size + ", color=" + color + "]";
 	}
 	
 }

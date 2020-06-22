@@ -132,7 +132,7 @@ $(document).ready(function(){
 							</div>	
 								<c:forEach items='${orderList }' var='vo' varStatus='status'>
 									<div class ="ol-item">
-										<img class="ol-img" src="${pageContext.request.contextPath}${vo.image }"/>
+										<img class="ol-img" src="scs-manager${vo.image }"/>
 										<div class="ol-iteminfo">
 											<p class="ol-itemName">${vo.name }</p>
 											<div class="ol-option">
@@ -149,16 +149,23 @@ $(document).ready(function(){
 										<div class="ol-state-div">
 										<p class="ol-state">${vo.statement }</p>
 										<c:if test='${vo.statement=="배송완료" }'>
-											<form name="review"  method="post">
-												<input type="hidden" name="image" value="${vo.image }"/>
-												<input type="hidden" name="itemNo" value="${vo.no }"/>
-												<input type="hidden" name="itemName" value="${vo.name }"/>
-												<input type="hidden" name="itemSize" value="${vo.size }"/>
-												<input type="hidden" name="itemColor" value="${vo.color }"/>
-												
-												<input type="hidden" name="memberNo" value="${authUser.no }"/>												
-												<input type="button" id="reg-review-btn"class="ol-btn-review btn btn-dark waves-effect" value="리뷰 등록"/>
-											</form>
+											<c:if test='${restateList[status.index]==0 }'>
+												<form name="review"  method="post">
+													<input type="hidden" name="image" value="${vo.image }"/>
+													<input type="hidden" name="itemNo" value="${vo.no }"/>
+													<input type="hidden" name="orderNo" value="${vo.orderNoPrime }"/>
+													<input type="hidden" name="stockNo" value="${vo.stockNo }"/>												
+													<input type="hidden" name="itemName" value="${vo.name }"/>
+													<input type="hidden" name="itemSize" value="${vo.size }"/>
+													<input type="hidden" name="itemColor" value="${vo.color }"/>
+													
+													<input type="hidden" name="memberNo" value="${authUser.no }"/>												
+													<input type="button" id="reg-review-btn"class="ol-btn-review btn btn-dark waves-effect" value="리뷰 등록"/>
+												</form>
+											</c:if>
+											<c:if test='${restateList[status.index]==1 }'>
+													<input type="button" class="ol-btn-review btn btn-dark waves-effect" value="리뷰 완료" disabled/>
+											</c:if>
 										</c:if>
 										</div>										
 									</div>

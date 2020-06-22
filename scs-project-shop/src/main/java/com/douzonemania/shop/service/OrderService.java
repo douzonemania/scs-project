@@ -84,9 +84,9 @@ public class OrderService {
 	public Map<String, Object> findProduct(Integer no,String db) {
 		
 		ItemVo vo = orderRepository.findProduct(no,db);
-		System.out.println(vo.getSubImage());
 		String[] subImages = vo.getSubImage().split("\\?");
 		List<String> list = new ArrayList<String>();
+		
 		
 		for(int i=0; i<subImages.length; i++) {
 			System.out.println(subImages[i]);
@@ -98,9 +98,9 @@ public class OrderService {
 		}
 		Map<String,Object> map=new HashMap<String, Object>();
 		
-		map.put("product", vo);
-		
+		map.put("product", vo);		
 		map.put("subImages", list);
+		
 		System.out.println(map);
 		
 		
@@ -421,6 +421,14 @@ public class OrderService {
 
 	public List<ReviewVo> getReviewList(Integer no, String db) {
 		return orderRepository.getReviewList(no, db);
+	}
+
+	public int updateReState(String db, int stockNo, String orderNo) {
+		return orderRepository.updateReState(db, stockNo, orderNo);
+	}
+
+	public List<Integer> getRestate(String db, List<OrderListVo> oVo) {
+		return orderRepository.getRestate(db, oVo);
 	}
 
 

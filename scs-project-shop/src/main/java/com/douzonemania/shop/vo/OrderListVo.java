@@ -8,9 +8,34 @@ public class OrderListVo {
 	String size;
 	String regDate;
 	String orderNo;
+	String stockNo;
+	Boolean reState;
 	int amount;
 	int totalPrice;
+	int orderNoPrime;
+	
+	
+	public int getOrderNoPrime() {
+		return orderNoPrime;
+	}
+	public void setOrderNoPrime(int orderNoPrime) {
+		this.orderNoPrime = orderNoPrime;
+	}
 	String statement;
+	
+	
+	public String getStockNo() {
+		return stockNo;
+	}
+	public void setStockNo(String stockNo) {
+		this.stockNo = stockNo;
+	}
+	public Boolean getReState() {
+		return reState;
+	}
+	public void setReState(Boolean reState) {
+		this.reState = reState;
+	}
 	
 	public String getImage() {
 		return image;
@@ -75,7 +100,8 @@ public class OrderListVo {
 	@Override
 	public String toString() {
 		return "OrderListVo [no=" + no + ", name=" + name + ", image=" + image + ", color=" + color + ", size=" + size
-				+ ", regDate=" + regDate + ", orderNo=" + orderNo + ", amount=" + amount + ", totalPrice=" + totalPrice
+				+ ", regDate=" + regDate + ", orderNo=" + orderNo + ", stockNo=" + stockNo + ", reState=" + reState
+				+ ", amount=" + amount + ", totalPrice=" + totalPrice + ", orderNoPrime=" + orderNoPrime
 				+ ", statement=" + statement + "]";
 	}
 }
