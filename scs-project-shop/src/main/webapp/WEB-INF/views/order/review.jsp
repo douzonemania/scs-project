@@ -7,6 +7,8 @@
 			<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 			<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 			<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+			<%@ page import="java.util.*"%>
+			<%@ page import="java.text.SimpleDateFormat"%>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
             <meta content="Coderthemes" name="author" />
@@ -21,6 +23,73 @@
             <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
             <link href="${pageContext.request.contextPath}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
             <link href="${pageContext.request.contextPath}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/orderList.css" rel="stylesheet" type="text/css" />
+            
+            <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+            <script type="text/JavaScript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+			<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.css" />
+
+<style>
+#board-table {
+	width: 100%; 
+	border-collapse: collapse; 
+}
+
+#board-table th {
+	 font-weight: bold; 
+	 font-size: 1.25em;
+	 border-bottom: 1px solid #CECECE;"
+}
+
+#board-table tbody tr {
+	height: 50px;
+}
+
+#board-table tbody tr:nth-of-type(odd) {
+	background-color: #eee;
+}
+
+#board-table td, th {
+	padding: 6px;
+	font-size: 1.1em;
+	text-align: left;
+}
+
+@media(max-width:991px){
+	#board-table th {
+		font-size: 1em;
+	}
+	
+	#board-table td {
+		font-size: 0.8em;
+	}
+	
+	#board-table .mainImage {
+		display: none;
+	}
+}
+
+</style>            
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".reviewTd").on("click", function(){
+		var no = $(this).attr("no");
+		 
+	
+		window.open("${ pageContext.request.contextPath }/${db }/order/review/view/"+no, "review", "width=500, height=400, scrollbars=no");
+	    /* document.review.target = "review";
+	    document.review.submit();  */
+
+	 });
+});
+		
+</script>
 
     </head>
 <body>
@@ -35,64 +104,34 @@
                     PHOTO REVIEW  &nbsp;&nbsp; l &nbsp;&nbsp;  포토 리뷰
                 </div>        
                 
-               <div class="review-search-group">
-                    <div class="review-search-category-title"><span class="review-category-span">카테고리</span></div>
-                   
-                    <div class="review-search-category-border"></div>
-                    <div ></div>
-                    <div class="review-search-category">
-                        <button class="btn btn-light btn-lg dropdown-toggle review-category-custom-btn"  type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            최신순 <i class="mdi mdi-chevron-down"style="float:right"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                    </div>
-                    
-                    <div class="review-search-category-border"></div>
-
-                    <div class="review-search-category2">
-                        <button class="btn btn-light btn-lg dropdown-toggle review-category-custom-btn"  type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Large button <i class="mdi mdi-chevron-down"style="float:right"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                    </div>
-                    
-                    <div class="review-search-category-border"></div>
-
-
-                    <div class="review-search-category3">
-                        <i class="fe-search review-search-icon"></i>
-                    </div>
-
-                </div>
+              
 
                
 
                 <div class="row">
                     <div class="col-12">
                         <div class="card-columns">
+                        
+                        <c:forEach items="${map.photoList }" var="vo" varStatus="status">  
                             <div class="card">
-                                <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
+                                <img class="card-img-top img-fluid" src="${ pageContext.request.contextPath }${vo.image}" alt="Card image cap">
+                                <p>
+                                	<c:forEach begin="1" end="${vo.rate }">
+										<span class="mdi mdi-star text-warning"></span>
+									</c:forEach>
+									<c:set var="emptyStar" value="${5-vo.rate }"/>
+									<c:forEach begin='1' end='${emptyStar }'>
+										<span class="mdi mdi-star-outline"></span>
+									</c:forEach>
+                                </p>
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title that wraps to a new line</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a
-                                        natural lead-in to additional content. This content is a little bit
-                                        longer.</p>
+                                    <h5 class="card-title">${vo.title }</h5>
+                                    <p class="card-text">${vo.content }</p>
                                 </div>
                             </div>
+                        </c:forEach>
 
-                            <div class="card">
+                            <!-- <div class="card">
                                 <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title that wraps to a new line</h5>
@@ -140,140 +179,95 @@
                                         natural lead-in to additional content. This content is a little bit
                                         longer.</p>
                                 </div>
-                            </div>
+                            </div> -->
+                            
                         </div>
                         
                     </div>
                 </div>
-
+ 
             </div><!-- photoreview search-->
            
             <div class="all-review">
 
                 <div class="photo-review-title">
-                    ALL REVIEW  &nbsp&nbsp l &nbsp&nbsp  전체 리뷰
+                    ALL REVIEW  &nbsp;&nbsp; l &nbsp;&nbsp;  전체 리뷰
                 </div>        
-              
-                   <div class="review-search-group">
-                        <div class="review-search-category-title"><span class="review-category-span">카테고리</span></div>
-                       
-                        <div class="review-search-category-border"></div>
-                        <div ></div>
-                        <div class="review-search-category">
-                            <button class="btn btn-light btn-lg dropdown-toggle review-category-custom-btn"  type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                최신순 <i class="mdi mdi-chevron-down"style="float:right"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-                        </div>
-                        
-                        <div class="review-search-category-border"></div>
-    
-                        <div class="review-search-category2">
-                            <button class="btn btn-light btn-lg dropdown-toggle review-category-custom-btn"  type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Large button <i class="mdi mdi-chevron-down"style="float:right"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-                        </div>
-                        
-                        <div class="review-search-category-border"></div>
-    
-    
-                        <div class="review-search-category3">
-                            <i class="fe-search review-search-icon"></i>
-                        </div>
-    
-                    </div>
+				<br/>
 
-                <div class="review-group">
-                    <div class="review-img">
-                       <img src="/assets/images/review-img.PNG" alt=""/ class="rounded">
-                    </div>
-                    <div class="review-box">
-                        <div class="pl-xl-3 mt-3 mt-xl-3">
-                            <!--리뷰 별-->
-                            <p class="text-muted mr-3">
-                                <span class="mdi mdi-star text-warning"></span>
-                                <span class="mdi mdi-star text-warning"></span>
-                                <span class="mdi mdi-star text-warning"></span>
-                                <span class="mdi mdi-star text-warning"></span>
-                                <span class="mdi mdi-star"></span>
-                            </p>
-                            <span style="margin-right: 4px;">id</span>
-                            <span>l</span>
-                            <span>날짜</span>
-                            <span>l</span>
-                            <span>옵션</span>
-                            <p class="text-muted mb-4 des-info" style="margin-top: 8px; color: #323A46;">리뷰내용</p>
-                           
-                         </div>
-
-                         <div class="all-review-mobile-custom">
-                            <!--리뷰 별-->
-                            <div style="margin-top: 3px;"></div>
-                            <div class="mobile-review-info">
-                                <span style="margin-right: 4px;">abcd***</span>
-                                <span>l</span>
-                                <span>20.05.12</span>
-                                <span>l</span>
-                                <span>사이즈:XL 컬러:블랙</span>
-                            </div>
-                            <p class="text-muted mr-0 mobile-review-star">
-                                <span class="mdi mdi-star text-warning"></span>
-                                <span class="mdi mdi-star text-warning"></span>
-                                <span class="mdi mdi-star text-warning"></span>
-                                <span class="mdi mdi-star text-warning"></span>
-                                <span class="mdi mdi-star"></span>
-                            </p>
-                            
-                            <p class="text-muted mb-4 des-info" style="color: #323A46;">리뷰내용</p>
-                           
-                         </div>
-                    </div > 
+               <div style="overflow-x: auto;">
+	        	   <table class="table-form-exposure" id="board-table">
+		           	<thead>
+				        <tr>
+				        	<th>번호</th>
+				        	<th>상품이름</th>
+					        <th>제목</th>
+					        <th>작성자</th>
+					        <th>작성일</th>
+						</tr> 
+					</thead>
+					<tbody>	
+		          		<c:forEach items="${map.list }" var="vo" varStatus="status">  
+				  			<tr>
+				  				<td>&nbsp; [${status.count + (map.page - 1) * 5 }] &nbsp;&nbsp;&nbsp;
+				  					<a class="mainImage" href="${ pageContext.request.contextPath }/${db}/order/detail?no=${vo.itemNo}">
+		                            	<img src="/scs-manager${vo.mainImage }" style="max-height:280px"  class="img-fluid" />
+				  					</a>	
+				  				</td>
+				  				<td>${vo.itemName }</td>
+				  				<td><button class="reviewTd" id="review${vo.no }" no="${vo.no }" style="border:none; background-color: rgba(0,0,0,0);">
+								  	${vo.title }</button>		
+				  				</td>
+				  				<td>${vo.id }</td>
+				  				<td>${vo.regDate }</td>
+				  				
+				  			</tr>
+		         		</c:forEach>
+		          	</tbody> 
+		         </table>
+          </div>
+          
+          <div class="row">
+                    <div class="col-12">
+                        <ul class="pagination pagination-rounded justify-content-center mb-3">
+                            <li class="page-item">
+                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/review/list?p=${map.prevPage}" aria-label="Previous">
+                                    <span aria-hidden="true">«</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <c:forEach var="i" begin="1" end="${map.listsize }">
+								<c:choose>
+									<c:when test="${map.page == (map.beginPage+(i-1)) }">
+										<li class ="page-item active">
+											<a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/review/list?p=${map.beginPage+(i-1) }">${map.beginPage+(i-1) }</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li><a  class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/review/list?p=${map.beginPage+(i-1) }">${map.beginPage+(i-1) }</a></li>
+									</c:otherwise>
+								
+								</c:choose>
+							</c:forEach>
+                            <li>
+                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/review/list?p=${map.nextPage }" aria-label="Next">
+                                    <span aria-hidden="true">»</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div> <!-- end col-->
                 </div>
+                <!-- end row-->
+          
+        </div > 
+     </div>
 
-				<div class="row">
-                            <div class="col-12">
-                                <ul class="pagination pagination-rounded justify-content-center mb-3">
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                                            <span aria-hidden="true">«</span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="javascript: void(0);">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript: void(0);">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript: void(0);">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript: void(0);">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript: void(0);">5</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript: void(0);" aria-label="Next">
-                                            <span aria-hidden="true">»</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div> <!-- end col-->
-                        </div>
-                        <!-- end row-->
                 
-            </div>
+  </div>
 
-        </div>
-    </div>
 
- <c:import url="${pageContext.request.contextPath}/WEB-INF/views/partials/footer.jsp"></c:import>
+ <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
     <!-- Vendor js -->
    <script src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>
 

@@ -110,8 +110,13 @@ public class BoardService {
 
 		if(endPage!=pageCnt)
 			map.put("listsize",LIST_SIZE);
-		else
-			map.put("listsize",endPage%5);
+		else {
+			if(endPage%5==0) {
+				map.put("listsize",5);
+			}else {
+				map.put("listsize",endPage%5);
+			}
+		}
 
 		return map;
 	}
@@ -204,8 +209,13 @@ public class BoardService {
 
 		if(endPage!=pageCnt)
 			map.put("listsize",LIST_SIZE);
-		else
-			map.put("listsize",endPage%5);
+		else {
+			if(endPage%5==0) {
+				map.put("listsize",5);
+			}else {
+				map.put("listsize",endPage%5);
+			}
+		}
 
 		return map;
 	}

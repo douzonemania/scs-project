@@ -73,10 +73,16 @@ public class OrderService {
 		map.put("page",currentPage);
 		map.put("total",total);
 		map.put("kwd",keyword);
+
 		if(endPage!=pageCnt)
 			map.put("listsize",LIST_SIZE);
-		else
-			map.put("listsize",endPage%5);
+		else {
+			if(endPage%5==0) {
+				map.put("listsize",5);
+			}else {
+				map.put("listsize",endPage%5);
+			}
+		}
 		
 		return map;
 		
@@ -477,8 +483,13 @@ public class OrderService {
 		
 		if(endPage!=pageCnt)
 			map.put("listsize",LIST_SIZE);
-		else
-			map.put("listsize",endPage%5);
+		else {
+			if(endPage%5==0) {
+				map.put("listsize",5);
+			}else {
+				map.put("listsize",endPage%5);
+			}
+		}
 		
 		return map;
 	}
