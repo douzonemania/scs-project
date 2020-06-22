@@ -209,40 +209,44 @@ public class OrderService {
 		session.setAttribute("orderList", list);
 	}
 	
-	public void setOrderPage(String db, Long no, int itemNo,int firstOption, int secondOption,int quantity, HttpSession session) {
-		
-		
-		
-		List<ShipVo> shipList = orderRepository.findShipAddressList(db,no);
-		List<ItemVo> list = new ArrayList();
-		if(shipList.size()!=0) {
-			session.setAttribute("shipListCheck", true);
-			session.setAttribute("shipList", shipList);
-			ShipVo vo = new ShipVo();
-			for (ShipVo shipVo : shipList) {
-				
-				if(shipVo.isRecent()==true) {
-					vo=shipVo;
+	
+		public void setOrderPage(String db, Long no, int itemNo,int firstOption, int secondOption,int quantity, HttpSession session) {
+			
+			List<ShipVo> shipList = orderRepository.findShipAddressList(db,no);
+			List<ItemVo> list = new ArrayList();
+			if(shipList.size()!=0) {
+				session.setAttribute("shipListCheck", true);
+				session.setAttribute("shipList", shipList);
+				ShipVo vo = new ShipVo();
+				for (ShipVo shipVo : shipList) {
+					if(shipVo.isRecent()==true) {
+						vo=shipVo;
+					}
 				}
+				session.setAttribute("recentShip", vo);
+			}else {
+				session.setAttribute("shipListCheck", false);
+			}
+			ItemVo itemVo = orderRepository.findItem(itemNo, db);
+			ItemVo optionVo = orderRepository.findOption(firstOption,secondOption,db);
+			System.out.println(optionVo.toString());
+			itemVo.setFirstOption(firstOption);
+			itemVo.setFirstOptionName(optionVo.getFirstOptionName());
+			if(secondOption!=0) {
+				itemVo.setSecondOption(secondOption);
+				itemVo.setSecondOptionName(optionVo.getSecondOptionName());
 			}
 			
-			session.setAttribute("recentShip", vo);
-		}else {
-			session.setAttribute("shipListCheck", false);
+			itemVo.setAmount(quantity);
+			int nowSale = itemVo.getSale();
+			itemVo = setTotalPrice(nowSale, itemVo);
+			
+			list.add(itemVo);
+			
+			session.setAttribute("orderList", list);
 		}
 		
-		ItemVo itemVo = orderRepository.findItem(itemNo, db);
-		itemVo.setFirstOption(firstOption);
-		if(secondOption!=0) {
-			itemVo.setSecondOption(secondOption);
-		}
-		itemVo.setAmount(quantity);
-		int nowSale = itemVo.getSale();
-		itemVo = setTotalPrice(nowSale, itemVo);
 		
-		list.add(itemVo);
-		session.setAttribute("orderList", list);
-	}
 	
 	
 	
@@ -430,8 +434,6 @@ public class OrderService {
 	public List<Integer> getRestate(String db, List<OrderListVo> oVo) {
 		return orderRepository.getRestate(db, oVo);
 	}
-
-
 
 }
 

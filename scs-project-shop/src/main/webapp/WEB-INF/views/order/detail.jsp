@@ -689,6 +689,12 @@
 							</div>
 							</c:forEach>
 
+							<div>
+								<form action="${pageContext.request.contextPath}/${db}/order/board-write/${map.product.no}" method="POST">
+									<input type="hidden" name="itemName" value="${map.product.name }"/>
+									<input type="submit" value="질문 등록"/>
+								</form>
+							</div>
 							<div class="qna-group" id="qnaSpace"> 
 								<span>Q&A</span>
 								<div style="border-bottom: 1px solid #323A46;"></div>
