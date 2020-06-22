@@ -21,15 +21,27 @@
 		]]>
 	</insert>
 
+	<insert id="insertAgreement" parameterType="agreementvo">
+		<![CDATA[
+			insert
+			  into agreement
+			values ('','', '', #{id});	
+		]]>
+	</insert>
+		<insert id="insertSite" parameterType="sitevo">
+		<![CDATA[
+				insert 
+				  into site 
+				values (null,'신테스트','1','1',0,#{id},'','')
+		]]>
+	</insert>
 	<select id="findById" parameterType="string" resultType="ceovo">
 		<![CDATA[
-			select 
-				   id,
-				   name, 
-				   email, 
-				   reg_date as regDate, 
-		      from ceo 
-		     where id = #{id};
+			select id,
+			 	   name,
+				   email 
+			  from ceo 
+			 where id = #{id}
 			
 		]]>
 	</select>
@@ -50,35 +62,34 @@
 				   site_name as siteName, 
 				   co_number as coNumber, 
 				   cm_number as cmNumber
-				   
 		      from ceo 
 		     where id = #{id}
-		       and password = #{password};
+		       and password = #{password}
 		]]>
 	</select>
 	<select id="findByIdJoin" parameterType="string" resultType="ceovo">
-		<![CDATA[
-			select 
-				   c.id as id,
-				   c.name, 
-				   c.password, 
-				   c.phone_number as phoneNumber, 
-				   c.email, 
-				   c.company_name as companyName,
-				   c.reg_date as regDate, 
-				   c.fax_number as faxNumber, 
-				   c.cp_number as cpNumber, 
-				   c.address, 
-				   c.site_name as siteName, 
-				   c.co_number as coNumber, 
-				   c.cm_number as cmNumber,
-				   s.logo,
-				   s.favicon,
-				   s.ship_charge as shipCharge
-		      from ceo c,site s
-		     where c.id = s.id and c.id = #{id}
-			
-		]]>
+		
+				<![CDATA[
+					select 
+						   c.id as id,
+						   c.name, 
+						   c.password, 
+						   c.phone_number as phoneNumber, 
+						   c.email, 
+						   c.company_name as companyName,
+						   c.reg_date as regDate, 
+						   c.fax_number as faxNumber, 
+						   c.cp_number as cpNumber, 
+						   c.address, 
+						   c.site_name as siteName, 
+						   c.co_number as coNumber, 
+						   c.cm_number as cmNumber,
+						   s.logo,
+						   s.favicon,
+						   s.ship_charge as shipCharge
+				      from ceo c,site s
+				     where c.id = s.id and c.id = #{id}
+				]]>
 	</select>
 	
 	<update id="updateCeo" parameterType="ceovo">
@@ -102,7 +113,7 @@
 						    s.logo = #{logo },
 						    s.favicon = #{favicon }
 					where c.id=s.id and
-						  c.id ='sjy8033';
+						  c.id =#{id }
 				]]>
 			</when>
 			<otherwise>
@@ -124,12 +135,74 @@
 						    s.logo = #{logo },
 						    s.favicon = #{favicon }
 					where c.id=s.id and
-						  c.id ='sjy8033';
+						  c.id = #{id }
 				]]>
 			</otherwise>
 		</choose>
 
 	</update>
 	
+	<select id="findIdByNameAndPhone" parameterType="map" resultType="string">
+		<![CDATA[
+			select id
+			  from ceo
+			 where name=#{name}
+			   and phone_number=#{phoneNum}
+		]]>
+	</select>
+	
+	<update id="updatePassword" parameterType="map">
+		<![CDATA[
+			update ceo
+			   set password=#{password}
+			 where id=#{id}
+		]]>
+	</update>
+	
+	<select id="getTotalRevenue" parameterType="map" resultType="int">
+		<![CDATA[
+			select ifnull(truncate((sum(item.now_price -(item.now_price * sale / 100)) - sum(item.sup_price)),0), 0)
+			  from ${id}.item, ${id}.stock, ${id}.order_item, ${id}.shop_order, ${id}.member
+			 where item.no = stock.item_no 
+			   and stock.no = order_item.stock_no
+			   and order_item.order_no = shop_order.no
+			   and shop_order.member_no = member.no
+		]]>
+	</select>
+	
+	<select id="getSales" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(*)
+			from (select shop_order.order_number as orderNumber
+					  from ${id}.item, ${id}.stock, ${id}.order_item, ${id}.shop_order, ${id}.member
+					 where item.no = stock.item_no
+					   and stock.no = order_item.stock_no
+					   and order_item.order_no = shop_order.no
+					   and shop_order.member_no = member.no
+	                         group by shop_order.order_number) a
+		]]>
+	</select>
+	
+	<select id="getStatement" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(statement)
+			  from ${id}.shop_order
+			  group by statement
+		]]>
+	</select>
+	
+	<insert id="insertMainPageMenu" parameterType="string" >
+		<![CDATA[
+			insert into scs2.sub_menu
+				 values (null, 1, '메인페이지', #{db}, true)
+		]]>
+	</insert>
+	
+	<insert id="insertFAQMenu" parameterType="string" >
+		<![CDATA[
+			insert into scs2.sub_menu
+				 values (null, 2, 'FAQ', #{db}, true)
+		]]>
+	</insert>
 	
 </mapper>

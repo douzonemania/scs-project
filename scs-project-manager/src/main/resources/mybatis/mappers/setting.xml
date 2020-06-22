@@ -14,15 +14,32 @@
 	
 	<select id="findAgreementById" parameterType="string" resultType="agreementvo">
 		<![CDATA[
-			select first_agree as firstAgree, second_agree as secondAgree, third_agree as thirdAgree
+			select first_agree as firstAgree, second_agree as secondAgree, third_agree as thirdAgree, id
 			  from agreement
 			 where id = #{id }
 		]]>
 	</select>
+	<insert id="insertPolicy" parameterType="map">
+		<![CDATA[
+			insert
+			  into agreement
+			  values ('','','',#{id})
+		
+		
+		]]>
+		
+	</insert>
+	<update id="updatePolicy" parameterType="map">
+		<![CDATA[
+			update agreement
+		   	   set ${agreement } = #{contents }
+		 	 where id = #{id }
+		]]>
+	</update>
 	
 	<insert id="insertShip" parameterType="shipcompanyvo">
 		<![CDATA[
-			insert into ship_company values (null, #{name }, 'sjy8033')
+			insert into ship_company values (null, #{name }, #{id })
 		]]>
 	</insert>
 	
@@ -38,7 +55,6 @@
 			delete from ship_company where no = #{no }
 		
 		]]>
-
 	</delete>
 	
 	

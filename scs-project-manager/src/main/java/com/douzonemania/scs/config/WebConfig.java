@@ -2,6 +2,8 @@ package com.douzonemania.scs.config;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSessionListener;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,11 +14,13 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.douzonemania.security.AuthUserHandlerMethodArgumentResolver;
 import com.douzonemania.security.AuthUserInterceptor;
 import com.douzonemania.security.LoginInterceptor;
 import com.douzonemania.security.LogoutInterceptor;
+import com.douzonemania.security.SessionListener;
 
 @Configuration
 @PropertySource("classpath:com/douzonemania/scs/config/config.properties")
@@ -55,10 +59,17 @@ public class WebConfig implements WebMvcConfigurer {
 		.addPathPatterns(env.getProperty("security.auth-url"));
 
 		registry
+		.addInterceptor(logoutInterceptor())
+		.addPathPatterns(env.getProperty("security.logout-url"));
+
+		registry
 		.addInterceptor(authInterceptor())
 		.addPathPatterns("/**")	
 		.excludePathPatterns("/assets/**")
-		.excludePathPatterns("/error/**");
+		.excludePathPatterns("/error/**")
+		.excludePathPatterns("/main/index")
+		.excludePathPatterns("/user/recover")
+		.excludePathPatterns("/user/signup");
 	}
 
 	// Mvc Resources(URL Magic Mapping)
@@ -66,4 +77,17 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler(env.getProperty("fileupload.resourceMapping")).addResourceLocations("file:" + env.getProperty("fileupload.uploadLocation"));
 	}
+	
+	@Bean
+	public MappingJackson2JsonView jsonView() {
+		return new MappingJackson2JsonView();
+
+	}
+
+	// session timeout
+	@Bean
+	  public HttpSessionListener httpSessionListener(){
+	    return new SessionListener();
+	 }
+	
 }

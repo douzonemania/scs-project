@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="design">
+	<insert id="insertMainMenu" parameterType="map">
+		<![CDATA[
+			insert into scs2.main_menu
+			values (#{mainMenuVo.first}, #{mainMenuVo.second}, #{mainMenuVo.third}, #{mainMenuVo.fourth}, #{mainMenuVo.fifth}, #{db}, true)
+		]]>
+	</insert>
+	
+	<select id="getMainMenuList" parameterType="string" resultType="mainmenuvo">
+		<![CDATA[
+			select id,
+				   first,
+				   second,
+				   third,
+				   fourth, 
+				   fifth
+			  from scs2.main_menu
+			 where id=#{db}
+		]]>
+	</select>
+	
+	<update id="updateMainMenu" parameterType="map">
+		<![CDATA[
+				update scs2.main_menu
+				   set first=#{mainMenuVo.first},
+					   second=#{mainMenuVo.second},
+					   third=#{mainMenuVo.third},
+					   fourth=#{mainMenuVo.fourth},
+					   fifth=#{mainMenuVo.fifth}
+			     where id=#{db}
+			
+		]]>
+	</update>
+	
+	<insert id="insertCustomMenu" parameterType="map">
+		<![CDATA[
+			insert into scs2.sub_menu
+				 values (null, #{menuIndex}, #{name}, #{db}, true)
+		]]>
+	</insert>
+	
+	<select id="getSubMenuById" resultType="submenuvo">
+		<![CDATA[
+			select no, 
+				   menu_index as menuIndex,
+				   name,
+				   id,
+				state
+			  from scs2.sub_menu
+			 where id=#{db}
+			   and state=true
+		  order by menu_index
+		]]>
+	</select>
+	
+	<select id="getMaxSubMenuIndex" parameterType="string" resultType="int">
+		<![CDATA[
+			select max(menu_index) 
+			  from scs2.sub_menu
+			 where id=#{db}
+		]]>
+	</select>
+
+<!-- //////////////////////////// -->	
+	
+	<insert id="insertCustoms" parameterType="map"  useGeneratedKeys="true" keyProperty="no">
+		<![CDATA[
+			insert into scs2.custom
+			values (null,#{customIndex},#{designId},#{submenuNum})
+		]]>
+	</insert>
+	
+	
+	<insert id="insertContents" parameterType="map"  useGeneratedKeys="true" keyProperty="no">
+		<![CDATA[
+			insert into scs2.contents
+			values (null,#{customNo},#{index},#{contents})
+		]]>
+	</insert>
+	
+	<update id="updateCustoms" parameterType="map">
+		<![CDATA[
+			update scs2.custom
+			set design_id=#{designId}
+			where custom_index=#{customIndex} and menu_no=#{submenuNum}
+		]]>
+		
+	</update>
+	
+	<update id="updateContents" parameterType="map">
+		<![CDATA[
+			update scs2.contents
+			set content=#{contents}
+			where custom_no=#{customNo} and contents_index=#{index}
+		]]>
+	</update>
+	
+	<!-- submenu no를 get  -->
+	<select id="findSubmenuNum" parameterType="map" resultType="int">
+		<![CDATA[
+				select no
+				from scs2.sub_menu
+				where menu_index=#{index} and id=#{id}
+		]]>
+	</select>
+	
+	<select id="findCustoms" parameterType="map" resultType="map">
+		<![CDATA[
+			select count(*),ifnull(no,0) as no
+			from scs2.custom
+			where custom_index=#{customIndex} and menu_no=#{submenuNum}
+		]]>
+		
+	</select>
+
+	<select id="findContents" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(*)
+			from scs2.contents
+			where custom_no =#{customNo} 
+			  and contents_index=#{index}
+		]]>
+	</select>
+	
+	<update id="deleteCustomMenu" parameterType="map">
+		<![CDATA[
+			update scs2.sub_menu
+			   set state=false
+			 where id=#{db}
+			   and menu_index=#{index}		
+		]]>
+	</update>
+
+	<!-- menu_no로 해당 custom page의 custom list를 받아옴(index 1~5) -->	
+	<select id="getCustomBySubmenuNo" resultType="customvo">
+		<![CDATA[
+			select no, 
+				   custom_index as customIndex, 
+			       design_id as designId, 
+				   menu_no as menuNo
+			  from scs2.custom
+			 where menu_no=#{no}
+		]]>
+	</select>
+	
+	<select id="getContentsByCustomNo" parameterType="int" resultType="contentsvo">
+			<![CDATA[
+				select b.no,
+					   b.custom_no as customNo,
+					   b.contents_index as 'index', 
+					   b.content,
+					   a.design_id as designId,
+					   a.custom_index as customIndex
+				  from scs2.custom a, scs2.contents b
+				 where a.no = b.custom_no 
+				   and b.custom_no = #{no}
+				order by b.contents_index
+				   
+			]]>
+	</select>
+	
+	<!-- ///////////////////////////////////////0619 jungeun start//////////////////////////////////////////////// -->
+	
+	<select id="findCustomNo" parameterType="string" resultType="int">
+		<![CDATA[
+		select b.no from scs2.sub_menu a, scs2.custom b
+		 where a.no = b.menu_no
+		   and id=#{db}
+		   and menu_index=2;
+	]]>
+	</select>
+	
+	<delete id="deleteQnaByIndex1">
+		<![CDATA[
+			delete from scs2.contents
+			 where custom_no=#{customNo}
+    		   and contents_index=#{index1}
+		]]>
+	</delete>
+	
+	<delete id="deleteQnaByIndex2">
+		<![CDATA[
+			delete from scs2.contents
+			 where custom_no=#{customNo}
+    		   and contents_index=#{index2}
+		]]>
+	</delete>
+	
+	<delete id="deleteContents" parameterType="map">
+		<![CDATA[
+			delete from scs2.contents
+			where custom_no=#{customNo} and contents_index>#{index}
+		]]>
+	
+	</delete>
+	
+	<select id="QnaCountByCustomIndex" parameterType="int" resultType="int">
+		<![CDATA[
+			select count(*) from scs2.contents
+			 where custom_no=#{customNo}
+		]]>
+	</select>
+	
+	<update id="updateQnaIndex" parameterType="map">
+		<![CDATA[
+			update scs2.contents 
+			   set contents_index=#{newIndex} 
+			 where contents_index=#{oldIndex}
+		]]>
+	</update>
+	
+</mapper>

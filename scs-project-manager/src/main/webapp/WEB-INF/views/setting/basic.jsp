@@ -168,6 +168,18 @@ $(function() {
 	});
 	
 });
+$(document).ready(function(){
+	
+
+	
+	$('#basic-btn-submit').on('click',function(){
+		
+		alert('수정되었습니다.');
+	})
+	
+	
+});
+
 
 
 function preview(input, target) {
@@ -238,8 +250,9 @@ function preview(input, target) {
 									id="setting-form"
 									method="post"
 									enctype="multipart/form-data">
-        								<!-- 제출 form 종료 -->
+        							<!-- 제출 form 종료 -->
                                     <!-- 관리자 정보 설정 시작-->
+
                                     <table class="table-form-exposure">
                                         <colgroup>
                                             <col width="180"><col width="*"><col width="180"><col width="*">
@@ -336,6 +349,8 @@ function preview(input, target) {
                                         </tbody>
                                         
                                     </table>
+                                    
+                                    
                                     <!-- 사이트 기본 설정 종료-->
                                     <div class="lspace"></div>
                                         <!-- 이미지 관리 시작-->
@@ -349,7 +364,7 @@ function preview(input, target) {
                                                     <th>로고</th>
                                                         <td colspan="2">
 	                                                        <div class="col-sm-2">
-	                                                            <img id="preview-logo" src="${pageContext.request.contextPath}${ceoVo.logo }" alt="image"
+	                                                            <img id="preview-logo" src="${pageContext.request.contextPath }${ceoVo.logo }" alt="image"
 	                                                                    class="img-fluid rounded img-scs-logo" style="width:250px; height:80px;"/>
 	                                                        </div>
 	                                                        <div class="box">
@@ -365,7 +380,7 @@ function preview(input, target) {
                                                    <th>파비콘</th>
                                                     <td colspan="2">
                                                         <div class="col-sm-2">
-                                                            <img id="preview-favicon" src="${pageContext.request.contextPath}${ceoVo.favicon}" alt="image"
+                                                            <img id="preview-favicon" src="${pageContext.request.contextPath }${ceoVo.favicon }" alt="image"
                                                                 class="img-fluid avatar-sm rounded mt-2"/>
                                                         </div>
                                                         <div class="box">
@@ -379,7 +394,7 @@ function preview(input, target) {
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                    
+                                  
                                             </tbody>
                                                 
                                         </table>
@@ -411,7 +426,7 @@ function preview(input, target) {
                                          
 										 <!-- 수정 버튼 -->
                                          <div class="form-group mb-3 float-sm-right" style="margin-top: 10px;">
-                                             <button class="btn btn-secondary btn-lg" type="submit" > 수정 </button>
+                                             <button class="btn btn-secondary btn-lg" id="basic-btn-submit" type="submit" > 수정 </button>
                                          </div>
 						</form:form>
            				<!-- 제출 form 종료 -->

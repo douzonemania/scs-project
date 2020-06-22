@@ -7,6 +7,34 @@
 		<typeAlias alias="categoryvo" type="com.douzonemania.scs.vo.member.CategoryVo" />		
 		<typeAlias alias="shipcompanyvo" type="com.douzonemania.scs.vo.ceo.ShipCompanyVo" />
 		<typeAlias alias="agreementvo" type="com.douzonemania.scs.vo.ceo.AgreementVo" />
+		<typeAlias alias="membervo" type="com.douzonemania.scs.vo.member.MemberVo" />
+		<typeAlias alias="boardvo" type="com.douzonemania.scs.vo.member.BoardVo" />
+		<typeAlias alias="optionvo" type="com.douzonemania.scs.vo.member.OptionVo" />
+		<typeAlias alias="stockvo" type="com.douzonemania.scs.vo.member.StockVo" />		
+		<typeAlias alias="ordersettlevo" type="com.douzonemania.scs.vo.member.OrderSettleVo" />
+		<typeAlias alias="orderdeliveryvo" type="com.douzonemania.scs.vo.member.OrderDeliveryVo" />
+		<typeAlias alias="replyvo" type="com.douzonemania.scs.vo.member.ReplyVo" />
+		<typeAlias alias="itemboardvo" type="com.douzonemania.scs.vo.member.ItemBoardVo" />
+		<typeAlias alias="itemreplyvo" type="com.douzonemania.scs.vo.member.ItemReplyVo" />
+		<typeAlias alias="sitevo" type="com.douzonemania.scs.vo.ceo.SiteVo" />
+		<typeAlias alias="mainmenuvo" type="com.douzonemania.scs.vo.ceo.MainMenuVo" />
+		<typeAlias alias="submenuvo" type="com.douzonemania.scs.vo.ceo.SubMenuVo" />
+		<typeAlias alias="customvo" type="com.douzonemania.scs.vo.ceo.CustomVo" />
+		<typeAlias alias="contentsvo" type="com.douzonemania.scs.vo.ceo.ContentsVo" />
+		<typeAlias alias="mainstatementvo" type="com.douzonemania.scs.vo.ceo.MainStatementVo" />
+		<typeAlias alias="productstatisticsvo" type="com.douzonemania.scs.vo.ceo.ProductStatisticsVo" />
+		<typeAlias alias="categorydonutvo" type="com.douzonemania.scs.vo.ceo.CategoryDonutVo" />
+		<typeAlias alias="categorybarvo" type="com.douzonemania.scs.vo.ceo.CategoryBarVo" />
+		<typeAlias alias="categorylinecountvo" type="com.douzonemania.scs.vo.ceo.CategoryLineCountVo"/>
+		<typeAlias alias="categorylinesalesvo" type="com.douzonemania.scs.vo.ceo.CategoryLineSalesVo"/>
+		<typeAlias alias="productssalesvo" type="com.douzonemania.scs.vo.ceo.ProductsSalesVo" />
+		<typeAlias alias="productspaymentamountvo" type="com.douzonemania.scs.vo.ceo.ProductsPaymentAmountVo" />
+		<typeAlias alias="productspaymentmarginvo" type="com.douzonemania.scs.vo.ceo.ProductsPaymentMarginVo" />
+		<typeAlias alias="productscountvo" type="com.douzonemania.scs.vo.ceo.ProductsCountVo" />
+		<typeAlias alias="productspricevo" type="com.douzonemania.scs.vo.ceo.ProductsPriceVo"/>
+		<typeAlias alias="categorybestvo" type="com.douzonemania.scs.vo.ceo.CategoryBestVo"/>
+		<typeAlias alias="categorynewvo" type="com.douzonemania.scs.vo.ceo.CategoryNewVo"/>
+		<typeAlias alias="categorynormalvo" type="com.douzonemania.scs.vo.ceo.CategoryNormalVo"/>
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/main.xml" />
@@ -14,5 +42,10 @@
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/setting.xml" />
 		<mapper resource="mybatis/mappers/category.xml" />
+		<mapper resource="mybatis/mappers/member.xml" />
+		<mapper resource="mybatis/mappers/option.xml" />
+		<mapper resource="mybatis/mappers/order.xml" />
+		<mapper resource="mybatis/mappers/design.xml" />
+		<mapper resource="mybatis/mappers/statistics.xml" />
 	</mappers>
 </configuration>

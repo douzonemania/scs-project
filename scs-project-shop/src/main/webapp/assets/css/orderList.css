@@ -1,0 +1,109 @@
+.ol-item{
+	border:1px solid transparent;
+	height:120px;
+}
+.ol-col{
+	border-top:1px solid darkgray;
+	border-bottom:1px solid darkgray;
+	margin-bottom:1%;
+}
+.ol-col-member{
+	display:inline-block;
+	height:15%;
+	line-height:50px;
+	text-align:center;
+	font-weight:bolder;
+}
+.ol-img{
+	display:inline-block;
+	border:1px solid black;
+	width:85px;
+	height:85px;
+	margin:16px 5px 0 16px ;
+	
+	
+}
+
+.ol-iteminfo{
+	vertical-align: middle;
+	
+	margin-top:16px;
+	border:1px solid transparent;
+	display:inline-block;
+	width:33%;
+	height:85px;
+	
+}
+.ol-itemName{
+	
+	margin:20px 0 0 1%;
+	display:inline-block;	
+	float:bottom;
+	border-bottom:1px solid darkgray;
+	font-weight:bolder;	
+}
+
+.ol-option{
+	margin-left:1%;
+	width:200px;
+}
+.ol-size{
+	
+	display:inline-block;
+	
+}
+
+.ol-color{
+	display:inline-block;
+}
+
+.ol-reg{
+	width:15%;
+	vertical-align: middle;
+	display:inline-block;
+	margin-top:2%;
+	padding-left:1.5%;
+	
+}
+.ol-orderNo{
+	width:15%;
+	margin-top:2%;
+	padding-left:0;
+	vertical-align: middle;
+	display:inline-block;	
+}
+.ol-price-mount{
+	padding-top:1.5%;
+	display:inline-block;
+	vertical-align:middle;
+	width:14%;
+}
+.ol-price{
+	padding-left:5%;
+	margin:auto;	
+}
+
+.ol-amount{
+	padding-left:5%;
+	font-size:12px;
+	margin:auto;
+}
+
+.ol-state-div{
+	padding-left:0%;
+	width:5%;
+	margin-top:2%;
+	display:inline-block;
+	vertical-align:middle;
+}
+
+.ol-state{
+	margin-top:2%;
+	margin-left:20%;
+	display:inline-block;
+	vertical-align:middle;
+}
+.ol-btn-review{	
+	margin-right:0.5%;
+	vertical-align:middle;
+}

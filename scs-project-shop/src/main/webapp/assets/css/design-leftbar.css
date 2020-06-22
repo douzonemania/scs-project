@@ -1,0 +1,66 @@
+.menuGroup{   
+    width:10%;
+    height:auto;
+    float:left;
+    background-color:#fff;
+    border-right : 1px solid #dedede;
+    padding: 10px;
+    /* 위치고정 */
+    position: fixed;
+}
+​
+.menuGroup>ul{
+	
+}
+
+.menuGroup>ul>li{
+    width: 100%;
+    padding: 3px;
+    margin-left:-20px;    
+    margin-bottom:1px;
+    list-style:none;
+}
+​
+.menuGroup>ul>li>button{
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #5D5D5D;
+    background-color: rgba( 255, 255, 255, 0);
+}
+
+.subButton{
+	border: none;
+    font-size: 18px;
+    font-weight: 600;
+    max-width:150px;
+    min-width:150px;
+    color: #5D5D5D;
+    text-align:left;
+    background-color: rgba( 255, 255, 255, 0);
+}
+
+.subButton:hover{
+	 color: #6658DD;
+}
+
+​
+.imgDiv {
+    width: 30px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+​
+.delImg {
+    float: right;
+}
+
+
+@media(max-width:991px){
+	
+	.menuGroup{
+		display:none;
+	}
+	
+}

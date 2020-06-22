@@ -2,8 +2,6 @@ package com.douzonemania.scs.vo.ceo;
 
 import java.sql.Timestamp;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class CeoVo {
 
 //	@NotEmpty
@@ -24,6 +22,7 @@ public class CeoVo {
 	private String cpNumber;
 	private String address1;
 	private String address2;
+	private String postcode;
 	private String address;
 	private String siteName;
 	private String coNumber;
@@ -31,6 +30,25 @@ public class CeoVo {
 	private Integer shipCharge;
 	private String logo;
 	private String favicon;
+	private String sourceLogo;
+	private String sourceFavicon;
+
+	public String getSourceLogo() {
+		return sourceLogo;
+	}
+
+	public void setSourceLogo(String sourceLogo) {
+		this.sourceLogo = sourceLogo;
+	}
+
+	public String getSourceFavicon() {
+		return sourceFavicon;
+	}
+
+	public void setSourceFavicon(String sourceFavicon) {
+		this.sourceFavicon = sourceFavicon;
+	}
+
 	public Integer getShipCharge() {
 
 		return shipCharge;
@@ -128,6 +146,14 @@ public class CeoVo {
 		this.address2 = address2;
 	}
 
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -176,20 +202,18 @@ public class CeoVo {
 		this.favicon = favicon;
 	}
 
+	public void setShipCharge(Integer shipCharge) {
+		this.shipCharge = shipCharge;
+	}
+
 	@Override
 	public String toString() {
 		return "CeoVo [id=" + id + ", name=" + name + ", password=" + password + ", phoneNumber=" + phoneNumber
 				+ ", email=" + email + ", companyName=" + companyName + ", regDate=" + regDate + ", faxNumber="
 				+ faxNumber + ", cpNumber=" + cpNumber + ", address1=" + address1 + ", address2=" + address2
-				+ ", address=" + address + ", siteName=" + siteName + ", coNumber=" + coNumber + ", cmNumber="
-				+ cmNumber + ", shipCharge=" + shipCharge + ", logo=" + logo + ", favicon=" + favicon
-				+ ", getShipCharge()=" + getShipCharge() + ", getId()=" + getId() + ", getName()=" + getName()
-				+ ", getPassword()=" + getPassword() + ", getPhoneNumber()=" + getPhoneNumber() + ", getEmail()="
-				+ getEmail() + ", getCompanyName()=" + getCompanyName() + ", getRegDate()=" + getRegDate()
-				+ ", getFaxNumber()=" + getFaxNumber() + ", getCpNumber()=" + getCpNumber() + ", getAddress1()="
-				+ getAddress1() + ", getAddress2()=" + getAddress2() + ", getAddress()=" + getAddress()
-				+ ", getSiteName()=" + getSiteName() + ", getCoNumber()=" + getCoNumber() + ", getCmNumber()="
-				+ getCmNumber() + ", getLogo()=" + getLogo() + ", getFavicon()=" + getFavicon() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", postcode=" + postcode + ", address=" + address + ", siteName=" + siteName + ", coNumber="
+				+ coNumber + ", cmNumber=" + cmNumber + ", shipCharge=" + shipCharge + ", logo=" + logo + ", favicon="
+				+ favicon + ", sourceLogo=" + sourceLogo + ", sourceFavicon=" + sourceFavicon + "]";
 	}
+
 }

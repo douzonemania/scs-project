@@ -2,51 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="category">
-	<insert id="addCategory" parameterType="categoryvo">
+	<insert id="addCategory" parameterType="map">
 				<![CDATA[
-					insert into mall.category values (null, #{name}, #{parentNo})
+					insert into ${db}.category values (null, #{cVo.name}, #{cVo.parentNo})
 				]]>
 	</insert>
 	
-	<select id="findCategoryByName" parameterType="String" resultType="categoryvo">
+	<select id="findCategoryByName" parameterType="map" resultType="categoryvo">
 				<![CDATA[
-					select name from mall.category where name = #{name}
+					select no, name,  parents_no as 'parentNo' from ${db}.category where name = #{name}
 				]]>
 	</select>
 	
-	<delete id="delCategory" parameterType="String">
+	<select id="findCategoryByNo" parameterType="map" resultType="categoryvo">
 				<![CDATA[
-					delete from mall.category where name = #{name}
+					select no, name, parents_no as 'parentNo' from ${db}.category where no = #{no}
+				]]>
+	</select>
+	
+	<delete id="delCategory" parameterType="map">
+				<![CDATA[
+					delete from ${db}.category where name = #{name}
 				]]>
 	</delete>
 	
-	<select id="getCategoryNameList" resultType="categoryvo">		
+	<select id="getCategoryNameList" parameterType="map" resultType="categoryvo">		
 				<![CDATA[
 					select no, name, parents_no as 'parentNo'
-					from mall.category
+					from ${db}.category
 					where parents_no is null
 				]]>
 	</select>
 	
-	<select id="getCategory2NameList" parameterType="Integer" resultType="categoryvo">		
+	<select id="getCategory2NameListByNo" parameterType="map" resultType="categoryvo">		
 				<![CDATA[
 					select no, name, parents_no as 'parentNo'
-					from mall.category
-					where parents_no= #{ParentCategoryNo}
+					from ${db}.category
+					where parents_no= #{parentCategoryNo}
+				]]>
+	</select>
+	
+	<select id="getCategory2NameList" parameterType="map" resultType="categoryvo">		
+				<![CDATA[
+					select no, name, parents_no as 'parentNo'
+					from ${db}.category
+					where parents_no is not null
 				]]>
 	</select>
 	
 	<update id="updateCategory" parameterType="map">
 				<![CDATA[
-					update mall.category 
+					update ${db}.category 
 					set name = #{afterName}
 					where name=#{name}
 				]]>		
 	</update>
 	
-	<select id="getCategoryNoByName" parameterType="String" resultType="Integer">
+	<select id="getCategoryNoByName" parameterType="map" resultType="Integer">
 				<![CDATA[
-					select no from mall.category where name = #{name}
+					select no from ${db}.category where name = #{name}
 				]]>
 	</select>
 </mapper>

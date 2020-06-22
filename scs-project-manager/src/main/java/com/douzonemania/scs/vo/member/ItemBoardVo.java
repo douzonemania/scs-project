@@ -1,13 +1,19 @@
 package com.douzonemania.scs.vo.member;
 
+import java.sql.Timestamp;
+
 public class ItemBoardVo {
 
 	private int no;
 	private String title;
 	private String contents;
+	private Timestamp regDate;
 	private int memberNo;
 	private int itemNo;
-	private int replyNo;
+	private boolean replyState;
+	private String code; // 상품 코드
+	private String id; // 회원 아이디
+	private String name; // 회원 이름
 
 	public int getNo() {
 		return no;
@@ -33,6 +39,14 @@ public class ItemBoardVo {
 		this.contents = contents;
 	}
 
+	public Timestamp getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(Timestamp regDate) {
+		this.regDate = regDate;
+	}
+
 	public int getMemberNo() {
 		return memberNo;
 	}
@@ -49,18 +63,43 @@ public class ItemBoardVo {
 		this.itemNo = itemNo;
 	}
 
-	public int getReplyNo() {
-		return replyNo;
+	public boolean isReplyState() {
+		return replyState;
 	}
 
-	public void setReplyNo(int replyNo) {
-		this.replyNo = replyNo;
+	public void setReplyState(boolean replyState) {
+		this.replyState = replyState;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return "ItemBoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", memberNo=" + memberNo
-				+ ", itemNo=" + itemNo + ", replyNo=" + replyNo + "]";
+		return "ItemBoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", regDate=" + regDate
+				+ ", memberNo=" + memberNo + ", itemNo=" + itemNo + ", replyState=" + replyState + ", code=" + code
+				+ ", id=" + id + ", name=" + name + "]";
 	}
 
 }

@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="order">
+		
+		<resultMap id="itemList" type="itemvo">
+		   <result property="no" column="no"/>
+		   <result property="code" column="code" />
+		   <result property="name" column="name" />
+		   <result property="supPrice" column="sup_price" />
+		   <result property="nowPrice" column="now_price" />
+		   <result property="sale" column="sale" />
+		   <result property="mainImage" column="main_image" />
+		   <result property="subImage" column="sub_image" /> 
+		   <result property="visible" column="visible" />
+		   <result property="bestItem" column="best_item" />
+		   <result property="newItem" column="new_item" />
+		   <result property="editor" column="editor" />
+		   <result property="categoryNo" column="category_no" />
+		   <result property="des" column="description" />
+		   <result property="regDate" column="regDate" />
+		   <result property="cnt" column="cnt" />
+		   <result property="rate" column="rate" />
+ 		</resultMap>
+ 		
+ 		
+	<insert id="insertCart" parameterType="map" >
+		<![CDATA[
+			insert into ${db}.cart values(null,#{amount},#{memberNo},#{stockNo});
+		]]>
+	</insert>
+	
+	<insert id="insertOrder" parameterType="map" useGeneratedKeys="true" keyProperty="no">
+			<![CDATA[
+				insert into ${db}.shop_order 
+			values(
+			null,
+			#{orderNum},
+			now(),
+			'주문완료',
+			#{userNo},
+			#{shipNo},
+			#{shipMemo});
+			]]>	
+	</insert>
+ 		
+ 	<insert id="insertOrderItem" parameterType="map">
+ 		<![CDATA[
+ 			insert into ${db}.order_item values(#{orderNum},#{stockNo},#{amount},#{totalPrice},false);
+ 		]]>
+ 	</insert>	
+ 		
+ 	<insert id="insertShip" parameterType="map" useGeneratedKeys="true" keyProperty="no">
+ 		<![CDATA[
+ 			insert into ${db}.ship_address values(null,#{vo.shipName},#{vo.phoneNumber},#{vo.address},1,#{userNo});
+ 		]]>
+ 	</insert>	
+ 		
+ 	<update id = "updateCart" parameterType="map" >
+		<![CDATA[
+			update ${db}.cart set amount=#{amount} where no=#{cartNo}
+		]]>
+	</update>
+	
+	<update id="clearShip" parameterType="map">
+		<![CDATA[
+			update ${db}.ship_address set recent = 0 where member_no=#{no};
+		]]>
+		
+	</update>	
+ 		
+	
+	<update id="updateShip" parameterType="map">
+		<![CDATA[
+			update ${db}.ship_address set recent = 1 where no=#{vo.no} and member_no=#{no};
+		]]>
+		
+	</update>	
+ 	
+ 	<update id="updateStock" parameterType="map">
+ 		<![CDATA[
+ 			update ${db}.stock set stock =  stock- #{amount} where no=#{stockNo};
+ 		]]>
+ 	</update>	
+ 		
+ 		
+		<select id="totalCount" resultType="int" parameterType="map" >
+			<choose>
+				<when test='category=="0"'>
+					select count(*)
+					from ${db}.item a , ${db}.category b
+					where a.category_no=b.no and visible =1
+					and state = 1
+					ORDER BY a.no desc;
+				</when>
+				<otherwise>
+					<choose>
+						<when test='subCategory==null or subCategory==""'>
+							<![CDATA[
+							select count(*)
+							from ${db}.item a , ${db}.category b
+							where a.category_no=b.no and b.parents_no=#{category}
+							and visible =1
+							and state = 1
+							ORDER BY a.no desc;
+							]]>	
+						</when>
+						<otherwise>
+							<![CDATA[
+							select count(*) 
+							from ${db}.item a , ${db}.category b
+							where a.category_no=b.no and b.no=#{subCategory}
+							and visible =1
+							and state = 1
+							ORDER BY a.no desc;
+							]]>	
+						</otherwise>
+					</choose>
+				</otherwise>
+			</choose>
+			
+			
+	</select>
+
+	<select id="find" parameterType ="map" resultMap="itemList">	
+			<choose>
+				<when test='category=="0"'>
+					select *
+					from ${db}.item a , ${db}.category b
+					where a.category_no=b.no and visible =1
+					and state = 1
+					ORDER BY a.no desc limit 16 offset #{offset};
+				</when>
+				<otherwise>
+					<choose>
+						<when test='subCategory==null or subCategory=="0"'>
+							<![CDATA[
+							select *
+							from ${db}.item a , ${db}.category b
+							where a.category_no=b.no and b.parents_no=#{category}
+							and visible =1
+							and state = 1
+								ORDER BY a.no desc limit 16 offset #{offset};
+							]]>	
+						</when>
+						<otherwise>
+							<![CDATA[
+							select* 
+							from ${db}.item a , ${db}.category b
+							where a.category_no=b.no and b.no=#{subCategory}
+							and visible =1
+							and state = 1
+							ORDER BY a.no desc limit 16 offset #{offset};
+							]]>	
+						</otherwise>
+					</choose>
+				
+				</otherwise>
+			</choose>
+	</select>
+	
+	<select id="findCategoryList" parameterType="map" resultType="categoryvo">
+			<![CDATA[
+				select b.no as no , b.name as name, b.parents_no as parentsNo 
+				from 
+					${db}.category a,${db}.category b 
+				where 
+					a.no=b.parents_no and
+					a.no=#{category} 
+			]]>
+	</select>
+	
+	<select id="calReviewAvg" parameterType="map" resultType="double">
+			<![CDATA[	
+				select ifnull(avg(b.rate),0) 
+				from ${db}.item a, ${db}.item_review b 
+				where a.no = b.item_no and a.no =#{no};
+			]]>	
+	</select>
+	
+	<select id="findProduct" parameterType="map" resultMap="itemList">
+		<![CDATA[
+			select * from 
+				(select ifnull(count(rate),0) as cnt,ifnull(avg(rate),0) as rate,ifnull(item_no,#{no}) as item_no from ${db}.item_review where item_no=#{no}) a,
+				${db}.item b 
+			where a.item_no=b.no
+			  and b.sub_image is not null;
+		]]>
+		
+	</select>
+
+	<select id="findOptionList" parameterType="map" resultType="optionvo">
+		<![CDATA[
+			select sum(stock) as stock,b.no,b.name,b.type 
+			from ${db}.stock a, ${db}.option b
+			where a.first_option=b.no and item_no=#{no}
+			group by b.no;
+		]]>
+	</select>
+
+	<select id="findSecondOption" parameterType="map" resultType="optionvo">
+		<![CDATA[
+			select b.no,b.name,b.type,a.stock 
+			from ${db}.stock a, ${db}.option b
+			where a.second_option = b.no and item_no= #{no} and first_option=#{option};
+		]]>
+	</select>
+	
+	<select id="findItem" parameterType="map" resultMap="itemList">
+		<![CDATA[
+			select * 
+			from ${db}.item
+			where no=#{itemNo};
+		]]>
+		
+	</select>
+	
+	
+	<select id="checkCart" parameterType="map" resultType="cartvo">
+		<choose>
+			<when test="secondOption==0">
+				select ifnull(sum(a.amount),0) as amount , ifnull(a.no,0) as no
+				from ${db}.cart a ,${db}.stock b
+				where 
+					a.stock_no=b.no and a.member_no=#{memberNo} and
+					b.first_option = #{firstOption} and 
+					b.second_option is NULL and
+					b.item_no=#{itemNo}
+			</when>
+			<otherwise>
+				<![CDATA[
+				select ifnull(sum(a.amount),0) as amount , ifnull(a.no,0) as no
+				from ${db}.cart a ,${db}.stock b
+				where 
+					a.stock_no=b.no and 
+					a.member_no=#{memberNo} and
+					b.first_option = #{firstOption} and 
+					b.second_option = #{secondOption} and
+					b.item_no=#{itemNo}
+					
+				]]>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findStockNo" parameterType="map" resultType="int">
+		<choose>
+			<when test="secondOption==0">
+				select no 
+				from ${db}.stock
+				where item_no=#{item_no}
+				  and first_option=#{firstOption}
+				  and second_option is NULL; 	
+			</when>
+			<otherwise>
+				<![CDATA[
+				select no 
+				from ${db}.stock
+				where item_no=#{itemNo}
+				  and first_option=#{firstOption}
+				  and second_option=#{secondOption}	
+				]]>
+			</otherwise>
+		</choose>
+		
+	</select>
+
+
+	
+	
+	<select id = "setCartList" parameterType="map" resultType="itemvo">
+		<![CDATA[
+			select a.no, a.code ,a.name ,a.now_price as 'nowPrice' ,a.sale , a.main_image as 'mainImage' , b.first_option as 'firstOption',b.firstOptionName, b.second_option as 'secondOption', b.secondOptionName, b.cartNo, b.amount ,b.stock
+			from ${db}.item a, (
+					select a.no,a.item_no,a.first_option,a.firstOptionName,a.second_option,a.secondOptionName,b.no as cartNo,b.amount,a.stock
+					from (
+							select a.no,a.item_no,a.first_option,a.firstOptionName, a.second_option,b.name as secondOptionName ,a.stock
+							from (	select a.no , a.item_no,a.first_option, b.name as firstOptionName, a.second_option ,a.stock 
+								 	from ${db}.stock a, ${db}.option b 
+									where a.first_option= b.no) a , ${db}.option b 
+							where a.second_option = b.no) a , ${db}.cart b 
+					where a.no=b.stock_no and member_no=#{memberNo}) b 
+			where a.no=b.item_no;
+		]]>
+
+	</select>
+	
+	<select id="findOrderItem" parameterType="map" resultType="itemvo">
+		<![CDATA[
+			select a.no,a.code,a.name,a.now_price as 'nowPrice',a.sale , a.main_image as 'mainImage' , b.first_option as 'firstOption',b.firstOptionName,b.second_option as 'secondOption', b.secondOptionName, b.cartNo,b.amount 
+			from ${db}.item a, (
+					select a.no,a.item_no,a.first_option,a.firstOptionName,a.second_option,a.secondOptionName,b.no as cartNo,b.amount 
+					from (
+							select a.no,a.item_no,a.first_option,a.firstOptionName, a.second_option,b.name as secondOptionName 
+							from (	select a.no , a.item_no,a.first_option, b.name as firstOptionName, a.second_option ,a.stock 
+								 	from ${db}.stock a, ${db}.option b 
+									where a.first_option= b.no) a , ${db}.option b 
+							where a.second_option = b.no) a , ${db}.cart b 
+					where a.no=b.stock_no and member_no=#{memberNo}) b 
+			where a.no=b.item_no and b.cartNo=#{cartNo}
+		]]>
+	</select>
+	
+	<select id = "findShipAddressList" parameterType="map" resultType="shipvo">
+		<![CDATA[
+			 select no,ship_name as shipName, phone_number as phoneNumber , address,recent,member_no as memberNo 
+		 from ${db}.ship_address where member_no = #{memberNo}
+		]]>
+	</select>
+	
+	
+	<select id = "findRecentOrderNum" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(*)
+			from ${db}.shop_order
+			where date(reg_date)=curdate();
+		]]>
+	</select>
+	
+
+	<delete id="deleteCart" parameterType="map">
+		<![CDATA[
+			delete from ${db}.cart where member_no=#{userNo} and no=#{cartNo};
+		]]>
+	</delete>
+	
+	<delete id="deleteCartAll" parameterType="map">
+		<![CDATA[
+			delete from ${db}.cart where member_no=#{userNo};
+		]]>
+	</delete>
+	
+	<select id="getOrderList" parameterType="map" resultType="orderlistvo">
+		<![CDATA[
+			select DISTINCT a.no, a.name, a.main_image as 'image', b.no as 'stockNo', b.first_option as 'color', b.second_option as 'size',
+	 		c.reg_date as 'regDate', c.order_number as 'orderNo', c.no as 'orderNoPrime',
+			d.amount, d.total_price as 'totalPrice' , c.statement
+			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
+			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} ;
+		]]>
+	</select>
+	
+	<select id="getOrderListByStatement" parameterType="map" resultType="orderlistvo">
+		<![CDATA[
+			select DISTINCT a.no, a.name, a.main_image as 'image', b.no as 'stockNo', b.first_option as 'color', b.second_option as 'size',
+	 		c.reg_date as 'regDate', c.order_number as 'orderNo', c.no as 'orderNoPrime',
+			d.amount, d.total_price as 'totalPrice' , c.statement
+			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
+			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} and c.statement=#{statement};
+		]]>
+	</select>
+	
+	<select id="getOrderListByStatementAndDate" parameterType="map" resultType="orderlistvo">
+		<if test='statement=="init"'>
+			select DISTINCT a.name, a.main_image as 'image', b.no as 'stockNo', b.first_option as 'color', b.second_option as 'size',
+	 		c.reg_date as 'regDate', c.order_number as 'orderNo', c.no as 'orderNoPrime',
+			d.amount, d.total_price as 'totalPrice' , c.statement
+			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
+			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} and c.reg_date between #{date1} and #{date2};
+		</if>
+		<if test='statement!="init"'>
+		<![CDATA[
+			select DISTINCT a.name, a.main_image as 'image', b.no as 'stockNo', b.first_option as 'color', b.second_option as 'size',
+	 		c.reg_date as 'regDate', c.order_number as 'orderNo', c.no as 'orderNoPrime',
+			d.amount, d.total_price as 'totalPrice' , c.statement
+			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
+			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} and c.statement=#{statement} and c.reg_date between #{date1} and #{date2}
+		]]>
+		</if>
+	</select>
+	
+	<select id="getCountStatement" parameterType="map" resultType="Integer">
+		<![CDATA[
+			select count(DISTINCT a.name) as 'numberOfStatement'
+			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
+			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} and c.statement=#{statement}
+		]]>
+	</select>
+	
+	<select id="convertOpiton" parameterType="map" resultType="String">
+		<![CDATA[
+			select name
+			from ${db}.option
+			where no=#{no};
+		]]>
+	</select>
+	
+	<insert id="regReview" parameterType="map" >
+		<![CDATA[
+			insert into ${db}.item_review values(null,#{rVo.rate},#{rVo.title},#{rVo.content},#{rVo.image},#{rVo.itemNo},#{rVo.memberNo}, now(),#{rVo.color},#{rVo.size});
+		]]>
+	</insert>
+	
+	<select id="getReviewList" parameterType="map" resultType="reviewvo">
+		<![CDATA[
+			select no, rate, title, content, image, item_no as 'itemNo', member_no as 'memberNo', reg_date as 'regDate', color, size from ${db}.item_review where item_no = #{no} limit 5;
+		]]>
+	</select>
+	
+	<update id="updateReState" parameterType="map">
+ 		<![CDATA[
+ 			update ${db}.order_item set re_state = 1 where order_no=#{orderNo} and stock_no=#{stockNo}
+ 		]]>
+ 	</update>
+ 	
+ 		<select id="getRestate" parameterType="map" resultType="Integer">
+		<![CDATA[
+			select re_state from ${db}.order_item where order_no=#{orderNo} and stock_no=#{stockNo};
+		]]>
+	</select>
+	
+	<select id="findOption" parameterType="map" resultMap="itemList">
+		<choose>
+			<when test="secondOption==0">
+				<![CDATA[
+					select name as firstOptionName from ${db}.option where no=#{firstNo}
+				]]>	
+			</when>
+			<otherwise>
+				<![CDATA[
+					select a.name as firstOptionName , b.name as secondOptionName from ${db}.option a, ${db}.option b where a.no=#{firstNo} and b.no=#{secondNo};
+				]]>
+			</otherwise>
+		</choose>
+	</select>
+	
+		<select id="BoardList" parameterType="map" resultType="itemboardvo">
+		<![CDATA[
+			select b.no,				   
+				   b.title,
+				   b.contents,
+				   b.member_no as memberNo,
+				   b.reg_date as regDate,
+				   b.reply_state as replyState,
+				   m.id,
+				   m.name
+			  from ${db}.item_board b, ${db}.member m
+			 where b.member_no = m.no
+			   and m.state='회원' and b.item_no=#{no}
+			 ORDER BY b.no desc limit 5
+		]]>
+	</select>
+	
+	<select id="getReviewCount" parameterType="string" resultType="int">
+		<![CDATA[
+			select count(*) 
+			  from ${db}.item_review a, ${db}.member b
+			  where a.member_no = b.no and b.state='회원' 
+			 
+		]]>
+	</select>
+	
+	<select id="getAllReviewList" parameterType="map" resultType="reviewvo">
+		<![CDATA[
+			 select a.no, 
+					a.rate, 
+					a.title, 
+					content, 
+					image, 
+					a.reg_date as 'regDate',
+					a.color, 
+					a.size, 
+					b.name as 'itemName', 
+					c.id,
+					a.item_no as 'itemNo',
+					b.main_image as 'mainImage'
+               from ${db}.item_review a, ${db}.item b, ${db}.member c
+              where a.item_no=b.no
+                and a.member_no=c.no
+                and c.state='회원'
+              limit ${size} offset #{offset}
+		]]>
+	</select>
+	
+	<select id="getReviewByNo" parameterType="map" resultType="reviewvo">
+		<![CDATA[
+			 select a.no, 
+					a.rate, 
+					a.title, 
+					content, 
+					image, 
+					a.reg_date as 'regDate',
+					a.color, 
+					a.size, 
+					b.name as 'itemName', 
+					c.id,
+					a.item_no as 'itemNo',
+					b.main_image as 'mainImage'
+			   from ${db}.item_review a, ${db}.item b, ${db}.member c
+              where a.item_no=b.no
+              	and c.state='회원'
+                and a.member_no=c.no
+                and a.no=#{no}
+		]]>
+	</select>	
+	
+	<select id="getPhotoReviewList" parameterType="map" resultType="reviewvo">
+		<![CDATA[
+			select a.no, 
+				   a.rate, 
+				   a.title, 
+				   content, 
+				   image, 
+				   a.reg_date as 'regDate',
+				   a.color, 
+				   a.size, 
+				   b.name as 'itemName', 
+				   c.id,
+				   a.item_no as 'itemNo',
+				   b.main_image as 'mainImage'
+			  from ${db}.item_review a, ${db}.item b, ${db}.member c
+		 	 where a.item_no=b.no
+               and a.member_no=c.no
+               and c.state='회원'
+               and a.image is not null  
+		  order by a.reg_date desc
+			 limit 6
+		]]>
+	</select>
+</mapper>

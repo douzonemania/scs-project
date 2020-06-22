@@ -1,5 +1,7 @@
 package com.douzonemania.scs.repository;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,7 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import com.douzonemania.scs.vo.ceo.AgreementVo;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.scs.vo.ceo.MainStatementVo;
+import com.douzonemania.scs.vo.ceo.SiteVo;
 @Repository
 public class UserRepository {
    @Autowired
@@ -19,12 +25,14 @@ public class UserRepository {
 		String itemReviewQry = "CREATE TABLE " + id + ".item_review(" + "   no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    rate INT UNSIGNED NOT NULL," + "    title VARCHAR(30)  NOT NULL," + "    content TEXT NOT NULL,"
 				+ "    image VARCHAR(50)  NULL," + "    item_no INT UNSIGNED NULL," + "    member_no INT UNSIGNED NULL,"
+				+ "    reg_date    DATETIME          NOT NULL, " + "    color    VARCHAR(20)     NULL, "
+				+ "    size    VARCHAR(20)     NULL, "
 				+ "    primary key(no)" + ")engine=InnoDB character set=utf8;";
 		String itemBoardQry = "CREATE TABLE " + id + ".item_board(" + "    no INT UNSIGNED NOT NULL  AUTO_INCREMENT,"
 				+ "    title VARCHAR(50)  NOT NULL," + "    contents  TEXT         NOT NULL,"
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "    member_no INT UNSIGNED NULL," + "    item_no   INT UNSIGNED NULL,"
-				+ "    reply_no  INT UNSIGNED NULL," + "    primary key(no)" + ")engine=InnoDB character set=utf8;";
+				+ "	   reply_state BOOLEAN NOT NULL," + "    primary key(no)" + ")engine=InnoDB character set=utf8;";
 		String categoryQry = "CREATE TABLE " + id + ".category(" + "    no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    name VARCHAR(50)  NOT NULL," + "    parents_no INT UNSIGNED NULL," + "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8; ";
@@ -33,28 +41,35 @@ public class UserRepository {
 				+ "    second_option INT UNSIGNED NULL," + "    stock         INT UNSIGNED NULL,"
 				+ "    primary key(no)" + ") engine=InnoDB character set=utf8; ";
 		String optionQry = "CREATE TABLE " + id + ".option(" + "    no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
-				+ "    name VARCHAR(30)  NOT NULL," + "    primary key(no)" + ") engine=InnoDB character set=utf8;";
+				+ "    name VARCHAR(30)  NOT NULL," + "    type VARCHAR(30) NOT NULL,"
+				+ "    primary key(no)" + ") engine=InnoDB character set=utf8;";
 		String memberQry = "CREATE TABLE " + id + ".member ("
 				+ "    no           INT UNSIGNED  NOT NULL AUTO_INCREMENT," + "    id           VARCHAR(20)   NOT NULL,"
 				+ "    name         VARCHAR(20)   NOT NULL,"
 				+ "    password     VARCHAR(50)   NOT NULL," + "    phone_number VARCHAR(30)   NOT NULL,"
 				+ "    email        VARCHAR(50)   NOT NULL," + "    reg_date     DATETIME          NOT NULL,"
+				+ "    state		ENUM('회원', '탈퇴')	NOT NULL,"
 				+ "    type         ENUM('카카오', '구글', '네이버', '일반') NOT NULL," + "    primary key(no)\r\n"
 				+ ") engine=InnoDB character set=utf8; ";
 		String replyQry = "CREATE TABLE " + id + ".reply(" + "   no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
-				+ "   parents_no INT UNSIGNED NULL," + "   primary key(no)" + ") engine=InnoDB character set=utf8;";
+				+ "   parents_no INT UNSIGNED NOT NULL," + "	contents TEXT NOT NULL,"
+				+ "    reg_date    DATETIME          NOT NULL, "
+				+ "   primary key(no)" + ") engine=InnoDB character set=utf8;";
 		String orderItemQry = "CREATE TABLE " + id + ".order_item(" + "    order_no INT UNSIGNED NULL,"
-				+ "    stock_no INT UNSIGNED NULL" + ") engine=InnoDB character set=utf8;";
+				+ "    stock_no INT UNSIGNED NULL," + "	amount INT UNSIGNED NOT NULL, "
+				+"	   total_price INT UNSIGNED NOT NULL," + "	re_state BOOLEAN NOT NULL "
+				+ ") engine=InnoDB character set=utf8;";
 		String orderQry = "CREATE TABLE " + id + ".shop_order("
 				+ "    no           INT UNSIGNED NOT NULL AUTO_INCREMENT ," + "    order_number VARCHAR(20)  NOT NULL, "
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "    statement    ENUM('주문완료', '입금완료', '배송준비중', '배송중', '배송완료', '취소처리중', '교환처리중', '환불처리중', '처리완료') NOT NULL,"
-				+ "    member_no    INT UNSIGNED NULL ," + "    primary key(no)"
+				+ "    member_no    INT UNSIGNED NULL ," + "ship_no INT UNSIGNED NULL,"
+				+ "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8;";
 		String boardQry = "CREATE TABLE " + id + ".board(" + "    no        INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    category  ENUM('주문', '배송', '교환환불취소', '기타') NOT NULL," + "    title     VARCHAR(50)  NOT NULL ,"
 				+ "    contents  TEXT         NOT NULL," + "    member_no INT UNSIGNED NULL,"
-				+ "    reg_date  DATETIME         NOT NULL," + "    reply_no  INT UNSIGNED NULL," + "    primary key(no)"
+				+ "    reg_date  DATETIME         NOT NULL," + "    reply_state  BOOLEAN NOT NULL," + "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8; ";
 		String cartQry = "CREATE TABLE " + id + ".cart(" + "    no        INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    amount    INT UNSIGNED NOT NULL ," + "    member_no INT UNSIGNED NULL    ,"
@@ -67,9 +82,9 @@ public class UserRepository {
 				+ "    sub_image   VARCHAR(300) NULL," + "    visible     BOOLEAN      NOT NULL,"
 				+ "    best_item        BOOLEAN      NOT NULL," + "    new_item         BOOLEAN      NOT NULL,"
 				+ "    editor      TEXT         NULL," + "    category_no INT UNSIGNED NULL," 
-				+ "    description TEXT         NULL,"
-				+ "    reg_date    DATETIME     NOT NULL,"
-				+ "    primary key(no)"
+				+ "    description TEXT         NULL," + "    reg_date    DATETIME     NOT NULL,"
+				+ "    ship_company    VARCHAR(30)   NOT NULL," + "    ship_charge    INT UNSIGNED   NOT NULL,"
+				+"	   state		BOOLEAN			 NOT NULL," + "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8; ";
 		String shipAddressQry = "CREATE TABLE " + id + ".ship_address("
 				+ "    no           INT UNSIGNED NOT NULL AUTO_INCREMENT ," + "    ship_name   VARCHAR(30)  NOT NULL ,"
@@ -77,7 +92,9 @@ public class UserRepository {
 				+ "    recent       BOOLEAN      NOT NULL ," + "    member_no    INT UNSIGNED NULL,"
 				+ "    primary key(no)" + ") engine=InnoDB character set=utf8; ";
 		String itemReplyQry = "CREATE TABLE " + id + ".item_reply("
-				+ "    no         INT UNSIGNED NOT NULL AUTO_INCREMENT," + "    parents_no INT UNSIGNED NULL,"
+				+ "    no         INT UNSIGNED NOT NULL AUTO_INCREMENT,"
+				+ "    parents_no INT UNSIGNED NOT NULL," + "		contents TEXT NOT NULL,"
+				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "    primary key(no)" + ") engine=InnoDB character set=utf8; ";
 		HashMap<String, Object> map = new HashMap<>();
 		setCreateQry(itemBoardQry, map);
@@ -94,7 +111,7 @@ public class UserRepository {
 		setCreateQry(itemQry, map);
 		setCreateQry(shipAddressQry, map);
 		setCreateQry(itemReplyQry, map);
-	}
+	}  
 	public void setCreateQry(String id, HashMap<String, Object> map) {
 		if (map.containsKey("sql")) {
 			map.replace("sql", id);
@@ -109,21 +126,14 @@ public class UserRepository {
 				+ " FOREIGN KEY (member_no)" + " REFERENCES " + id + ".member (no);";
 		String alterItemReviewTwo = "ALTER TABLE " + id + ".item_review" + "    ADD CONSTRAINT FK_item_TO_item_review"
 				+ "    FOREIGN KEY (item_no)" + "    REFERENCES " + id + ".item (no);";
-		String alterItemBoardOne = "ALTER TABLE " + id + ".item_board" + "    ADD CONSTRAINT FK_member_TO_item_board"
+		String alterItemBoard = "ALTER TABLE " + id + ".item_board" + "    ADD CONSTRAINT FK_member_TO_item_board"
 				+ "        FOREIGN KEY (member_no)" + "        REFERENCES " + id + ".member(no);";
-		String alterItemBoardTwo = "ALTER TABLE " + id + ".item_board" + "    ADD CONSTRAINT FK_item_TO_item_board"
-				+ "        FOREIGN KEY (item_no)" + "        REFERENCES " + id + ".item (no);";
-		String alterItemBoardThree = "ALTER TABLE " + id + ".item_board"
-				+ "    ADD CONSTRAINT FK_item_reply_TO_item_board" + "        FOREIGN KEY (reply_no)"
-				+ "        REFERENCES " + id + ".item_reply (no);";
 		String alterCartOne = "ALTER TABLE " + id + ".cart" + "    ADD CONSTRAINT FK_member_TO_cart"
 				+ "        FOREIGN KEY (member_no)" + "        REFERENCES " + id + ".member (no);";
 		String alterCartTwo = "ALTER TABLE " + id + ".cart" + "    ADD CONSTRAINT FK_stock_TO_cart"
 				+ "        FOREIGN KEY (stock_no)" + "        REFERENCES " + id + ".stock (no);";
-		String alterBoardOne = "ALTER TABLE " + id + ".board" + "    ADD CONSTRAINT FK_member_TO_board"
+		String alterBoard = "ALTER TABLE " + id + ".board" + "    ADD CONSTRAINT FK_member_TO_board"
 				+ "        FOREIGN KEY ( member_no)" + "        REFERENCES " + id + ".member (no);";
-		String alterBoardTwo = "ALTER TABLE " + id + ".board" + "    ADD CONSTRAINT FK_reply_TO_board"
-				+ "        FOREIGN KEY (reply_no)" + "        REFERENCES " + id + ".reply (no);";
 		String alterCategory = "ALTER TABLE " + id + ".category" + "    ADD CONSTRAINT FK_category_TO_category"
 				+ "        FOREIGN KEY (parents_no)" + "        REFERENCES " + id + ".category (no);";
 		String alterStockOne = "ALTER TABLE " + id + ".stock" + "	    ADD CONSTRAINT FK_option_TO_stock2"
@@ -132,8 +142,8 @@ public class UserRepository {
 				+ "	        FOREIGN KEY (item_no)" + "	        REFERENCES " + id + ".item (no);";
 		String alterStockThree = "	ALTER TABLE " + id + ".stock" + "	    ADD CONSTRAINT FK_option_TO_stock"
 				+ "	        FOREIGN KEY (second_option)" + "	        REFERENCES " + id + ".option (no);";
-		String alterReply = "ALTER TABLE  " + id + ".reply" + "	    ADD CONSTRAINT FK_reply_TO_reply"
-				+ "	        FOREIGN KEY (parents_no)" + "	        REFERENCES  " + id + ".reply (no);";
+		String alterReply = "ALTER TABLE  " + id + ".reply" + "	    ADD CONSTRAINT FK_board_TO_reply"
+				+ "	        FOREIGN KEY (parents_no)" + "	        REFERENCES  " + id + ".board (no);";
 		String alterShipAddress = "ALTER TABLE " + id + ".ship_address"
 				+ "	    ADD CONSTRAINT FK_member_TO_ship_address" + "	        FOREIGN KEY (member_no)"
 				+ "	        REFERENCES  " + id + ".member (no);";
@@ -143,28 +153,28 @@ public class UserRepository {
 		String alterOrderItemTwo = "	ALTER TABLE " + id + ".order_item"
 				+ "	    ADD CONSTRAINT FK_stock_TO_order_item" + "	        FOREIGN KEY (stock_no)"
 				+ "	        REFERENCES  " + id + ".stock (no);";
-		String alterShopOrder = "ALTER TABLE  " + id + ".shop_order" + "	    ADD CONSTRAINT FK_member_TO_order"
+		String alterShopOrderOne = "ALTER TABLE  " + id + ".shop_order" + "	    ADD CONSTRAINT FK_member_TO_shop_order"
 				+ "	        FOREIGN KEY (member_no)" + "	        REFERENCES  " + id + ".member (no);";
+		String alterShopOrderTwo = "ALTER TABLE  " + id + ".shop_order" + "	    ADD CONSTRAINT FK_ship_address_TO_shop_order"
+				+ "	        FOREIGN KEY (ship_no)" + "	        REFERENCES  " + id + ".ship_address (no);";
 		String alterItem = "ALTER TABLE  " + id + ".item" + "	    ADD CONSTRAINT FK_category_TO_item"
 				+ "	        FOREIGN KEY (category_no)" + "	        REFERENCES " + id + ".category (no);";
 		String alterItemReply = "	ALTER TABLE  " + id + ".item_reply"
-				+ "	    ADD CONSTRAINT FK_item_reply_TO_item_reply" + "	        FOREIGN KEY (parents_no)"
-				+ "	        REFERENCES  " + id + ".item_reply (no);";
+				+ "	    ADD CONSTRAINT FK_item_board_TO_item_reply" + "	        FOREIGN KEY (parents_no)"
+				+ "	        REFERENCES  " + id + ".item_board (no);";
 		setAlterTable(alterShipAddress, map);
 		setAlterTable(alterOrderItemOne, map);
 		setAlterTable(alterOrderItemTwo, map);
-		setAlterTable(alterShopOrder, map);
+		setAlterTable(alterShopOrderOne, map);
+		setAlterTable(alterShopOrderTwo, map);
 		setAlterTable(alterItem, map);
 		setAlterTable(alterItemReply, map);
 		setAlterTable(alterItemReviewOne, map);
 		setAlterTable(alterItemReviewTwo, map);
-		setAlterTable(alterItemBoardOne, map);
-		setAlterTable(alterItemBoardTwo, map);
-		setAlterTable(alterItemBoardThree, map);
+		setAlterTable(alterItemBoard, map);
 		setAlterTable(alterCartOne, map);
 		setAlterTable(alterCartTwo, map);
-		setAlterTable(alterBoardOne, map);
-		setAlterTable(alterBoardTwo, map);
+		setAlterTable(alterBoard, map);
 		setAlterTable(alterCategory, map);
 		setAlterTable(alterStockOne, map);
 		setAlterTable(alterStockTwo, map);
@@ -182,8 +192,11 @@ public class UserRepository {
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    
-   public int insert(CeoVo ceoVo) {
-      return sqlSession.insert("user.insert", ceoVo);
+   public int insert(CeoVo ceoVo,AgreementVo agreementVo, SiteVo siteVo) {
+	   sqlSession.insert("user.insert", ceoVo);
+	   sqlSession.insert("user.insertSite", siteVo);
+      return sqlSession.insert("user.insertAgreement", agreementVo);
+      
    }
 
 	public CeoVo findById(String id) {
@@ -211,5 +224,43 @@ public class UserRepository {
 		
 		return id;
 	}
+	
+	public String findIdByNameAndPhone(String name, String phoneNum) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("name", name);
+		map.put("phoneNum", phoneNum);
+		
+		return sqlSession.selectOne("user.findIdByNameAndPhone", map);
+	}
+	public int updatePassword(String id, String password) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("password", password);
+		
+		return sqlSession.update("user.updatePassword", map);
+	}
+	
+	public int getTotalRevenue(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		return sqlSession.selectOne("user.getTotalRevenue", map);
+	}
+	public int getSales(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		return sqlSession.selectOne("user.getSales", map);
+	}
+	
+	public List<Integer> getStatement(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		return sqlSession.selectList("user.getStatement", map);
+	}
+	
+	public void insertSubMenu(String id) {
+		sqlSession.insert("user.insertMainPageMenu", id);
+		sqlSession.insert("user.insertFAQMenu", id);
+	}
+
 
 }

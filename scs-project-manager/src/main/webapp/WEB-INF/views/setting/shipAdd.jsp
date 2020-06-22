@@ -82,7 +82,7 @@ $(function(){
 		
 		var vo = {};
 		vo.name = $('#text-ship').val();
-		<!--vo.id = '${authUser.id}'; -->
+		vo.id = '${authUser.id}';
 		$.ajax({
 			url: '${pageContext.request.contextPath }/${authUser.id}/api/setting/shipAdd/add',
 			async: true,
@@ -100,7 +100,7 @@ $(function(){
 				}
 				// rendering
 				
-				var lastNo = $("#admin-cat").find('tr').length;
+				var lastNo = $("#admin-cat").find('tr').length + 1;
 				response.data.lastNo = lastNo;
 				var html = shipAddTemplate.render(response.data);
 				$("#admin-cat tr").last().after(html);
@@ -129,27 +129,49 @@ $(function(){
 			dataType: 'json',
 			data: '',
 			success: function(response){
-				console.log("delete response:" + response);
+				console.log("delete response:" + response.data);
+				
+				console.log(tdCount+":"+trCount);
+				
 				if(response.result != "success"){
 					console.error(response.message);
 					return;
 				}
 				if(response.data != -1 ){
+					var tdCount = $('#admin-cat').find('tr td').length;
+					var trCount = $('#admin-cat').find('tr').length;
+					
+					for(var i = 0, j = 1; i <= tdCount - 3; i += 3, j++) {
+						console.log(i, $('#admin-cat tr td')[i]);
+						if($('#admin-cat tr td')[i].innerText == j) {
+							continue;
+						} else {
+							console.log("find: " + $('#admin-cat tr td')[i].innerText);
+							$('#admin-cat tr td')[i].innerText = j;
+						}
+					}
 					
 					return;
 				}
+				
+				
 			},
 			error: function(xhr, status, e){
 				console.error(status + " : " + e);
 			}
 		});
 		
-		
 	});
 	
+	fetchList();
 	
 });
-fetchList();
+
+
+
+
+
+
 </script>
 </head>
 <body>
@@ -158,13 +180,10 @@ fetchList();
 			<colgroup>
 	            <col width="180"><col width="*">
 	        </colgroup>
-           <tbody> 
-			<tr>
-				<td class="t">배송사</td>
-				<td><input type="text" id="text-ship" name="name"></td>
-				<td><input type="submit" value="배송사 추가" style="background-color:#CBCBCB; border-color:white"></td>
-			</tr>
-			</tbody>
+	        <div class="header-title" style="padding:5px;"><h2>배송사관리</h2>
+				<input type="text" id="text-ship" name="name" style="width:253px; margin-left:15px;">
+				<input type="submit" class="btn btn-secondary btn-sm float-sm-right" style="margin-left:20px;"value="추가" >
+			</div>
 		</table>
 	</form>
 	

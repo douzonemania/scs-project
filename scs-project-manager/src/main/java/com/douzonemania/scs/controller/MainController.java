@@ -2,22 +2,27 @@ package com.douzonemania.scs.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.security.AuthUser;
 
 @Controller
-@RequestMapping("/{id:(?!assets).*}")
 public class MainController {
 	
-//	@Autowired
-//	private MainService mainService;
-	
-	@RequestMapping({"","/main"})
-	public String home() {
+	@RequestMapping({"/main"})
+	public String index() {
 		
-		CeoVo vo = new CeoVo();
-//		vo = mainService.getList();
-		System.out.println(vo);
 		return "main/index";
 	}
+	
+	// authUser의 id를 react에 전달
+	@ResponseBody
+	@RequestMapping("/main/userId") 
+	public JsonResult getAuthUserId(@AuthUser CeoVo ceoVo) {
+		
+		return JsonResult.success(ceoVo.getId());
+	}
+	
 }

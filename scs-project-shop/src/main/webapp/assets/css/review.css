@@ -1,0 +1,102 @@
+.review-top{
+	margin-left:20px;
+	width:90%;
+	height:80px;
+	font-size:36px;
+	font-weight:border;
+	padding:20px 0 0 30px;
+	border-bottom:2px solid darkgray;
+}
+
+.review-item-info{
+	margin-top:5%;
+	margin-left:20px;
+	width:90%;
+	height:100px;	
+}
+
+.review-image{
+	display:inline-block;
+	width:90px;
+	height:90px;
+	border:1px solid black;
+}
+
+.review-itemName{
+	display:inline-block;
+	position:absolute;
+	margin:25px 0 0 10px;
+	font-weight:bolder;
+}
+
+.review-option{
+	display:inline-block;
+	position:absolute;
+	margin:45px 0 0 10px;
+}
+
+.review-rate{
+	margin-top:1%;
+	margin-left:20px;
+	line-height:50px;
+	width:90%;
+	height:50px;
+}
+.star_rating {font-size:0; letter-spacing:-4px; display:inline-block;}
+.star_rating a {
+    font-size:22px;
+    letter-spacing:0;
+    display:inline-block;
+    margin-left:5px;
+    color:#ccc;
+    text-decoration:none;
+}
+.star_rating a:first-child {margin-left:0;}
+.star_rating a.on {color:#F7B84B;}
+
+.review-space{width:10px}
+.review-space2{width:100px}
+.review-title{
+	margin-top:1%;
+	margin-left:20px;
+	line-height:50px;
+	width:90%;
+	height:50px;
+}
+
+.review-content{
+	margin-top:1%;
+	margin-left:20px;
+	line-height:50px;
+	width:90%;
+	height:200px;
+}
+
+#review-textarea{
+	display:inline-block;
+	margin-left:45px;
+	width:80%;
+	height:200px;
+	resize:none;
+    overflow: hidden;
+}
+#review-textarea:focus{
+	outline:none;
+}
+
+.review-fileupload{
+	width:90%;
+	margin-top:1%;
+	margin-left:20px;
+	border:1px solid black;
+	height:50px;
+}
+
+.review-button-section{
+	margin-left:200px;
+	width:50%;
+}
+#reg-review-btn, #cancle-btn{
+	display:inline-block;
+	width:100px;
+}

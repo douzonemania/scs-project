@@ -13,10 +13,13 @@ public class LogoutInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		HttpSession session = request.getSession();
 		
+		System.out.println("logout interceptor in");
+		System.out.println("session:" + session);
+		
 		session.removeAttribute("authUser");
 		session.invalidate();
 		
-		response.sendRedirect(request.getContextPath());
+		response.sendRedirect(request.getContextPath() + "/main");
 				
 		return false;
 	}

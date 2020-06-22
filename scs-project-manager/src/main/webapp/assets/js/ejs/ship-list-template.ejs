@@ -1,6 +1,4 @@
-<tr>
-	<th>배송사명</th>
-</tr>
+
 
 <%
 	console.log(data);
@@ -10,10 +8,10 @@
 		count += 1;
 %>
 
-<tr data-no='<%= vo.no%>'>
-		<td><%= count%></td>
-		<td><%= vo.name%></td>
-		<td><button data-no='<%=vo.no%>'>삭제</button></td>
+<tr>
+		<td style="width:100px;"><%= count%></td>
+		<td style="width:250px;"><%= vo.name%></td>
+		<td style="width:180px;" ><button class="btn btn-secondary btn-sm float-sm-right" data-no='<%=vo.no%>'>삭제</button></td>
 </tr>
 <%
 	}

@@ -1,52 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-            <title></title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-            <meta content="Coderthemes" name="author" />
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <!-- App favicon -->
-            <link rel="shortcut icon" href="assets/images/favicon.ico">
-    
-            <!-- Plugins css -->
-            <link href="assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
-    
-            <!-- App css -->
-            <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-            <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-            <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<html lang="UTF-8">
+<head>
+<meta charset="utf-8" />
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<title></title>
 
-    </head>
+
+<!-- App favicon -->
+<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+<!-- Plugins css -->
+<link href="assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet"
+	type="text/css" />
+
+<!-- App css -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+<link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+<link href="${ pageContext.request.contextPath }/assets/css/design-leftbar.css" rel="stylesheet" type="text/css" />
+
+</head>
 <body>
-            <div style="padding-top: 109px;"></div>
-            <div class="left-nav float-left">
-                <div class="category-list">
+<div >
+	<div class="left-nav float-left" style="height:auto;">
+		<div class = "menuGroup">
+		
+			<ul style=" margin-top:150px">				
+				 <c:forEach var="vo" varStatus="status" items="${subMenuList}">
+				 	<c:if test="${status.index>1 }">
+	              		<li><a href ="${ pageContext.request.contextPath }/${db }/custom/${vo.no}">
+	              			<button class="subButton" value="${vo.no }">${vo.name }</button>
+	              			</a></li>
+	              	</c:if>
+	      		 </c:forEach>  
+			</ul>
+			  
+		</div>
 
-                    <div style="margin-top: 30px;"></div>
-    
-                    <ul>
-                        <li>TOP</li>
-                        <li>BOTTOM</li>
-                        <li>OUTER</li>
-                        <li>ACC</li>
-                        <li>INNER</li>
-                    </ul>
-    
-                    <div style="margin-top: 30px;"></div>
-    
-                    <ul>
-                        <li>REVIEW</li>
-                        <li>FAQ</li>
-                        <li>SALE</li>
-                        <li>CUSTOM1</li>
-                        <li>CUSTOM2</li>
-                    </ul>
-    
-                    <div style="margin-top: 30px;"></div>
-                </div>
-            </div>
-    
+
+	</div>
+</div>
 </body>
 </html>

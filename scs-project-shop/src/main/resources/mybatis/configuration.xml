@@ -2,11 +2,33 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="membervo" type="com.douzonemania.scs.vo.MemberVo"/>
-		
+		<typeAlias alias="membervo" type="com.douzonemania.shop.vo.MemberVo"/>
+		<typeAlias alias="itemvo" type="com.douzonemania.shop.vo.ItemVo"/>
+		<typeAlias alias="mainmenuvo" type="com.douzonemania.shop.vo.MainMenuVo"/>
+		<typeAlias alias="categoryvo" type="com.douzonemania.shop.vo.CategoryVo"/>
+		<typeAlias alias="optionvo" type="com.douzonemania.shop.vo.OptionVo"/>
+		<typeAlias alias="stockvo" type="com.douzonemania.shop.vo.StockVo"/>
+		<typeAlias alias="cartvo" type="com.douzonemania.shop.vo.CartVo"/>
+		<typeAlias alias="shipvo" type="com.douzonemania.shop.vo.ShipVo"/>
+		<typeAlias alias="customvo" type="com.douzonemania.shop.vo.CustomVo"/>
+		<typeAlias alias="customdesignvo" type="com.douzonemania.shop.vo.CustomDesignVo"/>
+		<typeAlias alias="mainmenuvo" type="com.douzonemania.shop.vo.MainMenuVo"/>
+		<typeAlias alias="submenuvo" type="com.douzonemania.shop.vo.SubMenuVo"/>
+		<typeAlias alias="contentsvo" type="com.douzonemania.shop.vo.ContentsVo"/>
+		<typeAlias alias="orderlistvo" type="com.douzonemania.shop.vo.OrderListVo"/>
+		<typeAlias alias="boardvo" type="com.douzonemania.shop.vo.BoardVo"/>
+		<typeAlias alias="replyvo" type="com.douzonemania.shop.vo.ReplyVo"/>
+		<typeAlias alias="itemboardvo" type="com.douzonemania.shop.vo.ItemBoardVo"/>
+		<typeAlias alias="itemreplyvo" type="com.douzonemania.shop.vo.ItemReplyVo"/>
+		<typeAlias alias="reviewvo" type="com.douzonemania.shop.vo.ReviewVo"/>
+
 	</typeAliases>	
 	<mappers>
+		<mapper resource="mybatis/mappers/order.xml" />
+		<mapper resource="mybatis/mappers/member.xml" />
 		<mapper resource="mybatis/mappers/main.xml" />
-
+		<mapper resource="mybatis/mappers/custom.xml" />	
+		<mapper resource="mybatis/mappers/board.xml" />			
 	</mappers>
-</configuration>
+ 	
+</configuration> 

@@ -1,0 +1,24 @@
+<%
+	for(var i = 0; i < data.length; i++) {
+		var vo = data[i]; 
+		var count = i + 1;
+%>
+
+<tr data-no='<%=vo.no%>'>
+	<td><%=count%></td>
+	<td><%=vo.id%></td>
+	<td><%=vo.email%></td>
+	<td><%=vo.name%></td>
+	<td><%=vo.phoneNumber%></td>
+	<td class="icon-wrap">
+		<a href="">
+			<i id="delete-member-icon" data-no='<%=vo.no%>' onClick="removeCheck();" class="fe-x-square member-icon"></i></a>
+	</td>
+	<td class="icon-wrap">
+	<a href="<%=contextPath%>/<%=id%>/member/email/<%=vo.no%>">
+        <i id="email-member-icon" data-no='<%=vo.no%>' class="fe-mail member-icon custom-email-icon"></i></a>
+    </td>
+</tr>
+<%
+	}
+%>

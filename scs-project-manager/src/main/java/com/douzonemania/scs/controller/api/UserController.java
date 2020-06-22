@@ -1,28 +1,35 @@
 package com.douzonemania.scs.controller.api;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.UserService;
+import com.douzonemania.scs.vo.ceo.CeoVo;
+import com.douzonemania.security.AuthUser;
 
 @Controller("apiUserController")
-@RequestMapping("/api/user")
+@RequestMapping("{id}/api/user")
 public class UserController {
 	
 	@Autowired
 	private UserService userService;
 	
-	@ResponseBody
-	@RequestMapping(value="/checkid", method = RequestMethod.GET)
-	public JsonResult checkId(
-		@RequestParam(value="id", required=true, defaultValue="") String id) {
-		boolean exist = userService.existUser(id);
-		return JsonResult.success(exist);
+	@RequestMapping({"","/main"})
+	public String main(@AuthUser CeoVo authUser,
+			Model model) {
+		
+		String id = authUser.getId();
+		Map<String, Object> map = userService.mainView(id);
+		
+		model.addAttribute("map", map);
+		
+		return "user/main";
 	}
+	
 
 }

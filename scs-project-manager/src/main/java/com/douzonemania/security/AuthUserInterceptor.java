@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.douzonemania.scs.vo.ceo.CeoVo;
+
 public class AuthUserInterceptor extends HandlerInterceptorAdapter {
 
 
@@ -15,19 +17,22 @@ public class AuthUserInterceptor extends HandlerInterceptorAdapter {
 	 	String uri=request.getServletPath().toString();
 	 	
 	 	String[] strArr=uri.split("/");
-	 	
-	 	System.out.println("NOW :"+strArr[1]);
+//	 	System.out.println("NOW :"+strArr[1]);
 	
 	 	HttpSession session = request.getSession();
 	 	
-		System.out.println("A :"+session.getAttribute("db"));
+//		System.out.println("A :"+session.getAttribute("id"));
 		
 	 	
-	 	if(session.getAttribute("db")==null) {
-	 		session.setAttribute("db", strArr[1]);
-	 	} else if(!(session.getAttribute("db").equals(strArr[1]))) {
-	 		session.setAttribute("db", strArr[1]);
-	 	}
+//	 	if(session.getAttribute("id")==null) {
+//	 		session.setAttribute("id", strArr[1]);
+//	 	} else if(!(session.getAttribute("id").equals(strArr[1]))) {
+//	 		session.setAttribute("id", strArr[1]);
+//	 	}
+
+	 	CeoVo vo = new CeoVo();
+	 	vo.setId("mall2");
+	 	session.setAttribute("authUser", vo);
 	 	
         return true;
     }
