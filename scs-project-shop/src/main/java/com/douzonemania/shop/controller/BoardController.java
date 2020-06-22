@@ -96,7 +96,12 @@ public class BoardController {
 	////////////////////////////////end qna board////////////////////////////////////
 	
 	@RequestMapping(value = "/itemboard/write/{no}")
-	public String itemBoardWrite() {
+	public String itemBoardWrite(Model model, 
+			@PathVariable(value="no") int no,
+			@RequestParam(value="detail",required=false)String detail) {
+		model.addAttribute("no", no);
+		System.err.println("detail:::: " + detail);
+		model.addAttribute("detail", detail);
 		return "board/itemboard-write";
 	}
 	

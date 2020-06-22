@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.douzonemania.shop.repository.OrderRepository;
 import com.douzonemania.shop.vo.CartVo;
 import com.douzonemania.shop.vo.CategoryVo;
+import com.douzonemania.shop.vo.ItemBoardVo;
 import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.OptionVo;
 import com.douzonemania.shop.vo.OrderListVo;
@@ -433,6 +434,10 @@ public class OrderService {
 
 	public List<Integer> getRestate(String db, List<OrderListVo> oVo) {
 		return orderRepository.getRestate(db, oVo);
+	}
+
+	public List<ItemBoardVo> getBoardList(Integer no, String db) {
+		return orderRepository.getBoardList(no, db);
 	}
 
 }

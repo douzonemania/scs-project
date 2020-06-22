@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.shop.service.OrderService;
+import com.douzonemania.shop.vo.ItemBoardVo;
 import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OptionVo;
@@ -46,15 +47,15 @@ public class OrderController {
 	public String detail(@RequestParam(value="no", required = true,defaultValue = "0") Integer no,Model model,HttpSession session) {
 		
 		String db = session.getAttribute("db").toString();
-		String id = session.getAttribute("authUser").toString();
-		System.err.println("id:: " + id);
 		Map<String,Object> map= orderService.findProduct(no,db);
 		
 		List<OptionVo> optionList= orderService.findOptionList(no,db);
 		List<ReviewVo> reviewList= orderService.getReviewList(no,db);
+		List<ItemBoardVo> boardList= orderService.getBoardList(no,db);
 		System.out.println(map);
 		System.err.println("reviewList ::: " + reviewList);
-		
+		System.err.println("boardList::: " + boardList);
+		model.addAttribute("boardList", boardList);
 		model.addAttribute("reviewList",reviewList);
 		model.addAttribute("map",map);
 		model.addAttribute("option",optionList);

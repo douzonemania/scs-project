@@ -34,6 +34,33 @@
 	rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/assets/css/common.css"
 	rel="stylesheet" type="text/css" />
+	
+	<style>
+#board-table {
+	width: 100%; 
+	border-collapse: collapse; 
+}
+
+#board-table th {
+	 font-weight: bold; 
+	 font-size: 1.2em;
+	 border-bottom: 1px solid #CECECE;"
+}
+
+#board-table tbody tr {
+	height: 50px;
+}
+
+#board-table tbody tr:nth-of-type(odd) {
+	background-color: #eee;
+}
+
+#board-table td, th {
+	padding: 6px;
+	font-size: 1.1em;
+	text-align: left;
+}
+</style>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -689,52 +716,42 @@
 							</div>
 							</c:forEach>
 
-							<div>
-								<form action="${pageContext.request.contextPath}/${db}/order/board-write/${map.product.no}" method="POST">
-									<input type="hidden" name="itemName" value="${map.product.name }"/>
-									<input type="submit" value="질문 등록"/>
+							
+							<div style="overflow-x: auto; margin-top:5%">
+					           <table class="table-form-exposure" id="board-table">
+					           	<thead>
+							        <tr>
+							        	<th style="width:15%">번호</th>
+							        	<th style="width:50%">제목</th>
+								        <th style="width:15%">작성자</th>
+								        <th style="width:20%">작성일</th>
+									</tr> 
+								</thead>
+								<tbody>	
+					          		<c:forEach items="${boardList }" var="vo" varStatus="status">  
+							  			<tr>
+							  				<td>${status.index+1 }</td>
+							  				<td>
+											  	<a style="color:#6C757D;"
+													href="${ pageContext.request.contextPath }/${db}/board/itemboard/view/${ vo.no }">${vo.title }</a>			
+							  				</td>
+							  				<td>${vo.id }</td>
+							  				<td>${vo.regDate }</td>
+							  				
+							  			</tr>
+					         		</c:forEach>
+					          	</tbody> 
+					         </table>
+				          </div>
+						
+
+							<div style="float:right; margin-top: 20px">
+								<form action="${pageContext.request.contextPath}/${db}/board/itemboard/write/${map.product.no}" method="POST">
+									<input type="hidden" name="detail" value="detail"/>
+									<input style="width:110px; height:40px; font-size:16px; color:white" 
+									type="submit" class="ol-btn-review btn btn-dark waves-effect" value="상품문의하기"/>
 								</form>
 							</div>
-							<div class="qna-group" id="qnaSpace"> 
-								<span>Q&A</span>
-								<div style="border-bottom: 1px solid #323A46;"></div>
-
-								<div class="col-lg-12">
-									<div class="card-box">
-										<div class="table-responsive">
-											<table class="table mb-0">
-												<thead class="thead-light">
-													<tr>
-														<th>#</th>
-														<th>First Name</th>
-														<th>Last Name</th>
-														<th>Username</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<th scope="row">1</th>
-														<td>Mark</td>
-														<td>Otto</td>
-														<td>@mdo</td>
-													</tr>
-													<tr>
-														<th scope="row">2</th>
-														<td>Jacob</td>
-														<td>Thornton</td>
-														<td>@fat</td>
-													</tr>
-													<tr>
-														<th scope="row">3</th>
-														<td>Larry</td>
-														<td>the Bird</td>
-														<td>@twitter</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<!-- end table-responsive-->
-
 									</div>
 									<!-- end card-box -->
 								</div>
