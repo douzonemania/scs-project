@@ -2,8 +2,6 @@
 
 img{width:100%;height:100%;}
 .hoverImg:hover{opacity:0.5;}
-@font-face{font-family:custom-font;src:url('/scs-shop/assets/fonts/Jua-Regular.ttf');}
-*{font-family:custom-font;}
 
 .design-source1{ width:80%; height: auto; margin : 0 auto; }
 .design-source2{ width:80%; height: 600px; margin : 0 auto;}
