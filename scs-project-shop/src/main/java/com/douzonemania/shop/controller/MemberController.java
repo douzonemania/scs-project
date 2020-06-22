@@ -84,10 +84,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/logout")
-	public String logout(HttpServletRequest request) {
+	public String logout(HttpServletRequest request,@PathVariable("db")String db) {
 		
 		HttpSession session = request.getSession();
-		
+	
 		session.removeAttribute("authUser");
 		session.invalidate();
 		
