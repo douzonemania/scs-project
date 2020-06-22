@@ -441,4 +441,81 @@
 			 ORDER BY b.no desc limit 5
 		]]>
 	</select>
+	
+	<select id="getReviewCount" parameterType="string" resultType="int">
+		<![CDATA[
+			select count(*) 
+			  from ${db}.item_review a, ${db}.member b
+			  where a.member_no = b.no and b.state='회원' 
+			 
+		]]>
+	</select>
+	
+	<select id="getAllReviewList" parameterType="map" resultType="reviewvo">
+		<![CDATA[
+			 select a.no, 
+					a.rate, 
+					a.title, 
+					content, 
+					image, 
+					a.reg_date as 'regDate',
+					a.color, 
+					a.size, 
+					b.name as 'itemName', 
+					c.id,
+					a.item_no as 'itemNo',
+					b.main_image as 'mainImage'
+               from ${db}.item_review a, ${db}.item b, ${db}.member c
+              where a.item_no=b.no
+                and a.member_no=c.no
+                and c.state='회원'
+              limit ${size} offset #{offset}
+		]]>
+	</select>
+	
+	<select id="getReviewByNo" parameterType="map" resultType="reviewvo">
+		<![CDATA[
+			 select a.no, 
+					a.rate, 
+					a.title, 
+					content, 
+					image, 
+					a.reg_date as 'regDate',
+					a.color, 
+					a.size, 
+					b.name as 'itemName', 
+					c.id,
+					a.item_no as 'itemNo',
+					b.main_image as 'mainImage'
+			   from ${db}.item_review a, ${db}.item b, ${db}.member c
+              where a.item_no=b.no
+              	and c.state='회원'
+                and a.member_no=c.no
+                and a.no=#{no}
+		]]>
+	</select>	
+	
+	<select id="getPhotoReviewList" parameterType="map" resultType="reviewvo">
+		<![CDATA[
+			select a.no, 
+				   a.rate, 
+				   a.title, 
+				   content, 
+				   image, 
+				   a.reg_date as 'regDate',
+				   a.color, 
+				   a.size, 
+				   b.name as 'itemName', 
+				   c.id,
+				   a.item_no as 'itemNo',
+				   b.main_image as 'mainImage'
+			  from ${db}.item_review a, ${db}.item b, ${db}.member c
+		 	 where a.item_no=b.no
+               and a.member_no=c.no
+               and c.state='회원'
+               and a.image is not null  
+		  order by a.reg_date desc
+			 limit 6
+		]]>
+	</select>
 </mapper>

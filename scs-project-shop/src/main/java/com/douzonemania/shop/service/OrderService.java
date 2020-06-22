@@ -27,7 +27,7 @@ import com.douzonemania.shop.vo.ShipVo;
 @Service
 public class OrderService {
 
-	private static final int LIST_SIZE =16;
+	private static int LIST_SIZE =16;
 	private static final int PAGE_SIZE =5;
 	
 	
@@ -440,6 +440,52 @@ public class OrderService {
 		return orderRepository.getBoardList(no, db);
 	}
 
+	public Map<String, Object> getAllReviewList(int currentPage, String db) {
+		LIST_SIZE = 5;
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		int offset=(currentPage-1)*5;
+		int total = orderRepository.getReviewCount(db);
+		
+		List<ReviewVo> list = orderRepository.getAllReviewList(db, LIST_SIZE, offset);
+		
+		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
+		int calCnt=(currentPage%5)==0 ? currentPage-1 : currentPage;
+		int beginPage=calCnt-(calCnt%5)==0 ? 1 : calCnt-(calCnt%5)+1;
+		int prevPage = beginPage == 1 ? 1 : beginPage -1;
+		int endPage = (pageCnt-(pageCnt%5))==(calCnt-(calCnt%5)) ? pageCnt : (beginPage+PAGE_SIZE)-1;
+		int nextPage = (pageCnt-(pageCnt%5))==(calCnt-(calCnt%5)) ? pageCnt : endPage+1;
+
+		if(nextPage>=pageCnt)
+			nextPage=pageCnt;
+		if(endPage>=pageCnt)
+			endPage=pageCnt;
+		
+		
+		List<ReviewVo> photoList = orderRepository.getPhotoReviewList(db);
+		map.put("photoList", photoList);
+		
+		map.put("list", list);
+		map.put("beginPage",beginPage);
+		map.put("prevPage",prevPage);
+		map.put("endPage",endPage);
+		map.put("nextPage",nextPage);
+		map.put("page",currentPage);
+		map.put("total",total);
+		map.put("calCnt", calCnt);
+		
+		if(endPage!=pageCnt)
+			map.put("listsize",LIST_SIZE);
+		else
+			map.put("listsize",endPage%5);
+		
+		return map;
+	}
+
+	public ReviewVo getReviewByNo(int no, String db) {
+		return orderRepository.getReviewByNo(no, db);
+	}
 }
 
 

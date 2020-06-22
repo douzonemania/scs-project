@@ -52,9 +52,6 @@ public class OrderController {
 		List<OptionVo> optionList= orderService.findOptionList(no,db);
 		List<ReviewVo> reviewList= orderService.getReviewList(no,db);
 		List<ItemBoardVo> boardList= orderService.getBoardList(no,db);
-		System.out.println(map);
-		System.err.println("reviewList ::: " + reviewList);
-		System.err.println("boardList::: " + boardList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("reviewList",reviewList);
 		model.addAttribute("map",map);
@@ -95,7 +92,6 @@ public class OrderController {
 			
 			) {
 			
-		System.out.println("TEST");
 		
 		String db = session.getAttribute("db").toString();
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
@@ -124,13 +120,6 @@ public class OrderController {
 		return "order/complete";
 	}
 	
-	
-	
-	
-	@RequestMapping(value = "/review", method = RequestMethod.GET)
-	public String review() {
-		return "order/review";
-	}
 	
 	@RequestMapping(value = "/regReview", method = RequestMethod.POST)
 	public String regReview(HttpSession session,Model model,
@@ -165,7 +154,6 @@ public class OrderController {
 		List<Integer> stList = orderService.getCountStatement(db, oVo);
 		List<Integer> restateList = orderService.getRestate(db,oVo);
 		orderService.convertOption(db, oVo);
-		System.err.println("::::" + oVo);
 		model.addAttribute("statement", statement); 
 		model.addAttribute("stList",stList);
 		model.addAttribute("priceList", priceList);
@@ -217,5 +205,30 @@ public class OrderController {
 	 * return "order/board-write"; }
 	 */
 
+	@RequestMapping(value="/review/list", method = { RequestMethod.GET, RequestMethod.POST })
+	public String reviewList(@RequestParam(value="p", required=true, defaultValue="1") int page,
+			Model model,HttpSession session) {
+		
+		String db = session.getAttribute("db").toString(); 
+
+		Map<String, Object> map = orderService.getAllReviewList(page, db);
+		
+		model.addAttribute("map", map);
+		
+		return "order/review";
+	}
+	
+	@RequestMapping(value="/review/view/{no}")
+	public String reviewView(@PathVariable int no,
+			Model model,HttpSession session) {
+		String db = session.getAttribute("db").toString(); 
+		
+		ReviewVo vo = orderService.getReviewByNo(no, db);
+
+		
+		model.addAttribute("vo", vo);
+		
+		return "order/review-view";
+	}
 
 }
