@@ -43,6 +43,37 @@
         <link href="<%=request.getContextPath() %>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/css/common.css" rel="stylesheet" type="text/css" />        
 
+
+<style>
+	.img-upload-group:hover{
+	 cursor: pointer;
+    transform:scale(1.1); /* 마우스 오버시 이미지 크기를 1.1 배만큼 확대시킨다. */
+    -o-transform:scale(1.1); 
+    -moz-transform:scale(1.1);
+    -webkit-transform:scale(1.1);
+
+
+    transition: transform .35s;  
+    -o-transition: transform .35s;
+    -moz-transition: transform .35s;
+    -webkit-transition: transform .35s;
+	}
+	
+	.delete-hover{
+	 cursor: pointer;
+    transform:scale(1.1); /* 마우스 오버시 이미지 크기를 1.1 배만큼 확대시킨다. */
+    -o-transform:scale(1.1); 
+    -moz-transform:scale(1.1);
+    -webkit-transform:scale(1.1);
+
+
+    transition: transform .35s;  
+    -o-transition: transform .35s;
+    -moz-transition: transform .35s;
+    -webkit-transition: transform .35s;
+	}
+</style>
+
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -83,12 +114,36 @@ function preview(input, target) {
   	var reader = new FileReader();
   	reader.readAsDataURL(input.files[0]);          
   	reader.onload = function(e) {
+  		 $("#"+target[0].id).show();
+  	  	  $("#"+target[0].id+"-upload").hide();
+  	  	  $("#"+target[0].id+"-delete").show();
   	  jQuery(target).attr('src', e.target.result);
   	}
 	}
 }
 
 $(function() {
+	
+	console.log($("#main-image").attr('alt'))
+	if($("#main-image").attr('alt')!='/scs-manager'){
+		$("#main-image").show();
+		$("#main-image-upload").hide();
+		$("#main-image-delete").show();
+	}
+	
+	for(var i=0;i<5;i++){
+		console.log($("#sub-image"+i).attr('alt'))
+		if($("#sub-image"+i).attr('alt')!='/scs-manager'){
+			$("#sub-image"+i).show();
+			$("#sub-image"+i+"-upload").hide();
+			$("#sub-image"+i+"-delete").show();
+			
+		}
+	}
+	
+
+	
+	
 	var imageSrc=$('subImagePreview1').attr("src");
 	
 	/* 옵션 추가 등록 팝업 */
@@ -157,6 +212,31 @@ $(document).ready(function(){
 	$('#selected-category-text').val($("#first-category option:selected").text() + "  >  " + $("#seconds-category option:selected").text());
 	
 
+});
+function deleteImg(test,target){
+	$("#"+target[0].id).hide();
+	$("#"+target[0].id+"-upload").show();
+	$("#"+target[0].id+"-delete").hide();
+	$("#"+target[0].id+"-btn").val('');
+}
+
+$(document).on("click","#main-image-upload",function(){
+	$("#main-image-btn").click();
+});
+$(document).on("click","#sub-image1-upload",function(){
+	$("#sub-image1-btn").click();
+});
+$(document).on("click","#sub-image2-upload",function(){
+	$("#sub-image2-btn").click();
+});
+$(document).on("click","#sub-image3-upload",function(){
+	$("#sub-image3-btn").click();
+});
+$(document).on("click","#sub-image4-upload",function(){
+	$("#sub-image4-btn").click();
+});
+$(document).on("click","#sub-image5-upload",function(){
+	$("#sub-image5-btn").click();
 });
 
 $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
@@ -612,34 +692,71 @@ $(function() {
 										<td colspan="4">
 												<form method="POST" enctype="multipart/form-data" id="excelForm">
 												    <div class="main-section">
-												  		<img id="mainImagePreview" src="${pageContext.request.contextPath }${vo.mainImage }" alt="image" class="previewSection"/>
-												    	<input type="file" name="excelFile" onchange="preview(this, $('#mainImagePreview'));" class="fileInput" />
-												    	<input type="button" class="imageDelete" value="삭제"/>
+												  		<img id="main-image-delete" class="delete-hover"src="/scs-manager/assets/images/del2.png" onclick="deleteImg(this,$('#main-image'));" height=20 style="position:absolute; margin:5px; display:none"   />
+												  		<img id="main-image" src="${pageContext.request.contextPath }${vo.mainImage }" alt="${pageContext.request.contextPath }${vo.mainImage }" class="previewSection"  style="width:250px; height:120px; margin:8px;postion:relative; display:none;" >
+												  		
+												  		<input id="main-image-btn" type="file" name="excelFile" onchange="preview(this, $('#main-image'));" class="fileInput" style="display:none"/>
+												    	<div id="main-image-upload"class="img-upload-group"style="width:250px; height:120px; margin:5px; margin-top:20px;">
+												    		<img src="/scs-manager/assets/images/server.png" height="40" style="display:block; margin-left:45px;"/>
+												    		<span style="margin-left: 40px;">이미지를</span>
+												    			</br>
+												    		<span style="margin-left:15px;"> 업로드 해주세요.</span></div>
 												    </div>
-												    <div class="sub-section">
-												    	<img id="subImagePreview1" src="${pageContext.request.contextPath }${subImageSplit[0] }" alt="image" class="previewSection"/>
-												    	<input type="file" name="excelFile1" onchange="preview(this, $('#subImagePreview1'));" class="fileInput"/>
-												    	<input type="button" class="imageDelete" value="삭제"/>
+												    <div class="sub-section" style="width:200px;">
+												   		<img id="sub-image1-delete" class="delete-hover" src="/scs-manager/assets/images/del2.png" onclick="deleteImg(this,$('#sub-image1'));" height=20 style="position:absolute; margin:5px; display:none"   />
+												  		<img id="sub-image1" src="${pageContext.request.contextPath }${subImageSplit[0] }" alt="${pageContext.request.contextPath }${subImageSplit[0] }" class="previewSection"  style="width:250px; height:120px; margin:8px;postion:relative;display:none;" >
+												    	
+												    	<input id="sub-image1-btn" type="file" name="excelFile1" onchange="preview(this, $('#sub-image1'));" class="fileInput" style="display:none"/>
+												    	<div id="sub-image1-upload"class="img-upload-group"style="width:120px; height:120px; margin:5px; margin-top:20px;">
+												    		<img src="/scs-manager/assets/images/server.png" height="40" style="display:block; margin-left:45px;"/>
+												    		<span style="margin-left: 40px;">이미지를</span>
+												    			</br>
+												    		<span style="margin-left:15px;"> 업로드 해주세요.</span></div>
 												    </div>
-												    <div class="sub-section">
-												    	<img id="subImagePreview2" src="${pageContext.request.contextPath }${subImageSplit[1] }" alt="image" class="previewSection"/>
-												    	<input type="file" name="excelFile2" onchange="preview(this, $('#subImagePreview2'));" class="fileInput"/>
-												    	<input type="button" class="imageDelete" value="삭제"/>
+												    <div class="sub-section" style="width:200px;">
+												    	<img id="sub-image2-delete" class="delete-hover" src="/scs-manager/assets/images/del2.png" onclick="deleteImg(this,$('#sub-image2'));" height=20 style="position:absolute; margin:5px; display:none"   />
+												  		<img id="sub-image2" src="${pageContext.request.contextPath }${subImageSplit[1] }" alt="${pageContext.request.contextPath }${subImageSplit[1] }" class="previewSection"  style="width:250px; height:120px; margin:8px;postion:relative;display:none;" >
+												    	
+												    	<input id="sub-image2-btn" type="file" name="excelFile2" onchange="preview(this, $('#sub-image2'));" class="fileInput" style="display:none"/>
+												    	<div id="sub-image2-upload"class="img-upload-group"style="width:120px; height:120px; margin:5px; margin-top:20px;">
+												    		<img src="/scs-manager/assets/images/server.png" height="40" style="display:block; margin-left:45px;"/>
+												    		<span style="margin-left: 40px;">이미지를</span>
+												    			</br>
+												    		<span style="margin-left:15px;"> 업로드 해주세요.</span></div>
 												    </div>
-												    <div class="sub-section">
-												    	<img id="subImagePreview3" src="${pageContext.request.contextPath }${subImageSplit[2] }" alt="image" class="previewSection"/>
-												    	<input type="file" name="excelFile3" onchange="preview(this, $('#subImagePreview3'));" class="fileInput"/>
-														<input type="button" class="imageDelete" value="삭제"/>
+												    <div class="sub-section" style="width:200px;">
+												    	<img id="sub-image3-delete" class="delete-hover" src="/scs-manager/assets/images/del2.png" onclick="deleteImg(this,$('#sub-image3'));" height=20 style="position:absolute; margin:5px; display:none"   />
+												  		<img id="sub-image3" src="${pageContext.request.contextPath }${subImageSplit[2] }" alt="${pageContext.request.contextPath }${subImageSplit[2] }" class="previewSection"  style="width:250px; height:120px; margin:8px;postion:relative;display:none;" >
+												    	
+												    	<input id="sub-image3-btn" type="file" name="excelFile3" onchange="preview(this, $('#sub-image3'));" class="fileInput" style="display:none"/>
+												    	<div id="sub-image3-upload"class="img-upload-group"style="width:120px; height:120px; margin:5px;margin-top:20px;">
+												    		<img src="/scs-manager/assets/images/server.png" height="40" style="display:block; margin-left:45px;"/>
+												    		<span style="margin-left: 40px;">이미지를</span>
+												    			</br>
+												    		<span style="margin-left:15px;"> 업로드 해주세요.</span></div>
 													</div>
-													<div class="sub-section">
-														<img id="subImagePreview4" src="${pageContext.request.contextPath }${subImageSplit[3] }" alt="image" class="previewSection"/>
-												    	<input type="file" name="excelFile4" onchange="preview(this, $('#subImagePreview4'));" class="fileInput"/>
-														<input type="button" class="imageDelete" value="삭제"/>
+													
+													 <div class="sub-section" style="width:200px;">
+												    	<img id="sub-image4-delete" class="delete-hover" src="/scs-manager/assets/images/del2.png" onclick="deleteImg(this,$('#sub-image4'));" height=20 style="position:absolute; margin:5px; display:none"   />
+												  		<img id="sub-image4" src="${pageContext.request.contextPath }${subImageSplit[3] }" alt="${pageContext.request.contextPath }${subImageSplit[3] }" class="previewSection"  style="width:250px; height:120px; margin:8px;postion:relative;display:none;" >
+												    	
+												    	<input id="sub-image4-btn" type="file" name="excelFile4" onchange="preview(this, $('#sub-image4'));" class="fileInput" style="display:none"/>
+												    	<div id="sub-image4-upload"class="img-upload-group"style="width:120px; height:120px; margin:5px;margin-top:20px;">
+												    		<img src="/scs-manager/assets/images/server.png" height="40" style="display:block; margin-left:45px;"/>
+												    		<span style="margin-left: 40px;">이미지를</span>
+												    			</br>
+												    		<span style="margin-left:15px;"> 업로드 해주세요.</span></div>
 													</div>
-													<div class="sub-section">
-														<img id="subImagePreview5" src="${pageContext.request.contextPath }${subImageSplit[4] }" alt="image" class="previewSection"/>
-												    	<input type="file" name="excelFile5" onchange="preview(this, $('#subImagePreview5'));" class="fileInput"/>
-														<input type="button" class="imageDelete" value="삭제"/>
+													 <div class="sub-section" style="width:200px;">
+												    	<img id="sub-image5-delete" class="delete-hover" src="/scs-manager/assets/images/del2.png" onclick="deleteImg(this,$('#sub-image5'));" height=20 style="position:absolute; margin:5px; display:none"   />
+												  		<img id="sub-image5" src="${pageContext.request.contextPath }${subImageSplit[4] }" alt="${pageContext.request.contextPath }${subImageSplit[4] }" class="previewSection"  style="width:250px; height:120px; margin:8px;postion:relative;display:none;" >
+												    	
+												    	<input id="sub-image5-btn" type="file" name="excelFile5" onchange="preview(this, $('#sub-image5'));" class="fileInput" style="display:none"/>
+												    	<div id="sub-image5-upload"class="img-upload-group"style="width:250px; height:120px; margin:5px;margin-top:20px;">
+												    		<img src="/scs-manager/assets/images/server.png" height="40" style="display:block; margin-left:45px;"/>
+												    		<span style="margin-left: 40px;">이미지를</span>
+												    			</br>
+												    		<span style="margin-left:15px;"> 업로드 해주세요.</span></div>
 													</div>
 												</form>
 

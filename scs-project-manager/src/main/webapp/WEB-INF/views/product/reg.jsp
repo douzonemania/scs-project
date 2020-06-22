@@ -656,7 +656,7 @@ $(function() {
 												    <div class="main-section" style="width:200px;">
 												    	<img id="main-image-delete" class="delete-hover"src="/scs-manager/assets/images/del2.png" onclick="deleteImg(this,$('#main-image'));" height=20 style="position:absolute; margin:5px; display:none"   />
 												  		<img id="main-image" src="/scs-manager/assets/images/del2.png" alt="d" class="previewSection"  style="width:250px; height:120px; margin:8px;postion:relative; display:none;" >
-												  			
+												  		
 												  		<input id="main-image-btn" type="file" name="excelFile" onchange="preview(this, $('#main-image'));" class="fileInput" style="display:none"/>
 												    	<div id="main-image-upload"class="img-upload-group"style="width:250px; height:120px; margin:5px; margin-top:20px;">
 												    		<img src="/scs-manager/assets/images/server.png" height="40" style="display:block; margin-left:45px;"/>
