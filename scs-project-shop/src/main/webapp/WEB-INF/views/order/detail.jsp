@@ -670,12 +670,14 @@
 								<div class="review-box">
 									<div class="pl-xl-3 mt-3 mt-xl-3">
 										<!--리뷰 별-->
-										<p class="text-muted mr-3">
-											<span class="mdi mdi-star text-warning"></span> <span
-												class="mdi mdi-star text-warning"></span> <span
-												class="mdi mdi-star text-warning"></span> <span
-												class="mdi mdi-star text-warning"></span> <span
-												class="mdi mdi-star"></span>
+										<c:set var="emptyStar" value="${5-vo.rate }"/>
+										<p class="text-muted mr-3" style="margin-bottom:0px">
+										<c:forEach begin='1' end='${vo.rate }'>
+											<span class="mdi mdi-star text-warning"></span>
+										</c:forEach>
+										<c:forEach begin='1' end='${emptyStar }'>
+											<span class="mdi mdi-star"></span>
+										</c:forEach>											
 										</p>
 										<span style="margin-right: 4px;">${authUser.id}</span> <span>l</span> <span>${vo.regDate }</span>
 										<span>l</span> <span>${vo.size } / ${vo.color }</span>
