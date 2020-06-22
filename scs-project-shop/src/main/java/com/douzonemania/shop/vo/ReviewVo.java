@@ -13,6 +13,8 @@ public class ReviewVo {
 	private String id;
 	private String itemName;
 	private String mainImage;
+	private int stockNo;
+	private String orderNo;
 	public String getSize() {
 		return size;
 	}
@@ -91,10 +93,23 @@ public class ReviewVo {
 	public void setMainImage(String mainImage) {
 		this.mainImage = mainImage;
 	}
+	public int getStockNo() {
+		return stockNo;
+	}
+	public void setStockNo(int stockNo) {
+		this.stockNo = stockNo;
+	}
+	public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
 	@Override
 	public String toString() {
 		return "ReviewVo [no=" + no + ", rate=" + rate + ", title=" + title + ", content=" + content + ", image="
 				+ image + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", regDate=" + regDate + ", size=" + size
-				+ ", color=" + color + ", id=" + id + ", itemName=" + itemName + ", mainImage=" + mainImage + "]";
+				+ ", color=" + color + ", id=" + id + ", itemName=" + itemName + ", mainImage=" + mainImage
+				+ ", stockNo=" + stockNo + ", orderNo=" + orderNo + "]";
 	}
 }
