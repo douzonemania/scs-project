@@ -323,6 +323,7 @@ $(function() {
 	                                    <span class="sr-only">Previous</span>
 	                                </a>
 	                            </li>
+	                            
 	                            <c:forEach var="i" begin="1" end="${map.listsize }">
 									<c:choose>
 										<c:when test="${map.page == (map.beginPage+(i-1)) }">

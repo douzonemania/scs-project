@@ -670,23 +670,31 @@
 								<div class="review-box">
 									<div class="pl-xl-3 mt-3 mt-xl-3">
 										<!--리뷰 별-->
-										<p class="text-muted mr-3">
-											<span class="mdi mdi-star text-warning"></span> <span
-												class="mdi mdi-star text-warning"></span> <span
-												class="mdi mdi-star text-warning"></span> <span
-												class="mdi mdi-star text-warning"></span> <span
-												class="mdi mdi-star"></span>
+										<c:set var="emptyStar" value="${5-vo.rate }"/>
+										<p class="text-muted mr-3" style="margin-bottom:0px">
+										<c:forEach begin='1' end='${vo.rate }'>
+											<span class="mdi mdi-star text-warning"></span>
+										</c:forEach>
+										<c:forEach begin='1' end='${emptyStar }'>
+											<span class="mdi mdi-star"></span>
+										</c:forEach>											
 										</p>
-										<span style="margin-right: 4px;">id</span> <span>l</span> <span>${vo.regDate }</span>
-										<span>l</span> <span>옵션</span>
-										<p class="text-muted mb-4 des-info"
-											style="margin-top: 8px; color: #323A46;">리뷰내용</p>
+										<span style="margin-right: 4px;">${authUser.id}</span> <span>l</span> <span>${vo.regDate }</span>
+										<span>l</span> <span>${vo.size } / ${vo.color }</span>
+										<p style="font-size:24px; color: #A9A7AD; margin-bottom:0px;">${vo.title }</p>
+										<p style="color: #A9A7AD;"> ${vo.content }</p>
 
 									</div>
 								</div>
 							</div>
 							</c:forEach>
 
+							<div>
+								<form action="${pageContext.request.contextPath}/${db}/order/board-write/${map.product.no}" method="POST">
+									<input type="hidden" name="itemName" value="${map.product.name }"/>
+									<input type="submit" value="질문 등록"/>
+								</form>
+							</div>
 							<div class="qna-group" id="qnaSpace"> 
 								<span>Q&A</span>
 								<div style="border-bottom: 1px solid #323A46;"></div>

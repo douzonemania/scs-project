@@ -27,7 +27,7 @@
      	<c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import>
      	<c:import url="/WEB-INF/views/partials/left-nav.jsp"></c:import>	
      
-     	<div class="wrapper">
+     	<div class="wrapper2">
      		<div class="container-fluid">
      			<%-- <c:forEach var="vo" varStatus="status" items="${list}">
 					<div id="${vo.no}">"${contentList.get(status.index) }"
@@ -36,8 +36,34 @@
 					</c:import>	 			
 				</div>	
 				</c:forEach>  --%>	
-					<c:set var="map" value="${contentsList.get(2) }" scope="request"/>
+					<%-- <c:set var="map" value="${contentsList.get(4) }" scope="request"/>  --%>
+					<jsp:include page='/WEB-INF/views/custom/designSource1.jsp'/>
+
+					<jsp:include page='/WEB-INF/views/custom/designSource2.jsp'/>
+					<div style="margin:30px">
 					<jsp:include page='/WEB-INF/views/custom/designSource3.jsp'/>
+					</div>
+					<div style="margin:30px">
+					<jsp:include page='/WEB-INF/views/custom/designSource4.jsp'/>
+					</div>
+					<div style="margin:30px">
+					<jsp:include page='/WEB-INF/views/custom/designSource6.jsp'/>
+					</div>
+					<div style="margin:30px">
+					<jsp:include page='/WEB-INF/views/custom/designSource7.jsp'/>
+					</div>
+					<div style="margin:30px">
+					<jsp:include page='/WEB-INF/views/custom/designSource8.jsp'/>
+					</div>
+					<div style="margin:30px">
+					<jsp:include page='/WEB-INF/views/custom/designSource9.jsp'/>
+					</div>
+					<div style="margin:30px">
+					<jsp:include page='/WEB-INF/views/custom/designSource10.jsp'/>
+					</div>
+					<div style="margin:30px">
+					<jsp:include page='/WEB-INF/views/custom/designSource11.jsp'/>
+					</div> 
      		</div>
      	</div>
      

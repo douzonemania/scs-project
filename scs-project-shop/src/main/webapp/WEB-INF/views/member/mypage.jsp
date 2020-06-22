@@ -21,9 +21,8 @@
             <link href="${ pageContext.request.contextPath }/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
             <link href="${ pageContext.request.contextPath }/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 			
-			<script src="https://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
+			<script src="https://code.jquery.com/jquery-3.5.1.js"integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="crossorigin="anonymous"></script>
+	
 <script type="text/javascript">
 $(function(){
 
@@ -84,11 +83,20 @@ $(function(){
 });
 </script>
 
+<style>
+#info-table th{width:100px;}
+
+@media(max-width:991px){
+	#info-table th{font-size:0.4em;padding:0px; }
+	#info-table td{padding:10px;}
+}
+</style>
+
     </head>
 <body>
     <!-- Navigation Bar-->
      <c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import>
-     <c:import url='/WEB-INF/views/custom/left-nav.jsp'></c:import>
+     <c:import url='/WEB-INF/views/partials/left-nav.jsp'></c:import>
      
     <div class="wrapper">
         <div class="container-fluid">
@@ -102,11 +110,11 @@ $(function(){
                 <div class="mypage-my-info">
                 	<div class="row">
                          <div class="col-12">	
-                         	<table class="table table-striped mb-0" style="line-height:40px">
+                         	<table class="table table-striped mb-0"  id="info-table">
                          		<colgroup>
-                         			<col style="width:190px">
-                         			<col style="width:*">
-                         			<col style="width:50%">
+	                         		<col style="width:10%;">
+						            <col style="width:35%;">
+						            <col style="width:*;">
                          		</colgroup>
                          		<tbody>
                          			<tr>
@@ -118,13 +126,14 @@ $(function(){
                          				<th>비밀번호</th>
                          				<td>********</td>
                          				<td><input type="button" class="btn btn-dark waves-effect cart-delete-button" id="change-pwd-btn" 
-                         				value="비밀번호 변경" style="width:120px"/></td>
+                         				value="비밀번호 변경"/></td>
                          			</tr>
                            			<tr>
                          				<th>이름</th>
-                         				<td><input type="text" class="form-control" value="${vo.name }" style="width:250px" id="name-text"/></td>
+                         				<td><input type="text" class="form-control" value="${vo.name }" id="name-text"/></td>
                          				<td><input type="button" class="btn btn-dark waves-effect cart-delete-button" id="change-name-btn" 
-                         				value="이름 변경" style="width:120px"/></td>
+                         				 style="padding:7px 26px;"
+                         				 value="이름 변경"/></td>
                          			</tr>                         			
                          			<tr>
                          				<th>이메일</th>
@@ -135,9 +144,9 @@ $(function(){
                          				value="이메일 변경" style="width:120px"/></td> -->
                          			<tr>
                          				<th>휴대전화</th>
-                         				<td><input type="text" class="form-control" value="${vo.phoneNumber }" style="width:250px" id="phone-text"/></td>
+                         				<td><input type="text" class="form-control" value="${vo.phoneNumber }"  id="phone-text"/></td>
                          				<td><input type="button" class="btn btn-dark waves-effect cart-delete-button" id="change-phone-btn" 
-                         				value="휴대전화 변경" style="width:120px"/></td>
+                         				value="휴대전화 변경" /></td>
                          			</tr>                         			
                          		</tbody>
                          	</table> 

@@ -1,57 +1,37 @@
-<!DOCTYPE html>
-<html lang="UTF-8">
-<head>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.HashMap"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
-</script>
-</head>
-
-	<c:set var="mapT" value="<%=new java.util.HashMap()%>" />
-
-
-<c:forEach var="test" varStatus="status" items="${param.map }">
-	<c:choose>
-		<c:when test="${status.index==0 }">
-			<c:set target="${mapT}" property="key_${status.index }" value="${fn:substring(test,3,fn:length(test))}" />
-		</c:when>
-		<c:when test="${status.last }">
-			<c:set target="${mapT}" property="key_${status.index }" value="${fn:substring(test,3,fn:length(test)-1)}" />
-		</c:when>
-		<c:otherwise>
-			<c:set target="${mapT}" property="key_${status.index }" value="${fn:substring(test,3,fn:length(test))}" />
-		</c:otherwise>
-	</c:choose>	
-</c:forEach>
-
-<div id='designSource6'>
+<div id='design-source4'>
 	<div class="designSource6ImgFrame">
+	
+		 <div>
+            <div class="borderStyle"></div>
+            <div style="display:inline-block; width:25%"><h1 class="titleStyle">${requestScope.map[9].content }WHAT'S NEW</h1></div>
+            <div class="borderStyle"></div>
+       	 </div>
 		<div class="designSource6Imgbox">
-			<div class="designSource6ImgSector">${mapT.key_0}</div>
-			
+			<div class="designSource6ImgSector"><%-- <img src="${requestScope.map[0].content }"> --%><img src="/scs-shop/assets/images/sampleimg/7.PNG"/></div>
 			<div>
-				<p class="designSource6Title" id="4">${mapT.key_3}</p>
-				<p class="designSource6Text" id="7">${mapT.key_6}</p>
+				<p class="designSource6Title">${requestScope.map[3].content }TEST</p>
+				<p class="designSource6Text" >${requestScope.map[6].content }TEST</p>
 			</div>
 		</div>
 		<div class="designSource6Imgbox">
-			<div class="designSource6ImgSector">${mapT.key_1}</div>
+			<div class="designSource6ImgSector"><%-- <img src="${requestScope.map[0].content }"> --%><img src="/scs-shop/assets/images/sampleimg/8.PNG"/></div>
 			
 			<div>
-				<p class="designSource6Title" id="5">${mapT.key_4}</p>
-				<p class="designSource6Text" id="8">${mapT.key_7}</p>
+				<p class="designSource6Title">${requestScope.map[4].content }TEST</p>
+				<p class="designSource6Text" >${requestScope.map[7].content }TEST</p>
 			</div>
 		</div>
 		<div class="designSource6Imgbox">
-			<div class="designSource6ImgSector">${mapT.key_2}</div>
+			<div class="designSource6ImgSector"><%-- <img src="${requestScope.map[0].content }"> --%><img src="/scs-shop/assets/images/sampleimg/9.PNG"/></div>
 			<div>
-				<p class="designSource6Title" id="6">${mapT.key_5}</p>
-				<p class="designSource6Text" id="9">${mapT.key_8}</p>
+				<p class="designSource6Title">${requestScope.map[5].content }TEST</p>
+				<p class="designSource6Text" >${requestScope.map[8].content }TEST</p>
 			</div>
 		</div>
 	</div>

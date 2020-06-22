@@ -14,7 +14,12 @@ import org.springframework.stereotype.Service;
 import com.douzonemania.scs.repository.ProductRepository;
 import com.douzonemania.scs.repository.StatisticsRepository;
 import com.douzonemania.scs.vo.ceo.CategoryBarVo;
+import com.douzonemania.scs.vo.ceo.CategoryBestVo;
 import com.douzonemania.scs.vo.ceo.CategoryDonutVo;
+import com.douzonemania.scs.vo.ceo.CategoryLineCountVo;
+import com.douzonemania.scs.vo.ceo.CategoryLineSalesVo;
+import com.douzonemania.scs.vo.ceo.CategoryNewVo;
+import com.douzonemania.scs.vo.ceo.CategoryNormalVo;
 import com.douzonemania.scs.vo.ceo.ProductsCountVo;
 import com.douzonemania.scs.vo.ceo.ProductsPaymentAmountVo;
 import com.douzonemania.scs.vo.ceo.ProductsPaymentMarginVo;
@@ -31,7 +36,7 @@ public class StatisticsService {
 	@Autowired
 	private ProductRepository productRepository;
 
-	public Map<String, Object> categoryGraphByDate(String startDate, String endDate, String id) {
+	public Map<String, Object> categoryGraphByDate(String startDate, String endDate, String id, boolean flag) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		/* 카테고리 TOP 5  구매건수 */
@@ -50,16 +55,22 @@ public class StatisticsService {
 		temp.add("text-pink");
 
 		
-		/* 카테고리별 일간 매출 */
-		Calendar cal = Calendar.getInstance();
+		/* 카테고리별 TOP 5 일간 매출 */
+		Calendar cal= Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH ) + 1;
 		int date = cal.get(Calendar.DATE) + 1;
 		
 		
+		if(!flag) {
+			String [] cut = endDate.split("-");
+			year = Integer.parseInt(cut[0]);
+			month = Integer.parseInt(cut[1]);
+			date = Integer.parseInt(cut[2]);
+		}
+		
 		
 		List<CategoryVo> categoryList = productRepository.getCategoryNameList(id); 
-		System.out.println(categoryList.size());
 		List<CategoryBarVo> dateList1 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> dateList2 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> dateList3 = new ArrayList<CategoryBarVo>();
@@ -106,6 +117,7 @@ public class StatisticsService {
 		List<CategoryBarVo> barListTop3 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> barListTop4 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> barListTop5 = new ArrayList<CategoryBarVo>();
+		
 		if(length == 1) {
 			barListTop1 = statisticsRepository.findBar(id, categoryList.get(0).getNo(), dateList1.get(6).getDate(), dateList1.get(0).getDate() );
 		} else if(length == 2) {
@@ -127,6 +139,8 @@ public class StatisticsService {
 			barListTop4 = statisticsRepository.findBar(id, categoryList.get(3).getNo(), dateList4.get(6).getDate(), dateList4.get(0).getDate() );
 			barListTop5 = statisticsRepository.findBar(id, categoryList.get(4).getNo(), dateList5.get(6).getDate(), dateList5.get(0).getDate() );
 		}
+		
+
 		
 		for (CategoryBarVo vo : barListTop1) {
 			int no = vo.getCategoryNo(); 
@@ -213,7 +227,112 @@ public class StatisticsService {
 			}
 		}
 
-		System.out.println(dateList1);
+		/* Total 구매건수와 매출 */
+		List<CategoryLineCountVo> countLineList = new ArrayList<CategoryLineCountVo>();
+		List<CategoryLineSalesVo> salesLineList = new ArrayList<CategoryLineSalesVo>();
+		
+		CategoryLineCountVo tempVo6 = new CategoryLineCountVo();
+		tempVo6.setDate(get7DayAgoDate(year, month, date, 0));
+		countLineList.add(tempVo6);
+		for(int i=1; i<7; i++) {
+			CategoryLineCountVo vo = new CategoryLineCountVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			countLineList.add(vo);
+		}
+		CategoryLineSalesVo tempVo7 = new CategoryLineSalesVo();
+		tempVo7.setDate(get7DayAgoDate(year, month, date, 0));
+		salesLineList.add(tempVo7);
+		for(int i=1; i<7; i++) {
+			CategoryLineSalesVo vo = new CategoryLineSalesVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			salesLineList.add(vo);
+		}
+		List<CategoryLineCountVo> tempcountLineList = statisticsRepository.findLineCount(countLineList.get(6).getDate(), countLineList.get(0).getDate(), id);
+		List<CategoryLineSalesVo> tempsalesLineList = statisticsRepository.findLineSales(salesLineList.get(6).getDate(), salesLineList.get(0).getDate(), id);
+		
+		for (CategoryLineCountVo vo : tempcountLineList) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(countLineList.get(i).getDate())) {
+					countLineList.get(i).setCount(vo.getCount());
+					countLineList.get(i).setDate(vo.getDate());
+				}
+			}
+		}
+		for (CategoryLineSalesVo vo : tempsalesLineList) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(salesLineList.get(i).getDate())) {
+					salesLineList.get(i).setTotalPrice(vo.getTotalPrice());
+					salesLineList.get(i).setDate(vo.getDate());
+				}
+			}
+		}
+		
+		/* BEST vs NEW vs 일반  */ 
+		List<CategoryBestVo> countBestList = new ArrayList<CategoryBestVo>();
+		List<CategoryNewVo> countNewList = new ArrayList<CategoryNewVo>();
+		List<CategoryNormalVo> countNormalList = new ArrayList<CategoryNormalVo>();
+		CategoryBestVo tempVo8 = new CategoryBestVo();
+		tempVo8.setDate(get7DayAgoDate(year, month, date, 0));
+		countBestList.add(tempVo8);
+		for(int i=1; i<7; i++) {
+			CategoryBestVo vo = new CategoryBestVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			countBestList.add(vo);
+		}
+		CategoryNewVo tempVo9 = new CategoryNewVo();
+		tempVo9.setDate(get7DayAgoDate(year, month, date, 0));
+		countNewList.add(tempVo9);
+		for(int i=1; i<7; i++) {
+			CategoryNewVo vo = new CategoryNewVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			countNewList.add(vo);
+		}
+		CategoryNormalVo tempVo10 = new CategoryNormalVo();
+		tempVo10.setDate(get7DayAgoDate(year, month, date, 0));
+		countNormalList.add(tempVo10);
+		for(int i=1; i<7; i++) {
+			CategoryNormalVo vo = new CategoryNormalVo();
+			vo.setDate(get7DayAgoDate(year, month, date, i));
+			countNormalList.add(vo);
+		}
+		
+		List<CategoryBestVo> tempcountBestList = statisticsRepository.findBestCount(countBestList.get(6).getDate(), countBestList.get(0).getDate(), id);
+		List<CategoryNewVo> tempcountNewList = statisticsRepository.findNewCount(countNewList.get(6).getDate(), countNewList.get(0).getDate(), id);
+		List<CategoryNormalVo> tempcountNormalList = statisticsRepository.findNormalCount(countNormalList.get(6).getDate(), countNormalList.get(0).getDate(), id);
+		
+		for (CategoryBestVo vo : tempcountBestList) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(countBestList.get(i).getDate())) {
+					countBestList.get(i).setCount(vo.getCount());
+					countBestList.get(i).setDate(vo.getDate());
+				}
+			}
+		}
+		for (CategoryNewVo vo : tempcountNewList) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(countNewList.get(i).getDate())) {
+					countNewList.get(i).setCount(vo.getCount());
+					countNewList.get(i).setDate(vo.getDate());
+				}
+			}
+		}
+		for (CategoryNormalVo vo : tempcountNormalList) {
+			String returnDate = vo.getDate();
+			for(int i = 0; i < 7; i++) {
+				if(returnDate.contentEquals(countNormalList.get(i).getDate())) {
+					countNormalList.get(i).setCount(vo.getCount());
+					countNormalList.get(i).setDate(vo.getDate());
+				}
+			}
+		}
+		
+		System.out.println(countBestList);
+		System.out.println(countNewList);
+		System.out.println(countNormalList);
 		
 		map.put("donutList", donutList);
 		map.put("dateList1", dateList1);
@@ -221,26 +340,21 @@ public class StatisticsService {
 		map.put("dateList3", dateList3);
 		map.put("dateList4", dateList4);
 		map.put("dateList5", dateList5);
+		map.put("countLineList", countLineList);
+		map.put("salesLineList", salesLineList);
+		map.put("countBestList", countBestList);
+		map.put("countNewList", countNewList);
+		map.put("countNormalList", countNormalList);
 		map.put("categoryList", categoryList);
 		map.put("temp", temp);
 		
 		return map;
 	}
 
-	
-	private String get7DayAgoDate(int year , int month , int day, int i) {
-		Calendar cal = Calendar
-				.getInstance();
-		cal.set(year, month-1, day);
-		cal.add(Calendar.DATE, -i);
-		java.util.Date weekago = cal.getTime();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",
-				Locale.getDefault());
-		return formatter.format(weekago);
-	}
+
 
 	/* products 통계 */
-	public Map<String, Object> productsGraphByDate(String startDate, String endDate, String id) {
+	public Map<String, Object> productsGraphByDate(String startDate, String endDate, String id, boolean flag) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		List<String> temp = new ArrayList<String>();
@@ -255,6 +369,13 @@ public class StatisticsService {
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH ) + 1;
 		int date = cal.get(Calendar.DATE) + 1;
+		
+		if(!flag) {
+			String [] cut = endDate.split("-");
+			year = Integer.parseInt(cut[0]);
+			month = Integer.parseInt(cut[1]);
+			date = Integer.parseInt(cut[2]);
+		}
 		
 		/*  1  */ 
 		List<ProductsSalesVo> oneResultList = new ArrayList<ProductsSalesVo>();
@@ -374,7 +495,6 @@ public class StatisticsService {
 		
 		List<ProductsCountVo> totalCountList = statisticsRepository.findSales4(productsCountVo1.get(6).getDate(),productsCountVo1.get(0).getDate(), id);
 		
-		System.out.println(totalCountList);
 		
 		List<ProductsCountVo> productstCountVo1 = new ArrayList<ProductsCountVo>();
 		List<ProductsCountVo> productstCountVo2 = new ArrayList<ProductsCountVo>();
@@ -535,9 +655,6 @@ public class StatisticsService {
 		}
 		
 		
-		
-		
-		
 		map.put("oneResultList", oneResultList);
 		map.put("twoResultList", twoResultList);
 		map.put("threeResultList", threeResultList);
@@ -557,6 +674,17 @@ public class StatisticsService {
 		map.put("temp", temp);
 		
 		return map;
+	}
+	
+	private String get7DayAgoDate(int year , int month , int day, int i) {
+		Calendar cal = Calendar
+				.getInstance();
+		cal.set(year, month-1, day);
+		cal.add(Calendar.DATE, -i);
+		java.util.Date weekago = cal.getTime();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",
+				Locale.getDefault());
+		return formatter.format(weekago);
 	}
 	
 }

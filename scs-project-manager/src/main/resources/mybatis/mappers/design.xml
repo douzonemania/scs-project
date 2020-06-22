@@ -189,6 +189,14 @@
 		]]>
 	</delete>
 	
+	<delete id="deleteContents" parameterType="map">
+		<![CDATA[
+			delete from scs2.contents
+			where custom_no=#{customNo} and contents_index>#{index}
+		]]>
+	
+	</delete>
+	
 	<select id="QnaCountByCustomIndex" parameterType="int" resultType="int">
 		<![CDATA[
 			select count(*) from scs2.contents

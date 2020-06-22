@@ -1,44 +1,20 @@
-<!DOCTYPE html>
-<html lang="UTF-8">
-<head>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.HashMap"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
-
-</script>
-</head>
-
-	<c:set var="mapT" value="<%=new java.util.HashMap()%>" />
-
-
-<c:forEach var="test" varStatus="status" items="${param.map }">
-	<c:choose>
-		<c:when test="${status.index==0 }">
-			<c:set target="${mapT}" property="key_${status.index }" value="${fn:substring(test,3,fn:length(test))}" />
-		</c:when>
-		<c:when test="${status.last }">
-			<c:set target="${mapT}" property="key_${status.index }" value="${fn:substring(test,3,fn:length(test)-1)}" />
-		</c:when>
-		<c:otherwise>
-			<c:set target="${mapT}" property="key_${status.index }" value="${fn:substring(test,3,fn:length(test))}" />
-		</c:otherwise>
-	</c:choose>	
-</c:forEach>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
 
-<div id="designSource9">
-	<div style="background-color:${mapT.key_3}; display:'inline-block'; width:''100%', height:'500px'">
-		<div class="designSource9TextBox">
-			<p id="2" class="designSource9Title" >${mapT.key_1}</p>
-			<textarea id="3" class="designSource9TextArea">${mapT.key_2}</textarea>
+<%-- <div id="design-source1" style="background-color:${requestScope.map[3].content }"> --%>
+<div class="design-source1" style="width:100%">
+		<div class ="bg-group" style="background-color:olive; " >
+			<div class="designSource9TextBox" >
+			<p class="designSource9Title" >${requestScope.map[1].content }TEST</p>
+			<p class="designSource9TextArea">${requestScope.map[2].content }TEST</p>
 		</div>
-		<div class="designSource9ImgBox">
-			<div class="designSource9ImgSector"><img src="${mapT.key_0}" class=""></div>			
+		<div class="designSource9ImgSector">
+		<%-- <img src=${requestScope.map[0].content }> --%>
+		<img src="/scs-shop/assets/images/sampleimg/11.PNG"/>
 		</div>
-	</div>
+		</div>
 </div>

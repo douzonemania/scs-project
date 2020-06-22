@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="utf-8">
     <head>
@@ -16,17 +15,14 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <!-- App favicon -->
             <link rel="shortcut icon" href="../assets/images/favicon.ico">
-    
             <!-- Plugins css -->
             <link href="${pageContext.request.contextPath}/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
-    
             <!-- App css -->
             <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
             <link href="${pageContext.request.contextPath}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
             <link href="${pageContext.request.contextPath}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
             <link href="${pageContext.request.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css" />
             <link href="${pageContext.request.contextPath}/assets/css/orderList.css" rel="stylesheet" type="text/css" />
-            
             <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
             <script type="text/JavaScript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
             <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -36,25 +32,22 @@
 			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.css" />
 <script type="text/javascript">
 $(document).ready(function(){
-	 $("#reg-review-btn").on("click", function(){
-	    window.open("", "review", "width=700, height=900, scrollbars=no");
-	    //$("#reviewForm").submit();
-	    document.review.action = "${ pageContext.request.contextPath }/${db }/order/regReview";
-	    document.review.target = "review";
-	    document.review.submit();
-
+	 $(document).on("click",'#reg-review-btn', function(){
+		var no = $(this).data('no')
+	    window.open("", "review"+no, "width=700, height=900, scrollbars=no");
+		$("#review"+no).attr('action',"${ pageContext.request.contextPath }/${db }/order/regReview");
+	    $("#review"+no).attr('target',"review"+no);
+	    $("#review"+no).submit();
 	 });
 });
 		
 </script>
-
 </head>
 <body>
 <%
  Date now = new Date();
  SimpleDateFormat sf = new SimpleDateFormat("MM/dd/yyyy");
  SimpleDateFormat sf2 = new SimpleDateFormat("yyyy-MM-dd");
- 
  String today = sf.format(now);
  String today2 = sf2.format(now);
  Calendar week = Calendar.getInstance();
@@ -63,13 +56,11 @@ $(document).ready(function(){
  String beforeWeek2 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(week.getTime());
 %>
     <c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import>
-
     <div class="wrapper">
         <div class="container-fluid">
             <div class="mypage-order-group">
-                
                 <div class="recipient-info">
-                    <span >주문 내역</span> 
+                    <span >주문 내역</span>
                     <span class="mypage-main-order float-right"> 전체</span>
                 </div>
                     <div class="mypage-main-order-list">
@@ -84,10 +75,9 @@ $(document).ready(function(){
 					<a href="${ pageContext.request.contextPath }/${db }/order/orderlist/pc" class="mobile-none"><span class="mypage-order-list-category ">처리완료:&nbsp;${stList[8] }</span></a>
 					
                     <a class="float-right"href="${ pageContext.request.contextPath }/${db }/order/orderlist"><span class="mypage-order-list-all ">전체</span></a>
-                
                     <div class="margin-box-30"></div>					
 								<form action = "${pageContext.request.contextPath}/${db }/order/orderlist/${statement}" method="post">
-								<div style="margin-bottom:10px"> 
+								<div style="margin-bottom:10px">
                                 <label>날짜 검색</label>
                                 <span class="input-group-addon">
 									<i class="fa fa-calendar bigger-110"></i>
@@ -95,7 +85,7 @@ $(document).ready(function(){
 								<input type="text" id="date-range-picker" name="dates" value="<%=beforeWeek %> - <%=today %>" class="form-control" style="width:200px; display:inline-block" />
 								
 								<input type="hidden" id="date-text" name ="date" value="<%=beforeWeek2 %>:<%=today2 %>"/>
-								<button id="search-btn"  class="form-control" style="width:80px; display:inline-block; 
+								<button id="search-btn"  class="form-control" style="width:80px; display:inline-block;
 								vertical-align: middle; margin-bottom:2px" value="<%=beforeWeek %>:<%=today %>">검색</button>
 								
 								<script>
@@ -103,7 +93,7 @@ $(document).ready(function(){
 								var endDate;
 								
 								$('input[id="date-range-picker"]').daterangepicker({
-									    "showCustomRangeLabel": true,									    
+									    "showCustomRangeLabel": true,									  
 									    "drops": "auto"
 									}, function(start, end) {
 									  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
@@ -124,15 +114,15 @@ $(document).ready(function(){
                             </div>
                            </form>
                             <div class=ol-col>
-	                            <div class="ol-col-member" style="width:40%">상품정보</div>    
+	                            <div class="ol-col-member" style="width:40%">상품정보</div>
 	                            <div class="ol-col-member" style="width:15%; padding-right:2">주문일자</div>
 	                            <div class="ol-col-member" style="width:11%">주문번호</div>
 	                            <div class="ol-col-member" style="width:14%">주문금액(수량)</div>
-	                            <div class="ol-col-member" style="width:13%">주문상태</div>   
+	                            <div class="ol-col-member" style="width:13%">주문상태</div>
 							</div>	
 								<c:forEach items='${orderList }' var='vo' varStatus='status'>
 									<div class ="ol-item">
-										<img class="ol-img" src="${pageContext.request.contextPath}${vo.image }"/>
+										<img class="ol-img" src="scs-manager${vo.image }"/>
 										<div class="ol-iteminfo">
 											<p class="ol-itemName">${vo.name }</p>
 											<div class="ol-option">
@@ -149,16 +139,23 @@ $(document).ready(function(){
 										<div class="ol-state-div">
 										<p class="ol-state">${vo.statement }</p>
 										<c:if test='${vo.statement=="배송완료" }'>
-											<form name="review"  method="post">
-												<input type="hidden" name="image" value="${vo.image }"/>
-												<input type="hidden" name="itemNo" value="${vo.no }"/>
-												<input type="hidden" name="itemName" value="${vo.name }"/>
-												<input type="hidden" name="itemSize" value="${vo.size }"/>
-												<input type="hidden" name="itemColor" value="${vo.color }"/>
-												
-												<input type="hidden" name="memberNo" value="${authUser.no }"/>												
-												<input type="button" id="reg-review-btn"class="ol-btn-review btn btn-dark waves-effect" value="리뷰 등록"/>
-											</form>
+											<c:if test='${restateList[status.index]==0 }'>
+												<form id="review${status.index }"  method="post">
+													<input type="hidden" name="image" value="${vo.image }"/>
+													<input type="hidden" name="itemNo" value="${vo.no }"/>
+													<input type="hidden" name="orderNo" value="${vo.orderNoPrime }"/>
+													<input type="hidden" name="stockNo" value="${vo.stockNo }"/>												
+													<input type="hidden" name="itemName" value="${vo.name }"/>
+													<input type="hidden" name="itemSize" value="${vo.size }"/>
+													<input type="hidden" name="itemColor" value="${vo.color }"/>
+													
+													<input type="hidden" name="memberNo" value="${authUser.no }"/>												
+													<input type="button" id="reg-review-btn" data-no=${status.index } class=" ol-btn-review btn btn-dark waves-effect" value="리뷰 등록"/>
+												</form>
+											</c:if>
+											<c:if test='${restateList[status.index]==1 }'>
+													<input type="button" class="ol-btn-review btn btn-dark waves-effect" value="리뷰 완료" disabled/>
+											</c:if>
 										</c:if>
 										</div>										
 									</div>
@@ -168,14 +165,11 @@ $(document).ready(function(){
    			</div>
     	</div>
     </div>
-
    <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
     <!-- Vendor js -->
    <script src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>
-
    <!-- App js-->
    <script src="${pageContext.request.contextPath}/assets/js/app.min.js"></script>
-
 	<c:import url ='/WEB-INF/views/partials/script.jsp'/>
 </body>
 </html>

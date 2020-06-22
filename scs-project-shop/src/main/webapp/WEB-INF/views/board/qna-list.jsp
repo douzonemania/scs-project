@@ -50,6 +50,14 @@
 	font-size: 1.1em;
 	text-align: left;
 }
+
+@media(max-width:991px){
+	#board-table th {font-size:1em;padding:5px;}
+	#board-table td {font-size:0.6em;padding:5px;}
+	.pagination{margin-left:50px;}
+}
+
+
 </style>        
         
 <script type="text/javascript">
@@ -80,9 +88,9 @@ $(function(){
                 <span style="Font-size:24px; font-weight:Bold; color:#323A46;">Q&A 게시판</span>
             </div>
 
-			<div class="row" style="margin-bottom: 20px; margin-left: 1%;">
+			<div class="row" style="margin-left: 0.3%;" >
 				<form action="${pageContext.servletContext.contextPath }/${db}/board/qna/list">
-                     <div class="col-12 text-sm-center form-inline">
+                     <div class="col-12 text-sm-center form-inline" style="padding:0px;">
                          <div class="form-group mr-2">
                               <select id="member-search-option" class="custom-select custom-select-sm" name="op">
                                     <option value="id">아이디</option>
@@ -90,6 +98,7 @@ $(function(){
                                     <option value="category">카테고리</option>
                               </select>
                          </div>
+                         
                          <div class="form-group">
                               <input id="member-input-box" name="kwd" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
                          </div>
@@ -101,19 +110,28 @@ $(function(){
                                    <option value="기타">기타</option>
                             </select>
                         </div>
-                                        
-                       &nbsp;&nbsp;&nbsp;
-                       <div class="search-button">
-                            <button id="member-search-btn" class="btn btn-secondary btn-sm float-sm-right" type="submit"> 검색 </button>
-                       </div>
+                               
+                        <div class="form-group">        
+                        &nbsp;&nbsp;&nbsp;
+                      	 <button id="member-search-btn" class="btn btn-secondary btn-sm float-sm-right" type="submit"> 검색 </button>
+                        </div>	  
                        
                      </div>
+                      <div style="margin:20px;"></div>
                 </form>
             </div>
             <!-- end row -->
 
 		  <div style="overflow-x: auto;">
 	           <table class="table-form-exposure" id="board-table">
+	            <colgroup>
+	            <col style="width:10%;">
+	            <col style="width:20%;">
+	            <col style="width:25%;">
+	            <col style="width:10%;">
+	            <col style="width:15%;">
+	            <col style="width:20%;">
+	            </colgroup>
 	           	<thead>
 			        <tr>
 			        	<th>번호</th>
@@ -144,9 +162,9 @@ $(function(){
            </div>
           
           	<c:if test="${authUser.id  != null}">
-            <div style="border: none; float: right; margin-top: 10px;">
+            <div style="border: none; float: right; margin-top: 15px;">
             	<a href="${pageContext.servletContext.contextPath }/${db }/board/qna/write">
-	            	<button style="border: 1px solid #BEBEBE; padding: 10px; font-weight: bold;">글쓰기</button></a>
+	            	 <button class="btn btn-secondary btn-sl float-sm-right" style="font-size:1.2em;">글쓰기</button></a>
             </div>
             </c:if>
             

@@ -205,27 +205,22 @@ public class ProductController {
 			@AuthUser CeoVo authUser,
 			@RequestBody ItemVo iVo			
 			) {
-		String id = authUser.getId();
-		JSONObject jObject = new JSONObject(iVo.getEditor());
-		JSONArray jArray = jObject.getJSONArray("ops");
 		
-		System.err.println(iVo.getMainImage()+"!!!!");
-		String contents = "";
-
-		for(int i = 0; i < jArray.length(); i++) {
-			JSONObject obj = jArray.getJSONObject(i);
-			System.out.println("obj:"+obj);
-			if(i == jArray.length() - 1) {
-				contents += obj;
-			}
-			else {
-				contents += obj + ",";
-			}
-		}
+		System.out.println(iVo.getSubImage().toString());
 		
-		iVo.setEditor(contents);
-		productService.regItem(id, iVo);
-		
+		 String id = authUser.getId(); JSONObject jObject = new
+		 JSONObject(iVo.getEditor()); JSONArray jArray = jObject.getJSONArray("ops");
+		  
+		  
+		  
+		  String contents = "";
+		  
+		  for(int i = 0; i < jArray.length(); i++) { JSONObject obj =
+		  jArray.getJSONObject(i); System.out.println("obj:"+obj); if(i ==
+		  jArray.length() - 1) { contents += obj; } else { contents += obj + ","; } }
+		  
+		  iVo.setEditor(contents); productService.regItem(id, iVo);
+		 
 		return JsonResult.success("");
 	}
 

@@ -1,5 +1,6 @@
 package com.douzonemania.shop.controller.api;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -165,9 +166,12 @@ public class OrderController {
 			@RequestBody ReviewVo rVo, HttpSession session
 			) {
 		String db = session.getAttribute("db").toString();
+		System.err.println("::::" +  rVo);
 		orderService.regReview(db, rVo);
+		orderService.updateReState(db, rVo.getStockNo(), rVo.getOrderNo());
 		return JsonResult.success("");
 	}
+	
 }
 
 
