@@ -46,11 +46,14 @@ public class OrderController {
 	public String detail(@RequestParam(value="no", required = true,defaultValue = "0") Integer no,Model model,HttpSession session) {
 		
 		String db = session.getAttribute("db").toString();
+		String id = session.getAttribute("authUser").toString();
+		System.err.println("id:: " + id);
 		Map<String,Object> map= orderService.findProduct(no,db);
 		
 		List<OptionVo> optionList= orderService.findOptionList(no,db);
 		List<ReviewVo> reviewList= orderService.getReviewList(no,db);
 		System.out.println(map);
+		System.err.println("reviewList ::: " + reviewList);
 		
 		model.addAttribute("reviewList",reviewList);
 		model.addAttribute("map",map);
@@ -132,6 +135,8 @@ public class OrderController {
 	public String regReview(HttpSession session,Model model,
 			@RequestParam(value="itemNo") int itemNo,
 			@RequestParam(value="memberNo") int memberNo,
+			@RequestParam(value="stockNo") int stockNo,
+			@RequestParam(value="orderNo") String orderNo,
 			@RequestParam(value="image") String image,
 			@RequestParam(value="itemName") String itemName,
 			@RequestParam(value="itemSize") String itemSize,
@@ -139,6 +144,8 @@ public class OrderController {
 		
 		model.addAttribute("itemNo", itemNo);
 		model.addAttribute("memberNo", memberNo);
+		model.addAttribute("orderNo", orderNo);
+		model.addAttribute("stockNo", stockNo);
 		model.addAttribute("image", image);
 		model.addAttribute("itemName", itemName);
 		model.addAttribute("itemSize", itemSize);
@@ -155,11 +162,14 @@ public class OrderController {
 		List<OrderListVo> oVo = orderService.getOrderList(db, vo.getNo());
 		List<String> priceList = orderService.convertPrice(oVo);
 		List<Integer> stList = orderService.getCountStatement(db, oVo);
+		List<Integer> restateList = orderService.getRestate(db,oVo);
 		orderService.convertOption(db, oVo);
+		System.err.println("::::" + oVo);
 		model.addAttribute("statement", statement); 
 		model.addAttribute("stList",stList);
 		model.addAttribute("priceList", priceList);
 		model.addAttribute("orderList", oVo);
+		model.addAttribute("restateList", restateList);
 		return "order/orderlist";
 	}
 	
@@ -178,12 +188,14 @@ public class OrderController {
 		}else {
 			oVo = orderService.getOrderList(db, vo.getNo(), statement, date);
 		}
+		List<Integer> restateList = orderService.getRestate(db,oVo);
 		List<String> priceList = orderService.convertPrice(oVo);
 		List<Integer> stList = orderService.getCountStatement(db, oVo);
 		orderService.convertOption(db, oVo);
 		model.addAttribute("stList",stList);
 		model.addAttribute("priceList", priceList);
 		model.addAttribute("orderList", oVo);
+		model.addAttribute("restateList", restateList);
 		return "order/orderlist";
 	}	
 

@@ -47,7 +47,7 @@
  		
  	<insert id="insertOrderItem" parameterType="map">
  		<![CDATA[
- 			insert into ${db}.order_item values(#{orderNum},#{stockNo},#{amount},#{totalPrice});
+ 			insert into ${db}.order_item values(#{orderNum},#{stockNo},#{amount},#{totalPrice},false);
  		]]>
  	</insert>	
  		
@@ -333,8 +333,8 @@
 	
 	<select id="getOrderList" parameterType="map" resultType="orderlistvo">
 		<![CDATA[
-			select DISTINCT a.no, a.name, a.main_image as 'image', b.first_option as 'color', b.second_option as 'size',
-	 		c.reg_date as 'regDate', c.order_number as 'orderNo',
+			select DISTINCT a.no, a.name, a.main_image as 'image', b.no as 'stockNo', b.first_option as 'color', b.second_option as 'size',
+	 		c.reg_date as 'regDate', c.order_number as 'orderNo', c.no as 'orderNoPrime',
 			d.amount, d.total_price as 'totalPrice' , c.statement
 			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
 			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} ;
@@ -343,8 +343,8 @@
 	
 	<select id="getOrderListByStatement" parameterType="map" resultType="orderlistvo">
 		<![CDATA[
-			select DISTINCT a.no, a.name, a.main_image as 'image', b.first_option as 'color', b.second_option as 'size',
-	 		c.reg_date as 'regDate', c.order_number as 'orderNo',
+			select DISTINCT a.no, a.name, a.main_image as 'image', b.no as 'stockNo', b.first_option as 'color', b.second_option as 'size',
+	 		c.reg_date as 'regDate', c.order_number as 'orderNo', c.no as 'orderNoPrime',
 			d.amount, d.total_price as 'totalPrice' , c.statement
 			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
 			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} and c.statement=#{statement};
@@ -353,16 +353,16 @@
 	
 	<select id="getOrderListByStatementAndDate" parameterType="map" resultType="orderlistvo">
 		<if test='statement=="init"'>
-			select DISTINCT a.name, a.main_image as 'image', b.first_option as 'color', b.second_option as 'size',
-	 		c.reg_date as 'regDate', c.order_number as 'orderNo',
+			select DISTINCT a.name, a.main_image as 'image', b.no as 'stockNo', b.first_option as 'color', b.second_option as 'size',
+	 		c.reg_date as 'regDate', c.order_number as 'orderNo', c.no as 'orderNoPrime',
 			d.amount, d.total_price as 'totalPrice' , c.statement
 			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
 			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} and c.reg_date between #{date1} and #{date2};
 		</if>
 		<if test='statement!="init"'>
 		<![CDATA[
-			select DISTINCT a.name, a.main_image as 'image', b.first_option as 'color', b.second_option as 'size',
-	 		c.reg_date as 'regDate', c.order_number as 'orderNo',
+			select DISTINCT a.name, a.main_image as 'image', b.no as 'stockNo', b.first_option as 'color', b.second_option as 'size',
+	 		c.reg_date as 'regDate', c.order_number as 'orderNo', c.no as 'orderNoPrime',
 			d.amount, d.total_price as 'totalPrice' , c.statement
 			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
 			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} and c.statement=#{statement} and c.reg_date between #{date1} and #{date2}
@@ -388,13 +388,25 @@
 	
 		<insert id="regReview" parameterType="map" >
 		<![CDATA[
-			insert into ${db}.item_review values(null,#{rVo.rate},#{rVo.title},#{rVo.contents},#{rVo.image},#{rVo.itemNo},#{rVo.memberNo}, now(),#{rVo.color},#{rVo.size});
+			insert into ${db}.item_review values(null,#{rVo.rate},#{rVo.title},#{rVo.content},#{rVo.image},#{rVo.itemNo},#{rVo.memberNo}, now(),#{rVo.color},#{rVo.size});
 		]]>
 	</insert>
 	
 	<select id="getReviewList" parameterType="map" resultType="reviewvo">
 		<![CDATA[
-			select no, rate, title, content, image, item_no as 'itemNo', member_no as 'memberNo', reg_date as 'regDate' from ${db}.item_review where item_no = #{no};
+			select no, rate, title, content, image, item_no as 'itemNo', member_no as 'memberNo', reg_date as 'regDate', color, size from ${db}.item_review where item_no = #{no};
+		]]>
+	</select>
+	
+	<update id="updateReState" parameterType="map">
+ 		<![CDATA[
+ 			update ${db}.order_item set re_state = 1 where order_no=#{orderNo} and stock_no=#{stockNo}
+ 		]]>
+ 	</update>
+ 	
+ 		<select id="getRestate" parameterType="map" resultType="Integer">
+		<![CDATA[
+			select re_state from ${db}.order_item where order_no=#{orderNo} and stock_no=#{stockNo};
 		]]>
 	</select>
 </mapper>
