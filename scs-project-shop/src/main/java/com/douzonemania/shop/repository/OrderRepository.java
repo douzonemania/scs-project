@@ -436,13 +436,16 @@ public class OrderRepository {
 		}
 		return restateList;
 	}
-
-
-
-
-	
 	
 
-
+	public ItemVo findOption(int firstOption, int secondOption, String db) {
+			
+			map.put("db", db);
+			map.put("firstNo", firstOption);
+			map.put("secondNo", secondOption);
+			
+			return sqlSession.selectOne("order.findOption",map);
+	}
+		
 	
 }

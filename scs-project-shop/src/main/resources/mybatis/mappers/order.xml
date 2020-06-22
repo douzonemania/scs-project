@@ -386,7 +386,7 @@
 		]]>
 	</select>
 	
-		<insert id="regReview" parameterType="map" >
+	<insert id="regReview" parameterType="map" >
 		<![CDATA[
 			insert into ${db}.item_review values(null,#{rVo.rate},#{rVo.title},#{rVo.content},#{rVo.image},#{rVo.itemNo},#{rVo.memberNo}, now(),#{rVo.color},#{rVo.size});
 		]]>
@@ -408,5 +408,20 @@
 		<![CDATA[
 			select re_state from ${db}.order_item where order_no=#{orderNo} and stock_no=#{stockNo};
 		]]>
+	</select>
+	
+	<select id="findOption" parameterType="map" resultMap="itemList">
+		<choose>
+			<when test="secondOption==0">
+				<![CDATA[
+					select name as firstOptionName from ${db}.option where no=#{firstNo}
+				]]>	
+			</when>
+			<otherwise>
+				<![CDATA[
+					select a.name as firstOptionName , b.name as secondOptionName from ${db}.option a, ${db}.option b where a.no=#{firstNo} and b.no=#{secondNo};
+				]]>
+			</otherwise>
+		</choose>
 	</select>
 </mapper>

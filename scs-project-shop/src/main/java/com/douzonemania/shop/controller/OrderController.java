@@ -197,7 +197,24 @@ public class OrderController {
 		model.addAttribute("orderList", oVo);
 		model.addAttribute("restateList", restateList);
 		return "order/orderlist";
-	}	
+	}
+	
+	/*
+	 * @RequestMapping(value = "/board-write/{no}", method =
+	 * {RequestMethod.POST,RequestMethod.GET}) public String
+	 * orderListByStatement(HttpSession session,Model model,
+	 * 
+	 * @PathVariable(value="no") int no,
+	 * 
+	 * @RequestParam(value="itemName") String itemName ) {
+	 * System.err.println(no+"no::::"); String db =
+	 * session.getAttribute("db").toString(); MemberVo vo =
+	 * (MemberVo)session.getAttribute("authUser"); model.addAttribute("no", no);
+	 * model.addAttribute("itemName", itemName);
+	 * 
+	 * 
+	 * return "order/board-write"; }
+	 */
 
 
 }
