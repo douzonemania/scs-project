@@ -757,8 +757,6 @@ $(function() {
 												
 												재고량 <input type="text" class="form-control product-info" id="input-stock-0" value="" />
 												<button type="button" id="stock-add" class="btn btn-secondary waves-effect">추가</button>	
-												<button type="button" id="testtest" class="btn btn-secondary waves-effect">실험쥐</button>												
-												
 											</div>
 											</div>
 												

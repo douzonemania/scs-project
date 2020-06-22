@@ -1,7 +1,5 @@
 package com.douzonemania.shop.vo;
-
 public class ReviewVo {
-
 	private int no;
 	private int rate;
 	private String title;
@@ -9,23 +7,12 @@ public class ReviewVo {
 	private String image;
 	private int itemNo;
 	private int memberNo;
-	private int stockNo;
-	private String orderNo;
 	private String regDate;
 	private String size;
 	private String color;
-	public String getOrderNo() {
-		return orderNo;
-	}
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
-	}
-	public int getStockNo() {
-		return stockNo;
-	}
-	public void setStockNo(int stockNo) {
-		this.stockNo = stockNo;
-	}
+	private String id;
+	private String itemName;
+	private String mainImage;
 	public String getSize() {
 		return size;
 	}
@@ -38,7 +25,6 @@ public class ReviewVo {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
 	public String getRegDate() {
 		return regDate;
 	}
@@ -66,8 +52,8 @@ public class ReviewVo {
 	public String getContent() {
 		return content;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setContent(String contents) {
+		this.content = contents;
 	}
 	public String getImage() {
 		return image;
@@ -87,11 +73,28 @@ public class ReviewVo {
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+	public String getMainImage() {
+		return mainImage;
+	}
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
 	@Override
 	public String toString() {
 		return "ReviewVo [no=" + no + ", rate=" + rate + ", title=" + title + ", content=" + content + ", image="
-				+ image + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", stockNo=" + stockNo + ", orderNo="
-				+ orderNo + ", regDate=" + regDate + ", size=" + size + ", color=" + color + "]";
+				+ image + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", regDate=" + regDate + ", size=" + size
+				+ ", color=" + color + ", id=" + id + ", itemName=" + itemName + ", mainImage=" + mainImage + "]";
 	}
-	
 }
