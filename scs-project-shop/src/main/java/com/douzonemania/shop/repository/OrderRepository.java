@@ -19,6 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.douzonemania.shop.vo.CartVo;
 import com.douzonemania.shop.vo.CategoryVo;
+import com.douzonemania.shop.vo.ItemBoardVo;
 import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OptionVo;
@@ -445,6 +446,12 @@ public class OrderRepository {
 			map.put("secondNo", secondOption);
 			
 			return sqlSession.selectOne("order.findOption",map);
+	}
+
+	public List<ItemBoardVo> getBoardList(Integer no, String db) {
+		map.put("db", db);
+		map.put("no", no);
+		return sqlSession.selectList("order.BoardList", map);
 	}
 		
 	

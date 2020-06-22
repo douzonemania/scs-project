@@ -394,7 +394,7 @@
 	
 	<select id="getReviewList" parameterType="map" resultType="reviewvo">
 		<![CDATA[
-			select no, rate, title, content, image, item_no as 'itemNo', member_no as 'memberNo', reg_date as 'regDate', color, size from ${db}.item_review where item_no = #{no};
+			select no, rate, title, content, image, item_no as 'itemNo', member_no as 'memberNo', reg_date as 'regDate', color, size from ${db}.item_review where item_no = #{no} limit 5;
 		]]>
 	</select>
 	
@@ -423,5 +423,22 @@
 				]]>
 			</otherwise>
 		</choose>
+	</select>
+	
+		<select id="BoardList" parameterType="map" resultType="itemboardvo">
+		<![CDATA[
+			select b.no,				   
+				   b.title,
+				   b.contents,
+				   b.member_no as memberNo,
+				   b.reg_date as regDate,
+				   b.reply_state as replyState,
+				   m.id,
+				   m.name
+			  from ${db}.item_board b, ${db}.member m
+			 where b.member_no = m.no
+			   and m.state='회원' and b.item_no=#{no}
+			 ORDER BY b.no desc limit 5
+		]]>
 	</select>
 </mapper>

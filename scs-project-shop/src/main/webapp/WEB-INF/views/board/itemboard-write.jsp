@@ -42,6 +42,7 @@
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	var isdetail = "${detail}";
 	
 	$('#qna-custom-btn').click(function(e){
 		
@@ -52,15 +53,18 @@ $(document).ready(function(){
 		html.title = title;
 		
 		// item no를 받아와야함(item detail page에서 글 작성)
- 		var no = 1;
+ 		var no = ${no};
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/board/itemboard/write/' + no,
+			url: '${pageContext.servletContext.contextPath }/${db}/api/board/itemboard/write/' + no,
 			type: 'post',
 			dataType: 'json',
 			contentType: 'application/json',
 			data: JSON.stringify(html),
 			success: function(response){
 				console.log(response.data);
+				if(isdetail=="detail")
+					location.href= "${pageContext.request.contextPath }/${db}/order/detail?no=${no}";
+				else
 				location.href= "${pageContext.request.contextPath }/${db}/board/itemboard/list";	// list로 바꾸기
 			},
 			error: function(xhr, status, e){
