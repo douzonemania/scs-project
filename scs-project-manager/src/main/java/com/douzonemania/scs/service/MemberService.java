@@ -135,7 +135,8 @@ public class MemberService {
 
 		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
 		int calCnt=(currentPage%5)==0 ? currentPage-1 : currentPage;
-
+		System.out.println("pageCnt: " + pageCnt);
+		System.out.println("calCnt: " + calCnt);
 		int beginPage=calCnt-(calCnt%5)==0 ? 1 : calCnt-(calCnt%5)+1;
 		int prevPage = beginPage == 1 ? 1 : beginPage -1;
 		int endPage = (pageCnt-(pageCnt%5))==(calCnt-(calCnt%5)) ? pageCnt : (beginPage+PAGE_SIZE)-1;
@@ -156,11 +157,16 @@ public class MemberService {
 		map.put("option", option);
 		map.put("kwd",keyword);
 		map.put("calCnt", calCnt);
-
+		System.out.println(endPage + ":::::::::::::" + pageCnt);
 		if(endPage!=pageCnt)
 			map.put("listsize",LIST_SIZE);
-		else
-			map.put("listsize",endPage%5);
+		else {
+			if(endPage%5==0) {
+				map.put("listsize",5);
+			}else {
+				map.put("listsize",endPage%5);
+			}
+		}
 
 		return map;
 
@@ -226,8 +232,13 @@ public class MemberService {
 
 		if(endPage!=pageCnt)
 			map.put("listsize",LIST_SIZE);
-		else
-			map.put("listsize",endPage%5);
+		else {
+			if(endPage%5==0) {
+				map.put("listsize",5);
+			}else {
+				map.put("listsize",endPage%5);
+			}
+		}
 
 		return map;
 
