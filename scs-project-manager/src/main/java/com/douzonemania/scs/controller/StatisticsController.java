@@ -29,7 +29,7 @@ public class StatisticsController {
 		
 
 		String id = authUser.getId();
-		Map<String, Object> map = statisticsService.categoryGraphByDate(startDate, endDate, id);
+		Map<String, Object> map = statisticsService.categoryGraphByDate(startDate, endDate, id, true);
 		model.addAttribute("map", map);
 	
 		return "statistics/category";
@@ -43,7 +43,7 @@ public class StatisticsController {
 			Model model) {
 		
 		String id = authUser.getId();
-		Map<String, Object> map = statisticsService.productsGraphByDate(startDate, endDate, id);
+		Map<String, Object> map = statisticsService.productsGraphByDate(startDate, endDate, id, true);
 		model.addAttribute("map", map);
 		
 		return "statistics/products";
