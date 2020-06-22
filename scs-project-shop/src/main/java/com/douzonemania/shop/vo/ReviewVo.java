@@ -15,6 +15,7 @@ public class ReviewVo {
 	private String mainImage;
 	private int stockNo;
 	private String orderNo;
+	
 	public String getSize() {
 		return size;
 	}
