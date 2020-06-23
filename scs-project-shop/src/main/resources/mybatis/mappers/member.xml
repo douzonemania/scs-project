@@ -90,4 +90,61 @@
 			 where id=#{id}
 		]]>
 	</update>
+	
+	<!-- my page 정은 -->
+	
+	<select id="getOrderList" parameterType="map" resultType="orderlistvo">
+		<![CDATA[
+			select DISTINCT a.no, a.name, a.main_image as 'image', b.no as 'stockNo', b.first_option as 'color', b.second_option as 'size',
+	 		c.reg_date as 'regDate', c.order_number as 'orderNo', c.no as 'orderNoPrime',
+			d.amount, d.total_price as 'totalPrice' , c.statement, d.re_state as reState
+			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
+			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no}
+            limit 3
+		]]>
+	</select>
+	
+	<select id="getItemBoardList" parameterType="map" resultType="itemboardvo">
+		<![CDATA[
+			select b.no,
+				   b.title,
+				   b.contents,
+				   b.reg_date as regDate,
+				   b.member_no as memberNo,
+				   b.item_no as itemNo,
+				   b.reply_state as replyState,
+                   i.code,
+                   m.id,
+                   i.main_image as mainImage,
+                   i.name as itemName
+			  from ${db}.item_board b,
+				   ${db}.member m,
+                   ${db}.item i
+			 where b.member_no = m.no
+               and b.item_no = i.no
+			   and m.state='회원'
+               and m.no=#{no}
+             limit 5
+		]]>
+	</select>
+	
+	<select id="getQnaList" parameterType="map" resultType="boardvo">
+		<![CDATA[
+			select b.no,
+				   b.category,
+				   b.title,
+				   b.contents,
+				   b.member_no as memberNo,
+				   b.reg_date as regDate,
+				   b.reply_state as replyState,
+				   m.id,
+				   m.name
+			  from ${db}.board b, ${db}.member m
+			 where b.member_no = m.no
+			   and m.state='회원'
+			   and b.member_no=#{no}
+			 limit 5
+		]]>
+	</select>
+	
 </mapper>

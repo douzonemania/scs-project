@@ -1,5 +1,6 @@
 package com.douzonemania.shop.service;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -16,7 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzonemania.shop.repository.MemberRepository;
+import com.douzonemania.shop.vo.BoardVo;
+import com.douzonemania.shop.vo.ItemBoardVo;
 import com.douzonemania.shop.vo.MemberVo;
+import com.douzonemania.shop.vo.OrderListVo;
 
 @Service
 public class MemberService {
@@ -139,6 +143,18 @@ public Boolean sendPasswordEmail(String id, String phone) {
 
 	public int modPhone(String id, String phone) {
 		return memberRepository.modPhone(id, phone);
+	}
+
+	public List<OrderListVo> getOrderList(String db, Long no) {
+		return memberRepository.getOrderList(db, no);
+	}
+
+	public List<ItemBoardVo> getItemBoardList(String db, Long no) {
+		return memberRepository.getItemBoardList(db,no);
+	}
+
+	public List<BoardVo> getQnaList(String db, Long no) {
+		return memberRepository.getQnaList(db,no);
 	}
 
 }
