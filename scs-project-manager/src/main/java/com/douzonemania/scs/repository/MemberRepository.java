@@ -59,12 +59,13 @@ public class MemberRepository {
 	
 	//////////////////////////////////////////////////////////////////
 	
-	public List<BoardVo> boardList(String id, int offset, int size) {
+	public List<BoardVo> boardList(String id, int offset, int size, int check) {
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("db", id);
 		map.put("offset", offset);
 		map.put("size", size);
+		map.put("check", check);
 		
 		return sqlSession.selectList("member.findBoardList", map);
 	}

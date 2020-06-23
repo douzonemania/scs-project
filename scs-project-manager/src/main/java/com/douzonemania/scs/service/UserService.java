@@ -46,8 +46,8 @@ public class UserService {
 		
 		List<Integer> vo = userRepository.getStatement(id);				// statement 갯수
 		
-		List<BoardVo> productList = productRepository.itemBoardList(id, 5, 5);
-		List<BoardVo> normalList = memberRepository.boardList(id, 5, 5);
+		List<BoardVo> productList = productRepository.itemBoardList(id, 0, 5, 0);
+		List<BoardVo> normalList = memberRepository.boardList(id, 0, 5, 0);
 		
 		System.out.println(vo);
 		map.put("productList", productList);

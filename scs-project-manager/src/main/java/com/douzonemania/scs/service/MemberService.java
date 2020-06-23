@@ -200,7 +200,7 @@ public class MemberService {
 		
 		List<BoardVo> list;
 		if(option.equals("")) {
-			list = memberRepository.boardList(id, offset, LIST_SIZE);
+			list = memberRepository.boardList(id, offset, LIST_SIZE, 1);
 		}
 		else {
 			list = memberRepository.searchBoardList(id, option, keyword, offset, LIST_SIZE);
