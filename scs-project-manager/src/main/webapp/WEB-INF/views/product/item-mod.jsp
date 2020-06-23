@@ -862,7 +862,7 @@ $(function() {
 							<!-- 등록,목록 버튼-->
 							<div class="btn-submit-section">
 								<button type="button" class="btn btn-secondary waves-effect" id="btn-mod">수정</button>
-								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">목록</button>
+								<a href ="${pageContext.request.contextPath }/${authUser.id}/product/info"><button type="button" class="btn btn-secondary waves-effect" id="btn-list">목록</button></a>
 							</div>
 
 						</div>
