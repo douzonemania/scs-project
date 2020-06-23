@@ -10,15 +10,23 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.douzonemania.scs.repository.MemberRepository;
+import com.douzonemania.scs.repository.ProductRepository;
 import com.douzonemania.scs.repository.UserRepository;
 import com.douzonemania.scs.vo.ceo.AgreementVo;
 import com.douzonemania.scs.vo.ceo.CeoVo;
-import com.douzonemania.scs.vo.ceo.MainStatementVo;
 import com.douzonemania.scs.vo.ceo.SiteVo;
+import com.douzonemania.scs.vo.member.BoardVo;
 @Service
 public class UserService {
+	
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private ProductRepository productRepository;
+	@Autowired
+	private MemberRepository memberRepository;
+	
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://192.168.1.58:3306";
@@ -37,7 +45,13 @@ public class UserService {
 																			// ??
 		
 		List<Integer> vo = userRepository.getStatement(id);				// statement 갯수
+		
+		List<BoardVo> productList = productRepository.itemBoardList(id, 5, 5);
+		List<BoardVo> normalList = memberRepository.boardList(id, 5, 5);
+		
 		System.out.println(vo);
+		map.put("productList", productList);
+		map.put("normalList", normalList);
 		map.put("totalRevenue", totalRevenue);
 		map.put("sales", sales);
 		map.put("vo", vo);
