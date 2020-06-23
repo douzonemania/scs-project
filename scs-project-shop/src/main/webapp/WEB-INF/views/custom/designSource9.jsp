@@ -5,12 +5,11 @@
 
 
 
-<%-- <div id="design-source1" style="background-color:${requestScope.map[3].content }"> --%>
-<div class="design-source1" style="width:100%">
-		<div class ="bg-group" style="background-color:olive; " >
+<div id="design-source1" style="width:100%; backgroun-color:${requestScope.map[3].content };">
+
 			<div class="designSource9TextBox" >
-			<p class="designSource9Title" >${requestScope.map[1].content }TEST</p>
-			<p class="designSource9TextArea">${requestScope.map[2].content }TEST</p>
+			<p class="designSource9Title" >${requestScope.map[1].content }</p>
+			<p class="designSource9TextArea">${requestScope.map[2].content }</p>
 		</div>
 		<div class="designSource9ImgSector">
 		<%-- <img src=${requestScope.map[0].content }> --%>

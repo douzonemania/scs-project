@@ -6,12 +6,10 @@
 <div class='design-source5'>
 	<div class="designSource11ImageBox">
 		<div class="designSource11ImgSector">
-			<%-- <img src="${requestScope.map[0].content }" /> --%>
-			<img src="/scs-shop/assets/images/sampleimg/21.PNG"/>
+			<img src="${requestScope.map[0].content }" /> 
 		</div>
-		
 		<div class="designSource11TextBox">
-			<p class="designSource11Text">${requestScope.map[1].content }TEST입니당</p>
+			<p class="designSource11Text">${requestScope.map[1].content }</p>
 		</div>
 	</div>
 </div>

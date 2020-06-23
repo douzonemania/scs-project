@@ -7,8 +7,8 @@
 <div id='designSource7'>
 	<div class="designSource7Underline"></div>
 	<div class="designSource7Textbox">
-	<h1 class="designSource7Title">${requestScope.map[0].content }TEST</h1>
-	<p class="designSource7TextArea">${requestScope.map[1].content }TEST</p>
+	<h1 class="designSource7Title">${requestScope.map[0].content }</h1>
+	<p class="designSource7TextArea">${requestScope.map[1].content }</p>
 	<div class="designSource7Underline"></div>
 	</div>
 </div>

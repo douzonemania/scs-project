@@ -6,7 +6,6 @@
 
 <div id='design-source2'>
 	<div class="designSource8ImgSector">
-		<a href="${requestScope.map[1].content }"><img class="hoverImg" src="/scs-shop/assets/images/sampleimg/10.PNG"/></a>
-		<%-- <a href="${requestScope.map[1].content }"><img src="${requestScope.map[0].content }" ></a> --%>
+		<a href="${requestScope.map[1].content }"><img src="${requestScope.map[0].content }" ></a> 
 	</div>
 </div>
