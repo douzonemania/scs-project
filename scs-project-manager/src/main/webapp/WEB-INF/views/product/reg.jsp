@@ -335,7 +335,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	vo.mainImage = mainImage;
 	vo.subImage = subImage;
 	
-	if(mainImage.length<10){
+	if(mainImage.length<14){
 		alert("메인이미지를 등록하세요 :" + mainImage);
 		return;
 	}
