@@ -21,7 +21,7 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping("/main/userId") 
 	public JsonResult getAuthUserId(@AuthUser CeoVo ceoVo) {
-		
+		System.out.println("유저아이디가져오기");
 		return JsonResult.success(ceoVo.getId());
 	}
 	

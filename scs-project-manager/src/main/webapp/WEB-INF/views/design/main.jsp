@@ -56,15 +56,11 @@
 		<script type="text/JavaScript"
 		src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
-<%-- <header>
-	<!-- horizontal-nav -->  	
-	<c:import url ='/WEB-INF/views/partials/horizontal-nav.jsp'/>
-</header>
-<!-- footer -->
-<c:import url ='/WEB-INF/views/partials/footer.jsp'/> --%>
+
 <body>
-	<%-- <script src="${ pageContext.request.contextPath }/assets/js/bundle.js"></script> --%>
 	<div id='root'></div>
-	<div><script src="http://localhost:8999/bundle.js"></script></div>
+	
+	<!--  <div><script src="http://${pageContext.request.localAddr}:8999/bundle.js"></script></div>-->
+	<div><script src="${pageContext.request.contextPath }/assets/js/bundle.js"></script></div>
 </body>
 </html>
