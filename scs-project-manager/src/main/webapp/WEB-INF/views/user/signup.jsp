@@ -40,7 +40,7 @@
 
 // 약관 팝업
 function agreement(){
-	window.open('agreement',' scs 이용약관','width=430,height=500,location=no,status=no');
+	window.open('agreement',' scs 이용약관','width=500,height=600,location=no,status=no');
 }
 
 // 주소 api
