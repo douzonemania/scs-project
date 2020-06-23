@@ -258,7 +258,42 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	
 	var form = $('#excelForm')[0];
 
-	console.log(form);
+	if(categoryName2=="----"){
+		alert("카테고리를 선택하세요");
+		return;
+	}	
+	if(code==""){
+		alert("상품코드를 입력하세요");		
+		return;
+	}
+	if(name==""){
+		alert("상품이름을 입력하세요");
+		return;
+	}
+	if(supPrice=="" || !$.isNumeric(supPrice)){
+		alert("공급가를 정확히 입력하세요(숫자)");
+		return;
+	}
+	if(nowPrice=="" || !$.isNumeric(nowPrice)){
+		alert("정상가를 입력하세요");
+		return;
+	}
+	if(shipCompany=="----"){
+		alert("배송사를 선택하세요");
+		return;
+	}
+	if(color=="----"){
+		alert("상품옵션을 입력하세요");
+		return;
+	}
+	if(size=="----"){
+		alert("상품옵션을 입력하세요");
+		return;
+	}
+	if(stock=="" || !$.isNumeric(stock)){
+		alert("재고량을 정확히 입력하세요(숫자)");
+		return;
+	}
 	
 	var formData= new FormData(form);
 	console.log(formData);
@@ -290,7 +325,6 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	            	}
 	            }
 	            console.log(mainImage+subImage+":: in ajaxcode");
-	            alert(subImage);
 	        	
 	        },
 	        error: function (e) {
@@ -300,6 +334,11 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	console.log(mainImage+subImage+"::");
 	vo.mainImage = mainImage;
 	vo.subImage = subImage;
+	
+	if(mainImage.length<10){
+		alert("메인이미지를 등록하세요 :" + mainImage);
+		return;
+	}
 	
 	$.ajax({
 		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/regItem',
