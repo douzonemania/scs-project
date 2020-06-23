@@ -33,19 +33,6 @@ public class BoardController {
 	@Autowired
 	CustomService customService;
 	
-	@RequestMapping(value = "/faq")
-	public String faq(Model model, HttpSession session) {
-		String db = session.getAttribute("db").toString(); 
-		/* boardRepository.getSession(); */
-		int customNo = customService.getCustomNo(2, db);
-		
-		List<ContentsVo> list = customService.getContentsByCustomNo(customNo);
-		
-		model.addAttribute("list", list);
-	
-		return "board/faq";
-	}
-	
 	@RequestMapping(value = "/qna/write")
 	public String qnaWrite() {
 		return "board/qna-write";

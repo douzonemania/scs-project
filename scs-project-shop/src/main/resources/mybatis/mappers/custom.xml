@@ -263,7 +263,14 @@
 	
 	</select>
 	
-	
+	<select id="getCustomNo" parameterType="map" resultType="int">
+		select b.no 
+		  from scs2.sub_menu a, 
+		       scs2.custom b 
+		 where a.no=b.menu_no 
+	       and id=#{db} 
+		   and menu_index=#{index}
+	</select>
 	
 
 </mapper>
