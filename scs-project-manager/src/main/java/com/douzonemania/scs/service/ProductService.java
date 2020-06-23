@@ -233,7 +233,7 @@ public class ProductService {
 
 		List<BoardVo> list;
 		if(option.equals("")) {
-			list = productRepository.itemBoardList(id, offset, LIST_SIZE);
+			list = productRepository.itemBoardList(id, offset, LIST_SIZE, 1);
 		}
 		else {
 			list = productRepository.searchItemBoardList(id, option, keyword, offset, LIST_SIZE);
