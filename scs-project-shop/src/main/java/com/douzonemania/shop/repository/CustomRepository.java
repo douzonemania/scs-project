@@ -143,7 +143,6 @@ public class CustomRepository {
 	
 		map.put("no", no);
 		map.put("db", db);
-
 		
 		return sqlSession.selectOne("custom.findSubMenuNo",map);
 	}

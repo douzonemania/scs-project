@@ -98,6 +98,19 @@ public class CustomController {
 		return "custom/sale";
 	}
 	
+	@RequestMapping(value = "/FAQ")
+	public String faq(Model model, HttpSession session) {
+		String db = session.getAttribute("db").toString(); 
+		/* boardRepository.getSession(); */
+		int customNo = customService.getCustomNo(2, db);
+		System.out.println(customNo);
+		
+		List<ContentsVo> list = customService.getContentsByCustomNo(customNo);
+		
+		model.addAttribute("list", list);
+	
+		return "board/faq";
+	}
 	
 	@RequestMapping(value = "/left-nav")
 	public String leftBar(Model model,HttpSession session) {
