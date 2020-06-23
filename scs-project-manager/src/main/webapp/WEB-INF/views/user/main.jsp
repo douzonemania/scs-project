@@ -260,150 +260,39 @@
 
                                     <thead class="thead-light">
                                         <tr>
-                                            <th colspan="2" >제목</th>
-                                            <th>이름</th>
+                                        	<th>번호</th>
+                                            <th style="width: 200px;">제목</th>
                                             <th>아이디</th>
                                             <th>작성일</th>
                                             <th>답글</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td style="width: 36px;">
-                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-2.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                            </td>
-
-                                            <td>
-                                                <h5 class="m-0 font-weight-normal">Tomaslau</h5>
-                                                <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                            </td>
-
-                                            <td>
-                                                <i class="mdi mdi-currency-btc text-primary"></i> BTC
-                                            </td>
-
-                                            <td>
-                                                0.00816117 BTC
-                                            </td>
-
-                                            <td>
-                                                0.00097036 BTC
-                                            </td>
-
-                                            <td>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width: 36px;">
-                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-3.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                            </td>
-
-                                            <td>
-                                                <h5 class="m-0 font-weight-normal">Erwin E. Brown</h5>
-                                                <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                            </td>
-
-                                            <td>
-                                                <i class="mdi mdi-currency-eth text-primary"></i> ETH
-                                            </td>
-
-                                            <td>
-                                                3.16117008 ETH
-                                            </td>
-
-                                            <td>
-                                                1.70360009 ETH
-                                            </td>
-
-                                            <td>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 36px;">
-                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-4.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                            </td>
-
-                                            <td>
-                                                <h5 class="m-0 font-weight-normal">Margeret V. Ligon</h5>
-                                                <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                            </td>
-
-                                            <td>
-                                                <i class="mdi mdi-currency-eur text-primary"></i> EUR
-                                            </td>
-
-                                            <td>
-                                                25.08 EUR
-                                            </td>
-
-                                            <td>
-                                                12.58 EUR
-                                            </td>
-
-                                            <td>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 36px;">
-                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-5.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                            </td>
-
-                                            <td>
-                                                <h5 class="m-0 font-weight-normal">Jose D. Delacruz</h5>
-                                                <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                            </td>
-
-                                            <td>
-                                                <i class="mdi mdi-currency-cny text-primary"></i> CNY
-                                            </td>
-
-                                            <td>
-                                                82.00 CNY
-                                            </td>
-
-                                            <td>
-                                                30.83 CNY
-                                            </td>
-
-                                            <td>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 36px;">
-                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-6.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                            </td>
-
-                                            <td>
-                                                <h5 class="m-0 font-weight-normal">Luke J. Sain</h5>
-                                                <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                            </td>
-
-                                            <td>
-                                                <i class="mdi mdi-currency-btc text-primary"></i> BTC
-                                            </td>
-
-                                            <td>
-                                                2.00816117 BTC
-                                            </td>
-
-                                            <td>
-                                                1.00097036 BTC
-                                            </td>
-
-                                            <td>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                            </td>
-                                        </tr>
+                                       <c:forEach items="${map.productList }" var="vo" varStatus="status">
+		                                	<tr>
+		                                		<td>${status.count }</td>
+		                                		<td> 
+		                                			<a style="color:#6C757D;"
+														href="${ pageContext.request.contextPath }/${authUser.id}/product/board/view/${ vo.no }">${vo.title }</a>
+												</td>
+		                                		<td>${vo.id }</td>
+		                                		<td>${vo.regDate }</td>
+		                                		
+		                                		<c:choose>
+		                                			<c:when test="${ vo.replyState  == false }">
+			                                			<td>
+			                                			<a href="${pageContext.servletContext.contextPath }/${authUser.id}/product/board/reply/${ vo.no }">
+															<i class='mdi mdi-message-text-outline member-icon'></i></a>
+														</td>
+		                                			</c:when>
+		                                			<c:otherwise>
+		                                				<td>
+		                                					<i class='mdi mdi-read text-outline member-icon'></i>
+		                                				</td>
+		                                			</c:otherwise>
+		                                		</c:choose>
+		                                	</tr>
+										</c:forEach> 
 
                                     </tbody>
                                 </table>
@@ -418,150 +307,41 @@
 
                                     <thead class="thead-light">
                                         <tr>
-                                            <th colspan="2" >제목</th>
-                                            <th>이름</th>
+                                        	<th>번호</th>
+                                            <th>카테고리</th>
+                                            <th style="width: 150px;">제목</th>
                                             <th>아이디</th>
                                             <th>작성일</th>
                                             <th>답글</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td style="width: 36px;">
-                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-2.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                            </td>
-
-                                            <td>
-                                                <h5 class="m-0 font-weight-normal">Tomaslau</h5>
-                                                <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                            </td>
-
-                                            <td>
-                                                <i class="mdi mdi-currency-btc text-primary"></i> BTC
-                                            </td>
-
-                                            <td>
-                                                0.00816117 BTC
-                                            </td>
-
-                                            <td>
-                                                0.00097036 BTC
-                                            </td>
-
-                                            <td>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width: 36px;">
-                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-3.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                            </td>
-
-                                            <td>
-                                                <h5 class="m-0 font-weight-normal">Erwin E. Brown</h5>
-                                                <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                            </td>
-
-                                            <td>
-                                                <i class="mdi mdi-currency-eth text-primary"></i> ETH
-                                            </td>
-
-                                            <td>
-                                                3.16117008 ETH
-                                            </td>
-
-                                            <td>
-                                                1.70360009 ETH
-                                            </td>
-
-                                            <td>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 36px;">
-                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-4.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                            </td>
-
-                                            <td>
-                                                <h5 class="m-0 font-weight-normal">Margeret V. Ligon</h5>
-                                                <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                            </td>
-
-                                            <td>
-                                                <i class="mdi mdi-currency-eur text-primary"></i> EUR
-                                            </td>
-
-                                            <td>
-                                                25.08 EUR
-                                            </td>
-
-                                            <td>
-                                                12.58 EUR
-                                            </td>
-
-                                            <td>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 36px;">
-                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-5.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                            </td>
-
-                                            <td>
-                                                <h5 class="m-0 font-weight-normal">Jose D. Delacruz</h5>
-                                                <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                            </td>
-
-                                            <td>
-                                                <i class="mdi mdi-currency-cny text-primary"></i> CNY
-                                            </td>
-
-                                            <td>
-                                                82.00 CNY
-                                            </td>
-
-                                            <td>
-                                                30.83 CNY
-                                            </td>
-
-                                            <td>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 36px;">
-                                                <img src="<%=request.getContextPath() %>/assets/images/users/user-6.jpg" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm" />
-                                            </td>
-
-                                            <td>
-                                                <h5 class="m-0 font-weight-normal">Luke J. Sain</h5>
-                                                <p class="mb-0 text-muted"><small>Member Since 2017</small></p>
-                                            </td>
-
-                                            <td>
-                                                <i class="mdi mdi-currency-btc text-primary"></i> BTC
-                                            </td>
-
-                                            <td>
-                                                2.00816117 BTC
-                                            </td>
-
-                                            <td>
-                                                1.00097036 BTC
-                                            </td>
-
-                                            <td>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-light"><i class="mdi mdi-plus"></i></a>
-                                                <a href="javascript: void(0);" class="btn btn-xs btn-danger"><i class="mdi mdi-minus"></i></a>
-                                            </td>
-                                        </tr>
+                                        <c:forEach items="${map.normalList }" var="vo" varStatus="status">
+		                                	<tr>
+		                                		<td>${status.count }</td>
+												<td>${vo.category }</td>
+												<td> 
+		                                			<a style="color:#6C757D;"
+														href="${ pageContext.request.contextPath }/${authUser.id}/product/board/view/${ vo.no }">${vo.title }</a>
+												</td>
+		                                		<td>${vo.id }</td>
+		                                		<td>${vo.regDate }</td>
+		                                		
+		                                		<c:choose>
+		                                			<c:when test="${ vo.replyState  == false }">
+			                                			<td>
+			                                			<a href="${pageContext.servletContext.contextPath }/${authUser.id}/product/board/reply/${ vo.no }">
+															<i class='mdi mdi-message-text-outline member-icon'></i></a>
+														</td>
+		                                			</c:when>
+		                                			<c:otherwise>
+		                                				<td>
+		                                					<i class='mdi mdi-read text-outline member-icon'></i>
+		                                				</td>
+		                                			</c:otherwise>
+		                                		</c:choose>
+		                                	</tr>
+										</c:forEach> 
 
                                     </tbody>
                                 </table>

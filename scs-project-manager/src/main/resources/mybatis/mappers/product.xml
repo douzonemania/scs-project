@@ -203,6 +203,7 @@
 			 where b.member_no = m.no
                and b.item_no = i.no
 			   and m.state='회원'
+			   order by b.reg_date desc
 			 limit ${size} offset #{offset}
 		]]>
 	</select>
@@ -224,7 +225,8 @@
 		                   ${db}.item i
 					 where b.member_no = m.no
 		               and b.item_no = i.no
-					   and m.state='회원') a
+					   and m.state='회원'
+					   order by b.reg_date desc) a
 			 where a.${option} like '%${keyword}%'
 			 limit ${size} offset #{offset}
 		]]>
