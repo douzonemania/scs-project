@@ -92,6 +92,7 @@ $(function() {
 </head>
 <body>
 
+
 	<header>
 		<!-- horizontal-nav -->
 		<c:import url='/WEB-INF/views/partials/horizontal-nav.jsp' />
@@ -244,7 +245,7 @@ $(function() {
 											<td><span class="badge bg-soft-danger text-danger">노출</span></td>
 												</c:when>
 												<c:when test="${vo.visible != true}">
-											<td><span class="badge badge-warning text-danger">숨김</span></td>	
+											<td><span class="badge badge-warning" style="color:white">숨김</span></td>	
 												</c:when>
 											
 											</c:choose>
@@ -258,7 +259,9 @@ $(function() {
 												<input class="btn-secondary stock" style="height: 25px; font-size: 11px" name='' type="button" data-no='${vo.no }' id="btn-stock-${vo.no }" value="재고량">
 												
 											</td>
-											<td>${vo.regDate }</td>
+											<fmt:formatDate var="fmtRegDate" value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm" />
+
+											<td>${fmtRegDate}</td>
 											<td>
 												
 												<a href="${pageContext.request.contextPath }/${authUser.id }/product/modify-item/${vo.no}">
