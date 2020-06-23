@@ -33,6 +33,7 @@
 
 <body>
 
+	<div style="margin-top:50px;"></div>
 
  	<c:forEach var="vo" varStatus="status" items="${list}">
 		<div style="border:5px solid black; margin-top:5%" id="${vo.no}">	

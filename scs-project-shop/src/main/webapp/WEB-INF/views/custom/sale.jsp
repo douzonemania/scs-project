@@ -63,66 +63,7 @@
                             </c:choose>
                         </div> <!-- end row -->    
                        	
-                        
-                        
-                        
-                            <div class="mobile-product-category-group">
-                                <div class="mobile-product-category">
-                                    <div class="mobile-product-title">
-                                        <span style="padding: 12.3px;">
-                                            	카테고리
-                                        </span>
-                                    </div>
-                                    <div class="btn-group mb-2 mobile-product-button">
-                                        <button id="product-custom-button" class="btn btn-light btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                                            Large button <i class="mdi mdi-chevron-down float-right"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Separated link</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="mobile-product-category">
-                                    <div class="mobile-product-title">
-                                        <span style="padding: 12.3px;">
-                                          	  정렬방식
-                                        </span>
-                                    </div>
-                                    <div class="btn-group mb-2 mobile-product-button">
-                                        <button id="product-sort-button" class="btn btn-light btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                                            Large button <i class="mdi mdi-chevron-down float-right"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Separated link</a>
-                                        </div>
-                                    </div>
-                                </div>
-                               
-                            </div>
-                            
-                            <!-- end col-->
-                        
                     </div> <!-- end card-box -->
-                    
-                     <div class="btn-group mb-2 product-button float-right">
-                                    <button id="product-sort-button2" class="btn btn-light btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                                        	판매순 <i class="mdi mdi-chevron-down float-right"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">등록순</a>
-                                        <a class="dropdown-item" href="#">낮은 가격순</a>
-                                        <a class="dropdown-item" href="#">높은 가격순</a>
-                                    </div>
-                         </div>
                     
                 </div> <!-- end col-->
             </div>

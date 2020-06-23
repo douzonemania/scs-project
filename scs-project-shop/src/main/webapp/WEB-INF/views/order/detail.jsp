@@ -638,20 +638,6 @@
 
 					<!-- 제이쿼리로 작업 하기.-->
 					<div class="product-detail">
-						<div class="select-category">
-
-							<ul class="nav nav-tabs nav-bordered nav-justified">
-								<li class="nav-item"><a href="${pageContext.request.contextPath}/${id }/order/detail?no=9#infoSpace" data-toggle="tab"
-									aria-expanded="false" class="nav-link"> INFO </a></li>
-								<li class="nav-item"><a href="#reviewSpace"
-									data-toggle="tab" aria-expanded="true" class="nav-link active">
-										REVIEW </a></li>
-								<li class="nav-item"><a href="#qnaSpace"
-									data-toggle="tab" aria-expanded="false" class="nav-link">
-										FAQ</a></li>
-							</ul>
-						</div>
-
 						<div class="info-detail" id="infoSpace">
 							<img
 								src="${pageContext.request.contextPath}/assets/images/detail-image.PNG"
@@ -660,34 +646,11 @@
 						<div class="info-review" id="reviewSpace">
 							<span>REVIEW</span> <span style="display: block;">
 							<div style="font-weight: bold; display: inline;">고객분들의 생생한 후기</div>도	함께 만나보세요</span>
-													
 							
-							
-<!-- 								<div class="review-group">
-									<div class="review-img">
-										<img src="assets/images/review-img.PNG" alt=""
-											/ class="rounded">
-									</div>
-									<div class="review-box">
-										<div class="pl-xl-3 mt-3 mt-xl-3">
-											리뷰 별
-											<p class="text-muted mr-3">
-												<span class="mdi mdi-star text-warning"></span> <span
-													class="mdi mdi-star text-warning"></span> <span
-													class="mdi mdi-star text-warning"></span> <span
-													class="mdi mdi-star text-warning"></span> <span
-													class="mdi mdi-star"></span>
-											</p>
-											<span style="margin-right: 4px;">id</span> <span>l</span> <span>날짜</span>
-											<span>l</span> <span>옵션</span>
-											<p class="text-muted mb-4 des-info"
-												style="margin-top: 8px; color: #323A46;">리뷰내용//height 맞추기</p>
-	
-										</div>
-									</div>
-								</div> -->
-							
-							<c:forEach items="${reviewList }" var="vo" varStatus="status">
+							<c:choose>
+								<c:when test=""></c:when>
+								<c:otherwise>
+									<c:forEach items="${reviewList }" var="vo" varStatus="status">
 							<div class="review-group">
 								<div class="review-img">
 									<img
@@ -695,35 +658,41 @@
 										alt="" / class="rounded">
 								</div>
 								<div class="review-box">
-									<div class="pl-xl-3 mt-3 mt-xl-3">
+									<div class="pl-xl-3">
 										<!--리뷰 별-->
 										<c:set var="emptyStar" value="${5-vo.rate }"/>
-										<p class="text-muted mr-3" style="margin-bottom:0px">
+										<p class="text-muted mr-3" style="margin:0px;">
 										<c:forEach begin='1' end='${vo.rate }'>
 											<span class="mdi mdi-star text-warning"></span>
 										</c:forEach>
 										<c:forEach begin='1' end='${emptyStar }'>
 											<span class="mdi mdi-star"></span>
-										</c:forEach>											
+										</c:forEach>
+										
+										&nbsp;&nbsp;<span>l&nbsp;&nbsp;</span> <span>${vo.size } / ${vo.color }</span>		
+										<div class="mobile-block"></div>									
+										<span style="margin-right: 4px;">${authUser.id}</span> <span>l&nbsp;&nbsp;</span> <span>${vo.regDate }</span>
+										<p class="review-title" style="overflow-x:hidden; font-size:24px; color: #A9A7AD; margin-bottom:10px;">${vo.title }</p>
 										</p>
-										<span style="margin-right: 4px;">${authUser.id}</span> <span>l</span> <span>${vo.regDate }</span>
-										<span>l</span> <span>${vo.size } / ${vo.color }</span>
-										<p style="font-size:24px; color: #A9A7AD; margin-bottom:0px;">${vo.title }</p>
-										<p style="color: #A9A7AD;"> ${vo.content }</p>
+										
+										
+										
 
 									</div>
 								</div>
 							</div>
-							</c:forEach>
+							</c:forEach>								
+								</c:otherwise>
+							</c:choose>
 
 							
-							<div style="overflow-x: auto; margin-top:5%">
+							<div style=" margin-top:5%">
 					           <table class="table-form-exposure" id="board-table">
 					           	<thead>
 							        <tr>
 							        	<th style="width:15%">번호</th>
-							        	<th style="width:50%">제목</th>
-								        <th style="width:15%">작성자</th>
+							        	<th style="width:45%">제목</th>
+								        <th style="width:20%">작성자</th>
 								        <th style="width:20%">작성일</th>
 									</tr> 
 								</thead>
@@ -742,8 +711,7 @@
 					         		</c:forEach>
 					          	</tbody> 
 					         </table>
-				          </div>
-						
+				           </div>
 
 							<div style="float:right; margin-top: 20px">
 								<form action="${pageContext.request.contextPath}/${db}/board/itemboard/write/${map.product.no}" method="POST">
@@ -756,9 +724,7 @@
 									<!-- end card-box -->
 								</div>
 								<!-- end col -->
-
 							</div>
-
 							<div class="tab-content">
 								<div class="tab-pane" id="home-b2"></div>
 								<div class="tab-pane active" id="profile-b2"></div>
@@ -766,9 +732,6 @@
 							</div>
 						</div>
 						<!--제이쿼리로 작업 하기-->
-
-
-
 					</div>
 					<!-- end col-->
 				</div>

@@ -100,11 +100,11 @@ $(document).ready(function(){
                 <div class="margin-box-30">
                 <form>
                 <div class="col-lg-12">
-                    <div class="card-box">
+                    <div class="card-box" style="margin:0px; padding:0px; width:100%;">
 	                    <div>
 		                    <div class="qna-board-title" style="margin-left:5px; width:100%; display:inline-block">
-		                        <span >제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</span>
-		                        <input type="text" class="form-control mail-custom" id="title" name="title" style="margin-left:15px; width:50%; display:inline-block"/>
+		                        <span >제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목 </span>
+		                        <input type="text" class="form-control mail-custom" id="title" name="title"-/>
 		    
 		                    </div>
   						</div>
