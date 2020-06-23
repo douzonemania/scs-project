@@ -73,7 +73,6 @@ public class CustomController {
 			String db = session.getAttribute("db").toString();
 			Map<String,Object> map  = customService.newFind(page,keyword,option,category,subCategory,db);
 			model.addAttribute("map",map);
-				
 		
 		return "custom/new";
 	}
