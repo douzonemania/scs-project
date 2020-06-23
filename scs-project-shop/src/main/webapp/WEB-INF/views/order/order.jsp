@@ -146,7 +146,6 @@
 				}
 				
 				
-				
 				if($('input[name=radioInline]:checked').val()=="option2"){// 주소록 추가 
 									
 					$.ajax({
@@ -178,7 +177,7 @@
 						}
 					});  
 				}
-				
+				 
 		});
 			
 	});
@@ -303,7 +302,7 @@
                     		${vo.name }
                     	</div>
                     	<div class='responsive-cart-product-option'>
-                                                옵션 : ${vo.firstOptionName } ${vo.secondOptionName }
+                                                옵션 : ${vo.firstOptionName } ${vo.secondOptionName } 
                         </div>
                     	</div>
                     	<div style='width:38%; display:inline-block;'>

@@ -7,18 +7,16 @@
 <div id='design-source1' >
 	<div style="display:flex">
 		<div  class="designSource3TextBox">
-		<h1 class="designSource3Title">${requestScope.map[0].content }test</h1>
+		<h1 class="designSource3Title">${requestScope.map[0].content }</h1>
 		<div class="designSource3Space"></div>
-		<p id="2" class="designSource3TextArea">${requestScope.map[1].content }test입니다</p>
+		<p id="2" class="designSource3TextArea">${requestScope.map[1].content }</p>
 	
 		<div class="designSource3SubImgBox">
-			<%-- <img src="${requestScope.map[2].content }" /> --%>
-			<img src="/scs-shop/assets/images/sampleimg/19.PNG"/>
+			<img src="${requestScope.map[2].content }" /> 
 		</div>
 	</div>
 	<div class="designSource3MainImgBox">
-		<img src="/scs-shop/assets/images/sampleimg/6.PNG" />
-		<%-- <img src="${requestScope.map[2].content }" /> --%>
+		<img src="${requestScope.map[2].content }" /> 
 	</div>
 	</div>
 </div>

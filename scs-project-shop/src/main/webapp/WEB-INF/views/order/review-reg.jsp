@@ -4,9 +4,11 @@
         <meta charset="utf-8" />
             <title></title>
 			<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-			<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+		    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 			<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 			<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+			<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+			<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
             <meta content="Coderthemes" name="author" />
@@ -41,7 +43,6 @@ $( document ).ready(function() {
 		vo.rate = $('.on').length
 		vo.title = $("#title").val();
 		vo.content = $("#review-textarea").val();
-		vo.image = null;
 		vo.itemNo = ${itemNo}
 		vo.orderNo = "${orderNo}"
 		vo.stockNo = ${stockNo}
@@ -70,9 +71,43 @@ $( document ).ready(function() {
 	$("#cancle-btn").click(function(){
 		window.close();
 	})
+
 });
 
+function preview(input, target) {
+	if(input.files && input.files[0]){
+	  	var fileName= input.files[0].name;
+	  	var ext=fileName.substr(fileName.length-3, fileName.length);
+	  	var isCheck=false; 
+	  		if(ext.toLowerCase()=='jpg' || ext.toLowerCase()=='gif' || ext.toLowerCase()=='png'){
+	  			isCheck=true;               
+  			}
+  	if(isCheck==false){
+  		alert("이미지 파일 아닙니다.");
+  		jQuery(input).val("");
+  		return;
+  	}
+  	var reader = new FileReader();
+  	reader.readAsDataURL(input.files[0]);          
+  	reader.onload = function(e) {
+  	  $("#"+target[0].id).show();
+  	  $("#"+target[0].id+"-upload").hide();
+  	  $("#"+target[0].id+"-delete").show();
+  	  jQuery(target).attr('src', e.target.result);
+  	}
+	}
+}
 
+function deleteImg(test,target){
+	$("#"+target[0].id).hide();
+	$("#"+target[0].id+"-upload").show();
+	$("#"+target[0].id+"-delete").hide();
+	$("#"+target[0].id+"-btn").val('');
+}
+
+$(document).on("click","#main-image-upload",function(){
+	$("#main-image-btn").click();
+});
 
 
 </script>
@@ -99,24 +134,33 @@ $( document ).ready(function() {
 		</p>
 	</div>
 	<div class="review-title">
-		제목:<label class="review-space"></label>
-		<input type="text" id="title" class="form-control" style="width:80%; display:inline-block" placeholder="제목을 입력하세요"/> 
+		제목<label class="review-space"></label>
+		<input type="text" id="title" class="form-control" style="margin-left:5px;width:80%; display:inline-block" placeholder="제목을 입력하세요"/> 
 	</div>
 	<div class="review-content">		
+		<div style="position:absolute">내용</div>
 		<textarea id="review-textarea" class="form-control" placeholder="내용을 입력하세요"></textarea>
 	</div>
 
 	<div class="review-fileupload">
-		파일업로드
+		<div style="position:absolute">이미지</div>
+		<div class="review-upload-group">
+			<div class="main-section form-control" style="width:100%; height:200px;" >
+				<img id="main-image-delete" class="delete-hover"src="/scs-shop/assets/images/del2.png" onclick="deleteImg(this,$('#main-image'));" height=20 style="position:absolute; margin:5px; display:none"   />
+				<img id="main-image" src="/scs-shop/assets/images/del2.png" alt="d" class="previewSection"  style="width:160px; height:160px; margin:10px;margin-left:110px;postion:relative; display:none;" >
+				
+				<input id="main-image-btn" type="file" name="excelFile" onchange="preview(this, $('#main-image'));" class="fileInput" style="display:none"/>
+				<div id="main-image-upload"class="img-upload-group"style="width:250px; height:120px; margin:5px; margin-top:20px;">
+				<img src="/scs-shop/assets/images/server.png" height="100" style="display:block; margin-left:130px;"/>
+				<span style="margin-left: 110px;">이미지를 업로드 해주세요.</span>
+			</div>
+		</div>
 	</div>
 	<div class="review-button-section">
 		<label class="space2"></label>
 		<input type="button" id="reg-review-btn" class="btn btn-secondary waves-effect" value="리뷰 등록"/>
 		<input type="button" id="cancle-btn" class="form-control" value="취소"/>
 	</div>
-		
-	     
-     <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
   
     <!-- Vendor js -->
    <script src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>

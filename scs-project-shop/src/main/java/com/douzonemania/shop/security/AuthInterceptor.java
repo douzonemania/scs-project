@@ -32,10 +32,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		 	
 		 	HttpSession session = request.getSession();
 		 	
-		 	
-		 	
-
-			if(session.getAttribute("db")==null) {
+		 	if(session.getAttribute("db")==null) {
 		 		session.setAttribute("db", strArr[1]);
 		 	} else if(!(session.getAttribute("db").equals(strArr[1]))) {
 		 		session.setAttribute("db", strArr[1]);

@@ -39,9 +39,11 @@ $(document).ready(function(){
 	    $("#review"+no).attr('target',"review"+no);
 	    $("#review"+no).submit();
 	 });
-});
-		
+});		
 </script>
+<style>
+</style>
+
 </head>
 <body>
 <%
@@ -61,31 +63,34 @@ $(document).ready(function(){
             <div class="mypage-order-group">
                 <div class="recipient-info">
                     <span >주문 내역</span>
-                    <span class="mypage-main-order float-right"> 전체</span>
                 </div>
                     <div class="mypage-main-order-list">
-                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/oc" class="mobile-visible"><span class="mypage-order-list-category ">주문완료:&nbsp; ${stList[0] }</span></a>
-                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/depc" class="mobile-visible"><span class="mypage-order-list-category">입금완료:&nbsp; ${stList[1] }</span></a>
-                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/pfd" class="mobile-visible"><span class="mypage-order-list-category">배송준비중:&nbsp;${stList[2] }</span></a>
-                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/sip" class="mobile-none"><span class="mypage-order-list-category ">배송중:&nbsp;${stList[3] }</span></a>
-                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/delc" class="mobile-none"><span class="mypage-order-list-category ">배송완료:&nbsp;${stList[4] }</span></a>
-                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/canp" class="mobile-none"><span class="mypage-order-list-category ">취소처리중:&nbsp;${stList[5] }</span></a>
-                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/chanp" class="mobile-none"><span class="mypage-order-list-category ">교환처리중:&nbsp;${stList[6] }</span></a>
-                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/rp" class="mobile-none"><span class="mypage-order-list-category ">환불처리중:&nbsp;${stList[7] }</span></a>
-					<a href="${ pageContext.request.contextPath }/${db }/order/orderlist/pc" class="mobile-none"><span class="mypage-order-list-category ">처리완료:&nbsp;${stList[8] }</span></a>
+                   
+                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/oc"   ><span class="mypage-order-list-category ">주문완료:&nbsp; ${stList[0] }</span></a>
+                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/depc" ><span class="mypage-order-list-category">입금완료:&nbsp; ${stList[1] }</span></a>
+                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/pfd"  ><span class="mypage-order-list-category">배송준비중:&nbsp;${stList[2] }</span></a>
+                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/sip"  ><span class="mypage-order-list-category ">배송중:&nbsp;${stList[3] }</span></a>
+                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/delc" ><span class="mypage-order-list-category ">배송완료:&nbsp;${stList[4] }</span></a>
+                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/canp" ><span class="mypage-order-list-category ">취소처리중:&nbsp;${stList[5] }</span></a>
+                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/chanp"><span class="mypage-order-list-category ">교환처리중:&nbsp;${stList[6] }</span></a>
+                    <a href="${ pageContext.request.contextPath }/${db }/order/orderlist/rp"   ><span class="mypage-order-list-category ">환불처리중:&nbsp;${stList[7] }</span></a>
+					<a href="${ pageContext.request.contextPath }/${db }/order/orderlist/pc"   ><span class="mypage-order-list-category ">처리완료:&nbsp;${stList[8] }</span></a>
+                  
 					
                     <a class="float-right"href="${ pageContext.request.contextPath }/${db }/order/orderlist"><span class="mypage-order-list-all ">전체</span></a>
                     <div class="margin-box-30"></div>					
 								<form action = "${pageContext.request.contextPath}/${db }/order/orderlist/${statement}" method="post">
 								<div style="margin-bottom:10px">
                                 <label>날짜 검색</label>
+                                
                                 <span class="input-group-addon">
 									<i class="fa fa-calendar bigger-110"></i>
 								</span>
+								<div class="mobile-block"></div>
 								<input type="text" id="date-range-picker" name="dates" value="<%=beforeWeek %> - <%=today %>" class="form-control" style="width:200px; display:inline-block" />
 								
 								<input type="hidden" id="date-text" name ="date" value="<%=beforeWeek2 %>:<%=today2 %>"/>
-								<button id="search-btn"  class="form-control" style="width:80px; display:inline-block;
+								<button id="search-btn"  class="btn btn-secondary btn-sm" style="width:80px;height:37px; display:inline-block;
 								vertical-align: middle; margin-bottom:2px" value="<%=beforeWeek %>:<%=today %>">검색</button>
 								
 								<script>
@@ -114,12 +119,15 @@ $(document).ready(function(){
                             </div>
                            </form>
                             <div class=ol-col>
-	                            <div class="ol-col-member" style="width:40%">상품정보</div>
+	                          	<div class="ol-col-member" style="width:40%">상품정보</div>
 	                            <div class="ol-col-member" style="width:15%; padding-right:2">주문일자</div>
 	                            <div class="ol-col-member" style="width:11%">주문번호</div>
 	                            <div class="ol-col-member" style="width:14%">주문금액(수량)</div>
 	                            <div class="ol-col-member" style="width:13%">주문상태</div>
 							</div>	
+							
+							<div class="mobile-border"></div>
+							
 								<c:forEach items='${orderList }' var='vo' varStatus='status'>
 									<div class ="ol-item">
 										<img class="ol-img" src="scs-manager${vo.image }"/>
@@ -136,6 +144,10 @@ $(document).ready(function(){
 										<p class="ol-price">${priceList[status.index]}</p>
 										<p class="ol-amount">(${vo.amount }개)</p>
 										</div>
+										<%-- <div class="mobile-ol-group">
+											<p class="mobile-ol-order-no">${vo.orderNo }</p>
+										</div>  --%>
+										
 										<div class="ol-state-div">
 										<p class="ol-state">${vo.statement }</p>
 										<c:if test='${vo.statement=="배송완료" }'>
@@ -157,7 +169,8 @@ $(document).ready(function(){
 													<input type="button" class="ol-btn-review btn btn-dark waves-effect" value="리뷰 완료" disabled/>
 											</c:if>
 										</c:if>
-										</div>										
+										</div>	
+											<div style="border-bottom:1px solid #9e9e9e;margin-top:10px;"></div>								
 									</div>
 									
 								</c:forEach>

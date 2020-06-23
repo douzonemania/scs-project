@@ -6,19 +6,19 @@
 <div id="design-source3">
 	<div class="designSource10CardBox">
 		<div class="designSource10Card">
-			<p class="designSource10Title">${requestScope.map[0].content }TEST</p>
-			<p class="designSource10Text">${requestScope.map[1].content }TEST</p>
-			<p class="designSource10Text">${requestScope.map[2].content }TEST</p>
+			<p class="designSource10Title">${requestScope.map[0].content }</p>
+			<p class="designSource10Text">${requestScope.map[1].content }</p>
+			<p class="designSource10Text">${requestScope.map[2].content }</p>
 		</div>
 		<div class="designSource10Card">
-			<p class="designSource10Title">${requestScope.map[3].content }TEST</p>
-			<p class="designSource10Text">${requestScope.map[4].content }TEST</p>
-			<p class="designSource10Text">${requestScope.map[5].content }TEST</p>
+			<p class="designSource10Title">${requestScope.map[3].content }</p>
+			<p class="designSource10Text">${requestScope.map[4].content }</p>
+			<p class="designSource10Text">${requestScope.map[5].content }</p>
 		</div>
 		<div class="designSource10Card">
-			<p class="designSource10Title">${requestScope.map[6].content }TEST</p>
-			<p class="designSource10Text">${requestScope.map[7].content }TEST</p>
-			<p class="designSource10Text">${requestScope.map[8].content }TEST</p>
+			<p class="designSource10Title">${requestScope.map[6].content }</p>
+			<p class="designSource10Text">${requestScope.map[7].content }</p>
+			<p class="designSource10Text">${requestScope.map[8].content }</p>
 		</div>
 	</div>
 </div>
