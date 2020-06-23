@@ -362,7 +362,8 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 				type: "POST",
 				dataType: 'json',		
 				success : function(response){
-					location.reload();
+					alert("상품이 등록되었습니다.")
+					location.href="${pageContext.request.contextPath }/${authUser.id}/product/list"
 				},
 				error: function(xhr, status, e){
 					console.error(status + " : " + e);
