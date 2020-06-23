@@ -4,6 +4,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
+	<div style="padding-top:30px;">
+
 	<div class="design-source1">
 		 
 			<div class='img-preview'><a href="${requestScope.map[3].content }"><img src="${requestScope.map[0].content }"/></a></div>
