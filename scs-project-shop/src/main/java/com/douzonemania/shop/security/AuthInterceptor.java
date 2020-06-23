@@ -12,6 +12,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.douzonemania.shop.repository.MainRepository;
 import com.douzonemania.shop.service.CustomService;
 import com.douzonemania.shop.vo.CategoryVo;
+import com.douzonemania.shop.vo.ContentsVo;
 import com.douzonemania.shop.vo.MainMenuVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.SubMenuVo;
@@ -41,7 +42,15 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			MainMenuVo vo = mainMenuSetting();
 			List<CategoryVo> list =categorySetting();
 			
-			List<SubMenuVo> subMenuList = customService.getSubMenuById(session.getAttribute("db").toString());			
+			List<SubMenuVo> subMenuList = customService.getSubMenuById(session.getAttribute("db").toString());
+			
+			
+			
+			for (SubMenuVo subMenuVo : subMenuList) {
+				List<ContentsVo> contentsVo = customService.getContentsByCustomNo(subMenuVo.getNo());
+				System.out.println(contentsVo);
+			}
+			
 			session.setAttribute("subMenuList",subMenuList);
 			
 			session.setAttribute("mainMenu", vo);

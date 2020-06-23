@@ -28,29 +28,24 @@ public class CustomController {
 	private CustomService customService;
 	
 	@RequestMapping("/{no}")
-	public String home(Model model, 
+	public String home(Model model,HttpSession session,
 			@PathVariable("no") int no
 			) {
+		String db = session.getAttribute("db").toString();
 		List<Map> contentList = new ArrayList();
 		List<ContentsVo> cVo = new ArrayList();		
 		List<CustomDesignVo> list = customService.getCustomDesignBySubMenu(no);
-		List<ContentsVo> contentsList = customService.getContentsByCustomNo(14);
-		for(CustomDesignVo i: list){
-			Map<String, Object> map = new HashMap<>();
-			cVo = customService.getContentsByCustomNo(i.getNo());
-			System.err.println(cVo+"::::cVo");
-			for(int index =0; index<cVo.size(); index++) {				
-				map.put(Integer.toString(index+1),cVo.get(index).getContent());	
-			}
-			contentList.add(map);
-			
+		List<List<ContentsVo>> totalList = new ArrayList<List<ContentsVo>>();
+ 
+		for (CustomDesignVo vo: list) {
+			List<ContentsVo> contentsList = customService.getContentsByCustomNo(vo.getNo());
+			totalList.add(contentsList);
 		}
-		model.addAttribute("contentList",contentList);
-		model.addAttribute("list", list);
-		model.addAttribute("contentsList",contentsList);
 		
+		model.addAttribute("contentsList",totalList);
+		model.addAttribute("list",list);
 	
-		return "custom/main";
+		return "custom/customindex";
 	}
 	
 	@RequestMapping(value = "/BEST", method = RequestMethod.GET)
