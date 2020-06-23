@@ -335,6 +335,12 @@
 			   group by DATE_FORMAT(shop_order.reg_date,'%Y-%m-%d')
 		]]>
 	</select>
+	
+	<select id="getShippingcharge" parameterType="map" resultType="Integer">
+		<![CDATA[
+			select ship_charge from scs2.site where id=#{id}		
+		]]>
+	</select>
 			
 </mapper>
 
