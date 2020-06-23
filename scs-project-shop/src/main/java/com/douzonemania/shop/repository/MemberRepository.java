@@ -1,6 +1,7 @@
 package com.douzonemania.shop.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,7 +13,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.douzonemania.shop.vo.BoardVo;
+import com.douzonemania.shop.vo.ItemBoardVo;
 import com.douzonemania.shop.vo.MemberVo;
+import com.douzonemania.shop.vo.OrderListVo;
 
 
 @Repository
@@ -128,7 +132,26 @@ public class MemberRepository {
 		return sqlSession.update("member.modPhone",map);	
 	}
 
+	public List<OrderListVo> getOrderList(String db, Long no) {
+		map.put("db", db);
+		map.put("no", no);
+		
+		return sqlSession.selectList("member.getOrderList", map);
+	}
 
+	public List<ItemBoardVo> getItemBoardList(String db, Long no) {
+		map.put("db", db);
+		map.put("no", no);
+		
+		return sqlSession.selectList("member.getItemBoardList", map);
+	}
+
+	public List<BoardVo> getQnaList(String db, Long no) {
+		map.put("db", db);
+		map.put("no", no);
+		
+		return sqlSession.selectList("member.getQnaList", map);
+	}
 
 
 	

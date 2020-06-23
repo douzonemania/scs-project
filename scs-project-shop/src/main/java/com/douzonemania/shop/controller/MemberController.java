@@ -1,6 +1,7 @@
 package com.douzonemania.shop.controller;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.shop.service.MemberService;
+import com.douzonemania.shop.vo.BoardVo;
+import com.douzonemania.shop.vo.ItemBoardVo;
 import com.douzonemania.shop.vo.MemberVo;
+import com.douzonemania.shop.vo.OrderListVo;
 
 @Controller
 @RequestMapping("/{db}/member")
@@ -96,9 +99,18 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String myPage(@ModelAttribute MemberVo vo, HttpServletRequest request, Model model, HttpSession session) {
+	public String myPage(@ModelAttribute MemberVo vo, HttpServletRequest request, 
+			Model model, HttpSession session, @PathVariable("db")String db) {
 		MemberVo nowvo = (MemberVo)session.getAttribute("authUser");
 		memberService.findUserByNo(nowvo.getNo());
+		
+		List<OrderListVo> orderList = memberService.getOrderList(db, nowvo.getNo());		// 주문내역
+		List<ItemBoardVo> itemBoardList = memberService.getItemBoardList(db, nowvo.getNo());
+		List<BoardVo> qnaList = memberService.getQnaList(db, nowvo.getNo());
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("itemBoardList",itemBoardList);
+		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("vo", memberService.findUserByNo(nowvo.getNo()));
 		return "member/mypage";
 	}
@@ -110,4 +122,10 @@ public class MemberController {
 		model.addAttribute("vo", memberService.findUserByNo(nowvo.getNo()));
 		return "member/passwordMod";
 	}
+	
+//	@RequestMapping()
+//	public String myItemBoard(HttpServletRequest request, 
+//			Model model, HttpSession session, @PathVariable("db")String db) {
+//		
+//	}
 }

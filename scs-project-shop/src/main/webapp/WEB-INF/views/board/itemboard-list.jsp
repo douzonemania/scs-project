@@ -34,7 +34,7 @@
 #board-table th {
 	 font-weight: bold; 
 	 font-size: 1.2em;
-	 border-bottom: 1px solid #CECECE;"
+	 border-bottom: 1px solid #CECECE;
 }
 
 #board-table tbody tr {
