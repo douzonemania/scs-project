@@ -117,6 +117,7 @@ $(document).ready(function(){
    	   		$("input:checkbox[id='item-best']").prop('checked', false);
    		}
 	});
+	
 });
 
 
@@ -219,7 +220,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	if($('input[name="shipping-charge"]:checked').val()=="free")
 		var shippingCharge=0;
 	else
-		var shippingCharge=3000; // 설정 배송비 나중에 수정할것
+		var shippingCharge="${shippingCharge}"; // 설정 배송비 나중에 수정할것
 
 	var vo={};
 	vo.no = no;

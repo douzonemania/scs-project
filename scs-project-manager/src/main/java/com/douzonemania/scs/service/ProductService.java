@@ -454,6 +454,10 @@ public class ProductService {
 				Locale.getDefault());
 		return formatter.format(weekago);
 	}
+
+	public int getShippingCharge(String id) {
+		return productRepository.getShippingCharge(id);
+	}
 	
 	
 	

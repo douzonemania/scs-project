@@ -355,6 +355,12 @@ public class ProductRepository {
 		return sqlSession.selectList("product.getStatisticsByItemNo", map);
 	}
 
+	public int getShippingCharge(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		return sqlSession.selectOne("product.getShippingcharge",map);
+	}
+
 
 
 

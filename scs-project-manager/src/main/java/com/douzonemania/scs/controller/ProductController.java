@@ -66,11 +66,13 @@ public class ProductController {
 			Model model,
 			@AuthUser CeoVo authUser) {
 		String id = authUser.getId();
+		int shippingCharge = productService.getShippingCharge(id);
 		List<CategoryVo> categoryNameList = productService.getCategoryNameList(id);
 		List<OptionVo> sizeOptionList = productService.getOptionListOfSize(id);
 		List<OptionVo> colorOptionList = productService.getOptionListOfColor(id);
 		List<ShipCompanyVo> shipCompanyList = productService.getShipCompanyList(id);
 		
+		model.addAttribute("shippingCharge", shippingCharge);		// 설정 배송비
 		model.addAttribute("categoryNameList",categoryNameList);	// 카테고리 리스트
 		model.addAttribute("sizeOptionList", sizeOptionList);		// 사이즈 리스트
 		model.addAttribute("colorOptionList", colorOptionList);		// 컬러 리스트
