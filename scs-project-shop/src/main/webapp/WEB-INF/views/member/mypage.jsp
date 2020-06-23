@@ -212,8 +212,8 @@ $(function(){
 										<div class="ol-iteminfo">
 											<p class="ol-itemName">${vo.name }</p>
 											<div class="ol-option">
-												<p class="ol-size">옵션 : ${vo.size } /</p>
-												<p class="ol-color">${vo.color }</p>
+												<p class="ol-size" style="margin:0px; padding:0px;">옵션 : ${vo.size } /</p>
+												<p class="ol-color" style="margin:0px; padding:0px;">${vo.color }</p>
 											</div>
 										</div>
 										<p class="ol-reg">${vo.regDate }</p>
