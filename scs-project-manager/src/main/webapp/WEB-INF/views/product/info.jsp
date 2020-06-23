@@ -85,6 +85,16 @@ $(function() {
 		//openWin.document.getElementById("cInput").value = document.getElementById("pInput").value;
 		
 	});
+	
+	$('#customCheck-all').click(function(){
+		if($('#customCheck-all').is(':checked')){
+			$('input[type=checkbox]').prop('checked',true);
+			
+		}else{
+			$('input[type=checkbox]').prop('checked',false);			
+		}
+		
+	});
 });
 
 </script>       
@@ -212,9 +222,8 @@ $(function() {
 										<tr>
 											<th style="width: 20px;">
 												<div class="custom-control custom-checkbox">
-													<input type="checkbox" class="custom-control-input"
-														id="customCheck1"> <label
-														class="custom-control-label " for="customCheck1">&nbsp;</label>
+													<input type="checkbox" class="custom-control-input" id="customCheck-all"> 
+													<label class="custom-control-label " for="customCheck-all">&nbsp;</label>
 												</div>
 											</th>
 											<th>NO</th>
@@ -234,9 +243,8 @@ $(function() {
 										<tr>
 											<td>
 												<div class="custom-control custom-checkbox">
-													<input type="checkbox" class="custom-control-input"
-														id="customCheck1"> <label
-														class="custom-control-label" for="customCheck1">&nbsp;</label>
+													<input type="checkbox" class="custom-control-input" id="${status.index+1 }"> 
+													<label class="custom-control-label" for="${status.index+1 }">&nbsp;</label>
 												</div>
 											</td>
 											<td>${status.count + (map.page - 1) * 5 }</td>
