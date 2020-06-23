@@ -18,7 +18,7 @@ public class ItemVo {
 	private boolean newItem = false;
 	private String editor;
 	private String des;
-	private Date regDate;
+	private Timestamp regDate;
 	private String categoryNo;
 	private int intRevAvg;
 	private double douRevAvg;
@@ -110,10 +110,10 @@ public class ItemVo {
 	public void setDes(String des) {
 		this.des = des;
 	}
-	public Date getRegDate() {
+	public Timestamp getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date regDate) {
+	public void setRegDate(Timestamp regDate) {
 		this.regDate = regDate;
 	}
 	public String getCategoryNo() {

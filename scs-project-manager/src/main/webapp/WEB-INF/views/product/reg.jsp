@@ -105,8 +105,20 @@ $(document).ready(function(){
 		$('#excelForm img').eq(index).attr("src","");
 		$('.fileInput').eq(index).val("");
 
-	})
+	});
+	$("input:checkbox[id='item-best']").click(function(){
+    	if ($(this).prop('checked')) {
+   	   		$("input:checkbox[id='item-new']").prop('checked', false);
+   		}
+	});
+	
+	$("input:checkbox[id='item-new']").click(function(){
+    	if ($(this).prop('checked')) {
+   	   		$("input:checkbox[id='item-best']").prop('checked', false);
+   		}
+	});
 });
+
 
 function preview(input, target) {
 	if(input.files && input.files[0]){
@@ -178,13 +190,7 @@ $(document).on("click","#subImagePreview1",function(){
 })
 
  */
-
-
-
-
-
-
-
+ 
 $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	var no = null;
 	var code = document.getElementById("item-code").value;
@@ -201,6 +207,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 		var bestItem=true;
 	if($("input:checkbox[id='item-new']").is(":checked") == true)
 		var newItem=true;
+
 	
 	var description = $("#item-des").val();
 	var regDate = null;
@@ -525,7 +532,6 @@ $(function() {
 						<div class="card-body" id="search-form">
 							<h4 class="page-title">상품노출 설정</h4>
 
-
 							<!-- 상품노출 테이블 시작-->
 							<table class="table-form-exposure">
 								<colgroup>
@@ -536,7 +542,7 @@ $(function() {
 								</colgroup>
 								<tbody>
 									<tr>
-								
+									
 									<c:set var="isVisible" value="${vo.visible }" />
 									<c:choose>
 	 
@@ -558,30 +564,20 @@ $(function() {
 										 </c:otherwise>
 									 </c:choose>
 									 
-									 <c:set var="isBest" value="${vo.bestItem }" />
-									 <c:set var="isNew" value="${vo.newItem }" />
+									 
 											<th>상품 아이콘</th>
 											<td colspan="2">										
 											
-											<c:choose>
-												<c:when test="${isBest eq true}">
-													<input type='checkbox' id="item-best" value="best" checked/>
-												</c:when>
-												<c:otherwise>
-													<input type='checkbox' id="item-best" value="best"/>											
-												</c:otherwise>										
-											</c:choose>
+											
+											
+													<input type='checkbox' id="item-best" name="item-bestNew" value="best"/>											
+											
 											
 												<span class="badge badge-danger">BEST</span><label class="text-space"></label> 
 											
-											<c:choose>
-												<c:when test="${isNew eq true }">
-													<input type='checkbox' id="item-new" value="new" checked/>
-												</c:when>
-												<c:otherwise>
-													<input type='checkbox' id="item-new" value="new"/>
-												</c:otherwise>	
-											</c:choose>
+											
+													<input type='checkbox' id="item-new" name="item-bestNew" value="new"/>
+					
 										
 											<span class="badge badge-warning checkbox-space">NEW</span>
 										</td>
