@@ -135,7 +135,7 @@
 						<div class="product-group" onClick="gotoDetail(${vo.no})">
 							<div class="product-img-bg" >
 	                        	<!-- img source 받아오기  -->
-	                            <img src="${pageContext.servletContext.contextPath }${vo.mainImage}" alt="product-pic" class="img-fluid" />
+	                            <img src="/scs-manager${vo.mainImage}" alt="product-pic" class="img-fluid" />
 	                            	<!-- best, new 노출 -->
 	                            	<c:if test="${vo.bestItem ==true }">
 	                            		 <span class="badge badge-pink" >BEST</span>
@@ -187,7 +187,7 @@
 	            <c:forEach items="${map.list }" var="vo">
 	           	 <div class="mobile-product card-box" onClick="gotoDetail(${vo.no})">
                     <div class="mobile-product-img">
-                        <img src="${pageContext.request.contextPath}${vo.mainImage}" alt="product-pic" class="mobile-product-img-mg" />
+                        <img src="/scs-manager${vo.mainImage}" alt="product-pic" class="mobile-product-img-mg" />
                         <!-- best, new 노출 -->
                        	<c:if test="${vo.bestItem ==true }">
                        		 <span class="badge badge-pink" >BEST</span>
