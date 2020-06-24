@@ -336,7 +336,7 @@ public class ProductService {
 		return productRepository.delStock(id, itemNo);
 	}
 	//파일 업로드
-	public String restore(String id, MultipartFile excelFile) {
+	public String restore(String id, MultipartFile excelFile, String index) {
 		String url = "";
 		try {
 			if (excelFile.isEmpty()) {
@@ -346,7 +346,7 @@ public class ProductService {
 			String originFilename = excelFile.getOriginalFilename();
 			String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
 
-			String saveFilename = generateSaveFilename(originFilename, extName);
+			String saveFilename = generateSaveFilename(originFilename, extName, index);
 			long fileSize = excelFile.getSize();
 
 			byte[] fileData = excelFile.getBytes();
@@ -364,7 +364,7 @@ public class ProductService {
 	}
 	
 	//파일 수정
-	public String restore(String id, MultipartFile excelFile, String src) {
+	public String restore(String id, MultipartFile excelFile, String src, String index) {
 		String url = "";
 		try {
 			if(src != null && excelFile.isEmpty()) {
@@ -378,7 +378,7 @@ public class ProductService {
 			System.err.println("!!!!OriginFIleName!!!" + originFilename);	
 			String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
 
-			String saveFilename = generateSaveFilename(originFilename, extName);
+			String saveFilename = generateSaveFilename(originFilename, extName, index);
 
 			byte[] fileData = excelFile.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
@@ -394,7 +394,7 @@ public class ProductService {
 		return url;
 	}
 	// 파일 네임 변환
-	private String generateSaveFilename(String originFileName, String extName) {
+	private String generateSaveFilename(String originFileName, String extName, String index) {
 		String filename = "";
 
 		Calendar calendar = Calendar.getInstance();
@@ -405,7 +405,7 @@ public class ProductService {
 		filename += calendar.get(Calendar.MINUTE);
 		filename += calendar.get(Calendar.SECOND);
 		filename += calendar.get(Calendar.MILLISECOND);
-		//filename += ("." + originFileName);
+		filename += index;
 		filename += ("." + extName);
 
 		return filename;
