@@ -105,7 +105,7 @@ public class MemberController {
 	public String myPage(@ModelAttribute MemberVo vo, HttpServletRequest request, 
 			Model model, HttpSession session, @PathVariable("db")String db) {
 		MemberVo nowvo = (MemberVo)session.getAttribute("authUser");
-		memberService.findUserByNo(nowvo.getNo());
+		MemberVo mVo = memberService.findUserByNo(nowvo.getNo());
 		
 		List<OrderListVo> orderList = memberService.getOrderList(db, nowvo.getNo());		// 주문내역
 		List<ItemBoardVo> itemBoardList = memberService.getItemBoardList(db, nowvo.getNo());
@@ -113,12 +113,11 @@ public class MemberController {
 		List<BoardVo> qnaList = memberService.getQnaList(db, nowvo.getNo());
 		orderService.convertOption(db, orderList);
 		
-		System.err.println("orderList::: " + orderList );
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("priceList", priceList);
 		model.addAttribute("itemBoardList",itemBoardList);
 		model.addAttribute("qnaList", qnaList);
-		model.addAttribute("vo", memberService.findUserByNo(nowvo.getNo()));
+		model.addAttribute("vo", mVo);
 		return "member/mypage";
 	}
 	
