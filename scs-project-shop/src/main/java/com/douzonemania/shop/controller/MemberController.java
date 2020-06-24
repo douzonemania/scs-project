@@ -21,6 +21,7 @@ import com.douzonemania.shop.service.MemberService;
 import com.douzonemania.shop.service.OrderService;
 import com.douzonemania.shop.vo.BoardVo;
 import com.douzonemania.shop.vo.ItemBoardVo;
+import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OrderListVo;
 
@@ -111,9 +112,24 @@ public class MemberController {
 		List<ItemBoardVo> itemBoardList = memberService.getItemBoardList(db, nowvo.getNo());
 		List<String> priceList = orderService.convertPrice(orderList);
 		List<BoardVo> qnaList = memberService.getQnaList(db, nowvo.getNo());
+		List<ItemVo> cartList = memberService.getCartList(db, nowvo.getNo());
+		
+		for (ItemVo itemVo : cartList) {
+				int nowSale = itemVo.getSale();
+				if(nowSale !=0) {
+					int nowPrice= itemVo.getNowPrice();
+					double calSale = (nowSale * 0.01);
+					int totalPrice = nowPrice - (int)(nowPrice*calSale);
+					itemVo.setTotalPrice(totalPrice);
+				}else {
+					itemVo.setTotalPrice(itemVo.getNowPrice());
+				}
+		}
+		
 		orderService.convertOption(db, orderList);
 		
 		model.addAttribute("orderList", orderList);
+		model.addAttribute("cartList", cartList);
 		model.addAttribute("priceList", priceList);
 		model.addAttribute("itemBoardList",itemBoardList);
 		model.addAttribute("qnaList", qnaList);
