@@ -63,7 +63,7 @@ public class UserRepository {
 				+ "    no           INT UNSIGNED NOT NULL AUTO_INCREMENT ," + "    order_number VARCHAR(20)  NOT NULL, "
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "    statement    ENUM('주문완료', '입금완료', '배송준비중', '배송중', '배송완료', '취소처리중', '교환처리중', '환불처리중', '처리완료') NOT NULL,"
-				+ "    member_no    INT UNSIGNED NULL ," + "ship_no INT UNSIGNED NULL,"
+				+ "    member_no    INT UNSIGNED NULL ," + "ship_no INT UNSIGNED NULL," + "ship_memo VARCHAR(50) NULL,"
 				+ "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8;";
 		String boardQry = "CREATE TABLE " + id + ".board(" + "    no        INT UNSIGNED NOT NULL AUTO_INCREMENT,"

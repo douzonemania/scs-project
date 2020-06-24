@@ -205,18 +205,7 @@ public class OrderController {
 	 * return "order/board-write"; }
 	 */
 
-	@RequestMapping(value="/review/list", method = { RequestMethod.GET, RequestMethod.POST })
-	public String reviewList(@RequestParam(value="p", required=true, defaultValue="1") int page,
-			Model model,HttpSession session) {
-		
-		String db = session.getAttribute("db").toString(); 
-
-		Map<String, Object> map = orderService.getAllReviewList(page, db);
-		
-		model.addAttribute("map", map);
-		
-		return "order/review";
-	}
+	
 	
 	@RequestMapping(value="/review/view/{no}")
 	public String reviewView(@PathVariable int no,

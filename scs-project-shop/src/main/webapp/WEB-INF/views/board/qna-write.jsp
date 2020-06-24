@@ -43,6 +43,11 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	$('.ql-stroke').click(function(e){
+		alert("tEST");
+	})
+	
+	
 	$('#qna-custom-btn').click(function(e){
 		
 		e.preventDefault();

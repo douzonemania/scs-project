@@ -114,8 +114,8 @@ $(document).ready(function(){
                         
                         <c:forEach items="${map.photoList }" var="vo" varStatus="status">  
                             <div class="card">
-                                <img class="card-img-top img-fluid" src="${ pageContext.request.contextPath }${vo.image}" alt="Card image cap">
-                                <p>
+                                <img class="ol-img" src="${ pageContext.request.contextPath }${vo.image}">
+                                <p style="margin-left: 15px; width: 25%;">
                                 	<c:forEach begin="1" end="${vo.rate }">
 										<span class="mdi mdi-star text-warning"></span>
 									</c:forEach>
@@ -130,56 +130,6 @@ $(document).ready(function(){
                                 </div>
                             </div>
                         </c:forEach>
-
-                            <!-- <div class="card">
-                                <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title that wraps to a new line</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a
-                                        natural lead-in to additional content. This content is a little bit
-                                        longer.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="card">
-                                <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title that wraps to a new line</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a
-                                        natural lead-in to additional content. This content is a little bit
-                                        longer.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="card">
-                                <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title that wraps to a new line</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a
-                                        natural lead-in to additional content. This content is a little bit
-                                        longer.</p>
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title that wraps to a new line</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a
-                                        natural lead-in to additional content. This content is a little bit
-                                        longer.</p>
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title that wraps to a new line</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a
-                                        natural lead-in to additional content. This content is a little bit
-                                        longer.</p>
-                                </div>
-                            </div> -->
                             
                         </div>
                         
@@ -199,7 +149,7 @@ $(document).ready(function(){
 	        	   <table class="table-form-exposure" id="board-table">
 		           	<thead>
 				        <tr>
-				        	<th>번호</th>
+				        	<th>&nbsp;&nbsp;번호</th>
 				        	<th>상품이름</th>
 					        <th>제목</th>
 					        <th>작성자</th>
@@ -231,7 +181,7 @@ $(document).ready(function(){
                     <div class="col-12">
                         <ul class="pagination pagination-rounded justify-content-center mb-3">
                             <li class="page-item">
-                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/review/list?p=${map.prevPage}" aria-label="Previous">
+                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/custom/REVIEW?p=${map.prevPage}" aria-label="Previous">
                                     <span aria-hidden="true">«</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
@@ -240,17 +190,17 @@ $(document).ready(function(){
 								<c:choose>
 									<c:when test="${map.page == (map.beginPage+(i-1)) }">
 										<li class ="page-item active">
-											<a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/review/list?p=${map.beginPage+(i-1) }">${map.beginPage+(i-1) }</a>
+											<a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/custom/REVIEW?p=${map.beginPage+(i-1) }">${map.beginPage+(i-1) }</a>
 										</li>
 									</c:when>
 									<c:otherwise>
-										<li><a  class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/review/list?p=${map.beginPage+(i-1) }">${map.beginPage+(i-1) }</a></li>
+										<li><a  class="page-link" href="${pageContext.servletContext.contextPath }/${db }/custom/REVIEW?p=${map.beginPage+(i-1) }">${map.beginPage+(i-1) }</a></li>
 									</c:otherwise>
 								
 								</c:choose>
 							</c:forEach>
                             <li>
-                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/review/list?p=${map.nextPage }" aria-label="Next">
+                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/custom/REVIEW?p=${map.nextPage }" aria-label="Next">
                                     <span aria-hidden="true">»</span>
                                     <span class="sr-only">Next</span>
                                 </a>
