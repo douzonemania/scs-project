@@ -95,7 +95,7 @@ public class OrderController {
 		String db = session.getAttribute("db").toString();	
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
 		
-		//orderService.deleteCartAll(db,vo.getNo());
+		orderService.deleteCartAll(db,vo.getNo());
 		
 		return JsonResult.success("");
 		

@@ -289,13 +289,11 @@
 	}
 	
 	.responsive-cart-img{
-		height:70px;
-		width:70px;
+		height:60px;
+		width:60px;
+		margin:5px;
 	}
 	
-	.responsive-cart-img{
-	
-	}
 	.responsive-cart-info{
 		
 		width:73%;
@@ -318,7 +316,6 @@
 	.responsive-cart-btn-group{
 		margin:0px;
 		width:100%;
-		
 	}
 	.responsive-order-btn-group{
 		margin:0px;
@@ -350,7 +347,7 @@
 	}
 	
 	.mobile-margin-left{
-		width:43%;
+		width:35%;
 		display:inline-block;
 	}
 	

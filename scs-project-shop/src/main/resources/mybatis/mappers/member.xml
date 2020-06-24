@@ -165,4 +165,24 @@
 
 	</select>
 	
+	<select id="findAgreement" parameterType="map" resultType="string">
+		<choose>
+			<when test="field==first_agree">
+				<![CDATA[
+					select first_agree
+					from scs2.agreement
+					where id=#{db}
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					select third_agree
+					from scs2.agreement
+					where id=#{db}
+				]]>
+			</otherwise>
+		</choose>
+		
+	</select>
+	
 </mapper>

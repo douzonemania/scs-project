@@ -161,5 +161,8 @@ public Boolean sendPasswordEmail(String id, String phone) {
 	public List<ItemVo> getCartList(String db, Long no) {
 		return memberRepository.getCartList(db, no);
 	}
+	public String findAgreement(String db,String field) {
+		return memberRepository.findAgreement(db,field);
+	}
 
 }

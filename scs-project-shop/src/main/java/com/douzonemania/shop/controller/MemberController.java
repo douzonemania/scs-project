@@ -134,4 +134,18 @@ public class MemberController {
 //			Model model, HttpSession session, @PathVariable("db")String db) {
 //		
 //	}
+	
+	@RequestMapping(value ="/agree/{num}")
+	public String firstAgree(HttpServletRequest request,@PathVariable("num")String num,Model model) {
+		HttpSession session = request.getSession();
+		String db = session.getAttribute("db").toString();
+		
+		String agreement =  "quill2.setContents([ " + 
+				memberService.findAgreement(db,num+"_agree")+ "]);";
+	
+		model.addAttribute("viewer",agreement);
+		
+		return "member/agree";
+	}
+
 }

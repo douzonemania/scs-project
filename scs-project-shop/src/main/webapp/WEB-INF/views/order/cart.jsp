@@ -242,70 +242,6 @@
                 <span style='Font-size:24px; font-weight:Bold; color:#323A46;'>Product</span> 상품 정보
             </div>
 
-           <%--  <div class='cart-custom-list' >
-                <div class='col-lg-12'> 
-                        <div class='table-responsive'>
-                            <table class='table mb-0 order-table-custom' style='margin : 0 auto; text-align: center;'>
-                                <colgroup>
-                                    <col width='5%'>
-                                    <col width='40%'>
-                                    <col width='17%'>
-                                    <col width='17%'>
-                                    <col width='26%'>
-                                </colgroup>
-                                <thead class='thead-light'>
-                                <tr>    
-                                    <th > 
-                                        <div class='checkbox checkbox-dark mb-2'>
-                                        <input id='cart-all-select' type='checkbox'>
-                                        <label for='cart-all-select'>번호</label>
-                                        </div>
-                                    </th>
-                                    <th>상품명</th>
-                                    <th>수량</th>
-                                    <th>상품금액</th>
-                                    <th>주문관리</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items='${list }' var='vo' varStatus='status'>
-                              	  <tr id='cart-list' value='${status.index+1 }'>
-                                    <td value='${status.index+1 }'>
-	                                   	<div class='checkbox checkbox-dark mb-2 '>
-		                                    <input id='${status.index+1 }' type='checkbox' class='cart-select' value='${status.index+1 }'>
-		                                    <label for='${status.index+1 }' value='${status.index+1 }'>${status.index+1 }</label>
-	                                    </div>
-                                  	</td>
-                                    <td style='padding-top:15px'>
-                                        <img src='assets/images/review-img.png' alt='d' class='rounded cart-img'>
-                                        <div class = 'order-custom-product-name'> ${vo.name }</div>
-                                    </td>   
-                                    <td>
-                                       <div class='order-custom-count'>
-                                       <button class='btn btn-dark waves-effect ' value='minus'><i class='fe-minus cart-minus-btn'></i></button>
-                                        <input type='text' class='form-control' value='${vo.amount}' required>
-                                       <button class='btn btn-dark waves-effect ' value='plus' ><i class='fe-plus cart-plus-btn'></i></button>
-                                       </div>
-                                    </td>
-                                    <td>${vo.totalPrice }</td>
-                                    <td style='padding-top:10px;'><button class='btn btn-dark waves-effect cart-delete-button' value=${vo.cartNo } id='${status.index+1 }'>삭제하기</button></td>
-                                </tr>
-                                </c:forEach>
-                                </tbody>
-
-                            </table>
-                            
-                        </div> <!-- end table-responsive-->   
-
-                </div> <!-- end col -->
-            </div> --%>
-            
-            <!-- <div class='payment-info-button'>
-                <span>선택된 상품</span>
-                <button class='btn btn-dark waves-effect cart-delete-button'>삭제하기</button>
-
-                <button class='btn btn-dark waves-effect cart-delete-button float-right cart-btn'>장바구니 비우기</button>
-            </div> -->
             <div class='moblie-cart-all-selector'>
                 <div class='checkbox checkbox-blue  m-1'>
                     <input id='cart-all-select' type='checkbox'>
@@ -337,7 +273,7 @@
                    		<img src='/scs-manager${vo.mainImage }' style="max-width:150px; max-height:92px;" alt='' class='rounded'>
                     </div>
                     <div class='responsive-cart-info float-right''>
-                    	<div style='width:60%; display:inline-block;' >
+                    	<div style='width:55%; display:inline-block;' >
                     		<div class='responsive-cart-product-title'>
                     		${vo.name }
                     	</div>
@@ -358,35 +294,7 @@
 	                            <button class='btn btn-dark waves-effect ' value='plus'><i class='fe-plus cart-plus-btn'></i></button>
 	                       	 </div>
 	                     </div>
-                     
                     </div>
-                   	
-                   	
-                    
-                    
-                    <%-- <div class='mobile-cart-list ' style='Width:100%'>
-                        <div class='mobile-cart-list-img'>
-                            <img src='assets/images/review-img.png' alt='d' height='80' class='rounded'>
-                        </div>
-    
-                        <div class='mobile-cart-list-box '>
-                            <div class='mobile-cart-list-product-title'>
-                                ${vo.name }
-                            </div>
-                            <div class='mobile-cart-list-product-option'>
-                               		 옵션 : ${vo.firstOptionName } ${vo.secondOptionName }
-                            </div>
-                            <div class='mobile-cart-list-product-price float-right'>
-                               ${vo.totalPrice }
-                            </div>
-    
-                            <div class='mobile-cart-count-btn float-right'>
-                                <button class='btn btn-dark waves-effect '><i class='fe-plus cart-plus-btn'></i></button>
-                                <input type='text' class='form-control' value='${vo.amount }' required>
-                                <button class='btn btn-dark waves-effect '><i class='fe-minus cart-minus-btn'></i></button>
-                            </div>
-                        </div>
-                    </div> --%>
                 </div>
             </div>
             </c:forEach>
@@ -395,29 +303,12 @@
             <button class='btn btn-dark waves-effect float-right' style='margin-top:50px' id='delete-all-product'>전체상품 삭제</button>
             
 			<div style='margin-top: 150px;'></div>
-
-
-           <!--  <div class='recipient-info'>
-                <span style='Font-size:24px; font-weight:Bold; color:#323A46;'>주문 정보</span> 
-            </div>
-
-            <div class='recipient-info'>
-                <div style='margin-top:10px'></div>
-                <span style='Font-size:20px; font-weight:Bold; color:#323A46;'>결제 예정 금액 :</span> 
-                <span style='Font-size:20px; font-weight:Bold; color:#ff0000;' id='totalPrice'></span> 
-                <span style='Font-size:20px; font-weight:Bold; color:#323A46;'>원</span> 
-            </div> -->
             <div class='cart-order-btn'>
                 <div style='margin-top:30px'></div>
                 <button class='btn btn-dark waves-effect cart-delete-button' id='cart-all-order-btn'>전체 상품 주문</button>
                 <button class='btn btn-dark waves-effect cart-delete-button' id='cart-select-order-btn'>선택 상품 주문</button>
+            </div>    
             </div>
-        
-
-            </div>
-            
-
-            
             </div>
         </div>
         </div>
