@@ -274,8 +274,8 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 		alert("상품코드를 입력하세요");		
 		return;
 	}
-	if(name==""){
-		alert("상품이름을 입력하세요");
+	if(name=="" || name.length>8){
+		alert("상품이름을 입력하세요(최대 8자)");
 		return;
 	}
 	if(supPrice=="" || !$.isNumeric(supPrice)){
@@ -283,7 +283,11 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 		return;
 	}
 	if(nowPrice=="" || !$.isNumeric(nowPrice)){
-		alert("정상가를 입력하세요");
+		alert("정상가를 정확히 입력하세요(숫자)");
+		return;
+	}
+	if(!$.isNumeric(sale)){
+		alert("할인율을 정확히 입력하세요(숫자)");
 		return;
 	}
 	if(shipCompany=="----"){
