@@ -374,18 +374,15 @@ public class ProductController {
 				@RequestParam(value = "excelFile5") MultipartFile excelFile5
 				) throws Exception{			
 		
-			String id = authUser.getId();			
-			String mainImage = productService.restore(id, excelFile);
-			String subImage1 = productService.restore(id, excelFile1);
-			String subImage2 = productService.restore(id, excelFile2);
-			String subImage3 = productService.restore(id, excelFile3);
-			String subImage4 = productService.restore(id, excelFile4);
-			String subImage5 = productService.restore(id, excelFile5);
-			subImage1 += "1";
-			subImage2 += "2";
-			subImage3 += "3";
-			subImage4 += "4";
-			subImage5 += "5";
+			String id = authUser.getId();
+			//맨뒤에 String index인수는 파일 이름 겹치게 저장되는것 방지
+			String mainImage = productService.restore(id, excelFile, "1");
+			String subImage1 = productService.restore(id, excelFile1, "2");
+			String subImage2 = productService.restore(id, excelFile2, "3");
+			String subImage3 = productService.restore(id, excelFile3, "4");
+			String subImage4 = productService.restore(id, excelFile4, "5");
+			String subImage5 = productService.restore(id, excelFile5, "6");
+
 			String image = mainImage + "?" + subImage1 + "?" + subImage2 + "?" + subImage3 + "?" + subImage4 + "?" + subImage5; 
 			
 			return JsonResult.success(image);
@@ -406,12 +403,12 @@ public class ProductController {
 			System.err.println(subSrcArray + ":::::::::::::::::::::::::::::::::::");
 			String id = authUser.getId();
 						
-			String mainImage = productService.restore(id, excelFile, subSrcArray.get(0));
-			String subImage1 = productService.restore(id, excelFile1, subSrcArray.get(1));
-			String subImage2 = productService.restore(id, excelFile2, subSrcArray.get(2));
-			String subImage3 = productService.restore(id, excelFile3, subSrcArray.get(3));
-			String subImage4 = productService.restore(id, excelFile4, subSrcArray.get(4));
-			String subImage5 = productService.restore(id, excelFile5, subSrcArray.get(5));
+			String mainImage = productService.restore(id, excelFile, subSrcArray.get(0), "1");
+			String subImage1 = productService.restore(id, excelFile1, subSrcArray.get(1), "2");
+			String subImage2 = productService.restore(id, excelFile2, subSrcArray.get(2), "3");
+			String subImage3 = productService.restore(id, excelFile3, subSrcArray.get(3), "4");
+			String subImage4 = productService.restore(id, excelFile4, subSrcArray.get(4), "5");
+			String subImage5 = productService.restore(id, excelFile5, subSrcArray.get(5), "6");
 			String image = mainImage + "?" + subImage1 + "?" + subImage2 + "?" + subImage3 + "?" + subImage4 + "?" + subImage5; 
 			return JsonResult.success(image);
 		}		
