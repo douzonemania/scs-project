@@ -69,7 +69,7 @@
 
                     <div style="margin-top: 30px;"></div>
 
-                    <div class="text-center">
+                   <!--  API 로그인<div class="text-center">
                         <ul class="social-list list-inline mt-3 mb-0">
                             <li class="list-inline-item">
                                 <a href="javascript: void(0);" class="social-list-item border-warning text-warning"><i class="fe-message-circle"></i></a>
@@ -82,7 +82,7 @@
                                 <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
                             </li>        
                         </ul>
-                    </div>
+                    </div> -->
 
                     <div style="margin-top: 30px;"></div>
 

@@ -112,7 +112,7 @@
 @media(max-width:991px){
 	.mypage-order-list-category { margin:0px; padding:0px;}
 	.mypage-main-order-list a{font-size:1em; }
-	.mypage-main-order-list span{font-size:0.8em; }
+	.mypage-main-order-list span{font-size:16px; }
 	#date-range-picker{}
 	
 	.ol-col-member{font-size:0.9em;line-height:20	px;}

@@ -160,6 +160,14 @@ public class MemberRepository {
 		return sqlSession.selectList("member.getCartList", map);
 	}
 
+	public String findAgreement(String db,String field) {
+		
+		map.put("db",db);
+		map.put("field",field);
+		
+		return sqlSession.selectOne("member.findAgreement",map);
+	}
+
 
 	
 }
