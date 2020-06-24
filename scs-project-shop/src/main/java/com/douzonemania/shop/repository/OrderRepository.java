@@ -5,28 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
 
 import com.douzonemania.shop.vo.CartVo;
 import com.douzonemania.shop.vo.CategoryVo;
 import com.douzonemania.shop.vo.ItemBoardVo;
 import com.douzonemania.shop.vo.ItemVo;
-import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OptionVo;
 import com.douzonemania.shop.vo.OrderListVo;
 import com.douzonemania.shop.vo.ReviewVo;
 import com.douzonemania.shop.vo.ShipVo;
-import com.douzonemania.shop.vo.StockVo;
+import com.douzonemania.shop.vo.StatementVo;
 
 @Repository
 public class OrderRepository {
@@ -392,11 +383,13 @@ public class OrderRepository {
 	public List<Integer> getCountStatement(String db, List<OrderListVo> oVo) {
 		String[] statementArr = {"주문완료", "입금완료", "배송준비중", "배송중", "배송완료", "취소처리중", "교환처리중", "환불처리중","처리완료"};
 		List<Integer> stList = new ArrayList<>();
+		List<StatementVo> sVo = new ArrayList<>();
 		map.put("db",db);
 		for(int i=0; i<statementArr.length; i++) {
 			map.put("statement", statementArr[i]);
-			int temp = sqlSession.selectOne("order.getCountStatement", map);
-			stList.add(temp);
+			sVo = sqlSession.selectList("order.getCountStatement", map);
+			int statementCount = sVo.size();
+			stList.add(statementCount);
 		}
 		return stList;
 	}
