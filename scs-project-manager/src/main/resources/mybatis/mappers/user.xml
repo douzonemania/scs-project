@@ -183,11 +183,67 @@
 		]]>
 	</select>
 	
-	<select id="getStatement" parameterType="map" resultType="int">
+	<select id="getStatementOrderCompleted" parameterType="map" resultType="int">
 		<![CDATA[
-			select ifnull(count(statement),0)
-			  from ${id}.shop_order
-			  group by statement
+			select count(statement)
+			  from ${db}.shop_order
+			  where statement = '주문완료';
+		]]>
+	</select>
+	<select id="getStatementDepositcompleted" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(statement)
+			  from ${db}.shop_order
+			  where statement = '입금완료';
+		]]>
+	</select>
+	<select id="getStatementPreparingDelivery" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(statement)
+			  from ${db}.shop_order
+			  where statement = '배송준비중';
+		]]>
+	</select>
+	<select id="getStatementShippingProgress" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(statement)
+			  from ${db}.shop_order
+			  where statement = '배송중';
+		]]>
+	</select>
+	<select id="getStatementDeliveryCompleted" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(statement)
+			  from ${db}.shop_order
+			  where statement = '배송완료';
+		]]>
+	</select>
+	<select id="getStatementCancelProcessing" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(statement)
+			  from ${db}.shop_order
+			  where statement = '취소처리중';
+		]]>
+	</select>
+	<select id="getStatementExchangeProcessing" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(statement)
+			  from ${db}.shop_order
+			  where statement = '교환처리중';
+		]]>
+	</select>
+	<select id="getStatementRefundProcessing" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(statement)
+			  from ${db}.shop_order
+			  where statement = '환불처리중';
+		]]>
+	</select>
+	<select id="getStatementProcessingCompleted" parameterType="map" resultType="int">
+		<![CDATA[
+			select count(statement)
+			  from ${db}.shop_order
+			  where statement = '처리완료';
 		]]>
 	</select>
 	
