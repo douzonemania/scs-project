@@ -1,7 +1,6 @@
 package com.douzonemania.shop.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.shop.service.CustomService;
+import com.douzonemania.shop.service.OrderService;
 import com.douzonemania.shop.vo.ContentsVo;
 import com.douzonemania.shop.vo.CustomDesignVo;
 import com.douzonemania.shop.vo.SubMenuVo;
@@ -26,6 +26,9 @@ public class CustomController {
 
 	@Autowired
 	private CustomService customService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	@RequestMapping("/{no}")
 	public String home(Model model,HttpSession session,
@@ -104,6 +107,19 @@ public class CustomController {
 		model.addAttribute("list", list);
 	
 		return "board/faq";
+	}
+	
+	@RequestMapping(value="/REVIEW", method = { RequestMethod.GET, RequestMethod.POST })
+	public String reviewList(@RequestParam(value="p", required=true, defaultValue="1") int page,
+			Model model,HttpSession session) {
+		
+		String db = session.getAttribute("db").toString(); 
+
+		Map<String, Object> map = orderService.getAllReviewList(page, db);
+		
+		model.addAttribute("map", map);
+		
+		return "order/review";
 	}
 	
 	@RequestMapping(value = "/left-nav")
