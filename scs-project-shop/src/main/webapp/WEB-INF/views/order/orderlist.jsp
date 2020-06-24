@@ -130,7 +130,7 @@ $(document).ready(function(){
 							
 								<c:forEach items='${orderList }' var='vo' varStatus='status'>
 									<div class ="ol-item">
-										<img class="ol-img" src="scs-manager${vo.image }"/>
+										<img class="ol-img" src="/scs-manager${vo.image }"/>
 										<div class="ol-iteminfo">
 											<p class="ol-itemName">${vo.name }</p>
 											<div class="ol-option">
