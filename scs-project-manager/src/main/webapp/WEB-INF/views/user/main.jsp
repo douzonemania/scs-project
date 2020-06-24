@@ -103,7 +103,7 @@
 	                                </div>
 	                                <div class="col-6">
 	                                    <div class="text-right">
-	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F7B84B;">${map.vo.get(1) }</span>건</h6>
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F7B84B;">${map.depositcompleted }</span>건</h6>
 	                                        <p class="text-muted mb-1 text-truncate">입금완료</p>
 	                                    </div>
 	                                </div> <!-- end col -->
@@ -120,7 +120,7 @@
 	                                </div>
 	                                <div class="col-6">
 	                                    <div class="text-right">
-	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F7B84B;">${map.vo.get(2) }</span>건</h6>
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F7B84B;">${map.preparingDelivery }</span>건</h6>
 	                                        <p class="text-muted mb-1 text-truncate">배송준비중</p>
 	                                    </div>
 	                                </div> <!-- end col -->
@@ -137,7 +137,7 @@
 	                                </div>
 	                                <div class="col-6">
 	                                    <div class="text-right">
-	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#1ABC9C;">${map.vo.get(0) }</span>건</h6>
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#1ABC9C;">${map.orderCompleted }</span>건</h6>
 	                                        <p class="text-muted mb-1 text-truncate">주문완료</p>
 	                                    </div>
 	                                </div> <!-- end col -->
@@ -154,7 +154,7 @@
 	                                </div>
 	                                <div class="col-6">
 	                                    <div class="text-right">
-	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F1556C;">${map.vo.get(5) }</span>건</h6>
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F1556C;">${map.cancelProcessing }</span>건</h6>
 	                                        <p class="text-muted mb-1 text-truncate">취소처리중</p>
 	                                    </div>
 	                                </div> <!-- end col -->
@@ -171,7 +171,7 @@
 	                                </div>
 	                                <div class="col-6">
 	                                    <div class="text-right">
-	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F1556C;">${map.vo.get(6) }</span>건</h6>
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F1556C;">${map.exchangeProcessing }</span>건</h6>
 	                                        <p class="text-muted mb-1 text-truncate">교환처리중</p>
 	                                    </div>
 	                                </div> <!-- end col -->
@@ -190,7 +190,7 @@
 	                                </div>
 	                                <div class="col-6">
 	                                    <div class="text-right">
-	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F7B84B;">${map.vo.get(3) }</span>건</h6>
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F7B84B;">${map.shippingProgress }</span>건</h6>
 	                                        <p class="text-muted mb-1 text-truncate">배송중</p>
 	                                    </div>
 	                                </div> <!-- end col -->
@@ -207,7 +207,7 @@
 	                                </div>
 	                                <div class="col-6">
 	                                    <div class="text-right">
-	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F7B84B;">${map.vo.get(4) }</span>건</h6>
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F7B84B;">${map.deliveryCompleted }</span>건</h6>
 	                                        <p class="text-muted mb-1 text-truncate">배송완료</p>
 	                                    </div>
 	                                </div> <!-- end col -->
@@ -224,7 +224,7 @@
 	                                </div>
 	                                <div class="col-6">
 	                                    <div class="text-right">
-	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#1ABC9C;">${map.vo.get(8) }</span>건</h6>
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#1ABC9C;">${map.processingCompleted }</span>건</h6>
 	                                        <p class="text-muted mb-1 text-truncate">처리완료</p>
 	                                    </div>
 	                                </div> <!-- end col -->
@@ -241,7 +241,7 @@
 	                                </div>
 	                                <div class="col-6">
 	                                    <div class="text-right">
-	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F1556C;">${map.vo.get(7) }</span>건</h6>
+	                                        <h6 class="text-dark mt-1"><span data-plugin="counterup" style="font-size:20px; padding-right:5px; color:#F1556C;">${map.refundProcessing }</span>건</h6>
 	                                        <p class="text-muted mb-1 text-truncate">환불처리중</p>
 	                                    </div>
 	                                </div> <!-- end col -->

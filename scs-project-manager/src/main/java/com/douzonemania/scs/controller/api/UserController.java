@@ -24,9 +24,9 @@ public class UserController {
 			Model model) {
 		
 		String id = authUser.getId();
-		Map<String, Object> map = userService.mainView(id);
 		
-		model.addAttribute("map", map);
+		 Map<String, Object> map = userService.mainView(id);
+		 model.addAttribute("map", map);
 		
 		return "user/main";
 	}

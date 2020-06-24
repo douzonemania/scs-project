@@ -43,18 +43,37 @@ public class UserService {
 		int totalRevenue = userRepository.getTotalRevenue(id);				// 총 수익
 		int sales = userRepository.getSales(id);							// 오늘의 판매량
 																			// ??
+		int orderCompleted = userRepository.getStatementOrderCompleted(id);
+		int depositcompleted = userRepository.getStatementDepositcompleted(id);
+		int preparingDelivery = userRepository.getStatementPreparingDelivery(id);
+		int shippingProgress = userRepository.getStatementShippingProgress(id);
+		int deliveryCompleted = userRepository.getStatementDeliveryCompleted(id);
+		int cancelProcessing = userRepository.getStatementCancelProcessing(id);
+		int exchangeProcessing = userRepository.getStatementExchangeProcessing(id);
+		int refundProcessing = userRepository.getStatementRefundProcessing(id);
+		int processingCompleted = userRepository.getStatementProcessingCompleted(id);
 		
-		List<Integer> vo = userRepository.getStatement(id);				// statement 갯수
-		
+	
+
 		List<BoardVo> productList = productRepository.itemBoardList(id, 0, 5, 0);
 		List<BoardVo> normalList = memberRepository.boardList(id, 0, 5, 0);
 		
-		System.out.println(vo);
+		
+		
 		map.put("productList", productList);
 		map.put("normalList", normalList);
 		map.put("totalRevenue", totalRevenue);
 		map.put("sales", sales);
-		map.put("vo", vo);
+		
+		map.put("orderCompleted", orderCompleted);
+		map.put("depositcompleted", depositcompleted);
+		map.put("preparingDelivery", preparingDelivery);
+		map.put("shippingProgress", shippingProgress);
+		map.put("deliveryCompleted", deliveryCompleted);
+		map.put("cancelProcessing", cancelProcessing);
+		map.put("exchangeProcessing", exchangeProcessing);
+		map.put("refundProcessing", refundProcessing);
+		map.put("processingCompleted", processingCompleted);
 		
 		return map;
 		
