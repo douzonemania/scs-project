@@ -164,5 +164,7 @@ public Boolean sendPasswordEmail(String id, String phone) {
 	public String findAgreement(String db,String field) {
 		return memberRepository.findAgreement(db,field);
 	}
+	
+
 
 }

@@ -116,7 +116,6 @@ $(function(){
 #board-table th {
 	 height: 50px;
 	 font-weight: bold; 
-	 font-size: 1.2em;
 	 border-top: 1px solid #CECECE;
 	 border-bottom: 1px solid #CECECE;
 	 background-color: #F1F5F7;
@@ -128,7 +127,7 @@ $(function(){
 
 #board-table td, th {
 	padding: 6px;
-	font-size: 1.1em;
+	font-size: 0.8em;
 	text-align: left;
 }
 </style>
@@ -271,8 +270,8 @@ $(function(){
                     <span class="mypage-main-cart float-right"> 전체</span>
                 </div>
                 
-                 <div class='cart-list-group'>
-         	 <c:forEach items='${list }' var='vo' varStatus='status'>
+          		<div class='cart-list-group'>
+         	 <c:forEach items='${cartList }' var='vo' varStatus='status'>
             <div class='mobile-cart rounded' data-no='${vo.cartNo }' data-value='${vo.stock }' data-name='${vo.name }'>
                 <div class='moblie-cart-all-group'>
                     <div class='mobile-cart-list-checkbox m-1' >
@@ -307,82 +306,16 @@ $(function(){
 	                      		 </br>
 	                      		 <label>수&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;량 :&nbsp;&nbsp; </label>
 	                      		 <div class='mobile-margin-left'></div>
-	                      		<button class='btn btn-dark waves-effect ' value='minus'><i class='fe-minus cart-minus-btn'></i></button>
-	                            <input type='text' class='form-control' value='${vo.amount }' required>
-	                            <button class='btn btn-dark waves-effect ' value='plus'><i class='fe-plus cart-plus-btn'></i></button>
+	                      		
+	                            <span class="mypage-cart-count">${vo.amount }</span>
+	                            
 	                       	 </div>
 	                     </div>
                     </div>
                 </div>
             </div>
             </c:forEach>
-  
-
-            </div> <!-- end col -->
-            <div class="mobile-cart-group"> 
-                <div class="moblie-cart-all-selector">
-                
-                </div>
-          
-           
-                <div class="mobile-cart ">
-                    <div class="moblie-cart-all-group">
-                        
-                        <div class="mobile-cart-list ">
-                            <div class="mobile-cart-list-img">
-                                <img src="${ pageContext.request.contextPath }/assets/images/review-img.png" alt="d" height="80" class="rounded">
-                            </div>
-        
-                            <div class="mobile-cart-list-box ">
-                                <div class="mobile-cart-list-product-title">
-                                    S/S WHALE GRAP TEE WHITE
-                                </div>
-                                <div class="mobile-cart-list-product-option float-left">
-                                    옵션 : RED XL
-                                </div>
-                                <div class="mobile-cart-list-product-price float-right">
-                                    39,000원
-                                </div>
-        
-                                <div class="mobile-cart-count-btn">
-                                    <button class="btn btn-dark waves-effect "><i class="fe-plus"></i></button>
-                                    <input type="text" class="form-control " id="validationCustom02"  value="1" required>
-                                    <button class="btn btn-dark waves-effect "><i class="fe-minus"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                    
-                <div class="mobile-cart ">
-                    <div class="moblie-cart-all-group">
-                        
-                        <div class="mobile-cart-list ">
-                            <div class="mobile-cart-list-img">
-                                <img src="${ pageContext.request.contextPath }/assets/images/review-img.png" alt="d" height="80" class="rounded">
-                            </div>
-        
-                            <div class="mobile-cart-list-box ">
-                                <div class="mobile-cart-list-product-title">
-                                    S/S WHALE GRAP TEE WHITE
-                                </div>
-                                <div class="mobile-cart-list-product-option float-left">
-                                    옵션 : RED XL
-                                </div>
-                                <div class="mobile-cart-list-product-price float-right">
-                                    39,000원
-                                </div>
-        
-                                <div class="mobile-cart-count-btn">
-                                    <button class="btn btn-dark waves-effect "><i class="fe-plus"></i></button>
-                                    <input type="text" class="form-control " id="validationCustom03"  value="1" required>
-                                    <button class="btn btn-dark waves-effect "><i class="fe-minus"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+         </div>
             
             <div class="mypage-main-gap"></div>
             
