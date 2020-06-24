@@ -114,7 +114,7 @@
                                 </div>
                                 <div class="col-auto">
                                     <div class="product-price-tag">
-                                   		     ￦${vo.nowPrice } 
+                                   		   <fmt:formatNumber value="${vo.nowPrice*(1-(vo.sale/100))  }" type="currency" currencySymbol="￦" />
                                         
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@
                           	${vo.name }
                         </div>
                         <div class="mobile-product-price">
-               			         ￦${vo.nowPrice }
+               			    <fmt:formatNumber value="${vo.nowPrice*(1-(vo.sale/100))  }" type="currency" currencySymbol="￦" />
                         </div>
                     </div>
                  </div> 	 
