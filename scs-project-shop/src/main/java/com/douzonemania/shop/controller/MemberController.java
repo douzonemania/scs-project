@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzonemania.shop.service.MemberService;
+import com.douzonemania.shop.service.OrderService;
 import com.douzonemania.shop.vo.BoardVo;
 import com.douzonemania.shop.vo.ItemBoardVo;
 import com.douzonemania.shop.vo.MemberVo;
@@ -29,6 +30,8 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	OrderService orderService;
 	
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
 	public String find(HttpServletRequest request, @RequestParam("isPwd") String isPwd, Model model) {
@@ -106,9 +109,13 @@ public class MemberController {
 		
 		List<OrderListVo> orderList = memberService.getOrderList(db, nowvo.getNo());		// 주문내역
 		List<ItemBoardVo> itemBoardList = memberService.getItemBoardList(db, nowvo.getNo());
+		List<String> priceList = orderService.convertPrice(orderList);
 		List<BoardVo> qnaList = memberService.getQnaList(db, nowvo.getNo());
+		orderService.convertOption(db, orderList);
 		
+		System.err.println("orderList::: " + orderList );
 		model.addAttribute("orderList", orderList);
+		model.addAttribute("priceList", priceList);
 		model.addAttribute("itemBoardList",itemBoardList);
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("vo", memberService.findUserByNo(nowvo.getNo()));
