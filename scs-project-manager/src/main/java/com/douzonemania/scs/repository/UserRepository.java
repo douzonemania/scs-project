@@ -257,47 +257,47 @@ public class UserRepository {
 	}
 	public int getStatementOrderCompleted(String id) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("db", id);
 		return sqlSession.selectOne("user.getStatementOrderCompleted", map);
 	}
 	public int getStatementDepositcompleted(String id) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("db", id);
 		return sqlSession.selectOne("user.getStatementDepositcompleted", map);
 	}
 	public int getStatementPreparingDelivery(String id) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("db", id);
 		return sqlSession.selectOne("user.getStatementPreparingDelivery", map);
 	}
 	public int getStatementShippingProgress(String id) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("db", id);
 		return sqlSession.selectOne("user.getStatementShippingProgress", map);
 	}
 	public int getStatementDeliveryCompleted(String id) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("db", id);
 		return sqlSession.selectOne("user.getStatementDeliveryCompleted", map);
 	}
 	public int getStatementCancelProcessing(String id) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("db", id);
 		return sqlSession.selectOne("user.getStatementCancelProcessing", map);
 	}
 	public int getStatementExchangeProcessing(String id) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("db", id);
 		return sqlSession.selectOne("user.getStatementExchangeProcessing", map);
 	}
 	public int getStatementRefundProcessing(String id) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("db", id);
 		return sqlSession.selectOne("user.getStatementRefundProcessing", map);
 	}
 	public int getStatementProcessingCompleted(String id) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("db", id);
 		return sqlSession.selectOne("user.getStatementProcessingCompleted", map);
 	}
 
