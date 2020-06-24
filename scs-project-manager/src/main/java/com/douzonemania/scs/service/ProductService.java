@@ -398,7 +398,6 @@ public class ProductService {
 		String filename = "";
 
 		Calendar calendar = Calendar.getInstance();
-		filename += originFileName;
 		filename += calendar.get(Calendar.YEAR);
 		filename += calendar.get(Calendar.MONTH);
 		filename += calendar.get(Calendar.DATE);

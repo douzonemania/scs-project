@@ -381,6 +381,11 @@ public class ProductController {
 			String subImage3 = productService.restore(id, excelFile3);
 			String subImage4 = productService.restore(id, excelFile4);
 			String subImage5 = productService.restore(id, excelFile5);
+			subImage1 += "1";
+			subImage2 += "2";
+			subImage3 += "3";
+			subImage4 += "4";
+			subImage5 += "5";
 			String image = mainImage + "?" + subImage1 + "?" + subImage2 + "?" + subImage3 + "?" + subImage4 + "?" + subImage5; 
 			
 			return JsonResult.success(image);
@@ -408,7 +413,6 @@ public class ProductController {
 			String subImage4 = productService.restore(id, excelFile4, subSrcArray.get(4));
 			String subImage5 = productService.restore(id, excelFile5, subSrcArray.get(5));
 			String image = mainImage + "?" + subImage1 + "?" + subImage2 + "?" + subImage3 + "?" + subImage4 + "?" + subImage5; 
-			System.err.println(image +"sst");
 			return JsonResult.success(image);
 		}		
 		
