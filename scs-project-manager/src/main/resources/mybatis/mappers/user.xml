@@ -172,7 +172,7 @@
 	
 	<select id="getSales" parameterType="map" resultType="int">
 		<![CDATA[
-			select count(*)
+			select ifnull(count(*),0)
 			from (select shop_order.order_number as orderNumber
 					  from ${id}.item, ${id}.stock, ${id}.order_item, ${id}.shop_order, ${id}.member
 					 where item.no = stock.item_no
@@ -185,7 +185,7 @@
 	
 	<select id="getStatement" parameterType="map" resultType="int">
 		<![CDATA[
-			select count(statement)
+			select ifnull(count(statement),0)
 			  from ${id}.shop_order
 			  group by statement
 		]]>
