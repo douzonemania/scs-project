@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.douzonemania.shop.repository.MemberRepository;
 import com.douzonemania.shop.vo.BoardVo;
 import com.douzonemania.shop.vo.ItemBoardVo;
+import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OrderListVo;
 
@@ -155,6 +156,10 @@ public Boolean sendPasswordEmail(String id, String phone) {
 
 	public List<BoardVo> getQnaList(String db, Long no) {
 		return memberRepository.getQnaList(db,no);
+	}
+
+	public List<ItemVo> getCartList(String db, Long no) {
+		return memberRepository.getCartList(db, no);
 	}
 
 }

@@ -147,4 +147,22 @@
 		]]>
 	</select>
 	
+	<select id = "getCartList" parameterType="map" resultType="itemvo">
+		<![CDATA[
+			select a.no, a.code ,a.name ,a.now_price as 'nowPrice' ,a.sale , a.main_image as 'mainImage' , b.first_option as 'firstOption',b.firstOptionName, b.second_option as 'secondOption', b.secondOptionName, b.cartNo, b.amount ,b.stock
+			from ${db}.item a, (
+					select a.no,a.item_no,a.first_option,a.firstOptionName,a.second_option,a.secondOptionName,b.no as cartNo,b.amount,a.stock
+					from (
+							select a.no,a.item_no,a.first_option,a.firstOptionName, a.second_option,b.name as secondOptionName ,a.stock
+							from (	select a.no , a.item_no,a.first_option, b.name as firstOptionName, a.second_option ,a.stock 
+								 	from ${db}.stock a, ${db}.option b 
+									where a.first_option= b.no) a , ${db}.option b 
+							where a.second_option = b.no) a , ${db}.cart b 
+					where a.no=b.stock_no and member_no=#{no}) b 
+			where a.no=b.item_no
+			limit 5
+		]]>
+
+	</select>
+	
 </mapper>

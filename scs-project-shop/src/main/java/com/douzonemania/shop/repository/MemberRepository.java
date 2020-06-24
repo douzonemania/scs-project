@@ -2,7 +2,6 @@ package com.douzonemania.shop.repository;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -15,6 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.douzonemania.shop.vo.BoardVo;
 import com.douzonemania.shop.vo.ItemBoardVo;
+import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OrderListVo;
 
@@ -151,6 +151,13 @@ public class MemberRepository {
 		map.put("no", no);
 		
 		return sqlSession.selectList("member.getQnaList", map);
+	}
+
+	public List<ItemVo> getCartList(String db, Long no) {
+		map.put("db", db);
+		map.put("no", no);
+		
+		return sqlSession.selectList("member.getCartList", map);
 	}
 
 
