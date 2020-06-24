@@ -31,6 +31,16 @@
 			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.css" />
 <script type="text/javascript">
+$(document).ready(function(){
+	 $(document).on("click",'#reg-review-btn', function(){
+		var no = $(this).data('no')
+	    window.open("", "review"+no, "width=700, height=900, scrollbars=no");
+		$("#review"+no).attr('action',"${ pageContext.request.contextPath }/${db }/order/regReview");
+	    $("#review"+no).attr('target',"review"+no);
+	    $("#review"+no).submit();
+	 });
+});	
+
 $(function(){
 
 	$('#change-pwd-btn').click(function(e){
@@ -216,7 +226,9 @@ $(function(){
 												<p class="ol-color" style="margin:0px; padding:0px;">${vo.color }</p>
 											</div>
 										</div>
-										<p class="ol-reg">${vo.regDate }</p>
+										<input type="hidden" value="<fmt:parseDate var="fmtRegDate" value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm" />"/>
+										<p class="ol-reg"><fmt:formatDate value="${fmtRegDate}" pattern="yyyy-MM-dd HH:mm"/></p> 
+										
 										<p class="ol-orderNo">${vo.orderNo }</p>
 										<div class="ol-price-mount">
 										<p class="ol-price">${priceList[status.index]}</p>
@@ -225,6 +237,25 @@ $(function(){
 										
 										<div class="ol-state-div">
 										<p class="ol-state">${vo.statement }</p>
+										<c:if test='${vo.statement=="배송완료" }'>
+											<c:if test='${restateList[status.index]==0 }'>
+												<form id="review${status.index }"  method="post">
+													<input type="hidden" name="image" value="${vo.image }"/>
+													<input type="hidden" name="itemNo" value="${vo.no }"/>
+													<input type="hidden" name="orderNo" value="${vo.orderNoPrime }"/>
+													<input type="hidden" name="stockNo" value="${vo.stockNo }"/>												
+													<input type="hidden" name="itemName" value="${vo.name }"/>
+													<input type="hidden" name="itemSize" value="${vo.size }"/>
+													<input type="hidden" name="itemColor" value="${vo.color }"/>
+													
+													<input type="hidden" name="memberNo" value="${authUser.no }"/>												
+													<input type="button" id="reg-review-btn" data-no=${status.index } class=" ol-btn-review btn btn-dark waves-effect" value="리뷰 등록"/>
+												</form>
+											</c:if>
+											<c:if test='${restateList[status.index]==1 }'>
+													<input type="button" class="ol-btn-review btn btn-dark waves-effect" value="리뷰 완료" disabled/>
+											</c:if>
+										</c:if>
 										</div>	
 											<div style="border-bottom:1px solid #9e9e9e;margin-top:10px;"></div>								
 									</div>
