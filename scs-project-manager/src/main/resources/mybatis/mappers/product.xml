@@ -155,7 +155,7 @@
 			<choose>
 				<when test='option==""'>
 					<![CDATA[
-						select count(*)
+						select ifnull(count(*),0)
 						  from ${db}.item_board i,
 						  	   ${db}.member m
 						 where i.member_no = m.no
@@ -164,7 +164,7 @@
 				</when>
 				<otherwise>
 					<![CDATA[
-						select count(*) 
+						select ifnull(count(*),0) 
 						  from (select b.no,
 									   b.title,
 									   b.contents,
