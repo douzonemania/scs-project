@@ -413,7 +413,7 @@ $(function(){
 			  			<tr>
 			  				<td>
 			  					<a href="${ pageContext.request.contextPath }/${db}/order/detail?no=${vo.itemNo}">
-	                            	<img class="ol-img" src="scs-manager${vo.mainImage }" />
+	                            	<img class="ol-img" src="/scs-manager${vo.mainImage }" />
 			  					</a>	
 			  					${vo.itemName }</td>
 			  				<td>
