@@ -60,6 +60,12 @@
 	font-size: 1.1em;
 	text-align: left;
 }
+
+
+@media(max-width:991px){
+	#board-table td {padding:3px; font-size:0.8em;}
+}
+
 </style>
 
 <!-- jQuery -->
@@ -646,9 +652,18 @@
 						<div class="info-review" id="reviewSpace">
 							<span>REVIEW</span> <span style="display: block;">
 							<div style="font-weight: bold; display: inline;">고객분들의 생생한 후기</div>도	함께 만나보세요</span>
-							
 							<c:choose>
-								<c:when test=""></c:when>
+							<c:when test="${fn:length(reviewList)==0}">
+								<div class="reg-review">
+									<div class="mobile-disvisible">
+										<br>
+									</div>
+									<br>
+									<br>
+									<p>등록된 review가없습니다</p>
+								</div>
+								</c:when>
+							
 								<c:otherwise>
 									<c:forEach items="${reviewList }" var="vo" varStatus="status">
 							<div class="review-group">
@@ -672,21 +687,29 @@
 										&nbsp;&nbsp;<span>l&nbsp;&nbsp;</span> <span>${vo.size } / ${vo.color }</span>		
 										<div class="mobile-block"></div>									
 										<span style="margin-right: 4px;">${authUser.id}</span> <span>l&nbsp;&nbsp;</span> <span>${vo.regDate }</span>
-										<p class="review-title" style="overflow-x:hidden; font-size:24px; color: #A9A7AD; margin-bottom:10px;">${vo.title }</p>
-										</p>
-										
-										
-										
-
+										<p class="review-title" style="overflow-x:hidden; font-size:24px;  margin-bottom:10px;">${vo.title }</p>
+										</p>	
 									</div>
 								</div>
 							</div>
 							</c:forEach>								
 								</c:otherwise>
 							</c:choose>
-
 							
-							<div style=" margin-top:5%">
+							 <span class="qna-board-title"> QNA게시판</span>
+							<c:choose>
+								<c:when test="${fn:length(boardList)==0}">
+									<div class="reg-review">
+									<div class="mobile-disvisible">
+										<br>
+									</div>
+									<br>
+									<br>
+									<p>등록된 문의가없습니다</p>
+								</div>
+								</c:when>
+								<c:otherwise>
+									<div style=" margin-top:5%">
 					           <table class="table-form-exposure" id="board-table">
 					           	<thead>
 							        <tr>
@@ -710,8 +733,12 @@
 							  			</tr>
 					         		</c:forEach>
 					          	</tbody> 
-					         </table>
-				           </div>
+					        	 </table>
+				          	</div>
+								</c:otherwise>
+							</c:choose>
+							
+							
 
 							<div style="float:right; margin-top: 20px">
 								<form action="${pageContext.request.contextPath}/${db}/board/itemboard/write/${map.product.no}" method="POST">
