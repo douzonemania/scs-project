@@ -52,7 +52,6 @@ public class UserService {
 		int exchangeProcessing = userRepository.getStatementExchangeProcessing(id);
 		int refundProcessing = userRepository.getStatementRefundProcessing(id);
 		int processingCompleted = userRepository.getStatementProcessingCompleted(id);
-		
 	
 
 		List<BoardVo> productList = productRepository.itemBoardList(id, 0, 5, 0);
