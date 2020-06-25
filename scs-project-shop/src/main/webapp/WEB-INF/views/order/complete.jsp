@@ -71,7 +71,8 @@
                     
                 </div>
                 <div class="order-complete-button">
-                    <button type="button" class="btn btn-dark waves-effect waves-light complete-mypage-btn">마이페이지로 가기</button>
+                    <a href= "${ pageContext.request.contextPath }/${db }/member/mypage">
+                    <button type="button" class="btn btn-dark waves-effect waves-light complete-mypage-btn">마이페이지로 가기</button></a>
                 </div>
             </div>
         
