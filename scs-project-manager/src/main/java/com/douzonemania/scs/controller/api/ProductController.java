@@ -1,10 +1,10 @@
 package com.douzonemania.scs.controller.api;
 
-import java.util.Calendar;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
+import java.util.zip.GZIPOutputStream;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.douzonemania.scs.dto.JsonResult;
 import com.douzonemania.scs.service.ProductService;
@@ -26,8 +25,6 @@ import com.douzonemania.scs.vo.member.ItemVo;
 import com.douzonemania.scs.vo.member.OptionVo;
 import com.douzonemania.scs.vo.member.StockVo;
 import com.douzonemania.security.AuthUser;
-
-import javafx.application.Application;
 
 @RestController("ProductApiController")
 @RequestMapping("/{id:(?!assets).*}/api/product")
@@ -114,7 +111,7 @@ public class ProductController {
 			) {
 		String id = authUser.getId();
 		productService.getCategoryNoByName(id, cVo.getName());
-		System.err.println(cVo.getName());
+		
 		
 		return JsonResult.success(productService.getCategoryNoByName(id, cVo.getName()));
 	}
@@ -195,7 +192,7 @@ public class ProductController {
 			) {
 		String id = authUser.getId();
 		List<OptionVo> optionList = productService.getOptionList(id);
-		System.err.println(optionList);
+		
 		return JsonResult.success(optionList);
 	}
 	
@@ -206,7 +203,7 @@ public class ProductController {
 			@RequestBody ItemVo iVo			
 			) {
 		
-		System.out.println(iVo.getSubImage().toString());
+	
 		
 		 String id = authUser.getId(); JSONObject jObject = new
 		 JSONObject(iVo.getEditor()); JSONArray jArray = jObject.getJSONArray("ops");
@@ -216,8 +213,8 @@ public class ProductController {
 		  String contents = "";
 		  
 		  for(int i = 0; i < jArray.length(); i++) { JSONObject obj =
-		  jArray.getJSONObject(i); System.out.println("obj:"+obj); if(i ==
-		  jArray.length() - 1) { contents += obj; } else { contents += obj + ","; } }
+		  jArray.getJSONObject(i);
+		  if(i == jArray.length() - 1) { contents += obj; } else { contents += obj + ","; } }
 		  
 		  iVo.setEditor(contents); productService.regItem(id, iVo);
 		 
@@ -253,8 +250,8 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value="/board/write/{no}", method=RequestMethod.POST)
 	public JsonResult boardWrite(@AuthUser CeoVo authUser,
-			@PathVariable("no") int no, @RequestBody String html) {
-		
+			@PathVariable("no") int no, @RequestBody String html) throws IOException {
+
 		boolean replyResult = productService.boardReply(authUser.getId(), no, html);
 		productService.updateItemBoardReplyTrue(authUser.getId(), no);
 		
@@ -300,9 +297,7 @@ public class ProductController {
 			@AuthUser CeoVo authUser,
 			@RequestBody ItemVo iVo			
 			) {
-		System.err.println(iVo+"!!");
-
-		System.out.println("editor: " + iVo.getEditor());
+		
 		
 		JSONObject jObject = new JSONObject(iVo.getEditor());
 		
@@ -312,7 +307,7 @@ public class ProductController {
 
 		for(int i = 0; i < jArray.length(); i++) {
 			JSONObject obj = jArray.getJSONObject(i);
-			System.out.println("obj:"+obj);
+		
 			if(i == jArray.length() - 1) {
 				contents += obj;
 			}
@@ -322,8 +317,7 @@ public class ProductController {
 		}
 			String id = authUser.getId();
 			iVo.setEditor(contents);
-			
-			System.out.println("passing editor: " + iVo.getEditor());
+		
 			
 			String viewer = "quill.setContents([ " + 
 					iVo.getEditor() +
@@ -400,7 +394,7 @@ public class ProductController {
 				@RequestParam(value="subSrcArray") List<String> subSrcArray				
 				) throws Exception{			
 			
-			System.err.println(subSrcArray + ":::::::::::::::::::::::::::::::::::");
+			
 			String id = authUser.getId();
 						
 			String mainImage = productService.restore(id, excelFile, subSrcArray.get(0), "1");
@@ -412,5 +406,6 @@ public class ProductController {
 			String image = mainImage + "?" + subImage1 + "?" + subImage2 + "?" + subImage3 + "?" + subImage4 + "?" + subImage5; 
 			return JsonResult.success(image);
 		}		
+		
 		
 }

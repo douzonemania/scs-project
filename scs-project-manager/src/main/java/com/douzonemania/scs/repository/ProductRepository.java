@@ -260,7 +260,7 @@ public class ProductRepository {
 	}
 
 	// board의 no(parentsNo)에 대한 답글을 insert
-	public int boardReply(String id, int parentsNo, String contents) {
+	public int boardReply(String id, int parentsNo, byte[] contents) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db", id);
 		map.put("parentsNo", parentsNo);

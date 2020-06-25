@@ -1,5 +1,6 @@
 package com.douzonemania.scs.controller;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -211,7 +212,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="board/view/{no}")
-	public String boardView(@AuthUser CeoVo authUser,@PathVariable("no") int no, Model model) {
+	public String boardView(@AuthUser CeoVo authUser,@PathVariable("no") int no, Model model) throws IOException {
 		
 		ItemBoardVo itemBoardVo = productService.findItemBoardByNo(authUser.getId(), no);
 		String name = productService.findNameByNo(authUser.getId(), no);
@@ -228,8 +229,9 @@ public class ProductController {
 		if(itemBoardVo.isReplyState()) {
 			ItemReplyVo itemReplyVo = productService.findItemReplyByParentsNo(authUser.getId(), no);
 			String reply = "quill3.setContents([ " + 
-								itemReplyVo.getContents() +
+								itemReplyVo.getContents1() +
 			                 "]);";
+			
 			
 			model.addAttribute("reply", reply);	
 			model.addAttribute("itemReplyVo", itemReplyVo);	 // 관리자가 작성한 답글

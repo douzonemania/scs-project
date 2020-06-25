@@ -1,5 +1,7 @@
 package com.douzonemania.scs.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -10,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -276,27 +280,89 @@ public class ProductService {
 
 	}
 
-	public boolean boardReply(String id, int no, String jsonData) {
+	public boolean boardReply(String id, int no, String jsonData) throws IOException {
 		JSONObject jObject = new JSONObject(jsonData);
 
 		JSONArray jArray = jObject.getJSONArray("ops");
 
 		String contents = "";
 
+//		System.out.println(jsonData);
+//		System.out.println("================");
+		
 		for(int i = 0; i < jArray.length(); i++) {
 			JSONObject obj = jArray.getJSONObject(i);
-			System.out.println("obj:"+obj);
+			
 			if(i == jArray.length() - 1) {
 				contents += obj;
+				
+				
 			}
 			else {
 				contents += obj + ",";
 			}
 		}
+		byte[] b = compressToByte(contents);
+		
+//		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+unCompressString(b));
+//		System.out.println(contents);
 
-		int count = productRepository.boardReply(id, no, contents);
-		return count == 1;
+		int count = productRepository.boardReply(id, no, b);
+		return /* count == 1 */true;
 	}
+	
+
+///////////////////////
+		public static byte[] compressToByte(final String data)
+			       throws IOException
+			{
+			       if (data == null || data.length() == 0)
+			       {
+			           return null;
+			       }
+			       else
+			       {
+			           byte[] bytes = data.getBytes("UTF-8");
+			           ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			           GZIPOutputStream os = new GZIPOutputStream(baos);
+			           os.write(bytes, 0, bytes.length);
+			           os.close();
+			           byte[] result = baos.toByteArray();
+			           return result;
+			       }
+			}
+		
+		public static String unCompressString(final byte[] data)
+			       throws IOException
+			{
+			       if (data == null || data.length == 0)
+			       {
+			           return null;
+			       }
+			       else
+			       {
+			           ByteArrayInputStream bais = new ByteArrayInputStream(data);
+			           ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+			           GZIPInputStream is = new GZIPInputStream(bais);
+			           byte[] tmp = new byte[256];
+			           while (true)
+			           {
+			               int r = is.read(tmp);
+			               if (r < 0)
+			               {
+			                   break;
+			               }
+			               buffer.write(tmp, 0, r);
+			           }
+			           is.close();
+
+			           byte[] content = buffer.toByteArray();
+			           return new String(content, 0, content.length, "UTF-8");
+			       }
+			}
+		
+///////////////////////
+	
 
 	public boolean updateItemBoardReplyTrue(String id, int no) {
 		// 답글 상태를 true로 만들기
@@ -311,16 +377,25 @@ public class ProductService {
 	}
 
 
-	public ItemBoardVo findItemBoardByNo(String id, int no) {
-		return productRepository.findItemBoardByNo(id, no);
+	public ItemBoardVo findItemBoardByNo(String id, int no) throws IOException {
+		ItemBoardVo vo = productRepository.findItemBoardByNo(id, no);
+		
+		return vo;
 	}
 
 	public String findNameByNo(String id, int no) {
 		return productRepository.findNameByNo(id, no);
 	}
 
-	public ItemReplyVo findItemReplyByParentsNo(String id, int no) {
-		return productRepository.findItemReplyByParentsNo(id, no);
+	public ItemReplyVo findItemReplyByParentsNo(String id, int no) throws IOException {
+		ItemReplyVo vo = productRepository.findItemReplyByParentsNo(id, no);
+		
+		byte[] b = vo.getContents();
+
+		vo.setContents1(unCompressString(b));
+		
+		return vo;
+		
 	}
 
 	public boolean deleteItemBoard(String id, int no) {
