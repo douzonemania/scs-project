@@ -648,7 +648,7 @@
 					<div class="product-detail">
 						<div class="info-detail" id="infoSpace" style="text-align:center;">
 							<span style="font-size: 40px; color: #323A46; float: center;">DETAIL</span>
-							<div id="snow-viewer" style="height: auto; border: 1px solid #CECECE;" contentEditable="false"></div>
+							<div id="snow-viewer" style="height: auto; border: 1px solid #CECECE; pointer-events:none;" contentEditable="false"></div>
 						</div>						
 						<div class="info-review" id="reviewSpace">
 							<span>REVIEW</span> <span style="display: block;">
