@@ -29,7 +29,7 @@ public class UserRepository {
 				+ "    size    VARCHAR(20)     NULL, "
 				+ "    primary key(no)" + ")engine=InnoDB character set=utf8;";
 		String itemBoardQry = "CREATE TABLE " + id + ".item_board(" + "    no INT UNSIGNED NOT NULL  AUTO_INCREMENT,"
-				+ "    title VARCHAR(50)  NOT NULL," + "    contents  TEXT         NOT NULL,"
+				+ "    title VARCHAR(50)  NOT NULL," + "    contents  LONGBLOB         NOT NULL,"
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "    member_no INT UNSIGNED NULL," + "    item_no   INT UNSIGNED NULL,"
 				+ "	   reply_state BOOLEAN NOT NULL," + "    primary key(no)" + ")engine=InnoDB character set=utf8;";
@@ -52,7 +52,7 @@ public class UserRepository {
 				+ "    type         ENUM('카카오', '구글', '네이버', '일반') NOT NULL," + "    primary key(no)\r\n"
 				+ ") engine=InnoDB character set=utf8; ";
 		String replyQry = "CREATE TABLE " + id + ".reply(" + "   no INT UNSIGNED NOT NULL AUTO_INCREMENT,"
-				+ "   parents_no INT UNSIGNED NOT NULL," + "	contents TEXT NOT NULL,"
+				+ "   parents_no INT UNSIGNED NOT NULL," + "	contents LONGBLOB NOT NULL,"
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "   primary key(no)" + ") engine=InnoDB character set=utf8;";
 		String orderItemQry = "CREATE TABLE " + id + ".order_item(" + "    order_no INT UNSIGNED NULL,"
@@ -68,7 +68,7 @@ public class UserRepository {
 				+ ") engine=InnoDB character set=utf8;";
 		String boardQry = "CREATE TABLE " + id + ".board(" + "    no        INT UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "    category  ENUM('주문', '배송', '교환환불취소', '기타') NOT NULL," + "    title     VARCHAR(50)  NOT NULL ,"
-				+ "    contents  TEXT         NOT NULL," + "    member_no INT UNSIGNED NULL,"
+				+ "    contents  LONGBLOB         NOT NULL," + "    member_no INT UNSIGNED NULL,"
 				+ "    reg_date  DATETIME         NOT NULL," + "    reply_state  BOOLEAN NOT NULL," + "    primary key(no)"
 				+ ") engine=InnoDB character set=utf8; ";
 		String cartQry = "CREATE TABLE " + id + ".cart(" + "    no        INT UNSIGNED NOT NULL AUTO_INCREMENT,"
@@ -81,7 +81,7 @@ public class UserRepository {
 				+ "    sale        INT UNSIGNED NOT NULL," + "    main_image  VARCHAR(100) NOT NULL,"
 				+ "    sub_image   VARCHAR(300) NULL," + "    visible     BOOLEAN      NOT NULL,"
 				+ "    best_item        BOOLEAN      NOT NULL," + "    new_item         BOOLEAN      NOT NULL,"
-				+ "    editor      TEXT         NULL," + "    category_no INT UNSIGNED NULL," 
+				+ "    editor      LONGBLOB         NULL," + "    category_no INT UNSIGNED NULL," 
 				+ "    description TEXT         NULL," + "    reg_date    DATETIME     NOT NULL,"
 				+ "    ship_company    VARCHAR(30)   NOT NULL," + "    ship_charge    INT UNSIGNED   NOT NULL,"
 				+"	   state		BOOLEAN			 NOT NULL," + "    primary key(no)"
@@ -93,7 +93,7 @@ public class UserRepository {
 				+ "    primary key(no)" + ") engine=InnoDB character set=utf8; ";
 		String itemReplyQry = "CREATE TABLE " + id + ".item_reply("
 				+ "    no         INT UNSIGNED NOT NULL AUTO_INCREMENT,"
-				+ "    parents_no INT UNSIGNED NOT NULL," + "		contents TEXT NOT NULL,"
+				+ "    parents_no INT UNSIGNED NOT NULL," + "		contents LONGBLOB NOT NULL,"
 				+ "    reg_date    DATETIME          NOT NULL, "
 				+ "    primary key(no)" + ") engine=InnoDB character set=utf8; ";
 		HashMap<String, Object> map = new HashMap<>();

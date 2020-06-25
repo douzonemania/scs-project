@@ -120,11 +120,11 @@ public class MemberRepository {
 	}
 
 	// board의 no(parentsNo)에 대한 답글을 insert
-	public int boardReply(String id, int parentsNo, String contents) {
+	public int boardReply(String id, int parentsNo, byte[] b) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("db", id);
 		map.put("parentsNo", parentsNo);
-		map.put("contents", contents);
+		map.put("contents", b);
 		
 		return sqlSession.insert("member.insertBoardReply", map);
 	}
