@@ -39,14 +39,18 @@
 			}).open();
 		
 		}
+		$(document).ready(function(){
+			var no = ${recentShip.no};
+		
 		$(function(){
+			
 			var width = $(window).width();
 			var postString = '${recentShip.address}';
 			var postArr = postString.split('!');
 			var orderName = '${recentShip.shipName}';
 			var phoneNumber = '${recentShip.phoneNumber}';
 			var orderList = '${orderList}'
-			var no = 0;
+			
 			$('#ship-option').hide();
 			var shipCheck = '${shipListCheck}';
 			if(width<=991){
@@ -126,7 +130,6 @@
 				}else{
 					
 				}
-				
 				var orderName = $('#order-name').val();
 				var orderPhoneNumber = $('#order-phoneNumber').val();
 				
@@ -182,7 +185,7 @@
 			
 	});
 		
-		
+		});	
 		
 		
 	</script>
