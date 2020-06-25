@@ -1,5 +1,6 @@
 package com.douzonemania.shop.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +45,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(@RequestParam(value="no", required = true,defaultValue = "0") Integer no,Model model,HttpSession session) {
+	public String detail(@RequestParam(value="no", required = true,defaultValue = "0") Integer no,Model model,HttpSession session) throws IOException {
 		
 		String db = session.getAttribute("db").toString();
 		Map<String,Object> map= orderService.findProduct(no,db);
