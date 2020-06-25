@@ -79,7 +79,7 @@
 	var mobileDropDownTemplate = new EJS({url : "${pageContext.request.contextPath }/assets/js/ejs/mobile-dropdown-box-template.ejs"});
 
 	$(function() {
-		${detail};	// 상세설명 editor
+		${map.detail};	// 상세설명 editor
 		
 		var firstOption= $('#firstOption').val();
 		var mobileFirstOption= $('#mobileFirstOption').val();
@@ -648,7 +648,7 @@
 					<div class="product-detail">
 						<div class="info-detail" id="infoSpace" style="text-align:center;">
 							<span style="font-size: 40px; color: #323A46; float: center;">DETAIL</span>
-							<div id="snow-viewer" style="height: 500px; border: 1px solid #CECECE;" contentEditable="false"></div>
+							<div id="snow-viewer" style="height: auto; border: 1px solid #CECECE;" contentEditable="false"></div>
 						</div>						
 						<div class="info-review" id="reviewSpace">
 							<span>REVIEW</span> <span style="display: block;">
@@ -851,11 +851,13 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 		
-		
-		<script
-			src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>
+  <!-- Vendor js -->
+   <script src="<%=request.getContextPath() %>/assets/js/vendor.min.js"></script>
 
-		<!-- App js-->
-		<script src="${pageContext.request.contextPath}/assets/js/app.min.js"></script>
+   <!-- App js-->
+   <script src="<%=request.getContextPath() %>/assets/js/app.min.js"></script>
+
+	<script src="<%=request.getContextPath() %>/assets/libs/quill/quill.min.js"></script>
+	<script src="<%=request.getContextPath() %>/assets/js/pages/form-quilljs.init.js"></script>
 </body>
 </html>
