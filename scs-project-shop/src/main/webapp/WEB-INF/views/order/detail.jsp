@@ -79,6 +79,8 @@
 	var mobileDropDownTemplate = new EJS({url : "${pageContext.request.contextPath }/assets/js/ejs/mobile-dropdown-box-template.ejs"});
 
 	$(function() {
+		${detail};	// 상세설명 editor
+		
 		var firstOption= $('#firstOption').val();
 		var mobileFirstOption= $('#mobileFirstOption').val();
 		
@@ -644,10 +646,9 @@
 
 					<!-- 제이쿼리로 작업 하기.-->
 					<div class="product-detail">
-						<div class="info-detail" id="infoSpace">
-							<img
-								src="${pageContext.request.contextPath}/assets/images/detail-image.PNG"
-								alt="" class="rounded">
+						<div class="info-detail" id="infoSpace" style="text-align:center;">
+							<span style="font-size: 40px; color: #323A46; float: center;">DETAIL</span>
+							<div id="snow-viewer" style="height: 500px; border: 1px solid #CECECE;" contentEditable="false"></div>
 						</div>						
 						<div class="info-review" id="reviewSpace">
 							<span>REVIEW</span> <span style="display: block;">
@@ -668,9 +669,11 @@
 									<c:forEach items="${reviewList }" var="vo" varStatus="status">
 							<div class="review-group">
 								<div class="review-img">
+									<c:if test="${vo.image != null }">
 									<img
-										src="${pageContext.request.contextPath}/assets/images/review-img.PNG"
-										alt="" / class="rounded">
+										src="/scs-manager${vo.image}"
+										alt="" class="rounded">
+									</c:if>
 								</div>
 								<div class="review-box">
 									<div class="pl-xl-3">
