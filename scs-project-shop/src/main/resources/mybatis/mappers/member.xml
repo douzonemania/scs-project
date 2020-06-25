@@ -124,7 +124,7 @@
                and b.item_no = i.no
 			   and m.state='회원'
                and m.no=#{no}
-             limit 5
+             limit 5 
 		]]>
 	</select>
 	
