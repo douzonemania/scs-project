@@ -16,6 +16,7 @@
 			  from ${db}.board b, ${db}.member m
 			 where b.member_no = m.no
 			   and m.state='회원'
+		  order by b.reg_date desc
 			 limit ${size} offset ${offset}
 		]]>
 	</select>
@@ -38,6 +39,7 @@
 					 where b.member_no = m.no
 					   and m.state = '회원'
 					   and b.category = #{keyword}
+				  order by b.reg_date desc
 					 limit ${size} offset #{offset}
 				]]>
 			</when>
@@ -57,6 +59,7 @@
 					 where b.member_no = m.no
 					   and m.state = '회원'
 					   and m.${option} like '%${keyword}%'
+				  order by b.reg_date desc
 					 limit ${size} offset #{offset}
 				]]>
 			</otherwise>
@@ -210,6 +213,7 @@
 			 where b.member_no = m.no
                and b.item_no = i.no
 			   and m.state='회원'
+		  order by b.reg_date desc
 			 limit ${size} offset #{offset}
 		]]>
 	</select>
@@ -236,6 +240,7 @@
 		               and b.item_no = i.no
 					   and m.state='회원') a
 			 where a.${option} like '%${keyword}%'
+		  order by a.regDate desc
 			 limit ${size} offset #{offset}
 		]]> 
 	</select>

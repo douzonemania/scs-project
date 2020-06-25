@@ -477,6 +477,7 @@
               where a.item_no=b.no
                 and a.member_no=c.no
                 and c.state='회원'
+           order by a.reg_date desc
               limit ${size} offset #{offset}
 		]]>
 	</select>
