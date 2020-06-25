@@ -31,7 +31,7 @@ import com.douzonemania.shop.vo.ShipVo;
 @Service
 public class OrderService {
 
-	private static int LIST_SIZE = 16;
+	private static int LIST_SIZE = 5;
 	private static final int PAGE_SIZE = 5;
 
 	@Autowired
@@ -40,7 +40,7 @@ public class OrderService {
 	public Map<String, Object> find(int currentPage, String keyword, String option, int category, int subCategory,
 			String db) {
 
-		int offset = (currentPage - 1) * 16;
+		int offset = (currentPage - 1) * 5;
 		int total = orderRepository.totalCount(option, keyword, category, subCategory, db);
 		int pageCnt = (total % LIST_SIZE != 0) ? (total / LIST_SIZE) + 1 : (total / LIST_SIZE);
 		int calCnt = (currentPage % 5) == 0 ? currentPage - 1 : currentPage;
@@ -84,6 +84,9 @@ public class OrderService {
 				map.put("listsize", endPage % 5);
 			}
 		}
+		System.out.println(LIST_SIZE);
+		System.out.println(beginPage);
+		System.out.println(endPage);
 
 		return map;
 
