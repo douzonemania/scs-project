@@ -25,10 +25,9 @@ public class DesignService {
 	@Autowired
 	DesignRepository designRepository;
 	
-    private static final String SAVE_PATH = "/scs-uploads";
-//	private static final String SAVE_PATH = "C:\\Users\\Bit\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
-	//private static final String SAVE_PATH = "D:\\douzone2020\\eclipse-workspace\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
-	private static final String URL = "/assets/images/scs-uploads";
+	private static final String SAVE_PATH = "/scs-uploads";
+	//private static final String SAVE_PATH = "C:\\Users\\bit-user\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
+	private static final String URL = "/assets/scs-manager/images";
 	
 
 	public boolean insertMainMenu(String id, MainMenuVo vo) {
