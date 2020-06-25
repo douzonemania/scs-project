@@ -89,27 +89,27 @@ public class OrderService {
 	}
 
 	public Map<String, Object> findProduct(Integer no,String db) {
+		Map<String,Object> map=new HashMap<String, Object>();
 		
 		ItemVo vo = orderRepository.findProduct(no,db);
 		String[] subImages = vo.getSubImage().split("\\?");
 		List<String> list = new ArrayList<String>();
 		
+		String viewer = "quill2.setContents([ " + 
+                vo.getEditor() +
+       "]);";
+		map.put("detail", viewer);
 		
 		for(int i=0; i<subImages.length; i++) {
-			System.out.println(subImages[i]);
 			list.add(subImages[i]);
 		}
 		
 		if(vo.getSale()!=0) {
 			vo.setTotalPrice((int) ((int)vo.getNowPrice()-(vo.getNowPrice()*(0.01*vo.getSale()))));
 		}
-		Map<String,Object> map=new HashMap<String, Object>();
 		
 		map.put("product", vo);		
 		map.put("subImages", list);
-		
-		System.out.println(map);
-		
 		
 		return map;
 	}
@@ -320,8 +320,6 @@ public class OrderService {
 	public void updateShip(String db, Long no, Map<String, Object> map) {
 		
 		ShipVo vo = new ShipVo();
-		
-		System.out.println(map);
 		
 		String nowNoStr = map.get("shipNo").toString();
 		int nowNo = Integer.parseInt(nowNoStr);
