@@ -62,8 +62,10 @@
 }
 
 
+
 @media(max-width:991px){
 	#board-table td {padding:3px; font-size:0.8em;}
+	img{max-width:100%;}
 }
 
 </style>
