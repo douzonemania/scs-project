@@ -337,7 +337,8 @@
 	 		c.reg_date as 'regDate', c.order_number as 'orderNo', c.no as 'orderNoPrime',
 			d.amount, d.total_price as 'totalPrice' , c.statement
 			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
-			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} ;
+			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no}
+			ORDER BY c.reg_date desc ;
 		]]>
 	</select>
 	
@@ -347,7 +348,8 @@
 	 		c.reg_date as 'regDate', c.order_number as 'orderNo', c.no as 'orderNoPrime',
 			d.amount, d.total_price as 'totalPrice' , c.statement
 			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
-			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} and c.statement=#{statement};
+			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} and c.statement=#{statement}
+			ORDER BY c.reg_date desc;
 		]]>
 	</select>
 	
@@ -357,7 +359,8 @@
 	 		c.reg_date as 'regDate', c.order_number as 'orderNo', c.no as 'orderNoPrime',
 			d.amount, d.total_price as 'totalPrice' , c.statement
 			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
-			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} and c.reg_date between #{date1} and #{date2};
+			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} and c.reg_date between #{date1} and #{date2}
+			ORDER BY c.reg_date desc;
 		</if>
 		<if test='statement!="init"'>
 		<![CDATA[
@@ -366,6 +369,7 @@
 			d.amount, d.total_price as 'totalPrice' , c.statement
 			from ${db}.item a, ${db}.stock b, ${db}.shop_order c, ${db}.order_item d, ${db}.member e
 			where a.no=b.item_no and b.no=d.stock_no and c.no=d.order_no and c.member_no=#{no} and c.statement=#{statement} and c.reg_date between #{date1} and #{date2}
+			ORDER BY c.reg_date desc
 		]]>
 		</if>
 	</select>
