@@ -150,7 +150,8 @@ public class OrderController {
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
 		List<ItemVo> list = (List<ItemVo>)session.getAttribute("orderList");
 		String shipMemo = (String) map.get("shipMemo");
-		String nowNo = (String) map.get("shipNo");
+		System.err.println("map: " + map);
+		String nowNo = String.valueOf(map.get("shipNo"));
 		int shipNo = Integer.parseInt(nowNo);
 		orderService.updateShip(db,vo.getNo(),map);
 		
