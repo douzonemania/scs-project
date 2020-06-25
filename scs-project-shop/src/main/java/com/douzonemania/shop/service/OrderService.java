@@ -96,7 +96,7 @@ public class OrderService {
 		List<String> list = new ArrayList<String>();
 		
 		String viewer = "quill2.setContents([ " + 
-                vo.getEditor() +
+                vo.getEditor1() +
        "]);";
 		map.put("detail", viewer);
 		
