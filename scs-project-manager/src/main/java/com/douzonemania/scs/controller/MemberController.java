@@ -96,6 +96,7 @@ public class MemberController {
 		String name = memberService.findNameByNo(authUser.getId(), no);
 		boardVo.setName(name);
 		
+		System.out.println(boardVo.getContents1());
 		String viewer = "quill2.setContents([ " + 
                 boardVo.getContents1() +
        "]);";
