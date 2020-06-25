@@ -124,6 +124,26 @@
 			});
 			
 			$('.order-button').click(function(){
+				if($('#order-name').val()==""){
+					alert("수령인/배송지를 입력하세요");
+					return;
+				}	
+				if($('#order-phoneNumber').val()=="" || !$.isNumeric($('#order-phoneNumber').val())){
+					alert("휴대전화번호를 입력하세요");		
+					return;
+				}
+				if($("#postcode1").val()==""){
+					alert("우편번호를 정확히 입력하세요");
+					return;
+				}
+				if($("#postcode2").val()==""){
+					alert("도로명주소를 정확히 입력하세요");
+					return;
+				}
+				if($("#postcode4").val()==""){
+					alert("상세주소를 정확히 입력하세요");
+					return;
+				}
 				
 				if($('input[name=payRadio]').is(':checked')){
 					
