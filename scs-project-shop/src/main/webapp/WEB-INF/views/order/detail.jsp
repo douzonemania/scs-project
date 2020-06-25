@@ -695,8 +695,8 @@
 							</c:forEach>								
 								</c:otherwise>
 							</c:choose>
-							
-							 <span class="qna-board-title"> QNA게시판</span>
+							<br /><br />
+							 <span class="qna-board-title" style="margin:0 auto;">QNA게시판</span>
 							<c:choose>
 								<c:when test="${fn:length(boardList)==0}">
 									<div class="reg-review">
@@ -709,7 +709,7 @@
 								</div>
 								</c:when>
 								<c:otherwise>
-									<div style=" margin-top:5%">
+									<div style="margin-top:1%">
 					           <table class="table-form-exposure" id="board-table">
 					           	<thead>
 							        <tr>
@@ -739,14 +739,15 @@
 							</c:choose>
 							
 							
-
-							<div style="float:right; margin-top: 20px">
-								<form action="${pageContext.request.contextPath}/${db}/board/itemboard/write/${map.product.no}" method="POST">
-									<input type="hidden" name="detail" value="detail"/>
-									<input style="width:110px; height:40px; font-size:16px; color:white" 
-									type="submit" class="ol-btn-review btn btn-dark waves-effect" value="상품문의하기"/>
-								</form>
-							</div>
+							<c:if test="${authUser.id  != null}">
+								<div style="float:right; margin-top: 20px">
+									<form action="${pageContext.request.contextPath}/${db}/board/itemboard/write/${map.product.no}" method="POST">
+										<input type="hidden" name="detail" value="detail"/>
+										<input style="width:110px; height:40px; font-size:16px; color:white" 
+										type="submit" class="ol-btn-review btn btn-dark waves-effect" value="상품문의하기"/>
+									</form>
+								</div>
+							</c:if>
 									</div>
 									<!-- end card-box -->
 								</div>

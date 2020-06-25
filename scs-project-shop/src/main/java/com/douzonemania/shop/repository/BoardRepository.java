@@ -64,10 +64,10 @@ public class BoardRepository {
 	}
 
 	// qna 글 insert
-	public boolean writeQna(String title, String contents, String option, Long no, String db) {
+	public boolean writeQna(String title, byte[] b, String option, Long no, String db) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title", title);
-		map.put("contents", contents);
+		map.put("contents", b);
 		map.put("option", option);
 		map.put("no", no);
 		map.put("db", db);
@@ -118,10 +118,10 @@ public class BoardRepository {
 	
 ////////////////////////////////end qna board////////////////////////////////////	
 
-	public boolean writeItemBoard(String title, String contents, Long memberNo, int itemNo, String db) {
+	public boolean writeItemBoard(String title, byte[] b, Long memberNo, int itemNo, String db) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title", title);
-		map.put("contents", contents);
+		map.put("contents", b);
 		map.put("memberNo", memberNo);
 		map.put("itemNo", itemNo);
 		map.put("db", db);
