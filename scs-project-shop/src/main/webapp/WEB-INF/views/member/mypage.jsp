@@ -40,9 +40,7 @@ $(document).ready(function(){
 	    $("#review"+no).submit();
 	 });
 });	
-
 $(function(){
-
 	$('#change-pwd-btn').click(function(e){
 		window.open('passwordMod','비밀번호변경','width=490,height=500,location=no,status=no,scrollbars=auto');
 	});
@@ -95,24 +93,19 @@ $(function(){
 		}); 
 	
 	});	
-
-
 });
 </script>
 
 <style>
 #info-table th{width:100px;}
-
 @media(max-width:991px){
 	#info-table th{font-size:0.4em;padding:0px; }
 	#info-table td{padding:10px;}
 }
-
 #board-table {
 	width: 100%; 
 	border-collapse: collapse; 
 }
-
 #board-table th {
 	 height: 50px;
 	 font-weight: bold; 
@@ -120,11 +113,9 @@ $(function(){
 	 border-bottom: 1px solid #CECECE;
 	 background-color: #F1F5F7;
 }
-
 #board-table tbody tr {
 	height: 50px;
 }
-
 #board-table td, th {
 	padding: 6px;
 	font-size: 0.8em;
@@ -360,9 +351,7 @@ $(function(){
 		          	</tbody> 
 		         </table>
 	          </div>    
-
 			<div class="mypage-main-gap"></div>
-
 			<div class="recipient-info" style="margin-bottom: 5px;">
                 <span>1:1문의</span> 
             </div> 
@@ -400,17 +389,13 @@ $(function(){
 		          	</tbody> 
 		         </table>
 	          </div>
-
             
         </div>
     </div>
-
 	 <c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
     <!-- Vendor js -->
    <script src="${ pageContext.request.contextPath }/assets/js/vendor.min.js"></script>
-
    <!-- App js-->
    <script src="${ pageContext.request.contextPath }/assets/js/app.min.js"></script>
-
 </body>
 </html>
