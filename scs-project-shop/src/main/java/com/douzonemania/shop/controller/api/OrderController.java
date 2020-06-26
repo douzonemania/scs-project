@@ -170,7 +170,7 @@ public class OrderController {
 			@RequestBody ReviewVo rVo, HttpSession session
 			) {
 		String db = session.getAttribute("db").toString();
-	
+
 		orderService.regReview(db, rVo);
 		orderService.updateReState(db, rVo.getStockNo(), rVo.getOrderNo());
 		return JsonResult.success("");
@@ -188,9 +188,6 @@ public class OrderController {
 		
 		String url = orderService.restore(imgSource);
 		
-		System.out.println(url);
-	
-
 		return JsonResult.success(url);
 		
 	}
