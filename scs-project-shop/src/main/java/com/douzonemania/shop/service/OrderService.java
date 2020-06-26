@@ -543,9 +543,6 @@ public class OrderService {
 		return filename;
 	}
 	
-}
-
-
 
 //////////////////////////////////에디터 byte[] 압축////////////////////////////////////
 	public static byte[] compressToByte(final String data) throws IOException {
@@ -583,6 +580,5 @@ public class OrderService {
 			return new String(content, 0, content.length, "UTF-8");
 		}
 	}
-////////////////////////////////////////////////////////////////////
 
 }
