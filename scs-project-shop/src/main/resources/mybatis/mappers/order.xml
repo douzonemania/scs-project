@@ -148,7 +148,9 @@
 							<![CDATA[
 							select* 
 							from ${db}.item a , ${db}.category b
-							where a.category_no=b.no and b.no=#{subCategory}
+							where a.category_no=b.no 
+							and b.parents_no=#{category}
+							and b.no=#{subCategory}
 							and visible =1
 							and state = 1
 							ORDER BY a.no desc limit 16 offset #{offset};
