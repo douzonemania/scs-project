@@ -62,6 +62,7 @@ public class UserController {
 		} else if(ceoVo.getAddress1() != null) {
 			ceoVo.setAddress(ceoVo.getAddress1());
 		}
+		
 		AgreementVo agreementVo = new AgreementVo();
 		agreementVo.setId(ceoVo.getId());
 		SiteVo siteVo = new SiteVo();
@@ -73,12 +74,11 @@ public class UserController {
 		userService.createDB(id);
 		userService.createTable(id);
 		userService.alterTable(id);
-		settingService.insertPolicy(id);
 		userService.insertShop(id);			// 메인메뉴 1번메뉴에 shop insert
 		userService.insertSubMenu(id);		// 서브메뉴 insert
 		
 		return "user/join-success";
-	}
+	} 
 	
 	@RequestMapping(value="/join-success")
 	public String JoinSuccess() {
