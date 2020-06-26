@@ -161,7 +161,7 @@ $(document).ready(function(){
 				  			<tr>
 				  				<td>&nbsp; [${status.count + (map.page - 1) * 5 }] &nbsp;&nbsp;&nbsp;
 				  					<a class="mainImage" href="${ pageContext.request.contextPath }/${db}/order/detail?no=${vo.itemNo}">
-		                            	<img src="/scs-manager${vo.mainImage }" style="max-height:100px"  class="img-fluid" />
+		                            	<img src="/scs-manager${vo.mainImage }" style="max-height:50px"  class="img-fluid" />
 				  					</a>	
 				  				</td>
 				  				<td>${vo.itemName }</td>
