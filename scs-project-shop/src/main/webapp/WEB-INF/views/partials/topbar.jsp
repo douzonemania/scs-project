@@ -85,12 +85,12 @@
                 <div class="logo-box">
                     <a href="index.html" class="logo text-center">
                         <span class="logo-lg">
-                            <img src="/scs-manager/assets/scs-manager/images/20205885012129.jpg" alt="" style="max-height:64px; max-width:64px">
+                            <img src="/scs-manager/assets/scs-manager/images/20205245527500.png" alt="" style="max-height:64px; max-width:64px">
                             <!-- <span class="logo-lg-text-light">UBold</span> -->
                         </span>
                         <span class="logo-sm" style="margin-left: 120px;">
                             <!-- <span class="logo-sm-text-dark">U</span> -->
-                            <img src="/scs-manager/assets/scs-manager/images/20205885012129.jpg" alt="" style="max-height:48px; max-width:48px">
+                            <img src="/scs-manager/assets/scs-manager/images/20205245527500.png" alt="" style="max-height:48px; max-width:48px">
                         </span>
                     </a>
                 </div>
