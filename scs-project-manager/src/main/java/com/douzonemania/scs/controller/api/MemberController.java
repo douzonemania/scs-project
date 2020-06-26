@@ -1,5 +1,7 @@
 package com.douzonemania.scs.controller.api;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +55,7 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="/board/write/{no}", method=RequestMethod.POST)
 	public JsonResult boardWrite(@AuthUser CeoVo authUser,
-			@PathVariable("no") int no, @RequestBody String html) {
+			@PathVariable("no") int no, @RequestBody String html) throws IOException {
 		
 		boolean replyResult = memberService.boardReply(authUser.getId(), no, html);
 		memberService.updateBoardReplyTrue(authUser.getId(), no);

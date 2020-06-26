@@ -62,8 +62,10 @@
 }
 
 
+
 @media(max-width:991px){
 	#board-table td {padding:3px; font-size:0.8em;}
+	img{max-width:100%;}
 }
 
 </style>
@@ -79,6 +81,8 @@
 	var mobileDropDownTemplate = new EJS({url : "${pageContext.request.contextPath }/assets/js/ejs/mobile-dropdown-box-template.ejs"});
 
 	$(function() {
+		${map.detail};	// 상세설명 editor
+		
 		var firstOption= $('#firstOption').val();
 		var mobileFirstOption= $('#mobileFirstOption').val();
 		
@@ -644,10 +648,9 @@
 
 					<!-- 제이쿼리로 작업 하기.-->
 					<div class="product-detail">
-						<div class="info-detail" id="infoSpace">
-							<img
-								src="${pageContext.request.contextPath}/assets/images/detail-image.PNG"
-								alt="" class="rounded">
+						<div class="info-detail" id="infoSpace" style="text-align:center;">
+							<span style="font-size: 40px; color: #323A46; float: center;">DETAIL</span>
+							<div id="snow-viewer" style="height: auto; border: 1px solid #CECECE; pointer-events:none;" contentEditable="false"></div>
 						</div>						
 						<div class="info-review" id="reviewSpace">
 							<span>REVIEW</span> <span style="display: block;">
@@ -668,9 +671,11 @@
 									<c:forEach items="${reviewList }" var="vo" varStatus="status">
 							<div class="review-group">
 								<div class="review-img">
+									<c:if test="${vo.image != null }">
 									<img
-										src="${pageContext.request.contextPath}/assets/images/review-img.PNG"
-										alt="" / class="rounded">
+										src="/scs-manager${vo.image}"
+										alt="" class="rounded">
+									</c:if>
 								</div>
 								<div class="review-box">
 									<div class="pl-xl-3">
@@ -695,8 +700,8 @@
 							</c:forEach>								
 								</c:otherwise>
 							</c:choose>
-							
-							 <span class="qna-board-title"> QNA게시판</span>
+							<br /><br />
+							 <span class="qna-board-title" style="margin:0 auto;">QNA게시판</span>
 							<c:choose>
 								<c:when test="${fn:length(boardList)==0}">
 									<div class="reg-review">
@@ -709,7 +714,7 @@
 								</div>
 								</c:when>
 								<c:otherwise>
-									<div style=" margin-top:5%">
+									<div style="margin-top:1%">
 					           <table class="table-form-exposure" id="board-table">
 					           	<thead>
 							        <tr>
@@ -739,14 +744,15 @@
 							</c:choose>
 							
 							
-
-							<div style="float:right; margin-top: 20px">
-								<form action="${pageContext.request.contextPath}/${db}/board/itemboard/write/${map.product.no}" method="POST">
-									<input type="hidden" name="detail" value="detail"/>
-									<input style="width:110px; height:40px; font-size:16px; color:white" 
-									type="submit" class="ol-btn-review btn btn-dark waves-effect" value="상품문의하기"/>
-								</form>
-							</div>
+							<c:if test="${authUser.id  != null}">
+								<div style="float:right; margin-top: 20px">
+									<form action="${pageContext.request.contextPath}/${db}/board/itemboard/write/${map.product.no}" method="POST">
+										<input type="hidden" name="detail" value="detail"/>
+										<input style="width:110px; height:40px; font-size:16px; color:white" 
+										type="submit" class="ol-btn-review btn btn-dark waves-effect" value="상품문의하기"/>
+									</form>
+								</div>
+							</c:if>
 									</div>
 									<!-- end card-box -->
 								</div>
@@ -847,11 +853,13 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 		
-		
-		<script
-			src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>
+  <!-- Vendor js -->
+   <script src="<%=request.getContextPath() %>/assets/js/vendor.min.js"></script>
 
-		<!-- App js-->
-		<script src="${pageContext.request.contextPath}/assets/js/app.min.js"></script>
+   <!-- App js-->
+   <script src="<%=request.getContextPath() %>/assets/js/app.min.js"></script>
+
+	<script src="<%=request.getContextPath() %>/assets/libs/quill/quill.min.js"></script>
+	<script src="<%=request.getContextPath() %>/assets/js/pages/form-quilljs.init.js"></script>
 </body>
 </html>

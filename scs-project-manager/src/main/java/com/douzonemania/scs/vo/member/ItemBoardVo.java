@@ -1,12 +1,16 @@
 package com.douzonemania.scs.vo.member;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class ItemBoardVo {
 
 	private int no;
 	private String title;
-	private String contents;
+
+	private byte[] contents;
+	private String contents1;
+
 	private Timestamp regDate;
 	private int memberNo;
 	private int itemNo;
@@ -31,12 +35,20 @@ public class ItemBoardVo {
 		this.title = title;
 	}
 
-	public String getContents() {
+	public byte[] getContents() {
 		return contents;
 	}
 
-	public void setContents(String contents) {
+	public void setContents(byte[] contents) {
 		this.contents = contents;
+	}
+
+	public String getContents1() {
+		return contents1;
+	}
+
+	public void setContents1(String contents1) {
+		this.contents1 = contents1;
 	}
 
 	public Timestamp getRegDate() {
@@ -97,9 +109,9 @@ public class ItemBoardVo {
 
 	@Override
 	public String toString() {
-		return "ItemBoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", regDate=" + regDate
-				+ ", memberNo=" + memberNo + ", itemNo=" + itemNo + ", replyState=" + replyState + ", code=" + code
-				+ ", id=" + id + ", name=" + name + "]";
+		return "ItemBoardVo [no=" + no + ", title=" + title + ", contents=" + Arrays.toString(contents) + ", contents1="
+				+ contents1 + ", regDate=" + regDate + ", memberNo=" + memberNo + ", itemNo=" + itemNo + ", replyState="
+				+ replyState + ", code=" + code + ", id=" + id + ", name=" + name + "]";
 	}
 
 }

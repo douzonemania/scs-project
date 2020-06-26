@@ -1,13 +1,18 @@
 package com.douzonemania.shop.vo;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class BoardVo {
 
 	private int no;
+
 	private String category;
 	private String title;
-	private String contents;
+
+	private byte[] contents;
+	private String contents1;
+
 	private int memberNo;
 	private Timestamp regDate;
 	private String id; // member id
@@ -38,12 +43,20 @@ public class BoardVo {
 		this.title = title;
 	}
 
-	public String getContents() {
+	public byte[] getContents() {
 		return contents;
 	}
 
-	public void setContents(String contents) {
+	public void setContents(byte[] contents) {
 		this.contents = contents;
+	}
+
+	public String getContents1() {
+		return contents1;
+	}
+
+	public void setContents1(String contents1) {
+		this.contents1 = contents1;
 	}
 
 	public int getMemberNo() {
@@ -62,14 +75,6 @@ public class BoardVo {
 		this.regDate = regDate;
 	}
 
-	public boolean isReplyState() {
-		return replyState;
-	}
-
-	public void setReplyState(boolean replyState) {
-		this.replyState = replyState;
-	}
-
 	public String getId() {
 		return id;
 	}
@@ -86,11 +91,19 @@ public class BoardVo {
 		this.name = name;
 	}
 
+	public boolean isReplyState() {
+		return replyState;
+	}
+
+	public void setReplyState(boolean replyState) {
+		this.replyState = replyState;
+	}
+
 	@Override
 	public String toString() {
-		return "BoardVo [no=" + no + ", category=" + category + ", title=" + title + ", contents=" + contents
-				+ ", memberNo=" + memberNo + ", regDate=" + regDate + ", replyState=" + replyState + ", id=" + id
-				+ ", name=" + name + "]";
+		return "BoardVo [no=" + no + ", category=" + category + ", title=" + title + ", contents="
+				+ Arrays.toString(contents) + ", contents1=" + contents1 + ", memberNo=" + memberNo + ", regDate="
+				+ regDate + ", id=" + id + ", name=" + name + ", replyState=" + replyState + "]";
 	}
 
 }

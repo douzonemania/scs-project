@@ -1,5 +1,7 @@
 package com.douzonemania.shop.controller.api;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping(value="/qna/write", method=RequestMethod.POST)
 	public JsonResult writeQna(@RequestBody String html,
-			HttpSession session) {
+			HttpSession session) throws IOException {
 		
 		String db = session.getAttribute("db").toString();
 		MemberVo authUser = (MemberVo)session.getAttribute("authUser");
@@ -46,7 +48,7 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping(value="/itemboard/write/{no}", method=RequestMethod.POST)
 	public JsonResult writeItemBoard(@RequestBody String html, 
-			@PathVariable("no") int itemNo, HttpSession session) {
+			@PathVariable("no") int itemNo, HttpSession session) throws IOException {
 		
 		String db = session.getAttribute("db").toString();
 		MemberVo authUser = (MemberVo)session.getAttribute("authUser");

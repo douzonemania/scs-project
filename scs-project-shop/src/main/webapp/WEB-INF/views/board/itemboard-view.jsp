@@ -120,7 +120,7 @@ var removeCheck = function(no) {
 	                                        </tr>                          
                                         </tbody>
                                     </table>
-								<div id="snow-viewer" style="height: 300px; border: 1px solid #CECECE;" contentEditable="false"></div>
+								<div id="snow-viewer" style="height: 400px; border: 1px solid #CECECE;" contentEditable="false"></div>
 
 
 								<!-- 답글이 있을 경우  -->
@@ -141,7 +141,7 @@ var removeCheck = function(no) {
                                         </tbody>
                                     </table>
 									
-									<div id="snow-reply" style="height: 300px; border: 1px solid #CECECE;" contentEditable="false"></div>
+									<div id="snow-reply" style="height: 400px; border: 1px solid #CECECE;" contentEditable="false"></div>
 								</c:if>
 							
 							<br />

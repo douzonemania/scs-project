@@ -138,9 +138,8 @@ $(document).ready(function(){
 												<p class="ol-color">${vo.color }</p>
 											</div>
 										</div>
-										<input type="hidden" value="<fmt:parseDate var="fmtRegDate" value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm" />"/>
 										
-										<p class="ol-reg"><fmt:formatDate value="${fmtRegDate}" pattern="yyyy-MM-dd HH:mm"/></p>
+										<p class="ol-reg">${vo.regDate }</p>
 										<p class="ol-orderNo">${vo.orderNo }</p>
 										<div class="ol-price-mount">
 										<p class="ol-price">${priceList[status.index]}</p>

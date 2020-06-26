@@ -1,6 +1,7 @@
 package com.douzonemania.scs.vo.member;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class ItemVo {
 
@@ -15,7 +16,10 @@ public class ItemVo {
 	private boolean visible = true;
 	private boolean bestItem = false;
 	private boolean newItem = false;
-	private String editor;
+
+	private byte[] editor;
+	private String editor1;
+
 	private String description;
 	private Timestamp regDate;
 	private int categoryNo;
@@ -159,21 +163,29 @@ public class ItemVo {
 		this.newItem = newItem;
 	}
 
-	public String getEditor() {
+	public byte[] getEditor() {
 		return editor;
 	}
 
-	public void setEditor(String editor) {
+	public void setEditor(byte[] editor) {
 		this.editor = editor;
+	}
+
+	public String getEditor1() {
+		return editor1;
+	}
+
+	public void setEditor1(String editor1) {
+		this.editor1 = editor1;
 	}
 
 	@Override
 	public String toString() {
 		return "ItemVo [no=" + no + ", code=" + code + ", name=" + name + ", supPrice=" + supPrice + ", nowPrice="
 				+ nowPrice + ", sale=" + sale + ", mainImage=" + mainImage + ", subImage=" + subImage + ", visible="
-				+ visible + ", bestItem=" + bestItem + ", newItem=" + newItem + ", editor=" + editor + ", description="
-				+ description + ", regDate=" + regDate + ", categoryNo=" + categoryNo + ", shipCompany=" + shipCompany
-				+ ", shipCharge=" + shipCharge + ", state=" + state + "]";
+				+ visible + ", bestItem=" + bestItem + ", newItem=" + newItem + ", editor=" + Arrays.toString(editor)
+				+ ", editor1=" + editor1 + ", description=" + description + ", regDate=" + regDate + ", categoryNo="
+				+ categoryNo + ", shipCompany=" + shipCompany + ", shipCharge=" + shipCharge + ", state=" + state + "]";
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.douzonemania.scs.controller;
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,14 +90,15 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="board/view/{no}")
-	public String boardView(@AuthUser CeoVo authUser,@PathVariable("no") int no, Model model) {
+	public String boardView(@AuthUser CeoVo authUser,@PathVariable("no") int no, Model model) throws IOException {
 		
 		BoardVo boardVo = memberService.findBoardByNo(authUser.getId(), no);
 		String name = memberService.findNameByNo(authUser.getId(), no);
 		boardVo.setName(name);
 		
+		System.out.println(boardVo.getContents1());
 		String viewer = "quill2.setContents([ " + 
-                boardVo.getContents() +
+                boardVo.getContents1() +
        "]);";
 		
 		model.addAttribute("boardVo", boardVo);
@@ -106,7 +108,7 @@ public class MemberController {
 		if(boardVo.isReplyState()) {
 			ReplyVo replyVo = memberService.findReplyByParentsNo(authUser.getId(), no);
 			String reply = "quill3.setContents([ " + 
-			                          replyVo.getContents() +
+			                          replyVo.getContents1() +
 			                 "]);";
 			
 			model.addAttribute("reply", reply);	
