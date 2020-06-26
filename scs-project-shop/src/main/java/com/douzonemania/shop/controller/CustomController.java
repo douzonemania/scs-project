@@ -126,7 +126,7 @@ public class CustomController {
 		return "order/review";
 	}
 	
-	@RequestMapping(value = "/QNA", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/Q&A", method = { RequestMethod.GET, RequestMethod.POST })
 	public String qnaList(@RequestParam(value="p", required=true, defaultValue="1") int page,
 			@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
 			@RequestParam(value="op", required=true, defaultValue="") String option,
