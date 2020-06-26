@@ -547,7 +547,6 @@ public class OrderService {
 		filename += calendar.get(Calendar.SECOND);
 		filename += calendar.get(Calendar.MILLISECOND);
 		filename += ("." + extName);
-
 		return filename;
 	}
 	
