@@ -40,7 +40,12 @@
 		
 		}
 		$(document).ready(function(){
-			var no = ${recentShip.no};
+			var no=0;
+			if($('input[name=radioInline]:checked').val()=="option2"){
+				
+			}else{
+				var no="${recentShip.no}";
+			}
 		
 		$(function(){
 			
@@ -167,7 +172,6 @@
 						"shipMemo" : shipMemo
 						
 				}
-				
 				
 				if($('input[name=radioInline]:checked').val()=="option2"){// 주소록 추가 
 									

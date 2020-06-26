@@ -113,7 +113,7 @@ $(document).ready(function(){
                         <div class="card-columns">
                         
                         <c:forEach items="${map.photoList }" var="vo" varStatus="status">  
-                            <div class="card">
+                            <div class="card" style='min-height: 325px; min-width: 450px;'>
 	                          <img class="ol-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:280px; cursor: pointer;" />
                                 <p style="margin-left: 15px; width: 25%;">
                                 	<c:forEach begin="1" end="${vo.rate }">
@@ -161,7 +161,7 @@ $(document).ready(function(){
 				  			<tr>
 				  				<td>&nbsp; [${status.count + (map.page - 1) * 5 }] &nbsp;&nbsp;&nbsp;
 				  					<a class="mainImage" href="${ pageContext.request.contextPath }/${db}/order/detail?no=${vo.itemNo}">
-		                            	<img src="/scs-manager${vo.mainImage }" style="max-height:280px"  class="img-fluid" />
+		                            	<img src="/scs-manager${vo.mainImage }" style="max-height:100px"  class="img-fluid" />
 				  					</a>	
 				  				</td>
 				  				<td>${vo.itemName }</td>
