@@ -70,7 +70,7 @@ $(document).ready(function(){
 			data: JSON.stringify(html),
 			success: function(response){
 				console.log(response.data);
-				location.href= "${pageContext.request.contextPath }/${db}/board/qna/list";	// list로 바꾸기
+				location.href= "${pageContext.request.contextPath }/${db}/custom/Q&A";	// list로 바꾸기
 			},
 			error: function(xhr, status, e){
 
