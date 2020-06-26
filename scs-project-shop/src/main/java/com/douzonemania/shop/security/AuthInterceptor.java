@@ -48,7 +48,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			
 			for (SubMenuVo subMenuVo : subMenuList) {
 				List<ContentsVo> contentsVo = customService.getContentsByCustomNo(subMenuVo.getNo());
-				System.out.println(contentsVo);
+				//System.out.println(contentsVo);
 			}
 			
 			session.setAttribute("subMenuList",subMenuList);

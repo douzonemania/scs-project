@@ -78,7 +78,6 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addResourceHandler(env.getProperty("fileupload.resourceMapping")).addResourceLocations("file:" + env.getProperty("fileupload.uploadLocation"));
 	}
 	
-	
 	@Bean
 	public MappingJackson2JsonView jsonView() {
 		return new MappingJackson2JsonView();

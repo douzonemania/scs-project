@@ -23,10 +23,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
+		
+		System.out.println("LOGINSTART");
+		
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		
-		System.out.println("LOGOUT START");
 		MemberVo vo = new MemberVo();
 		
 		vo.setId(id);
