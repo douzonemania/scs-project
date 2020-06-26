@@ -173,7 +173,7 @@
 								</c:choose>
 							</c:forEach>
                             <li>
-                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.nextPage }&category=${map.category }&subCategory=${map.subCategoryNo}" aria-label="Next">
+                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.nextPage }&category=${map.categoryNo }&subCategory=${map.subCategoryNo}" aria-label="Next">
                                     <span aria-hidden="true">»</span>
                                     <span class="sr-only">Next</span>
                                 </a>
