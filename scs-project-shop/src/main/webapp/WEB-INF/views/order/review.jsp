@@ -138,7 +138,7 @@ $(document).ready(function(){
  
             </div><!-- photoreview search-->
            
-            <div class="all-review">
+            <div class="all-review" style="margin-top:20px;">
 
                 <div class="photo-review-title">
                     ALL REVIEW  &nbsp;&nbsp; l &nbsp;&nbsp;  전체 리뷰
@@ -161,7 +161,7 @@ $(document).ready(function(){
 				  			<tr>
 				  				<td>&nbsp; [${status.count + (map.page - 1) * 5 }] &nbsp;&nbsp;&nbsp;
 				  					<a class="mainImage" href="${ pageContext.request.contextPath }/${db}/order/detail?no=${vo.itemNo}">
-		                            	<img src="/scs-manager${vo.mainImage }" style="max-height:100px"  class="img-fluid" />
+		                            	<img src="/scs-manager${vo.mainImage }" style="max-height:50px"  class="img-fluid" />
 				  					</a>	
 				  				</td>
 				  				<td>${vo.itemName }</td>
@@ -207,8 +207,8 @@ $(document).ready(function(){
                             </li>
                         </ul>
                     </div> <!-- end col-->
-                </div>
-                <!-- end row-->
+           </div>
+           <!-- end row-->
           
         </div > 
      </div>
