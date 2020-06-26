@@ -138,7 +138,7 @@ $(document).ready(function(){
  
             </div><!-- photoreview search-->
            
-            <div class="all-review">
+            <div class="all-review" style="margin-top:20px;">
 
                 <div class="photo-review-title">
                     ALL REVIEW  &nbsp;&nbsp; l &nbsp;&nbsp;  전체 리뷰
@@ -207,8 +207,8 @@ $(document).ready(function(){
                             </li>
                         </ul>
                     </div> <!-- end col-->
-                </div>
-                <!-- end row-->
+           </div>
+           <!-- end row-->
           
         </div > 
      </div>
