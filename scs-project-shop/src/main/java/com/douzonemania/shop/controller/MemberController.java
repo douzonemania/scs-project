@@ -148,7 +148,7 @@ public class MemberController {
 		List<String> priceList = orderService.convertPrice(orderList);
 		List<BoardVo> qnaList = memberService.getQnaList(db, nowvo.getNo());
 		List<ItemVo> cartList = memberService.getCartList(db, nowvo.getNo());
-		
+		List<Integer> restateList = orderService.getRestate(db,orderList);
 		for (ItemVo itemVo : cartList) {
 				int nowSale = itemVo.getSale();
 				if(nowSale !=0) {
@@ -169,6 +169,7 @@ public class MemberController {
 		model.addAttribute("itemBoardList",itemBoardList);
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("vo", mVo);
+		model.addAttribute("restateList", restateList);
 		return "member/mypage";
 	}
 	
