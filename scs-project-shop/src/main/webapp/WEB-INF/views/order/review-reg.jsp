@@ -139,7 +139,7 @@ $(document).on("click","#main-image-upload",function(){
 <body>	
 	<div class="review-top"> 후기작성</div>
 	<div class="review-item-info">
-		<div class="review-image"> <img src="/scs-manager${image}"></div>
+		<div class="review-image"> <img src="/scs-manager${image}" style="width:90px; height:90px;" /></div>
 			<div class="review-itemName">${itemName }</div>
 			<div class="review-option">${itemSize } / ${itemColor }</div>
 	</div>
