@@ -42,8 +42,8 @@ public class OrderService {
 
 	private static int LIST_SIZE =16;
 	private static final int PAGE_SIZE =5;
-	//private static final String SAVE_PATH = "/scs-uploads";
-	private static final String SAVE_PATH = "C:\\Users\\bit\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
+	private static final String SAVE_PATH = "/scs-uploads";
+	// private static final String SAVE_PATH = "C:\\Users\\bit\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
 	private static final String URL = "/assets/scs-shop/images";
 	
 
