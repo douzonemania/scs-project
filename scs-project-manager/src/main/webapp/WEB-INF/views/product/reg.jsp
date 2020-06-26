@@ -233,13 +233,12 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	vo.visible = visible;
 	vo.bestItem = bestItem;
 	vo.newItem = newItem;
-	vo.editor = editor;
+	vo.editor1 = editor;
 	vo.description = description;
 	vo.regDate = regDate;
 	vo.categoryNo = categoryName2;
 	vo.shipCompany = shipCompany;
 	vo.shippingCharge = shippingCharge;
-	vo.editor = editor;
 	
 	var i = 0;
 	var numberOfOption = $('.sizeOptionSelect').length;
@@ -347,10 +346,10 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	vo.mainImage = mainImage;
 	vo.subImage = subImage;
 	
-	if(mainImage.length<14){
+ 	if(mainImage.length<14){
 		alert("메인이미지를 등록하세요 :" + mainImage);
 		return;
-	}
+	} 
 	
 	$.ajax({
 		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/regItem',

@@ -1,5 +1,6 @@
 package com.douzonemania.shop.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/qna/view/{no}")
-	public String boardView(@PathVariable("no") int no, Model model, HttpSession session) {
+	public String boardView(@PathVariable("no") int no, Model model, HttpSession session) throws IOException {
 		String db = session.getAttribute("db").toString(); 
 		
 		BoardVo boardVo = boardService.findBoardByNo(db, no);
@@ -60,7 +61,7 @@ public class BoardController {
 		boardVo.setName(name);
 
 		String viewer = "quill2.setContents([ " + 
-                boardVo.getContents() +
+                boardVo.getContents1() +
        "]);";
 		
 		model.addAttribute("boardVo", boardVo);
@@ -107,7 +108,7 @@ public class BoardController {
 	
 	@RequestMapping(value="/itemboard/view/{no}")
 	public String itemBoardView(@PathVariable("no") int no, Model model,
-			HttpSession session) {
+			HttpSession session) throws IOException {
 		String db = session.getAttribute("db").toString(); 
 		
 		ItemBoardVo itemBoardVo = boardService.findItemBoardByNo(db, no);
@@ -115,7 +116,7 @@ public class BoardController {
 		itemBoardVo.setName(name);
 		
 		String viewer = "quill2.setContents([ " + 
-				itemBoardVo.getContents() +
+				itemBoardVo.getContents1() +
        "]);";
 		
 		model.addAttribute("itemBoardVo", itemBoardVo);

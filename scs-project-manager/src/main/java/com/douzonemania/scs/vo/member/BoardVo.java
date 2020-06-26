@@ -1,6 +1,7 @@
 package com.douzonemania.scs.vo.member;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class BoardVo {
 
@@ -8,19 +9,15 @@ public class BoardVo {
 
 	private String category;
 	private String title;
-	private String contents;
+
+	private byte[] contents;
+	private String contents1;
+
 	private int memberNo;
 	private Timestamp regDate;
 	private String id; // member id
 	private String name; // member name
 	private boolean replyState; // 답글 여부
-
-	@Override
-	public String toString() {
-		return "BoardVo [no=" + no + ", category=" + category + ", title=" + title + ", contents=" + contents
-				+ ", memberNo=" + memberNo + ", regDate=" + regDate + ", id=" + id + ", name=" + name + ", replyState="
-				+ replyState + "]";
-	}
 
 	public int getNo() {
 		return no;
@@ -46,12 +43,20 @@ public class BoardVo {
 		this.title = title;
 	}
 
-	public String getContents() {
+	public byte[] getContents() {
 		return contents;
 	}
 
-	public void setContents(String contents) {
+	public void setContents(byte[] contents) {
 		this.contents = contents;
+	}
+
+	public String getContents1() {
+		return contents1;
+	}
+
+	public void setContents1(String contents1) {
+		this.contents1 = contents1;
 	}
 
 	public int getMemberNo() {
@@ -93,5 +98,12 @@ public class BoardVo {
 	public void setReplyState(boolean replyState) {
 		this.replyState = replyState;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "BoardVo [no=" + no + ", category=" + category + ", title=" + title + ", contents="
+				+ Arrays.toString(contents) + ", contents1=" + contents1 + ", memberNo=" + memberNo + ", regDate="
+				+ regDate + ", id=" + id + ", name=" + name + ", replyState=" + replyState + "]";
+	}
+
 }

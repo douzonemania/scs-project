@@ -1,12 +1,16 @@
 package com.douzonemania.shop.vo;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class ItemBoardVo {
 
 	private int no;
 	private String title;
-	private String contents;
+
+	private byte[] contents;
+	private String contents1;
+
 	private Timestamp regDate;
 	private int memberNo;
 	private int itemNo;
@@ -14,8 +18,8 @@ public class ItemBoardVo {
 	private String code; // 상품 코드
 	private String id; // 회원 아이디
 	private String name; // 회원 이름
-	private String mainImage;	// 상품 이미지
-	private String itemName;	// 상품 이름
+	private String mainImage;
+	private String itemName;
 
 	public int getNo() {
 		return no;
@@ -33,12 +37,20 @@ public class ItemBoardVo {
 		this.title = title;
 	}
 
-	public String getContents() {
+	public byte[] getContents() {
 		return contents;
 	}
 
-	public void setContents(String contents) {
+	public void setContents(byte[] contents) {
 		this.contents = contents;
+	}
+
+	public String getContents1() {
+		return contents1;
+	}
+
+	public void setContents1(String contents1) {
+		this.contents1 = contents1;
 	}
 
 	public Timestamp getRegDate() {
@@ -115,9 +127,10 @@ public class ItemBoardVo {
 
 	@Override
 	public String toString() {
-		return "ItemBoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", regDate=" + regDate
-				+ ", memberNo=" + memberNo + ", itemNo=" + itemNo + ", replyState=" + replyState + ", code=" + code
-				+ ", id=" + id + ", name=" + name + ", mainImage=" + mainImage + ", itemName=" + itemName + "]";
+		return "ItemBoardVo [no=" + no + ", title=" + title + ", contents=" + Arrays.toString(contents) + ", contents1="
+				+ contents1 + ", regDate=" + regDate + ", memberNo=" + memberNo + ", itemNo=" + itemNo + ", replyState="
+				+ replyState + ", code=" + code + ", id=" + id + ", name=" + name + ", mainImage=" + mainImage
+				+ ", itemName=" + itemName + "]";
 	}
 
 }

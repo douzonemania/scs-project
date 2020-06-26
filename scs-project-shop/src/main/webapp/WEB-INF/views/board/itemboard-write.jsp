@@ -111,7 +111,7 @@ $(document).ready(function(){
 	                    <div style="margin-top: 30px;"></div>
 	    
 	                    <!-- Editor -->
-	                    <div id="snow-editor" style="height:300px; "></div>
+	                    <div id="snow-editor" style="height:400px; "></div>
 	                   
 	    
 	                    <div class="btn-submit-section qna-custom-btn-group" style="width: 100%;margin-top: 30px;"	>

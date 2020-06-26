@@ -35,102 +35,94 @@ import com.douzonemania.scs.vo.member.StockVo;
 @Service
 public class ProductService {
 
-	private static final int LIST_SIZE =5;
-	private static final int PAGE_SIZE =5;
+	private static final int LIST_SIZE = 5;
+	private static final int PAGE_SIZE = 5;
 	private static final String SAVE_PATH = "/scs-uploads";
-	//private static final String SAVE_PATH = "C:\\Users\\bit-user\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
+	// private static final String SAVE_PATH =
+	// "C:\\Users\\bit-user\\git\\scs-project\\scs-project-manager\\src\\main\\webapp\\assets\\images\\scs-uploads";
 	private static final String URL = "/assets/scs-manager/images";
-	
+
 	@Autowired
 	private ProductRepository productRepository;
 
 	/* 상품 리스트 가져오기 */
-	public Map<String, Object> getItemList(String id, int currentPage,String key,String option) {
+	public Map<String, Object> getItemList(String id, int currentPage, String key, String option) {
 		Map<String, Object> map = new HashMap<>();
-		
+
 		// keyword 지정
 		String keywordList[] = key.split(",");
-		String keyword="";
-		if(keywordList.length == 2) {
-			if(option.equals("visible")) {
-					keyword = keywordList[1];
-			}
-			else {
+		String keyword = "";
+		if (keywordList.length == 2) {
+			if (option.equals("visible")) {
+				keyword = keywordList[1];
+			} else {
 				keyword = keywordList[0];
 			}
-		}
-		else {
+		} else {
 			keyword = key;
 		}
 
-		int offset=(currentPage-1)*5;
-		
+		int offset = (currentPage - 1) * 5;
+
 		int total = productRepository.listCount(id, option, keyword);
-		
+
 		List<ItemVo> list;
-		if(option.equals("")) {
+		if (option.equals("")) {
 			list = productRepository.getItemList(id, offset, LIST_SIZE);
-		}
-		else {
+		} else {
 			list = productRepository.getSearchItemList(id, option, keyword, offset, LIST_SIZE);
 		}
-		
-		System.out.println("count:"+total);
-		
-		for (ItemVo itemVo : list) {
-			System.out.println(itemVo);
-		}
-		
-		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
-		int calCnt=(currentPage%5)==0 ? currentPage-1 : currentPage;
 
-		int beginPage=calCnt-(calCnt%5)==0 ? 1 : calCnt-(calCnt%5)+1;
-		int prevPage = beginPage == 1 ? 1 : beginPage -1;
-		int endPage = (pageCnt-(pageCnt%5))==(calCnt-(calCnt%5)) ? pageCnt : (beginPage+PAGE_SIZE)-1;
-		int nextPage = (pageCnt-(pageCnt%5))==(calCnt-(calCnt%5)) ? pageCnt : endPage+1;
+		int pageCnt = (total % LIST_SIZE != 0) ? (total / LIST_SIZE) + 1 : (total / LIST_SIZE);
+		int calCnt = (currentPage % 5) == 0 ? currentPage - 1 : currentPage;
 
-		if(nextPage>=pageCnt)
-			nextPage=pageCnt;
-		if(endPage>=pageCnt)
-			endPage=pageCnt;
+		int beginPage = calCnt - (calCnt % 5) == 0 ? 1 : calCnt - (calCnt % 5) + 1;
+		int prevPage = beginPage == 1 ? 1 : beginPage - 1;
+		int endPage = (pageCnt - (pageCnt % 5)) == (calCnt - (calCnt % 5)) ? pageCnt : (beginPage + PAGE_SIZE) - 1;
+		int nextPage = (pageCnt - (pageCnt % 5)) == (calCnt - (calCnt % 5)) ? pageCnt : endPage + 1;
+
+		if (nextPage >= pageCnt)
+			nextPage = pageCnt;
+		if (endPage >= pageCnt)
+			endPage = pageCnt;
 
 		map.put("list", list);
-		map.put("beginPage",beginPage);
-		map.put("prevPage",prevPage);
-		map.put("endPage",endPage);
-		map.put("nextPage",nextPage);
-		map.put("page",currentPage);
-		map.put("total",total);
+		map.put("beginPage", beginPage);
+		map.put("prevPage", prevPage);
+		map.put("endPage", endPage);
+		map.put("nextPage", nextPage);
+		map.put("page", currentPage);
+		map.put("total", total);
 		map.put("option", option);
-		map.put("kwd",keyword);
+		map.put("kwd", keyword);
 		map.put("calCnt", calCnt);
 
-		if(endPage!=pageCnt)
-			map.put("listsize",LIST_SIZE);
+		if (endPage != pageCnt)
+			map.put("listsize", LIST_SIZE);
 		else {
-			if(endPage%5==0) {
-				map.put("listsize",5);
-			}else {
-				map.put("listsize",endPage%5);
+			if (endPage % 5 == 0) {
+				map.put("listsize", 5);
+			} else {
+				map.put("listsize", endPage % 5);
 			}
 		}
 
 		return map;
 	}
 
-	/* 상품 등록*/
+	/* 상품 등록 */
 	public int regItem(String id, ItemVo iVo) {
-		return productRepository.regItem(id, iVo);		
+		return productRepository.regItem(id, iVo);
 	}
-	
+
 	/* 해당 no 상품 검색 */
 	public ItemVo findItem(String id, int no) {
 		return productRepository.findItem(id, no);
 	}
 
 	/* 카테고리 추가하기 */
-	public int addCategory(String id, CategoryVo cVo) {		
-		return productRepository.addCategory(id, cVo);		
+	public int addCategory(String id, CategoryVo cVo) {
+		return productRepository.addCategory(id, cVo);
 	}
 
 	/* 카테고리 이름으로 검색 */
@@ -142,40 +134,42 @@ public class ProductService {
 	public CategoryVo findCategoryByNo(String id, int no) {
 		return productRepository.findCategoryByNo(id, no);
 	}
-	
+
 	/* 카테고리 삭제하기 */
 	public int delCategory(String id, String name) {
-		return productRepository.delCategory(id, name);		
+		return productRepository.delCategory(id, name);
 	}
 
-	/* 1차 카테고리 이름 리스트  */
-	public List<CategoryVo> getCategoryNameList(String id) {		
+	/* 1차 카테고리 이름 리스트 */
+	public List<CategoryVo> getCategoryNameList(String id) {
 		return productRepository.getCategoryNameList(id);
 	}
-	
-	/* 2차 카테고리 부모카테고리번호 별 이름 리스트  */
-	public List<CategoryVo> getCategory2NameList(String id, int parentCategoryNo) {		
+
+	/* 2차 카테고리 부모카테고리번호 별 이름 리스트 */
+	public List<CategoryVo> getCategory2NameList(String id, int parentCategoryNo) {
 		return productRepository.getCategory2NameList(id, parentCategoryNo);
 	}
-	/* 2차 카테고리 전체 이름 리스트 */ 
+
+	/* 2차 카테고리 전체 이름 리스트 */
 	public List<CategoryVo> getCategory2NameList(String id) {
 		return productRepository.getCategory2NameList(id);
 	}
-	
+
 	/* 카테고리 수정하기 */
 	public int updateCategory(String id, String name, String afterName) {
 		return productRepository.updateCategory(id, name, afterName);
-		
+
 	}
+
 	/* 카테고리 추가시 카테고리 이름으로 부모 카테고리 번호 검색 */
 	public int getCategoryNoByName(String id, String parentCategory) {
-		return productRepository.findCategoryNoByName(id, parentCategory);		
+		return productRepository.findCategoryNoByName(id, parentCategory);
 	}
 
 	public List<OptionVo> getOptionListOfSize(String id) {
 		return productRepository.getOptionListOfSize(id);
 	}
-	
+
 	public List<OptionVo> getOptionListOfColor(String id) {
 		return productRepository.getOptionListOfColor(id);
 	}
@@ -191,7 +185,7 @@ public class ProductService {
 	public OptionVo getOption(String id, String name) {
 		return productRepository.getOption(id, name);
 	}
-	
+
 	public OptionVo getOptionByNo(String id, int no) {
 		return productRepository.getOptionByNo(id, no);
 	}
@@ -217,7 +211,7 @@ public class ProductService {
 	}
 
 	public int delItem(String id, int no) {
-		return productRepository.delItem(id, no);		
+		return productRepository.delItem(id, no);
 	}
 
 	public List<StockVo> getStockListByItemNo(String id, int no) {
@@ -225,55 +219,53 @@ public class ProductService {
 	}
 
 	// 페이징, 리스트
-	public Map<String,Object> itemBoardList(String id, int currentPage,String keyword,String option) {
+	public Map<String, Object> itemBoardList(String id, int currentPage, String keyword, String option) {
 
 		Map<String, Object> map = new HashMap<>();
 
 		// start index 결정
-		int offset=(currentPage-1)*5;
+		int offset = (currentPage - 1) * 5;
 
 		int total = productRepository.itemBoardListCount(id, option, keyword);
 
-
 		List<BoardVo> list;
-		if(option.equals("")) {
+		if (option.equals("")) {
 			list = productRepository.itemBoardList(id, offset, LIST_SIZE, 1);
-		}
-		else {
+		} else {
 			list = productRepository.searchItemBoardList(id, option, keyword, offset, LIST_SIZE);
 		}
 
-		int pageCnt=(total%LIST_SIZE!=0) ? (total/LIST_SIZE)+1 : (total/LIST_SIZE);
-		int calCnt=(currentPage%5)==0 ? currentPage-1 : currentPage;
+		int pageCnt = (total % LIST_SIZE != 0) ? (total / LIST_SIZE) + 1 : (total / LIST_SIZE);
+		int calCnt = (currentPage % 5) == 0 ? currentPage - 1 : currentPage;
 
-		int beginPage=calCnt-(calCnt%5)==0 ? 1 : calCnt-(calCnt%5)+1;
-		int prevPage = beginPage == 1 ? 1 : beginPage -1;
-		int endPage = (pageCnt-(pageCnt%5))==(calCnt-(calCnt%5)) ? pageCnt : (beginPage+PAGE_SIZE)-1;
-		int nextPage = (pageCnt-(pageCnt%5))==(calCnt-(calCnt%5)) ? pageCnt : endPage+1;
+		int beginPage = calCnt - (calCnt % 5) == 0 ? 1 : calCnt - (calCnt % 5) + 1;
+		int prevPage = beginPage == 1 ? 1 : beginPage - 1;
+		int endPage = (pageCnt - (pageCnt % 5)) == (calCnt - (calCnt % 5)) ? pageCnt : (beginPage + PAGE_SIZE) - 1;
+		int nextPage = (pageCnt - (pageCnt % 5)) == (calCnt - (calCnt % 5)) ? pageCnt : endPage + 1;
 
-		if(nextPage>=pageCnt)
-			nextPage=pageCnt;
-		if(endPage>=pageCnt)
-			endPage=pageCnt;
+		if (nextPage >= pageCnt)
+			nextPage = pageCnt;
+		if (endPage >= pageCnt)
+			endPage = pageCnt;
 
 		map.put("list", list);
-		map.put("beginPage",beginPage);
-		map.put("prevPage",prevPage);
-		map.put("endPage",endPage);
-		map.put("nextPage",nextPage);
-		map.put("page",currentPage);
-		map.put("total",total);
+		map.put("beginPage", beginPage);
+		map.put("prevPage", prevPage);
+		map.put("endPage", endPage);
+		map.put("nextPage", nextPage);
+		map.put("page", currentPage);
+		map.put("total", total);
 		map.put("option", option);
-		map.put("kwd",keyword);
+		map.put("kwd", keyword);
 		map.put("calCnt", calCnt);
 
-		if(endPage!=pageCnt)
-			map.put("listsize",LIST_SIZE);
+		if (endPage != pageCnt)
+			map.put("listsize", LIST_SIZE);
 		else {
-			if(endPage%5==0) {
-				map.put("listsize",5);
-			}else {
-				map.put("listsize",endPage%5);
+			if (endPage % 5 == 0) {
+				map.put("listsize", 5);
+			} else {
+				map.put("listsize", endPage % 5);
 			}
 		}
 		return map;
@@ -287,98 +279,41 @@ public class ProductService {
 
 		String contents = "";
 
-//		System.out.println(jsonData);
-//		System.out.println("================");
-		
-		for(int i = 0; i < jArray.length(); i++) {
+		for (int i = 0; i < jArray.length(); i++) {
 			JSONObject obj = jArray.getJSONObject(i);
-			
-			if(i == jArray.length() - 1) {
+
+			if (i == jArray.length() - 1) {
 				contents += obj;
-				
-				
-			}
-			else {
+
+			} else {
 				contents += obj + ",";
 			}
 		}
-		byte[] b = compressToByte(contents);
 		
-//		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+unCompressString(b));
-//		System.out.println(contents);
+		byte[] b = compressToByte(contents);
 
 		int count = productRepository.boardReply(id, no, b);
-		return /* count == 1 */true;
+		return count == 1;
 	}
-	
-
-///////////////////////
-		public static byte[] compressToByte(final String data)
-			       throws IOException
-			{
-			       if (data == null || data.length() == 0)
-			       {
-			           return null;
-			       }
-			       else
-			       {
-			           byte[] bytes = data.getBytes("UTF-8");
-			           ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			           GZIPOutputStream os = new GZIPOutputStream(baos);
-			           os.write(bytes, 0, bytes.length);
-			           os.close();
-			           byte[] result = baos.toByteArray();
-			           return result;
-			       }
-			}
-		
-		public static String unCompressString(final byte[] data)
-			       throws IOException
-			{
-			       if (data == null || data.length == 0)
-			       {
-			           return null;
-			       }
-			       else
-			       {
-			           ByteArrayInputStream bais = new ByteArrayInputStream(data);
-			           ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			           GZIPInputStream is = new GZIPInputStream(bais);
-			           byte[] tmp = new byte[256];
-			           while (true)
-			           {
-			               int r = is.read(tmp);
-			               if (r < 0)
-			               {
-			                   break;
-			               }
-			               buffer.write(tmp, 0, r);
-			           }
-			           is.close();
-
-			           byte[] content = buffer.toByteArray();
-			           return new String(content, 0, content.length, "UTF-8");
-			       }
-			}
-		
-///////////////////////
-	
 
 	public boolean updateItemBoardReplyTrue(String id, int no) {
 		// 답글 상태를 true로 만들기
 		int count = productRepository.updateBoardReply(id, no, true);
 		return count == 1;
 	}
-	
+
 	public boolean updateItemBoardReplyFalse(String id, int no) {
 		// 답글 상태를 false로 만들기
 		int count = productRepository.updateBoardReply(id, no, false);
 		return count == 1;
 	}
 
-
 	public ItemBoardVo findItemBoardByNo(String id, int no) throws IOException {
 		ItemBoardVo vo = productRepository.findItemBoardByNo(id, no);
+
+		byte[] b = vo.getContents();
+
+		vo.setContents1(unCompressString(b));
 		
 		return vo;
 	}
@@ -389,13 +324,13 @@ public class ProductService {
 
 	public ItemReplyVo findItemReplyByParentsNo(String id, int no) throws IOException {
 		ItemReplyVo vo = productRepository.findItemReplyByParentsNo(id, no);
-		
+
 		byte[] b = vo.getContents();
 
 		vo.setContents1(unCompressString(b));
-		
+
 		return vo;
-		
+
 	}
 
 	public boolean deleteItemBoard(String id, int no) {
@@ -404,13 +339,14 @@ public class ProductService {
 	}
 
 	public int updateItem(String id, ItemVo iVo) {
-		return  productRepository.updateItem(id,iVo);
+		return productRepository.updateItem(id, iVo);
 	}
 
 	public int delStock(String id, int itemNo) {
 		return productRepository.delStock(id, itemNo);
 	}
-	//파일 업로드
+
+	// 파일 업로드
 	public String restore(String id, MultipartFile excelFile, String index) {
 		String url = "";
 		try {
@@ -426,41 +362,41 @@ public class ProductService {
 
 			byte[] fileData = excelFile.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
-			System.out.println("TEST! :"+os.toString());
+			System.out.println("TEST! :" + os.toString());
 			os.write(fileData);
 			os.close();
 			url = URL + "/" + saveFilename;
-			
+
 		} catch (IOException ex) {
 			throw new RuntimeException("file upload error:" + ex);
 		}
 		System.out.println("url:" + url);
 		return url;
 	}
-	
-	//파일 수정
+
+	// 파일 수정
 	public String restore(String id, MultipartFile excelFile, String src, String index) {
 		String url = "";
 		try {
-			if(src != null && excelFile.isEmpty()) {
+			if (src != null && excelFile.isEmpty()) {
 				url = src;
 				System.err.println("::::::::URL:::::::::" + url);
 				return url;
-			}else if(excelFile.isEmpty()){
+			} else if (excelFile.isEmpty()) {
 				return url;
-			}else {
-			String originFilename = excelFile.getOriginalFilename();
-			System.err.println("!!!!OriginFIleName!!!" + originFilename);	
-			String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
+			} else {
+				String originFilename = excelFile.getOriginalFilename();
+				System.err.println("!!!!OriginFIleName!!!" + originFilename);
+				String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
 
-			String saveFilename = generateSaveFilename(originFilename, extName, index);
+				String saveFilename = generateSaveFilename(originFilename, extName, index);
 
-			byte[] fileData = excelFile.getBytes();
-			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
-			System.out.println("TEST1:" + os.toString());
-			os.write(fileData);
-			os.close();
-			url = URL + "/" + saveFilename;
+				byte[] fileData = excelFile.getBytes();
+				OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+				System.out.println("TEST1:" + os.toString());
+				os.write(fileData);
+				os.close();
+				url = URL + "/" + saveFilename;
 			}
 		} catch (IOException ex) {
 			throw new RuntimeException("file upload error:" + ex);
@@ -468,6 +404,7 @@ public class ProductService {
 		System.out.println("url:" + url);
 		return url;
 	}
+
 	// 파일 네임 변환
 	private String generateSaveFilename(String originFileName, String extName, String index) {
 		String filename = "";
@@ -494,46 +431,96 @@ public class ProductService {
 	public List<ProductStatisticsVo> getStatisticsByItemNo(String id, int no) {
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH ) + 1;
+		int month = cal.get(Calendar.MONTH) + 1;
 		int date = cal.get(Calendar.DATE);
-		
+
 		List<ProductStatisticsVo> list = new ArrayList<ProductStatisticsVo>();
-		for(int i=0; i<7; i++) {
+		for (int i = 0; i < 7; i++) {
 			ProductStatisticsVo vo = new ProductStatisticsVo();
 			vo.setDate(get7DayAgoDate(year, month, date, i));
 			list.add(vo);
 		}
-		List<ProductStatisticsVo> returnList = productRepository.getStatisticsByItemNo(id,no, list.get(6).getDate(), list.get(0).getDate());
+		List<ProductStatisticsVo> returnList = productRepository.getStatisticsByItemNo(id, no, list.get(6).getDate(),
+				list.get(0).getDate());
 		for (ProductStatisticsVo vo : returnList) {
 			String returnDate = vo.getDate();
-			for(int i = 0; i < 7; i++) {
-				if(returnDate.contentEquals(list.get(i).getDate())) {
+			for (int i = 0; i < 7; i++) {
+				if (returnDate.contentEquals(list.get(i).getDate())) {
 					list.get(i).setCount(vo.getCount());
 				}
 			}
 		}
-		
+
 		for (ProductStatisticsVo vo : list) {
 			System.out.println(vo);
 		}
 		return list;
 	}
-	
-	private String get7DayAgoDate(int year , int month , int day, int i) {
-		Calendar cal = Calendar
-				.getInstance();
-		cal.set(year, month-1, day);
+
+	private String get7DayAgoDate(int year, int month, int day, int i) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(year, month - 1, day);
 		cal.add(Calendar.DATE, -i);
 		java.util.Date weekago = cal.getTime();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",
-				Locale.getDefault());
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 		return formatter.format(weekago);
 	}
 
 	public int getShippingCharge(String id) {
 		return productRepository.getShippingCharge(id);
 	}
+
+	public ItemVo setItemEditor(ItemVo vo, String contents) throws IOException {
+		byte[] b = compressToByte(contents);
+		vo.setEditor(b);
+		
+		byte[] b1 = vo.getEditor();
+
+		vo.setEditor1(unCompressString(b1));
+		
+		return vo;
+	}
 	
+	public String setStringEditor(byte[] b) throws IOException {
+		return unCompressString(b);
+	}
 	
-	
+//////////////////////////////////에디터 byte[] 압축////////////////////////////////////
+	public static byte[] compressToByte(final String data) throws IOException {
+		if (data == null || data.length() == 0) {
+			return null;
+		} else {
+			byte[] bytes = data.getBytes("UTF-8");
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			GZIPOutputStream os = new GZIPOutputStream(baos);
+			os.write(bytes, 0, bytes.length);
+			os.close();
+			byte[] result = baos.toByteArray();
+			return result;
+		}
+	}
+
+	public static String unCompressString(final byte[] data) throws IOException {
+		if (data == null || data.length == 0) {
+			return null;
+		} else {
+			ByteArrayInputStream bais = new ByteArrayInputStream(data);
+			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+			GZIPInputStream is = new GZIPInputStream(bais);
+			byte[] tmp = new byte[256];
+			while (true) {
+				int r = is.read(tmp);
+				if (r < 0) {
+					break;
+				}
+				buffer.write(tmp, 0, r);
+			}
+			is.close();
+
+			byte[] content = buffer.toByteArray();
+			return new String(content, 0, content.length, "UTF-8");
+		}
+	}
+////////////////////////////////////////////////////////////////////
+
 }

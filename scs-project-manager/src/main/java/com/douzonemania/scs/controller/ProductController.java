@@ -88,7 +88,7 @@ public class ProductController {
 			@AuthUser CeoVo authUser,
 			@PathVariable("vo.no") int no,
 			Model model
-			) {
+			) throws IOException {
 		String id = authUser.getId();
 		ItemVo vo = new ItemVo();
 		vo = productService.findItem(id, no);
@@ -102,8 +102,10 @@ public class ProductController {
 		
 		String[] subImageSplit = vo.getSubImage().split("\\?");			
 		
+		String getEditor = productService.setStringEditor(vo.getEditor());
+		
 		String viewer = "quill.setContents([ " + 
-				vo.getEditor() +
+				getEditor +
              "]);";
 		
 		model.addAttribute("no", no);
@@ -219,7 +221,7 @@ public class ProductController {
 		itemBoardVo.setName(name);
 		
 		String viewer = "quill2.setContents([ " + 
-				itemBoardVo.getContents() +
+				itemBoardVo.getContents1() +
        "]);";
 		
 		model.addAttribute("itemBoardVo", itemBoardVo);

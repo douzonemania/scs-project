@@ -119,7 +119,7 @@ var removeCheck = function(no) {
                                         </tbody>
                                     </table>
 								
-								<div id="snow-viewer" style="height: 300px; border: 1px solid #CECECE;" contentEditable="false"></div>
+								<div id="snow-viewer" style="height: 400px; border: 1px solid #CECECE;" contentEditable="false"></div>
 
 
 								<!-- 답글이 있을 경우  -->
@@ -141,12 +141,12 @@ var removeCheck = function(no) {
                                         </tbody>
                                     </table>
 									
-									<div id="snow-reply" style="height: 300px; border: 1px solid #CECECE;" contentEditable="false"></div>
+									<div id="snow-reply" style="height: 400px; border: 1px solid #CECECE;" contentEditable="false"></div>
 								</c:if>
 							
 							<br />
 							<div class="btn-submit-section">
-								<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board">
+								<a href="${pageContext.servletContext.contextPath }/${db}/board/qna/list">
 								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
 									목록</button></a>
 											<c:if test="${authUser.no == boardVo.memberNo }">
