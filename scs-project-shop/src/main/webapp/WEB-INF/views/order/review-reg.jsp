@@ -50,9 +50,9 @@ $( document ).ready(function() {
 		vo.regDate= null;
 		vo.color= "${itemColor}";
 		vo.size= "${itemSize}";
-		vo.mainImage=$("#imgSource").val();
-		
-		
+		vo.image=$("#imgSource").val();
+	
+		 
 		$.ajax({
 			url: '${pageContext.request.contextPath }/api/order/regReview',
 			contentType: 'application/json',
@@ -67,7 +67,7 @@ $( document ).ready(function() {
 				console.error(status + " : " + e);
 				alert("정보를 모두 입력하세요.")
 			}
-		});
+		}); 
 	});
 	
 	$("#cancle-btn").click(function(){
@@ -91,7 +91,7 @@ function preview(input, target) {
   	}
   	
   	var form=new FormData($('#fileForm')[0]);
-  	console.log(form)
+
   	$.ajax({
   		type:"POST",
   		enctype : 'multipart/form-data',
