@@ -540,13 +540,9 @@ public class OrderService {
 		filename += calendar.get(Calendar.SECOND);
 		filename += calendar.get(Calendar.MILLISECOND);
 		filename += ("." + extName);
-
 		return filename;
 	}
 	
-}
-
-
 
 //////////////////////////////////에디터 byte[] 압축////////////////////////////////////
 	public static byte[] compressToByte(final String data) throws IOException {
@@ -584,6 +580,5 @@ public class OrderService {
 			return new String(content, 0, content.length, "UTF-8");
 		}
 	}
-////////////////////////////////////////////////////////////////////
 
 }
