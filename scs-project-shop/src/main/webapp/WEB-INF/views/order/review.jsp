@@ -113,7 +113,7 @@ $(document).ready(function(){
                         <div class="card-columns">
                         
                         <c:forEach items="${map.photoList }" var="vo" varStatus="status">  
-                            <div class="card" style='min-height: 325px; '>
+                            <div class="card" style='min-height: 325px; min-width: 450px;'>
 	                          <img class="ol-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:280px; cursor: pointer;" />
                                 <p style="margin-left: 15px; width: 25%;">
                                 	<c:forEach begin="1" end="${vo.rate }">
