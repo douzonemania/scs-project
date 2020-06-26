@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.douzonemania.shop.service.BoardService;
 import com.douzonemania.shop.service.CustomService;
 import com.douzonemania.shop.service.OrderService;
 import com.douzonemania.shop.vo.ContentsVo;
@@ -30,13 +31,16 @@ public class CustomController {
 	@Autowired
 	private OrderService orderService;
 	
+	@Autowired
+	private BoardService boardService;
+	
 	@RequestMapping("/{no}")
 	public String home(Model model,HttpSession session,
 			@PathVariable("no") int no
 			) {
 		String db = session.getAttribute("db").toString();
-		List<Map> contentList = new ArrayList();
-		List<ContentsVo> cVo = new ArrayList();		
+//		List<Map> contentList = new ArrayList();
+//		List<ContentsVo> cVo = new ArrayList();		
 		List<CustomDesignVo> list = customService.getCustomDesignBySubMenu(no);
 		List<List<ContentsVo>> totalList = new ArrayList<List<ContentsVo>>();
  
@@ -120,6 +124,19 @@ public class CustomController {
 		model.addAttribute("map", map);
 		
 		return "order/review";
+	}
+	
+	@RequestMapping(value = "/Q&A", method = { RequestMethod.GET, RequestMethod.POST })
+	public String qnaList(@RequestParam(value="p", required=true, defaultValue="1") int page,
+			@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
+			@RequestParam(value="op", required=true, defaultValue="") String option,
+			Model model,HttpSession session) {
+		String db = session.getAttribute("db").toString(); 
+		
+		Map<String, Object> map = boardService.getQNAList(db, page, keyword, option);
+		model.addAttribute("map", map);
+		
+		return "board/qna-list";
 	}
 	
 	@RequestMapping(value = "/left-nav")

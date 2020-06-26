@@ -26,7 +26,7 @@ public class MainController {
 	@RequestMapping({"","/main"})
 	public String home(HttpSession session,Model model) {
 		String db = session.getAttribute("db").toString();
-		System.out.println("TEST");
+
 		List<Map> contentList = new ArrayList();
 		List<ContentsVo> cVo = new ArrayList();		
 		
@@ -36,9 +36,6 @@ public class MainController {
 		
 		for (CustomDesignVo vo: list) {
 			List<ContentsVo> contentsList = customService.getContentsByCustomNo(vo.getNo());
-			
-			System.out.println("TEST:"+contentList.toString());
-			
 			totalList.add(contentsList);
 		}
 		model.addAttribute("contentsList",totalList);

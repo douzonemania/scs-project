@@ -1,7 +1,9 @@
 package com.douzonemania.shop.controller;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.douzonemania.shop.service.CustomService;
 import com.douzonemania.shop.service.MemberService;
 import com.douzonemania.shop.service.OrderService;
 import com.douzonemania.shop.vo.BoardVo;
+import com.douzonemania.shop.vo.ContentsVo;
+import com.douzonemania.shop.vo.CustomDesignVo;
 import com.douzonemania.shop.vo.ItemBoardVo;
 import com.douzonemania.shop.vo.ItemVo;
 import com.douzonemania.shop.vo.MemberVo;
@@ -33,6 +38,8 @@ public class MemberController {
 	MemberService memberService;
 	@Autowired
 	OrderService orderService;
+	@Autowired 
+	CustomService customService;
 	
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
 	public String find(HttpServletRequest request, @RequestParam("isPwd") String isPwd, Model model) {
@@ -68,7 +75,7 @@ public class MemberController {
 	
 	
 	@RequestMapping(value = "/login", method=RequestMethod.POST)
-	public String login(@ModelAttribute MemberVo vo,@PathVariable("db")String db,HttpServletResponse response, HttpServletRequest request) throws Exception{
+	public String login(@ModelAttribute MemberVo vo,@PathVariable("db")String db,HttpServletResponse response, HttpServletRequest request,Model model) throws Exception{
 		int count = memberService.findUser(vo);
 		
 		HttpSession session = request.getSession();	
@@ -87,17 +94,45 @@ public class MemberController {
 	
 		}
 		
-		return "/member/login";
+		List<Map> contentList = new ArrayList();
+		List<ContentsVo> cVo = new ArrayList();		
+		
+		int no = customService.findSubMenuNo(db,1);
+		List<CustomDesignVo> list = customService.getCustomDesignBySubMenu(no);	
+		List<List<ContentsVo>> totalList = new ArrayList<List<ContentsVo>>();
+		
+		for (CustomDesignVo nowVo: list) {
+			List<ContentsVo> contentsList = customService.getContentsByCustomNo(nowVo.getNo());
+			totalList.add(contentsList);
+		}
+		model.addAttribute("contentsList",totalList);
+		model.addAttribute("list",list);
+		
+		
+		return "main/index";
 	}
 	
 	@RequestMapping(value = "/logout")
-	public String logout(HttpServletRequest request,@PathVariable("db")String db) {
+	public String logout(HttpServletRequest request,@PathVariable("db")String db,Model model) {
 		
 		HttpSession session = request.getSession();
 	
 		session.removeAttribute("authUser");
 		session.invalidate();
 		
+		List<Map> contentList = new ArrayList();
+		List<ContentsVo> cVo = new ArrayList();		
+		
+		int no = customService.findSubMenuNo(db,1);
+		List<CustomDesignVo> list = customService.getCustomDesignBySubMenu(no);	
+		List<List<ContentsVo>> totalList = new ArrayList<List<ContentsVo>>();
+		
+		for (CustomDesignVo vo: list) {
+			List<ContentsVo> contentsList = customService.getContentsByCustomNo(vo.getNo());
+			totalList.add(contentsList);
+		}
+		model.addAttribute("contentsList",totalList);
+		model.addAttribute("list",list);
 		
 		return "main/index";
 	}

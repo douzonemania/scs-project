@@ -114,9 +114,7 @@ $(document).ready(function(){
                         
                         <c:forEach items="${map.photoList }" var="vo" varStatus="status">  
                             <div class="card">
-                            	<a href="${ pageContext.request.contextPath }/${db}/order/detail?no=${vo.itemNo}">
-	                            	<img class="ol-img" src="/scs-manager${vo.mainImage }" style="max-height:280px"  class="img-fluid" />
-			  					</a>
+	                          <img class="ol-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:280px; cursor: pointer;" />
                                 <p style="margin-left: 15px; width: 25%;">
                                 	<c:forEach begin="1" end="${vo.rate }">
 										<span class="mdi mdi-star text-warning"></span>

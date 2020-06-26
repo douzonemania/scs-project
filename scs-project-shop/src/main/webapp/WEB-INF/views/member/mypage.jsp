@@ -118,7 +118,6 @@ $(function(){
 }
 #board-table td, th {
 	padding: 6px;
-	font-size: 0.8em;
 	text-align: left;
 }
 </style>
@@ -258,12 +257,12 @@ $(function(){
                 
                 <div class="recipient-info">
                     <span >장바구니</span> 
-                    <span class="mypage-main-cart float-right"> 전체</span>
+                    <a class="float-right"href="${ pageContext.request.contextPath }/${db }/order/cart"><span style ="font-size:16px"class="mypage-order-list-all ">전체</span></a>
                 </div>
                 
           		<div class='cart-list-group'>
          	 <c:forEach items='${cartList }' var='vo' varStatus='status'>
-            <div class='mobile-cart rounded' data-no='${vo.cartNo }' data-value='${vo.stock }' data-name='${vo.name }'>
+            <div class='mobile-cart rounded' style="border-bottom:1px solid #cecece" data-no='${vo.cartNo }' data-value='${vo.stock }' data-name='${vo.name }'>
                 <div class='moblie-cart-all-group'>
                     <div class='mobile-cart-list-checkbox m-1' >
                         <div class='checkbox checkbox-blue  ml-1' style='display:inline-block;width:50%' id='mobile-checkbox'>
@@ -271,9 +270,9 @@ $(function(){
                             <label for='${status.index+1 }' value='${vo.cartNo}'>선택</label>  
                         </div>
                         
-                        <div data-no='${vo.cartNo }'class ='cart-delete float-right' style='display:inline-block; margin-right:10px;' >
+                        <%-- <div data-no='${vo.cartNo }'class ='cart-delete float-right' style='display:inline-block; margin-right:10px;' >
                         	<a href='#' style='color:#000000; border-bottom:1px solid #000000; margin:5px;' id='cart-delete-product' value='${vo.cartNo }' data-no='${vo.cartNo }'>삭제</a>
-                        </div>
+                        </div> --%>
                     </div>
                    	
                    
@@ -327,7 +326,7 @@ $(function(){
 				</thead>
 				<tbody>	
 	          		<c:forEach items="${itemBoardList }" var="vo" varStatus="status">  
-			  			<tr>
+			  			<tr style="border-bottom:1px solid #cecece">
 			  				<td>
 			  					<a href="${ pageContext.request.contextPath }/${db}/order/detail?no=${vo.itemNo}">
 	                            	<img class="ol-img" src="/scs-manager${vo.mainImage }" />
@@ -367,9 +366,9 @@ $(function(){
 				        <th>답변여부</th>
 					</tr> 
 				</thead>
-				<tbody>	
+				<tbody >	
 	          		<c:forEach items="${qnaList }" var="vo" varStatus="status">  
-			  			<tr>
+			  			<tr style="border-bottom:1px solid #cecece">
 			  				<td>${vo.category }</td>
 			  				<td>
 							  	<a style="color:#6C757D;"

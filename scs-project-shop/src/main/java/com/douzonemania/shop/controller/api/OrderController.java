@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.mail.Multipart;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.douzonemania.shop.dto.JsonResult;
 import com.douzonemania.shop.service.OrderService;
@@ -167,10 +170,26 @@ public class OrderController {
 			@RequestBody ReviewVo rVo, HttpSession session
 			) {
 		String db = session.getAttribute("db").toString();
-		System.err.println("::::" +  rVo);
+
 		orderService.regReview(db, rVo);
 		orderService.updateReState(db, rVo.getStockNo(), rVo.getOrderNo());
 		return JsonResult.success("");
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/regreviewimg", method = RequestMethod.POST)
+	public JsonResult regReviewImg(
+			@RequestParam(value="excelFile") MultipartFile imgSource,HttpSession session) throws Exception{
+				
+		
+		String db = session.getAttribute("db").toString();
+		MemberVo vo = (MemberVo)session.getAttribute("authUser");
+		
+		String url = orderService.restore(imgSource);
+		
+		return JsonResult.success(url);
+		
 	}
 	
 }
