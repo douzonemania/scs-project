@@ -68,17 +68,19 @@ public class OrderService {
 		if (endPage >= pageCnt)
 			endPage = pageCnt;
 
-		List<ItemVo> tempList = orderRepository.find(offset, keyword, category, db);
+		List<ItemVo> tempList = orderRepository.find(offset, subCategory, category, db);
 		List<ItemVo> list = orderRepository.calReviewAvg(tempList, db);
 
 		Map<String, Object> map = new HashMap<>();
 
-		if (category != 1) {
+		if (category != 0) {
 			List<CategoryVo> categoryList = orderRepository.findCategoryList(category, db);
 			map.put("category", categoryList);
 
 		}
-
+		
+		map.put("categoryNo",category);
+		map.put("subCategoryNo",subCategory);
 		map.put("list", list);
 		map.put("beginPage", beginPage);
 		map.put("prevPage", prevPage);

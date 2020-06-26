@@ -201,6 +201,14 @@
 	                            <a href="${pageContext.request.contextPath}/${db}/custom/${mainMenu.fifth}" style="margin-left: 10px">  ${mainMenu.fifth}</a>
 	                        </li>
                         </c:if>
+                        <c:forEach var="vo" varStatus="status" items="${subMenuList}">
+				 			<c:if test="${status.index>1 }">
+	              				<li class="has-submenu">
+	              					<a href ="${ pageContext.request.contextPath }/${db }/custom/${vo.no}" style="margin-left: 10px">${vo.name }</a>
+	              				</li>
+	             		 	</c:if>
+	      				 </c:forEach> 
+                        
                         	
                     </ul>
                     <!-- End navigation menu -->

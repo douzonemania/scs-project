@@ -42,14 +42,15 @@ public class OrderRepository {
 	}
 	
 
-	public List<ItemVo> find(int offset,String keyword,int category,String db){
+	public List<ItemVo> find(int offset,int subCategory,int category,String db){
 		
 		
 		map.put("offset",offset);
-		map.put("keyword",keyword);
 		map.put("category",category);
+		map.put("subCategory",subCategory);
 		map.put("db",db);
-		
+	
+	
 		List<ItemVo> list = sqlSession.selectList("order.find",map);
 		
 		return list;
@@ -132,8 +133,7 @@ public class OrderRepository {
 
 	public CartVo checkAmount(int no, int firstOption, int secondOption,String db,long memberNo) {
 		
-		System.out.println("NO:"+memberNo+" FIRSTOPTION : "+firstOption +" secondOption :"+secondOption +" itemno:"+no  +" memberno:"+memberNo);
-		
+	
 		map.put("db",db);
 		map.put("memberNo",memberNo);
 		map.put("firstOption",firstOption);
@@ -311,8 +311,7 @@ public class OrderRepository {
 		map.put("vo",vo);
 		map.put("no",no);
 		
-		System.out.println(db+"//"+vo.toString()+"//"+no);
-		
+	
 		
 		sqlSession.update("clearShip",map);
 		sqlSession.update("updateShip",map);
