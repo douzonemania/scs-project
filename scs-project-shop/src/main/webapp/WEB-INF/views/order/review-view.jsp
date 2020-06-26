@@ -145,7 +145,7 @@ $( document ).ready(function() {
 	
 	<!--  review image  -->
 	<c:if test="${vo.image !=null}">
-	<div class="review-image"> <img src="${pageContext.request.contextPath}${vo.image}"></div>			
+	<div class="review-image"> <img src="/scs-manager${vo.image}"></div>			
 	</c:if>
 	<div style="border-top: 1px solid #CECECE; width: 480px; word-break:break-all"><br />
 	${vo.content }</div>
