@@ -70,6 +70,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(@ModelAttribute MemberVo memberVo) {
+		System.out.println("TEST2");
 		return "member/login";
 	}
 	
@@ -81,18 +82,7 @@ public class MemberController {
 		HttpSession session = request.getSession();	
 		boolean result = (count>=1)? true:false;
 		
-		if(result==true) {
-			vo.setNo((long)count);
-			session.setAttribute("authUser", vo);
-			
-			return "main/index";
-		}else {
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('로그인 정보를 확인해주세요.'); history.go(-1);</script>");
-			out.flush();
-	
-		}
+		System.out.println("TEST");
 		
 		List<Map> contentList = new ArrayList();
 		List<ContentsVo> cVo = new ArrayList();		
@@ -107,9 +97,23 @@ public class MemberController {
 		}
 		model.addAttribute("contentsList",totalList);
 		model.addAttribute("list",list);
+
 		
 		
-		return "main/index";
+		if(result==true) {
+			vo.setNo((long)count);
+			session.setAttribute("authUser", vo);
+			
+			return "main/index";
+		}else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인 정보를 확인해주세요.'); history.go(-1);</script>");
+			out.flush();
+	
+		}
+		
+		return "main/login";
 	}
 	
 	@RequestMapping(value = "/logout")

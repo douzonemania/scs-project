@@ -28,16 +28,15 @@
      	<c:import url="/WEB-INF/views/partials/left-nav.jsp"></c:import>	
      
      
-     
-     
      	<div class="wrapper2">
      		<div class="container-fluid">
+   
          		<c:forEach var="vo" varStatus="status" items="${list}">
 					<div id="${vo.no}" >
 					<c:set var="map" value="${contentsList.get(status.index) }" scope="request"/>
 					 <jsp:include page='/WEB-INF/views/custom/${vo.designID}.jsp'/>	
 					</div>	
-				</c:forEach>  
+				</c:forEach> 
 				
      		</div>
      	</div>
