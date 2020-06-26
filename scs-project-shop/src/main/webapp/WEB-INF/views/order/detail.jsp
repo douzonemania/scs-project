@@ -693,7 +693,7 @@
 										<div class="mobile-block"></div>									
 										<span style="margin-right: 4px;">${authUser.id}</span> <span>l&nbsp;&nbsp;</span> <span>${vo.regDate }</span>
 										<p class="review-title" style="overflow-x:hidden; font-size:24px;  margin-bottom:10px;">${vo.title }</p>
-										</p>	
+										<p> ${vo.content }</p>	
 									</div>
 								</div>
 							</div>
