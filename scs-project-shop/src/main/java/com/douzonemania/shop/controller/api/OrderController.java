@@ -170,9 +170,11 @@ public class OrderController {
 			@RequestBody ReviewVo rVo, HttpSession session
 			) {
 		String db = session.getAttribute("db").toString();
-		System.err.println("::::" +  rVo);
-		orderService.regReview(db, rVo);
-		orderService.updateReState(db, rVo.getStockNo(), rVo.getOrderNo());
+		
+		System.out.println(rVo.toString());
+		
+//		orderService.regReview(db, rVo);
+//		orderService.updateReState(db, rVo.getStockNo(), rVo.getOrderNo());
 		return JsonResult.success("");
 	}
 	
@@ -191,7 +193,7 @@ public class OrderController {
 		System.out.println(url);
 	
 
-		return null;
+		return JsonResult.success(url);
 		
 	}
 	

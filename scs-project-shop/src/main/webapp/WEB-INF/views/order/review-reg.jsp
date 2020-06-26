@@ -50,6 +50,8 @@ $( document ).ready(function() {
 		vo.regDate= null;
 		vo.color= "${itemColor}";
 		vo.size= "${itemSize}";
+		vo.mainImage=$("#imgSource").val();
+		
 		
 		$.ajax({
 			url: '${pageContext.request.contextPath }/api/order/regReview',
@@ -99,7 +101,7 @@ function preview(input, target) {
   		contentType:false,
   		cache:false,
   		success: function(result){
-  			
+  			$("#imgSource").val(result.data)
   		},
   		error: function(e){
   			
@@ -170,6 +172,7 @@ $(document).on("click","#main-image-upload",function(){
 				<form id="fileForm" method="post" enctype="multipart/form-data">
 					<input id="main-image-btn" type="file" name="excelFile" onchange="preview(this, $('#main-image'));" class="fileInput" style="display:none"/>
 				</form >
+				<input type="hidden" id="imgSource">
 				<div id="main-image-upload"class="img-upload-group"style="width:250px; height:120px; margin:5px; margin-top:20px;">
 				<img src="/scs-shop/assets/images/server.png" height="100" style="display:block; margin-left:130px;"/>
 				<span style="margin-left: 110px;">이미지를 업로드 해주세요.</span>
