@@ -47,11 +47,10 @@ public class BoardService {
 				contents += obj + ",";
 			}
 		}
-		System.out.println("22222222222222222222222222222222");
+
 		String option = jObject.getString("option");
 		String title = jObject.getString("title");
 		byte[] b = compressToByte(contents);
-		System.out.println("LEN:"+b.length);
 		
 		boolean result = boardRepository.writeQna(title, b, option, no, db);
 

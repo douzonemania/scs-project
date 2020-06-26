@@ -173,7 +173,7 @@ $(function(){
                     <div class="col-12">
                         <ul class="pagination pagination-rounded justify-content-center mb-3">
                             <li class="page-item">
-                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/board/qna/list?p=${map.prevPage}&kwd=${map.kwd}" aria-label="Previous">
+                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/custom/Q&A?p=${map.prevPage}&kwd=${map.kwd}" aria-label="Previous">
                                     <span aria-hidden="true">«</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
@@ -182,17 +182,17 @@ $(function(){
 								<c:choose>
 									<c:when test="${map.page == (map.beginPage+(i-1)) }">
 										<li class ="page-item active">
-											<a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/board/qna/list?p=${map.beginPage+(i-1) }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a>
+											<a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/custom/Q&A?p=${map.beginPage+(i-1) }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a>
 										</li>
 									</c:when>
 									<c:otherwise>
-										<li><a  class="page-link" href="${pageContext.servletContext.contextPath }/${db }/board/qna/list?p=${map.beginPage+(i-1) }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a></li>
+										<li><a  class="page-link" href="${pageContext.servletContext.contextPath }/${db }/custom/Q&A?p=${map.beginPage+(i-1) }&kwd=${map.kwd}">${map.beginPage+(i-1) }</a></li>
 									</c:otherwise>
 								
 								</c:choose>
 							</c:forEach>
                             <li>
-                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/board/qna/list?p=${map.nextPage }&kwd=${map.kwd}" aria-label="Next">
+                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/custom/Q&A?p=${map.nextPage }&kwd=${map.kwd}" aria-label="Next">
                                     <span aria-hidden="true">»</span>
                                     <span class="sr-only">Next</span>
                                 </a>
