@@ -261,4 +261,10 @@
 		]]>
 	</insert>
 	
+	<insert id="insertShop" parameterType="map">
+		<![CDATA[
+			insert into scs2.main_menu
+			values ('SHOP', null, null, null, null, #{db}, true)
+		]]>
+	</insert>
 </mapper>

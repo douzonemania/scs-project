@@ -57,7 +57,11 @@ public class UserController {
 			return "user/signup";
 		}
 		
-		ceoVo.setAddress(ceoVo.getAddress1() + "!" + ceoVo.getAddress2() + "!" + ceoVo.getPostcode());
+		if(ceoVo.getAddress1() != null && ceoVo.getAddress2() != null) {
+			ceoVo.setAddress(ceoVo.getAddress1() + "!" + ceoVo.getAddress2());
+		} else if(ceoVo.getAddress1() != null) {
+			ceoVo.setAddress(ceoVo.getAddress1());
+		}
 		AgreementVo agreementVo = new AgreementVo();
 		agreementVo.setId(ceoVo.getId());
 		SiteVo siteVo = new SiteVo();
@@ -70,6 +74,7 @@ public class UserController {
 		userService.createTable(id);
 		userService.alterTable(id);
 		settingService.insertPolicy(id);
+		userService.insertShop(id);			// 메인메뉴 1번메뉴에 shop insert
 		userService.insertSubMenu(id);		// 서브메뉴 insert
 		
 		return "user/join-success";

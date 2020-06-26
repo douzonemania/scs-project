@@ -140,7 +140,14 @@ public class UserService {
 	}
 
 	public CeoVo findCeoByIdJoin(String id) {
-		return userRepository.findByIdJoin(id);
+		CeoVo vo = userRepository.findByIdJoin(id);
+		String address = "";
+		if(vo.getAddress().contains("!")) {
+			address = vo.getAddress().replaceAll("!", " ");
+		}
+		vo.setAddress(address);
+		
+		return vo;
 	}
 
 	public String findIdByNameAndPhone(String name, String phoneNum) {
@@ -179,6 +186,10 @@ public class UserService {
 	// 1번 mainMenu, 2번 FAQ insert
 	public void insertSubMenu(String id) {
 		userRepository.insertSubMenu(id);
+	}
+
+	public void insertShop(String id) {
+		userRepository.insertShop(id);
 	}
 
 }

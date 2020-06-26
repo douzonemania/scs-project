@@ -300,6 +300,11 @@ public class UserRepository {
 		map.put("db", id);
 		return sqlSession.selectOne("user.getStatementProcessingCompleted", map);
 	}
+	public int insertShop(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		return sqlSession.insert("user.insertShop", map);
+	}
 
 
 }
