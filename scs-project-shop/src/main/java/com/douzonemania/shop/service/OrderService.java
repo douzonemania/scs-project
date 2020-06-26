@@ -28,7 +28,6 @@ import com.douzonemania.shop.vo.OrderListVo;
 import com.douzonemania.shop.vo.ReviewVo;
 import com.douzonemania.shop.vo.ShipVo;
 
-
 @Service
 public class OrderService {
 
@@ -551,9 +550,6 @@ public class OrderService {
 
 		return filename;
 	}
-	
-	
-	
 	
 }
 
