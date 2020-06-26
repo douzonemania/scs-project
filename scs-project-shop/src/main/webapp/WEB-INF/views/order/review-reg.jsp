@@ -87,8 +87,27 @@ function preview(input, target) {
   		jQuery(input).val("");
   		return;
   	}
+  	
+  	var form=new FormData($('#fileForm')[0]);
+  	console.log(form)
+  	$.ajax({
+  		type:"POST",
+  		enctype : 'multipart/form-data',
+  		url : '${pageContext.request.contextPath}/api/order/regreviewimg',
+  		data: form,
+  		processData:false,
+  		contentType:false,
+  		cache:false,
+  		success: function(result){
+  			
+  		},
+  		error: function(e){
+  			
+  		}	
+  	})
+  	
   	var reader = new FileReader();
-  	reader.readAsDataURL(input.files[0]);          
+  	reader.readAsDataURL(input.files[0]);    
   	reader.onload = function(e) {
   	  $("#"+target[0].id).show();
   	  $("#"+target[0].id+"-upload").hide();
@@ -110,11 +129,10 @@ $(document).on("click","#main-image-upload",function(){
 });
 
 
+
+
+
 </script>
-	
-
-
-
 </head>
 <body>	
 	<div class="review-top"> 후기작성</div>
@@ -149,7 +167,9 @@ $(document).on("click","#main-image-upload",function(){
 				<img id="main-image-delete" class="delete-hover"src="/scs-shop/assets/images/del2.png" onclick="deleteImg(this,$('#main-image'));" height=20 style="position:absolute; margin:5px; display:none"   />
 				<img id="main-image" src="/scs-shop/assets/images/del2.png" alt="d" class="previewSection"  style="width:160px; height:160px; margin:10px;margin-left:110px;postion:relative; display:none;" >
 				
-				<input id="main-image-btn" type="file" name="excelFile" onchange="preview(this, $('#main-image'));" class="fileInput" style="display:none"/>
+				<form id="fileForm" method="post" enctype="multipart/form-data">
+					<input id="main-image-btn" type="file" name="excelFile" onchange="preview(this, $('#main-image'));" class="fileInput" style="display:none"/>
+				</form >
 				<div id="main-image-upload"class="img-upload-group"style="width:250px; height:120px; margin:5px; margin-top:20px;">
 				<img src="/scs-shop/assets/images/server.png" height="100" style="display:block; margin-left:130px;"/>
 				<span style="margin-left: 110px;">이미지를 업로드 해주세요.</span>
