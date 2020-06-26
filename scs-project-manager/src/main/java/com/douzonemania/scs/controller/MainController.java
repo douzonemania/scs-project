@@ -11,7 +11,7 @@ import com.douzonemania.security.AuthUser;
 @Controller
 public class MainController {
 	
-	@RequestMapping({"/main"})
+	@RequestMapping({"/main", ""})
 	public String index() {
 		
 		return "main/index";

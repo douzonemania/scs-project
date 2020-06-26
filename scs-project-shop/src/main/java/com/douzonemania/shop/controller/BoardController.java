@@ -39,18 +39,18 @@ public class BoardController {
 		return "board/qna-write";
 	}
 	
-	@RequestMapping(value = "/qna/list", method = { RequestMethod.GET, RequestMethod.POST })
-	public String qnaList(@RequestParam(value="p", required=true, defaultValue="1") int page,
-			@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
-			@RequestParam(value="op", required=true, defaultValue="") String option,
-			Model model,HttpSession session) {
-		String db = session.getAttribute("db").toString(); 
-		
-		Map<String, Object> map = boardService.getQNAList(db, page, keyword, option);
-		model.addAttribute("map", map);
-		
-		return "board/qna-list";
-	}
+//	@RequestMapping(value = "/qna/list", method = { RequestMethod.GET, RequestMethod.POST })
+//	public String qnaList(@RequestParam(value="p", required=true, defaultValue="1") int page,
+//			@RequestParam(value="kwd", required=true, defaultValue="") String keyword,
+//			@RequestParam(value="op", required=true, defaultValue="") String option,
+//			Model model,HttpSession session) {
+//		String db = session.getAttribute("db").toString(); 
+//		
+//		Map<String, Object> map = boardService.getQNAList(db, page, keyword, option);
+//		model.addAttribute("map", map);
+//		
+//		return "board/qna-list";
+//	}
 	
 	@RequestMapping(value="/qna/view/{no}")
 	public String boardView(@PathVariable("no") int no, Model model, HttpSession session) throws IOException {
