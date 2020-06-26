@@ -29,13 +29,21 @@
 	
 	$(function(){
 		
+		var Now = new Date();
+		var NowTime = Now.getFullYear();
+		NowTime += '년' + (Now.getMonth() + 1) ;
+		NowTime += '월' + Now.getDate();
+		NowTime += '일' + Now.getHours();
+		NowTime += '시' + Now.getMinutes();
+		NowTime += '분';			
+		
 		var orderNum = location.href.substr(location.href.lastIndexOf('=') + 1 );
 	
 		$('.order-complete-num').find('a').text(orderNum);
+		$('.order-complete-date').find('p').text(NowTime);
 
 	});
-	
-	
+
 	</script>
 
 
@@ -65,7 +73,7 @@
                     	    주문번호 : <a href="${pageContext.request.contextPath}/order/orderlist"></a>
                     </div>
                     <div class="order-complete-date">
-                     	   주문날짜 : 2020년 5월 11일 8시 26분
+                     	   주문날짜 : <p style="display:inline-block; color:black"></p>
                     </div>
 
                     
