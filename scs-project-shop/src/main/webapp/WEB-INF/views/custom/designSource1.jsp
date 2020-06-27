@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<div style="padding-top:30px;">
+	<div style="padding-top:30px;"/>
 	<div class="design-source1">
 		<div class="textBox">
 			<span class='first-input'>${requestScope.map[1].content }</span>
@@ -17,3 +17,4 @@
 			</div>
 		</div>
 	</div>
+

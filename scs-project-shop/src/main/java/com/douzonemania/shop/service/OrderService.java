@@ -53,7 +53,7 @@ public class OrderService {
 	public Map<String, Object> find(int currentPage, String keyword, String option, int category, int subCategory,
 			String db) {
 
-		int offset = (currentPage - 1) * 5;
+		int offset = (currentPage - 1) * 16;
 		int total = orderRepository.totalCount(option, keyword, category, subCategory, db);
 		int pageCnt = (total % LIST_SIZE != 0) ? (total / LIST_SIZE) + 1 : (total / LIST_SIZE);
 		int calCnt = (currentPage % 5) == 0 ? currentPage - 1 : currentPage;
@@ -91,7 +91,7 @@ public class OrderService {
 		map.put("kwd", keyword);
 
 		if (endPage != pageCnt)
-			map.put("listsize", LIST_SIZE);
+			map.put("listsize", PAGE_SIZE);
 		else {
 			if (endPage % 5 == 0) {
 				map.put("listsize", 5);
@@ -99,10 +99,7 @@ public class OrderService {
 				map.put("listsize", endPage % 5);
 			}
 		}
-		System.out.println(LIST_SIZE);
-		System.out.println(beginPage);
-		System.out.println(endPage);
-
+	
 		return map;
 
 	}
@@ -200,10 +197,7 @@ public class OrderService {
 			HttpSession session) {
 		List<ItemVo> list = new ArrayList();
 		List<ShipVo> shipList = orderRepository.findShipAddressList(db, no);
-		System.out.println("LISTSIZE : " + shipList);
-		for (ShipVo shipVo : shipList) {
-			System.out.println(shipList.toString());
-		}
+		
 		int index = 0;
 
 		if (shipList.size() != 0) {
@@ -257,7 +251,7 @@ public class OrderService {
 		}
 		ItemVo itemVo = orderRepository.findItem(itemNo, db);
 		ItemVo optionVo = orderRepository.findOption(firstOption, secondOption, db);
-		System.out.println(optionVo.toString());
+		
 		itemVo.setFirstOption(firstOption);
 		itemVo.setFirstOptionName(optionVo.getFirstOptionName());
 		if (secondOption != 0) {
@@ -516,9 +510,9 @@ public class OrderService {
 
 
 			byte[] fileData = imgSource.getBytes();
-			System.out.println(SAVE_PATH+"/"+saveFilename);
+			
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
-			System.out.println("OS:"+os.toString());
+			
 			os.write(fileData);
 			os.close();
 			url = URL + "/" + saveFilename;
@@ -526,7 +520,6 @@ public class OrderService {
 		} catch (IOException ex) {
 			throw new RuntimeException("file upload error:" + ex);
 		}
-		System.out.println("url:" + url);
 		return url;
 	}
 	

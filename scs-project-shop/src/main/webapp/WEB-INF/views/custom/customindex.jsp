@@ -29,17 +29,19 @@
      
      	<div class="wrapper2">
      		<div class="container-fluid">
-     			 <c:forEach var="vo" varStatus="status" items="${list}">
-					<div id="${vo.no}" style="margin:30px">
-					<c:set var="map" value="${contentsList.get(status.index) }" scope="request"/>
-					 <jsp:include page='/WEB-INF/views/custom/${vo.designID}.jsp'/>	
+     			<div style="padding-top:100px;"/>
+     			<c:forEach var="vo" varStatus="status" items="${list}">
+					<div id="${vo.no}">
+						<c:set var="map" value="${contentsList.get(status.index) }" scope="request"/>
+						 <jsp:include page='/WEB-INF/views/custom/${vo.designID}.jsp'/>	
 					</div>	
-				</c:forEach>  
+				</c:forEach>
 				
      		</div>
      	</div>
      
-     
+     	  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        
         <!-- Vendor js -->
         <script src="${ pageContext.request.contextPath }/assets/js/vendor.min.js"></script>
 

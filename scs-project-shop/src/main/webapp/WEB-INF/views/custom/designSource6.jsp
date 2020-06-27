@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div style="padding-top:30px;">
+<div style="padding-top:30px;"/>
 
 <div id='design-source4'>
 	<div class="designSource6ImgFrame">
@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<div class="designSource6Imgbox">
-			<div class="designSource6ImgSector"> <img src="${requestScope.map[0].content }"> </div>
+			<div class="designSource6ImgSector"> <img src="${requestScope.map[1].content }"> </div>
 			
 			<div>
 				<p class="designSource6Title">${requestScope.map[4].content }</p>
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 		<div class="designSource6Imgbox">
-			<div class="designSource6ImgSector"><img src="${requestScope.map[0].content }"> </div>
+			<div class="designSource6ImgSector"><img src="${requestScope.map[2].content }"> </div>
 			<div>
 				<p class="designSource6Title">${requestScope.map[5].content }</p>
 				<p class="designSource6Text" >${requestScope.map[8].content }</p>
