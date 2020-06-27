@@ -82,7 +82,7 @@ a.slide_btn {
 
 .previous_btn {
   bottom: 0;
-  left: 100px;
+  left: 10px;
   margin: auto;
   position: absolute;
   top: 0;
@@ -92,7 +92,7 @@ a.slide_btn {
   bottom: 0;
   margin: auto;
   position: absolute;
-  right: 100px;
+  right: 10px;
   top: 0;
 }
 
