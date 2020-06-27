@@ -82,7 +82,7 @@ a.slide_btn {
 
 .previous_btn {
   bottom: 0;
-  left: 10px;
+  left: 30px;
   margin: auto;
   position: absolute;
   top: 0;
@@ -92,7 +92,7 @@ a.slide_btn {
   bottom: 0;
   margin: auto;
   position: absolute;
-  right: 10px;
+  right: 0px;
   top: 0;
 }
 
@@ -114,10 +114,10 @@ a.slide_btn {
 
 @media only screen and (max-width: 767px) {
   .previous_btn {
-    left: 50px;
+    left: 30px;
   }
   .next_btn {
-    right: 50px;
+    right: 0px;
   }
 }
 </style>
@@ -156,7 +156,7 @@ a.slide_btn {
 
 <div class="directional_nav">
   <div class="previous_btn" title="Previous">
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="65px" height="65px" viewBox="-11 -11.5 65 66">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px" viewBox="-11 -11.5 65 66">
       <g>
         <g>
           <path fill="#474544" d="M-10.5,22.118C-10.5,4.132,4.133-10.5,22.118-10.5S54.736,4.132,54.736,22.118
@@ -167,7 +167,7 @@ a.slide_btn {
     </svg>
   </div>
   <div class="next_btn" title="Next">
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="65px" height="65px" viewBox="-11 -11.5 65 66">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px" viewBox="-11 -11.5 65 66">
       <g>
         <g>
           <path fill="#474544" d="M22.118,54.736C4.132,54.736-10.5,40.103-10.5,22.118C-10.5,4.132,4.132-10.5,22.118-10.5	c17.985,0,32.618,14.632,32.618,32.618C54.736,40.103,40.103,54.736,22.118,54.736z M22.118-8.288	c-16.765,0-30.406,13.64-30.406,30.406c0,16.766,13.641,30.406,30.406,30.406c16.768,0,30.406-13.641,30.406-30.406 C52.524,5.352,38.885-8.288,22.118-8.288z"/>
