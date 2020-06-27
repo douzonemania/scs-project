@@ -30,13 +30,13 @@
      	<div class="wrapper2">
      		<div class="container-fluid">
      			<div style="padding-top:100px;"/>
-     			 <%-- <c:forEach var="vo" varStatus="status" items="${list}">
+     			<c:forEach var="vo" varStatus="status" items="${list}">
 					<div id="${vo.no}">
 						<c:set var="map" value="${contentsList.get(status.index) }" scope="request"/>
 						 <jsp:include page='/WEB-INF/views/custom/${vo.designID}.jsp'/>	
 					</div>	
-				</c:forEach>   --%>
-				 <jsp:include page='/WEB-INF/views/custom/designSource5.jsp'/>	
+				</c:forEach>
+				
      		</div>
      	</div>
      
