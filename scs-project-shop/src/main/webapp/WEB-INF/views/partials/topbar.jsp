@@ -83,7 +83,7 @@
             
                 <!-- LOGO -->
                 <div class="logo-box">
-                    <a href="index.html" class="logo text-center">
+                    <a href="main/index" class="logo text-center">
                         <span class="logo-lg">
                             <img src="/scs-manager/assets/scs-manager/images/20205245527500.png" alt="" style="max-height:64px; max-width:64px">
                             <!-- <span class="logo-lg-text-light">UBold</span> -->
