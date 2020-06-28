@@ -144,20 +144,19 @@ $( document ).ready(function() {
 	</table>
 	
 	<!--  review image  -->
-	<c:if test="${vo.image !=null}">
-	<div class="review-image"> <img src="/scs-manager${vo.image}"></div>			
+	<c:if test="${vo.image != ''}">
+		<div class="review-image"><img src="/scs-manager${vo.image}"></div>			
 	</c:if>
+	<c:choose>
+		<c:when test="${vo.image != '' }">
+		
+		</c:when>
+		<c:otherwise>
+		
+		</c:otherwise>
+	</c:choose>
 	<div style="border-top: 1px solid #CECECE; width: 480px; word-break:break-all"><br />
 	${vo.content }</div>
-	
-<%-- 	<div class="review-top page-title">후기</div>
-		<div class="review-item-info">
-			<div class="review-image"> <img src="${pageContext.request.contextPath}${vo.image}"></div>
-				<div class="review-itemName">${vo.itemName }</div>
-				<div class="review-option">${vo.size } / ${vo.color }</div>
-		</div> --%>
-		
-		
 	     
     <!-- Vendor js -->
    <script src="${pageContext.request.contextPath}/assets/js/vendor.min.js"></script>

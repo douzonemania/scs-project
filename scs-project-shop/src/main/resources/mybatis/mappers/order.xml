@@ -408,7 +408,22 @@
 	
 	<select id="getReviewList" parameterType="map" resultType="reviewvo">
 		<![CDATA[
-			select no, rate, title, content, image, item_no as 'itemNo', member_no as 'memberNo', reg_date as 'regDate', color, size from ${db}.item_review where item_no = #{no} limit 5;
+			 select m.id, 
+					i.no, 
+					rate, 
+					title, 
+					content, 
+					image, 
+					item_no as 'itemNo', 
+					member_no as 'memberNo', 
+					i.reg_date as 'regDate', 
+					color, 
+					size 
+			   from mall.item_review i, 
+				    mall.member m 
+			  where i.member_no=m.no 
+			    and item_no=#{no} 
+			  limit 5
 		]]>
 	</select>
 	
@@ -528,7 +543,7 @@
 		 	 where a.item_no=b.no
                and a.member_no=c.no
                and c.state='회원'
-               and a.image is not null  
+               and a.image != '' 
 		  order by a.reg_date desc
 			 limit 6
 		]]>

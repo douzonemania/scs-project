@@ -55,6 +55,7 @@
 						description, reg_date as 'regDate'
 					from ${db}.item
 					where state = true
+				 order by reg_date desc
 					limit ${size} offset #{offset}
 				]]>
 	</select>
@@ -73,6 +74,7 @@
 	                    and i.state = true
 	                    and c.name=#{keyword}
 	                    and c.parents_no is not null
+	               order by i.reg_date desc
 	                  limit ${size} offset #{offset}
                 ]]>
 			</when>
@@ -85,6 +87,7 @@
 						   from ${db}.item
 						  where visible=${keyword}
 		                    and state=true
+		               order by reg_date desc
 		                   limit ${size} offset #{offset}
 	                ]]>
 	        </when>
@@ -97,6 +100,7 @@
 					from ${db}.item
 					where state = true
 					  and ${option} like '%${keyword}%'
+			     order by reg_date desc
 					limit ${size} offset #{offset}
 				]]>
 			</otherwise>

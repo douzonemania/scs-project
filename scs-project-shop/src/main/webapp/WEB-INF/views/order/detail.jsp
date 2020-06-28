@@ -35,7 +35,7 @@
 <link href="${pageContext.request.contextPath}/assets/css/common.css"
 	rel="stylesheet" type="text/css" />
 	
-	<style>
+<style>
 #board-table {
 	width: 100%; 
 	border-collapse: collapse; 
@@ -82,6 +82,14 @@
 
 	$(function() {
 		${map.detail};	// 상세설명 editor
+		
+		
+		// review view
+		$(".review-view").on("click", function(){
+			var no = $(this).attr("no");
+			 
+			window.open("${ pageContext.request.contextPath }/${db }/order/review/view/"+no, "review", "width=500, height=400, scrollbars=no");
+		 });
 		
 		var firstOption= $('#firstOption').val();
 		var mobileFirstOption= $('#mobileFirstOption').val();
@@ -651,10 +659,12 @@
 						<div class="info-detail" id="infoSpace" style="text-align:center;">
 							<span style="font-size: 40px; color: #323A46; float: center;">DETAIL</span>
 							<div id="snow-viewer" style="height: auto; border: 1px solid #CECECE; pointer-events:none;" contentEditable="false"></div>
-						</div>						
+						</div>
+						<!-- review -->						
 						<div class="info-review" id="reviewSpace">
-							<span>REVIEW</span> <span style="display: block;">
-							<div style="font-weight: bold; display: inline;">고객분들의 생생한 후기</div>도	함께 만나보세요</span>
+							<span>REVIEW</span>
+							<span style="display: block;">
+								<div style="font-weight: bold; display: inline;">고객분들의 생생한 후기</div>도	함께 만나보세요</span>
 							<c:choose>
 							<c:when test="${fn:length(reviewList)==0}">
 								<div class="reg-review">
@@ -669,37 +679,39 @@
 							
 								<c:otherwise>
 									<c:forEach items="${reviewList }" var="vo" varStatus="status">
-							<div class="review-group">
-								<div class="review-img">
-									<c:if test="${vo.image != null }">
-									<img
-										src="/scs-manager${vo.image}"
-										alt="" class="rounded">
-									</c:if>
-								</div>
-								<div class="review-box">
-									<div class="pl-xl-3">
-										<!--리뷰 별-->
-										<c:set var="emptyStar" value="${5-vo.rate }"/>
-										<p class="text-muted mr-3" style="margin:0px;">
-										<c:forEach begin='1' end='${vo.rate }'>
-											<span class="mdi mdi-star text-warning"></span>
-										</c:forEach>
-										<c:forEach begin='1' end='${emptyStar }'>
-											<span class="mdi mdi-star"></span>
-										</c:forEach>
+										<div class="review-group review-view" no='${vo.no }' style="cursor: pointer;">
+										<c:if test="${vo.image != '' }">
+											<div class="review-img">
+												
+													<img
+														src="/scs-manager${vo.image}"
+														alt="" class="rounded">
+													
+											</div></c:if>
+											<div class="review-box">
+												<div class="pl-xl-3">
+													<!--리뷰 별-->
+													<c:set var="emptyStar" value="${5-vo.rate }"/>
+													<p class="text-muted mr-3" style="margin:0px;">
+													<c:forEach begin='1' end='${vo.rate }'>
+														<span class="mdi mdi-star text-warning"></span>
+													</c:forEach>
+													<c:forEach begin='1' end='${emptyStar }'>
+														<span class="mdi mdi-star"></span>
+													</c:forEach>
 										
-										&nbsp;&nbsp;<span>l&nbsp;&nbsp;</span> <span>${vo.size } / ${vo.color }</span>		
-										<div class="mobile-block"></div>									
-										<span style="margin-right: 4px;">${authUser.id}</span> <span>l&nbsp;&nbsp;</span> <span>${vo.regDate }</span>
-										<p class="review-title" style="overflow-x:hidden; font-size:24px;  margin-bottom:10px;">${vo.title }</p>
-									</div>
-								</div>
-							</div>
-							</c:forEach>								
+													&nbsp;&nbsp;<span>l&nbsp;&nbsp;</span> <span>${vo.size } / ${vo.color }</span>		
+													<div class="mobile-block"></div>									
+													<span style="margin-right: 4px;">${vo.id}</span> <span>l&nbsp;&nbsp;</span> <span>${vo.regDate }</span>
+													<p class="review-title" style="overflow-x:hidden; font-size:1.3em;  margin-bottom:10px;">&nbsp; ${vo.title }</p>
+												</div>
+											</div>
+										</div>
+									</c:forEach>								
 								</c:otherwise>
 							</c:choose>
 							<br /><br />
+							<!-- QNA -->
 							 <span class="qna-board-title" style="margin:0 auto;">QNA게시판</span>
 							<c:choose>
 								<c:when test="${fn:length(boardList)==0}">

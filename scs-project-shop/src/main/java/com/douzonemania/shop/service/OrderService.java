@@ -465,6 +465,7 @@ public class OrderService {
 
 		List<ReviewVo> photoList = orderRepository.getPhotoReviewList(db);
 		map.put("photoList", photoList);
+		System.out.println("PHOTO:"+photoList);
 
 		map.put("list", list);
 		map.put("beginPage", beginPage);

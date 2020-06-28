@@ -35,6 +35,9 @@
 			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.css" />
 
 <style>
+.body {
+	padding: 0px;
+}
 #board-table {
 	width: 100%; 
 	border-collapse: collapse; 
@@ -74,6 +77,14 @@
 	}
 }
 
+.reviewTd {
+	cursor: pointer;
+}
+
+.reviewTd:hover {
+	color: #4834C3;
+}
+
 </style>            
 
 <script type="text/javascript">
@@ -81,11 +92,7 @@ $(document).ready(function(){
 	$(".reviewTd").on("click", function(){
 		var no = $(this).attr("no");
 		 
-	
 		window.open("${ pageContext.request.contextPath }/${db }/order/review/view/"+no, "review", "width=500, height=400, scrollbars=no");
-	    /* document.review.target = "review";
-	    document.review.submit();  */
-
 	 });
 });
 		
@@ -114,7 +121,7 @@ $(document).ready(function(){
                         
                         <c:forEach items="${map.photoList }" var="vo" varStatus="status">  
                             <div class="card" style='min-height: 325px; min-width: 450px;'>
-	                          <img class="ol-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:280px; cursor: pointer;" />
+	                          <img class="ol-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:280px;" />
                                 <p style="margin-left: 15px; width: 25%;">
                                 	<c:forEach begin="1" end="${vo.rate }">
 										<span class="mdi mdi-star text-warning"></span>
@@ -125,8 +132,8 @@ $(document).ready(function(){
 									</c:forEach>
                                 </p>
                                 <div class="card-body">
-                                    <h5 class="card-title">${vo.title }</h5>
-                                    <p class="card-text">${vo.content }</p>
+                                    <p class="card-title reviewTd" no="${vo.no }" style="font-size: 1.1em;">${vo.title }</p>
+                                    <p class="card-text reviewTd" no="${vo.no }">${vo.content }</p>
                                 </div>
                             </div>
                         </c:forEach>
@@ -164,8 +171,8 @@ $(document).ready(function(){
 		                            	<img src="/scs-manager${vo.mainImage }" style="max-height:50px"  class="img-fluid" />
 				  					</a>	
 				  				</td>
-				  				<td>${vo.itemName }</td>
-				  				<td><button class="reviewTd" id="review${vo.no }" no="${vo.no }" style="border:none; background-color: rgba(0,0,0,0);">
+				  				<td><a href="${ pageContext.request.contextPath }/${db}/order/detail?no=${vo.itemNo}">${vo.itemName }</a></td>
+				  				<td><button class="reviewTd" id="review${vo.no }" no="${vo.no }" style="border:none; background-color: rgba(0,0,0,0); ">
 								  	${vo.title }</button>		
 				  				</td>
 				  				<td>${vo.id }</td>
