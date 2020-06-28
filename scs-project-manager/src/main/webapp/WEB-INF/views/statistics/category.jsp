@@ -213,10 +213,12 @@
 var a = "${map.donutList.get(0).categoryName}";
 var b = "${map.donutList.get(1).categoryName}";
 var c = "${map.donutList.get(2).categoryName}";
+var d = "${map.donutList.get(3).categoryName}";
 
 var a2 = ${map.donutList.get(0).count};
 var b2 = ${map.donutList.get(1).count};
 var c2 = ${map.donutList.get(2).count};
+var d2 = ${map.donutList.get(3).count};
 
 // 0 이 최근, 6이 일주일전
 var barDataTop1TotalPrice1 = ${map.dateList1.get(6).totalPrice};
@@ -484,7 +486,8 @@ var MorrisCharts = function() {};
 	        var $donutData = [
 	                {label: a+"", value: a2},
 	                {label: b+"", value: b2},
-	                {label: c+"", value: c2}
+	                {label: c+"", value: c2},
+	                {label: d+"", value: d2}
 	            ];
 	        this.createDonutChart('morris-donut-example', $donutData, ['#4fc6e1','#6658dd', '#1ABC9C','#F1556C','#F672A7']);
 	        
