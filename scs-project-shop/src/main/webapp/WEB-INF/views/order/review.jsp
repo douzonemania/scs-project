@@ -92,7 +92,7 @@ $(document).ready(function(){
 	$(".reviewTd").on("click", function(){
 		var no = $(this).attr("no");
 		 
-		window.open("${ pageContext.request.contextPath }/${db }/order/review/view/"+no, "review", "width=500, height=400, scrollbars=no");
+		window.open("${ pageContext.request.contextPath }/${db }/order/review/view/"+no, "review", "width=500, height=800, scrollbars=no");
 	 });
 });
 		
@@ -121,7 +121,7 @@ $(document).ready(function(){
                         
                         <c:forEach items="${map.photoList }" var="vo" varStatus="status">  
                             <div class="card" style='min-height: 325px; min-width: 450px;'>
-	                          <img class="ol-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:280px;" />
+	                          <img class="ol-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:280px; border:color:darkgray 1px" />
                                 <p style="margin-left: 15px; width: 25%;">
                                 	<c:forEach begin="1" end="${vo.rate }">
 										<span class="mdi mdi-star text-warning"></span>
@@ -132,7 +132,7 @@ $(document).ready(function(){
 									</c:forEach>
                                 </p>
                                 <div class="card-body">
-                                    <p class="card-title reviewTd" no="${vo.no }" style="font-size: 1.8em; font-weight:border;">${vo.title }</p>
+                                    <p class="card-title reviewTd" no="${vo.no }" style="font-size: 1.8em; font-weight:bolder;">${vo.title }</p>
                                     <p class="card-text reviewTd" no="${vo.no }">${vo.content }</p>
                                 </div>
                             </div>
