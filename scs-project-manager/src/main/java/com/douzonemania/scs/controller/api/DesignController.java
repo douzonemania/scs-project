@@ -55,7 +55,7 @@ public class DesignController {
 	@RequestMapping("/saveImg")
 	public JsonResult saveImg(@RequestParam("file") MultipartFile excelFile) {
 		
-		String url="/scs-manager/"+designService.restore(excelFile);
+		String url="/scs-manager"+designService.restore(excelFile);
 		
 		return JsonResult.success(url);
 	}
