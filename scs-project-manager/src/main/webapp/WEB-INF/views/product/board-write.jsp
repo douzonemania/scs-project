@@ -129,7 +129,7 @@ $(document).ready(function(){
 							<!-- 등록,목록 버튼-->
 							<div class="btn-submit-section">
 								<button type="button" class="btn btn-secondary waves-effect" id="submit-btn">등록</button>
-								<a href="${pageContext.servletContext.contextPath }/${authUser.id}/member/board">
+								<a href="${pageContext.servletContext.contextPath }/${authUser.id}/product/board">
 								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
 									목록</button></a>
 							</div>
