@@ -76,7 +76,7 @@
 						<div class="product-group" onClick="gotoDetail(${vo.no})">
 							<div class="product-img-bg" >
 	                        	<!-- img source 받아오기  -->
-	                            <img src="/scs-manager}${vo.mainImage}" style="max-height:280px" alt="product-pic" class="img-fluid" />
+	                            <img src="/scs-manager${vo.mainImage}" style="max-height:280px" alt="product-pic" class="img-fluid" />
 	                            	<!-- best, new 노출 -->
 	                            	<c:if test="${vo.bestItem ==true }">
 	                            		 <span class="badge badge-pink" >BEST</span>
