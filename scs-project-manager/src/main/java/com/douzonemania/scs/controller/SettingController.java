@@ -153,7 +153,7 @@ public class SettingController {
 		String viewer1 = "";
 		String viewer2 = "";
 		String viewer3 = "";
-		if(!agreementVo.getFirstAgree().equals("")) {
+		if(!("").equals(agreementVo.getFirstAgree())) {
 			viewer1 = "quill.setContents([ " +
 	                agreementVo.getFirstAgree() +
 	       "]);";
