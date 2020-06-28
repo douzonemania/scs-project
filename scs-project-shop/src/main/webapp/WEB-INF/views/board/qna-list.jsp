@@ -89,7 +89,7 @@ $(function(){
             </div>
 
 			<div class="row" style="margin-left: 0.3%;" >
-				<form action="${pageContext.servletContext.contextPath }/${db}/board/qna/list">
+				<form action="${pageContext.servletContext.contextPath }/${db}/custom/Q&A">
                      <div class="col-12 text-sm-center form-inline" style="padding:0px;">
                          <div class="form-group mr-2">
                               <select id="member-search-option" class="custom-select custom-select-sm" name="op">
