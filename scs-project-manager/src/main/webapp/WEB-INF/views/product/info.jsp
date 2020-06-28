@@ -286,7 +286,8 @@ $(function() {
 								</table>
 							</div>
 							
-							<nav>
+							<div style="width:100%; height:50px;">
+								
 	                            <ul class="pagination pagination-rounded justify-content-center mb-3">
 		                            <li class="page-item">
 		                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${authUser.id}/product/info?p=${map.prevPage}&op=${map.option }&kwd=${map.kwd}" aria-label="Previous">
@@ -314,7 +315,8 @@ $(function() {
 		                                </a>
 		                            </li>
 	                        	</ul>
-                        	</nav>
+                        	
+							</div>
 
 						</div>
 						<!-- end card-body-->
