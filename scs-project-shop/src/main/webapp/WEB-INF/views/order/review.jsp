@@ -132,7 +132,7 @@ $(document).ready(function(){
 									</c:forEach>
                                 </p>
                                 <div class="card-body">
-                                    <p class="card-title reviewTd" no="${vo.no }" style="font-size: 1.1em;">${vo.title }</p>
+                                    <p class="card-title reviewTd" no="${vo.no }" style="font-size: 1.8em; font-weight:border;">${vo.title }</p>
                                     <p class="card-text reviewTd" no="${vo.no }">${vo.content }</p>
                                 </div>
                             </div>
