@@ -203,6 +203,8 @@ public class OrderController {
 		Map<String, Object> map = orderService.getProductAllReview(page, no, db);
 		
 		model.addAttribute("map", map);
+		model.addAttribute("itemNo", no);
+		
 		return "order/product-review";
 	}
 }
