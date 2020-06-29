@@ -105,7 +105,7 @@
 						    c.fax_number = #{faxNumber },
 						    c.cp_number = #{cpNumber },
 						    c.address = #{address },
-							c.site_name = #{email },
+							c.site_name = #{siteName },
 						    c.co_number = #{coNumber },
 						    c.cm_number = #{cmNumber },
 						    s.ceo = #{name },
