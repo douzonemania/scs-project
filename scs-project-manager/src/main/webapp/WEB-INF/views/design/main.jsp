@@ -61,6 +61,6 @@
 	<div id='root'></div>
 <!-- 	<div><script src="http://localhost:8999/bundle.js"></script></div>   -->
 	<!-- <div><script src="http://${pageContext.request.localAddr}:8999/bundle.js"></script></div>-->
-	<%-- <div><script src="${pageContext.request.contextPath }/assets/js/bundle.js"></script></div> --%>
+	 <div><script src="${pageContext.request.contextPath }/assets/js/bundle.js"></script></div> 
 </body>
 </html>
