@@ -40,12 +40,17 @@ public class StatisticsService {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		/* 카테고리 TOP 5  구매건수 */
-		List<CategoryDonutVo> donutList = statisticsRepository.findDonut(id);
+		int limitCount = productRepository.findParentsCateogryCount(id);
+		List<CategoryDonutVo> donutList = statisticsRepository.findDonut(id,limitCount);
 		
 		for (CategoryDonutVo vo : donutList) {
 			int no = vo.getCategoryNo(); 
 			String name = statisticsRepository.findName(no, id); 
 			vo.setCategoryName(name);
+		}
+		
+		if(donutList.size()==5) {
+			
 		}
 		
 		

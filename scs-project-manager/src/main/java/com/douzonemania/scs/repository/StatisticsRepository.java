@@ -28,10 +28,10 @@ public class StatisticsRepository {
 	private SqlSession sqlSession;
 
 	/* Donut */
-	public List<CategoryDonutVo> findDonut(String id) {
+	public List<CategoryDonutVo> findDonut(String id, int limitCount) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("db", id);
-		
+		map.put("limitCount", limitCount);
 		return sqlSession.selectList("statistics.findDonut", map);
 	}
 	
