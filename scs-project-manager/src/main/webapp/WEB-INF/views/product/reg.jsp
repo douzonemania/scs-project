@@ -238,7 +238,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	vo.regDate = regDate;
 	vo.categoryNo = categoryName2;
 	vo.shipCompany = shipCompany;
-	vo.shippingCharge = shippingCharge;
+	vo.shipCharge = shippingCharge;
 	console.log("ship: " +shippingCharge)
 	
 	var i = 0;
