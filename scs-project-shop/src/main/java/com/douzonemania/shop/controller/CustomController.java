@@ -39,8 +39,7 @@ public class CustomController {
 			@PathVariable("no") int no
 			) {
 		String db = session.getAttribute("db").toString();
-//		List<Map> contentList = new ArrayList();
-//		List<ContentsVo> cVo = new ArrayList();		
+
 		List<CustomDesignVo> list = customService.getCustomDesignBySubMenu(no);
 		List<List<ContentsVo>> totalList = new ArrayList<List<ContentsVo>>();
  
@@ -104,7 +103,6 @@ public class CustomController {
 		String db = session.getAttribute("db").toString(); 
 		/* boardRepository.getSession(); */
 		int customNo = customService.getCustomNo(2, db);
-		System.out.println(customNo);
 		
 		List<ContentsVo> list = customService.getContentsByCustomNo(customNo);
 		
@@ -143,7 +141,7 @@ public class CustomController {
 	public String leftBar(Model model,HttpSession session) {
 		String db = session.getAttribute("db").toString();
 		List<SubMenuVo> subMenuList = customService.getSubMenuById(db);
-		System.err.println(subMenuList+"!!!");
+		
 		model.addAttribute("subMenuList",subMenuList);
 		return "custom/left-nav";
 	}

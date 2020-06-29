@@ -120,8 +120,8 @@ $(document).ready(function(){
                         <div class="card-columns">
                         
                         <c:forEach items="${map.photoList }" var="vo" varStatus="status">  
-                            <div class="card" style='min-height: 325px; min-width: 450px;'>
-	                          <img class="ol-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:280px; border:color:darkgray 1px" />
+                            <div class="card">
+	                          <img class="review-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:280px; border:color:darkgray 1px" />
                                 <p style="margin-left: 15px; width: 25%;">
                                 	<c:forEach begin="1" end="${vo.rate }">
 										<span class="mdi mdi-star text-warning"></span>
@@ -131,7 +131,7 @@ $(document).ready(function(){
 										<span class="mdi mdi-star-outline"></span>
 									</c:forEach>
                                 </p>
-                                <div class="card-body">
+                                <div class="card-body mobile-card-body">
                                     <p class="card-title reviewTd" no="${vo.no }" style="font-size: 1.8em; font-weight:bolder;">${vo.title }</p>
                                     <p class="card-text reviewTd" no="${vo.no }">${vo.content }</p>
                                 </div>

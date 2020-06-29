@@ -101,12 +101,11 @@ $(document).ready(function(){
 									    "showCustomRangeLabel": true,									  
 									    "drops": "auto"
 									}, function(start, end) {
-									  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-									  	startDate = start.format('YYYY-MM-DD');
+									 	startDate = start.format('YYYY-MM-DD');
 										endDate = end.format('YYYY-MM-DD');
 										
 										$('#date-range-picker').attr( 'value', startDate+ ' ~ ' + endDate );
-										console.log(startDate +":"+ endDate)
+										
 										
 										$('#search-btn').attr( 'value', startDate+ ':' + endDate );
 										$('#date-text').attr( 'value', startDate+ ':' + endDate );

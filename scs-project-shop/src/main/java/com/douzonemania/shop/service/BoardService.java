@@ -32,7 +32,6 @@ public class BoardService {
 
 	// json data를 파싱하여 qna 전송
 	public boolean writeQna(String jsonData, Long no, String db) throws IOException {
-		System.out.println("111111111111111111111111111111111");
 		JSONObject jObject = new JSONObject(jsonData);
 
 		JSONArray jArray = jObject.getJSONArray("ops");

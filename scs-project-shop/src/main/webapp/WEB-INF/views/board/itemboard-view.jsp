@@ -49,7 +49,7 @@ $(document).ready(function(){
 
 var removeCheck = function(no) {
 	if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
-	 	console.log("네네네");
+	
 	 	event.preventDefault();
 			$.ajax({
 				url: '${pageContext.servletContext.contextPath }/${db}/api/board/itemboard/delete/' + no,

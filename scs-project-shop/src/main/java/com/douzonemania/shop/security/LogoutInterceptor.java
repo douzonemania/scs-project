@@ -14,16 +14,8 @@ public class LogoutInterceptor extends HandlerInterceptorAdapter {
 		
 		HttpSession session = request.getSession();
 		
-		
-		System.out.println("URL :"+ request.getRequestURL());
-		
 		String[] arr=request.getRequestURL().toString().split("/");
-		
 		String now = arr[arr.length-1];
-		
-		
-		System.out.println(now);
-		
 		
 		session.removeAttribute("authUser");
 		session.invalidate();

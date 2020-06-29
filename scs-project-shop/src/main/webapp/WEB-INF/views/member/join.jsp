@@ -30,6 +30,15 @@
 				crossorigin="anonymous"></script>
 		
 		<script>
+		
+		function firstAgreement(){
+			window.open('${ pageContext.request.contextPath }/${db }/member/agree/first','이용약관','width=0,height:0,location=no,status=no');
+		}
+		
+		function thirdAgreement(){
+			window.open('${ pageContext.request.contextPath }/${db }/member/agree/third','이용약관','width=0,height:0,location=no,status=no');
+		}
+		
 		$(document).ready(function(){
 			$('.check-all').click(function(){
 				$('.ab').prop('checked',this.checked);
@@ -285,7 +294,7 @@
                           	         이용약관(필수)
                                 </label>
                                 
-                                <a href="${ pageContext.request.contextPath }/${db }/member/agree/first" class="join-first-custom">약관보기</a>
+                                <a href="#" class="join-first-custom" onclick=firstAgreement()>약관보기</a>
                             </div>
 
                             <div class="checkbox checkbox-dark mb-2">
@@ -294,7 +303,7 @@
                                 	   개인정보 수집 이용동의(필수)
                                 </label>
 
-                                <a href="${ pageContext.request.contextPath }/${db }/member/agree/third" class="join-second-custom">약관보기</a>
+                                <a href="#" class="join-second-custom" onclick=thirdAgreement()>약관보기</a>
                             </div>
 
                             <button type="submit" class="btn btn-light waves-effect complete-join" id="join-btn" disabled="">회원가입</button>

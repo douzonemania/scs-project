@@ -48,7 +48,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			
 			for (SubMenuVo subMenuVo : subMenuList) {
 				List<ContentsVo> contentsVo = customService.getContentsByCustomNo(subMenuVo.getNo());
-				//System.out.println(contentsVo);
 			}
 			
 			session.setAttribute("subMenuList",subMenuList);
@@ -60,8 +59,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		 		MemberVo nowUser = (MemberVo)session.getAttribute("authUser");
 		 		int cartCnt = mainRepository.getCartCnt(nowUser.getNo());
 		 		session.setAttribute("cartCnt", cartCnt);
-		 	}
-		 	
+		 	}	
 	        return true;
 	    }
 
@@ -75,7 +73,5 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		 List<CategoryVo> list = mainRepository.getCategoryList();
 		 
 		 return list;
-	 }
-	 
-	   
+	 }  
 }

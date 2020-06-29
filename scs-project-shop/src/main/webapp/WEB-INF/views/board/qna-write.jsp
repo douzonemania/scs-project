@@ -60,7 +60,7 @@ $(document).ready(function(){
 		var option = sel.options[sel.selectedIndex].value;
 		html.option = option;
 		
-		console.log(html)
+	
 		
 		$.ajax({
 			url: '${pageContext.request.contextPath }/${db}/api/board/qna/write',

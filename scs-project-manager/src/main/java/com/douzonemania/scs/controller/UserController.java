@@ -109,7 +109,7 @@ public class UserController {
 			 
 			out.println("<script>alert('로그인 정보를 확인해주세요.'); history.go(-1);</script>");
 			out.flush();
-			System.out.println("NO");
+		
 			return "/user/login";
 		} else {
 
@@ -117,7 +117,6 @@ public class UserController {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("authUser", authUser);
 			
-			System.out.println("LOGIN");
 			response.sendRedirect(request.getContextPath()+"/"+authUser.getId() + "/api/user/main");
 			
 			return "/user/recover";

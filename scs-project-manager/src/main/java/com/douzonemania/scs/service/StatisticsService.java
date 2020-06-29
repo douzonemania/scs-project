@@ -332,6 +332,7 @@ public class StatisticsService {
 				}
 			}
 		}
+
 		map.put("donutList", donutList);
 		map.put("dateList1", dateList1);
 		map.put("dateList2", dateList2);

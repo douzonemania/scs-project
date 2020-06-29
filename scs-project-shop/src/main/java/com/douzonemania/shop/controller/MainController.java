@@ -42,15 +42,6 @@ public class MainController {
 		model.addAttribute("list",list);
 	
 		
-		for (List<ContentsVo> list2 : totalList) {
-			System.out.println(list2);
-		}
-		
-		
-		for(CustomDesignVo vo : list) {
-			System.out.println(vo);
-		}
-		
 		return "main/index";
 	}
 }

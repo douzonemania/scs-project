@@ -22,7 +22,7 @@
 <!-- Plugins css -->
 <link
 	href="${pageContext.request.contextPath}/assets/libs/flatpickr/flatpickr.min.css"
-	rel="stylesheet" type="text/css" />
+	rel="stylesheet" type="text/css" />mobile-card-body
 
 <!-- App css -->
 <link

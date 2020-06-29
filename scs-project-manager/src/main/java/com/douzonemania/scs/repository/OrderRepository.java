@@ -96,7 +96,6 @@ public class OrderRepository {
 		map.put("option", option);
 		map.put("keyword", keyword);
 		
-		System.out.println(map);
 		
 		return sqlSession.selectOne("order.countDeliveryList", map); 
 	}
@@ -119,7 +118,7 @@ public class OrderRepository {
 		map.put("no", no);
 		map.put("statement", statement);
 		
-		System.out.println(no + " : " + statement);
+		
 		
 		return sqlSession.update("order.updateStatus", map);
 	}

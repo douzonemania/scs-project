@@ -94,7 +94,7 @@ public class DesignService {
 			String originFilename = excelFile.getOriginalFilename();
 			String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
 			String saveFilename = generateSaveFilename(originFilename, extName);
-			System.out.println(saveFilename);
+			
 			long fileSize = excelFile.getSize();
 			byte[] fileData = excelFile.getBytes();
 			
@@ -142,7 +142,7 @@ public class DesignService {
 	public void setDesign(String map,String id) {
 		JSONObject jObject = new JSONObject(map);
 		JSONArray jArray = jObject.getJSONArray("form");
-		System.out.println(map);
+		
 		int index =jObject.getInt("index");
 		
 		int submenuNum = designRepository.findSubmenuNum(index,id);

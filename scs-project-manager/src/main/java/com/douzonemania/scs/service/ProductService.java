@@ -362,7 +362,7 @@ public class ProductService {
 
 			byte[] fileData = excelFile.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
-			System.out.println("TEST! :" + os.toString());
+		
 			os.write(fileData);
 			os.close();
 			url = URL + "/" + saveFilename;
@@ -370,7 +370,7 @@ public class ProductService {
 		} catch (IOException ex) {
 			throw new RuntimeException("file upload error:" + ex);
 		}
-		System.out.println("url:" + url);
+		
 		return url;
 	}
 
@@ -380,20 +380,20 @@ public class ProductService {
 		try {
 			if (src != null && excelFile.isEmpty()) {
 				url = src;
-				System.err.println("::::::::URL:::::::::" + url);
+			
 				return url;
 			} else if (excelFile.isEmpty()) {
 				return url;
 			} else {
 				String originFilename = excelFile.getOriginalFilename();
-				System.err.println("!!!!OriginFIleName!!!" + originFilename);
+			
 				String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
 
 				String saveFilename = generateSaveFilename(originFilename, extName, index);
 
 				byte[] fileData = excelFile.getBytes();
 				OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
-				System.out.println("TEST1:" + os.toString());
+				
 				os.write(fileData);
 				os.close();
 				url = URL + "/" + saveFilename;
@@ -401,7 +401,7 @@ public class ProductService {
 		} catch (IOException ex) {
 			throw new RuntimeException("file upload error:" + ex);
 		}
-		System.out.println("url:" + url);
+		
 		return url;
 	}
 
@@ -451,9 +451,7 @@ public class ProductService {
 			}
 		}
 
-		for (ProductStatisticsVo vo : list) {
-			System.out.println(vo);
-		}
+		
 		return list;
 	}
 
