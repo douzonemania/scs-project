@@ -722,10 +722,18 @@ $(function() {
 										</td>
 										
 										<th>배송비 <span style="color: #FF4040">*</span></th>
-										<td colspan="2">
-											<input type=radio name="shipping-charge" value="free" checked>&nbsp무료배송<label class="text-space"></label>
-											<input type=radio name="shipping-charge" value="basic-charge">&nbsp설정 배송비
-										</td>
+										<c:if test="${vo.shipCharge!=0}">
+											<td colspan="2">
+												<input type=radio name="shipping-charge" value="free">&nbsp무료배송<label class="text-space"></label>
+												<input type=radio name="shipping-charge" value="basic-charge" checked>&nbsp설정 배송비
+											</td>
+										</c:if>
+										<c:if test="${vo.shipCharge==0}">
+											<td colspan="2">
+												<input type=radio name="shipping-charge" value="free" checked>&nbsp무료배송<label class="text-space"></label>
+												<input type=radio name="shipping-charge" value="basic-charge">&nbsp설정 배송비
+											</td>
+										</c:if>
 									</tr>
 									<!-- image 등록 -->
 									<tr class="img-reg">
