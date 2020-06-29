@@ -16,7 +16,7 @@
 											  where i.no=b.item_no) d
 					  where c.no=d.category_no) a
 			  group by a.parents_no
-			  order by count desc
+			  order by parents_no asc
 			  limit 5
 		]]>
 	</select>

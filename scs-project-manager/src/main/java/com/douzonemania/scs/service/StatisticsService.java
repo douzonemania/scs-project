@@ -40,13 +40,16 @@ public class StatisticsService {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		/* 카테고리 TOP 5  구매건수 */
-		List<CategoryDonutVo> donutList = statisticsRepository.findDonut(startDate, endDate, id);
+		List<CategoryDonutVo> donutList = statisticsRepository.findDonut(id);
+		
 		for (CategoryDonutVo vo : donutList) {
 			int no = vo.getCategoryNo(); 
 			String name = statisticsRepository.findName(no, id); 
 			vo.setCategoryName(name);
 		}
-
+		
+		
+		
 		List<String> temp = new ArrayList<String>();
 		temp.add("text-primary");
 		temp.add("text-info");
@@ -329,11 +332,6 @@ public class StatisticsService {
 				}
 			}
 		}
-		
-		System.out.println(countBestList);
-		System.out.println(countNewList);
-		System.out.println(countNormalList);
-		
 		map.put("donutList", donutList);
 		map.put("dateList1", dateList1);
 		map.put("dateList2", dateList2);
