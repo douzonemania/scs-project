@@ -45,7 +45,7 @@ public class MemberController {
 	public String find(HttpServletRequest request, @RequestParam("isPwd") String isPwd, Model model) {
 		HttpSession session = request.getSession();
 		String db = session.getAttribute("db").toString();
-		System.err.println(isPwd + "!!!!!");
+	
 		model.addAttribute("isPwd", isPwd);
 		return "member/find";
 	}
@@ -70,7 +70,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(@ModelAttribute MemberVo memberVo) {
-		System.out.println("TEST2");
+		
 		return "member/login";
 	}
 	
@@ -82,7 +82,7 @@ public class MemberController {
 		HttpSession session = request.getSession();	
 		boolean result = (count>=1)? true:false;
 		
-		System.out.println("TEST");
+	
 		
 		List<Map> contentList = new ArrayList();
 		List<ContentsVo> cVo = new ArrayList();		

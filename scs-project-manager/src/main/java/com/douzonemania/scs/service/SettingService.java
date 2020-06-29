@@ -71,13 +71,10 @@ public class SettingService {
 			String saveFilename = generateSaveFilename(extName);
 			long fileSize = multipartFile.getSize();
 
-			System.out.println("######### " + originFilename);
-			System.out.println("######### " + saveFilename);
-			System.out.println("######### " + fileSize);
 
 			byte[] fileData = multipartFile.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
-			System.out.println("TEST2 :"+os.toString());
+			
 			os.write(fileData);
 			os.close();
 			url = URL + "/" + saveFilename;
@@ -86,7 +83,7 @@ public class SettingService {
 		} catch (IOException ex) {
 			throw new RuntimeException("file upload error:" + ex);
 		}
-		System.out.println("url:" + url);
+	
 		return url;
 	}
 	/* setting-basic 파일 업로드 시작 */
@@ -95,7 +92,7 @@ public class SettingService {
 		try {
 			if(src != null && multipartFile.isEmpty()) {
 				url = src;
-				System.err.println("::::::::URL:::::::::" + url);
+				
 				return url;
 			}else if (multipartFile.isEmpty()) {
 				return url;
@@ -106,10 +103,7 @@ public class SettingService {
 				String saveFilename = generateSaveFilename(extName);
 				long fileSize = multipartFile.getSize();
 	
-				System.out.println("######### " + originFilename);
-				System.out.println("######### " + saveFilename);
-				System.out.println("######### " + fileSize);
-	
+			
 				byte[] fileData = multipartFile.getBytes();
 				OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
 				
@@ -121,7 +115,7 @@ public class SettingService {
 		} catch (IOException ex) {
 			throw new RuntimeException("file upload error:" + ex);
 		}
-		System.out.println("url:" + url);
+		
 		return url;
 	}
 	/* file 이름변환 */
@@ -164,7 +158,7 @@ public class SettingService {
 		
 		for(int i = 0; i < jArray.length(); i++) {
 			JSONObject obj = jArray.getJSONObject(i);
-			System.out.println("obj:"+obj);
+		
 			if(i == jArray.length() - 1) {
 				contents += obj;
 			}

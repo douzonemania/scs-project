@@ -330,9 +330,7 @@ public class StatisticsService {
 			}
 		}
 		
-		System.out.println(countBestList);
-		System.out.println(countNewList);
-		System.out.println(countNormalList);
+		
 		
 		map.put("donutList", donutList);
 		map.put("dateList1", dateList1);

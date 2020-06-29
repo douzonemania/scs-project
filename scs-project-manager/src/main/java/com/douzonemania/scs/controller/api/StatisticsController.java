@@ -43,7 +43,7 @@ public class StatisticsController {
 		int day = Integer.parseInt(temp[2]);
 		tempVo.setDate(get7DayAgoDate(year, month, day, 7));
 		String realStartDate = tempVo.getDate();
-		System.out.println(realStartDate +":"+endDate);
+		
 		Map<String, Object> map = statisticsService.categoryGraphByDate(realStartDate, endDate, id, false);
 		
 		return JsonResult.success(map);
@@ -65,7 +65,7 @@ public class StatisticsController {
 		int day = Integer.parseInt(temp[2]);
 		tempVo.setDate(get7DayAgoDate(year, month, day, 7));
 		String realStartDate = tempVo.getDate();
-		System.out.println(realStartDate +":"+endDate);
+	
 		Map<String, Object> map = statisticsService.productsGraphByDate(realStartDate, endDate, id, false);
 		
 		return JsonResult.success(map);

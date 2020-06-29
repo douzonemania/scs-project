@@ -61,7 +61,7 @@ $(document).ready(function(){
 			contentType: 'application/json',
 			data: JSON.stringify(html),
 			success: function(response){
-				console.log(response.data);
+				
 				if(isdetail=="detail")
 					location.href= "${pageContext.request.contextPath }/${db}/order/detail?no=${no}";
 				else

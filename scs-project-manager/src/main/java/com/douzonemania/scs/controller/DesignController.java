@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/{db}/design")
-//@RequestMapping("/mall2/design")
 public class DesignController {
 	
 	@RequestMapping({"","/main"})

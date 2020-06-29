@@ -25,13 +25,13 @@ public class SettingRepository {
 	
 	/* ceo update */
 	public int updateCeo(CeoVo ceoVo) {
-		System.out.println("update한다?????");
+	
 		return sqlSession.update("user.updateCeo",ceoVo);
 	}
 	
 	/* 약관 select */
 	public AgreementVo findAgreementById(String id) {
-		System.out.println("agreement 찾는다?");
+		
 		return sqlSession.selectOne("setting.findAgreementById", id);
 	}
 	public int insertPolicy(String id) {

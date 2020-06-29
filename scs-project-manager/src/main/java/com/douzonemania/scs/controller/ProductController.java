@@ -102,7 +102,6 @@ public class ProductController {
 		
 		String[] subImageSplit = vo.getSubImage().split("\\?");			
 		
-		System.out.println(vo.getEditor());
 		
 		String getEditor = productService.setStringEditor(vo.getEditor());
 //		System.out.println(getEditor);
@@ -253,7 +252,7 @@ public class ProductController {
 			@PathVariable("itemNo") int no,
 			Model model) {				
 		String id = authUser.getId();
-		System.err.println(no);
+		
 
 		ItemVo iVo = productService.findItem(id, no);
 		List<ProductStatisticsVo> list = productService.getStatisticsByItemNo(id, no);

@@ -19,9 +19,7 @@
 	border:1px solid darkgray;
 	width:85px;
 	height:85px;
-	margin:16px 5px 0 16px ;
-	
-	
+	margin:16px 5px 0 16px ;	
 }
 
 .ol-iteminfo{
@@ -107,8 +105,18 @@
 	margin-right:0.5%;
 	vertical-align:middle;
 }
+
 .mobile-block{display:none}
 .mobile-border{display:none}
+
+.review-img{
+	width:300px;
+	height:300px;
+	
+}
+
+.card{height:600px; }
+
 @media(max-width:991px){
 	.mypage-order-list-category { margin:0px; padding:0px;}
 	.mypage-main-order-list a{font-size:1em; }
@@ -137,7 +145,8 @@
 	.mobile-ol-order-no{width:100px;font-size:0.6em;}	
 	.ol-state-div{width:100px; display:inline-block;margin:0px; padding:0px;float:right;}
 	.ol-btn-review{margin-left:15px; padding:0px; padding:3px;font-size:0.9em }
-	
-
+		
+	.review-img{width:100px;height:100px;}
+	.card{height:auto;}
 }
 
