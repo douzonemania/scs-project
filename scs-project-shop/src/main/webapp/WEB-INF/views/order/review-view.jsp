@@ -145,7 +145,7 @@ $( document ).ready(function() {
 	
 	<!--  review image  -->
 	<c:if test="${vo.image != ''}">
-		<div class="review-image"><img src="/scs-manager${vo.image}"></div>			
+		<div class="review-image" style="max-width:500px"><img src="/scs-manager${vo.image}"></div>			
 	</c:if>
 	<c:choose>
 		<c:when test="${vo.image != '' }">
