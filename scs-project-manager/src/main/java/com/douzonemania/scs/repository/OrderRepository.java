@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.douzonemania.scs.vo.member.ItemReviewVo;
+import com.douzonemania.scs.vo.member.MemberVo;
 import com.douzonemania.scs.vo.member.OrderDeliveryVo;
 import com.douzonemania.scs.vo.member.OrderSettleVo;
 
@@ -122,6 +124,65 @@ public class OrderRepository {
 		
 		return sqlSession.update("order.updateStatus", map);
 	}
+
+	public int reviewListCount(String id, String option, String keyword) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("db", id);
+		map.put("option", option);
+		map.put("keyword", keyword);
+		
+		return sqlSession.selectOne("order.reviewListCount", map);
+	}
+
+	public List<ItemReviewVo> reviewList(String id, int offset, int listSize) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("offset", offset);
+		map.put("size", listSize);
+		
+		return sqlSession.selectList("order.reviewList", map);
+	}
 	
-	
+	public List<ItemReviewVo> searchReviewList(String id, String option, 
+			String keyword, int offset, int size) {
+
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("db", id);
+		map.put("option", option);
+		map.put("keyword", keyword);
+		map.put("offset", offset);
+		map.put("size", size);
+		
+		return sqlSession.selectList("order.searchReviewList", map);
+
+	}
+
+	public String getItemNoByName(String id, String keyword) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("db", id);
+		map.put("name", keyword);
+		
+		return sqlSession.selectOne("order.getItemNoByName", map);
+	}
+
+	public ItemReviewVo getReviewByNo(int no, String db) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("no", no);
+		map.put("db", db);
+		
+		return sqlSession.selectOne("order.getReviewByNo", map);
+	}
+
+	public int deleteReview(String id, int no) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("no", no);
+		map.put("db", id);
+		
+		return sqlSession.delete("order.delteReview", map);
+	}
 }

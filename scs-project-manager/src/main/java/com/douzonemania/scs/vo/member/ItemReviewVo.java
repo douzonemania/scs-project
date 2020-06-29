@@ -6,11 +6,18 @@ public class ItemReviewVo {
 	private int no;
 	private int rate;
 	private String title;
-	private String contents;
+	private String content;
 	private String image;
 	private int itemNo;
 	private int memberNo;
-	private Timestamp regDate;
+	private String regDate;
+	private String size;
+	private String color;
+	private String id;
+	private String itemName;
+	private String mainImage;
+	private int stockNo;
+	private String orderNo;
 
 	public int getNo() {
 		return no;
@@ -36,12 +43,12 @@ public class ItemReviewVo {
 		this.title = title;
 	}
 
-	public String getContents() {
-		return contents;
+	public String getContent() {
+		return content;
 	}
 
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getImage() {
@@ -68,18 +75,76 @@ public class ItemReviewVo {
 		this.memberNo = memberNo;
 	}
 
-	public Timestamp getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(Timestamp regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public String getMainImage() {
+		return mainImage;
+	}
+
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
+
+	public int getStockNo() {
+		return stockNo;
+	}
+
+	public void setStockNo(int stockNo) {
+		this.stockNo = stockNo;
+	}
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 
 	@Override
 	public String toString() {
-		return "ItemReviewVo [no=" + no + ", rate=" + rate + ", title=" + title + ", contents=" + contents + ", image="
-				+ image + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", regDate=" + regDate + "]";
+		return "ItemReviewVo [no=" + no + ", rate=" + rate + ", title=" + title + ", content=" + content + ", image="
+				+ image + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", regDate=" + regDate + ", size=" + size
+				+ ", color=" + color + ", id=" + id + ", itemName=" + itemName + ", mainImage=" + mainImage
+				+ ", stockNo=" + stockNo + ", orderNo=" + orderNo + "]";
 	}
 
 }

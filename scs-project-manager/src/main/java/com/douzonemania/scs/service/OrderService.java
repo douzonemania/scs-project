@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzonemania.scs.repository.OrderRepository;
+import com.douzonemania.scs.vo.member.ItemReviewVo;
+import com.douzonemania.scs.vo.member.MemberVo;
 import com.douzonemania.scs.vo.member.OrderDeliveryVo;
 import com.douzonemania.scs.vo.member.OrderSettleVo;
 
@@ -170,6 +172,80 @@ public class OrderService {
 		return orderRepository.findStatement(id,no);
 	}
 
+	public Map<String, Object> reviewList(String id, int currentPage, String key, String option) {
+		Map<String, Object> map = new HashMap<>();
+
+		// keyword 지정
+		String keywordList[] = key.split(",");
+		String keyword = "";
+		if (keywordList.length == 2) {
+			if (option.equals("rate")) {
+				keyword = keywordList[1];		
+			} else {
+				keyword = keywordList[0];
+			}
+		} else {
+			keyword = key;
+		}		
+
+		// start index 결정
+		int offset = (currentPage - 1) * 5;
+
+		int total = orderRepository.reviewListCount(id, option, keyword);
+		
+		List<ItemReviewVo> list;
+		if (option.equals("")) {
+			list = orderRepository.reviewList(id, offset, LIST_SIZE);
+		} else {
+			list = orderRepository.searchReviewList(id, option, keyword, offset, LIST_SIZE);
+		}
+		
+		int pageCnt = (total % LIST_SIZE != 0) ? (total / LIST_SIZE) + 1 : (total / LIST_SIZE);
+		int calCnt = (currentPage % 5) == 0 ? currentPage - 1 : currentPage;
+		
+		int beginPage = calCnt - (calCnt % 5) == 0 ? 1 : calCnt - (calCnt % 5) + 1;
+		int prevPage = beginPage == 1 ? 1 : beginPage - 1;
+		int endPage = (pageCnt - (pageCnt % 5)) == (calCnt - (calCnt % 5)) ? pageCnt : (beginPage + PAGE_SIZE) - 1;
+		int nextPage = (pageCnt - (pageCnt % 5)) == (calCnt - (calCnt % 5)) ? pageCnt : endPage + 1;
+
+		if (nextPage >= pageCnt)
+			nextPage = pageCnt;
+		if (endPage >= pageCnt)
+			endPage = pageCnt;
+
+		map.put("list", list);
+		map.put("beginPage", beginPage);
+		map.put("prevPage", prevPage);
+		map.put("endPage", endPage);
+		map.put("nextPage", nextPage);
+		map.put("page", currentPage);
+		map.put("total", total);
+		map.put("option", option);
+		map.put("kwd", keyword);
+		map.put("calCnt", calCnt);
+	
+		if (endPage != pageCnt)
+			map.put("listsize", LIST_SIZE);
+		else {
+			if (endPage % 5 == 0) {
+				map.put("listsize", 5);
+			} else {
+				map.put("listsize", endPage % 5);
+			}
+		}		
+		
+		return map;
+	}
+
+	public ItemReviewVo getReviewByNo(int no, String db) {
+		return orderRepository.getReviewByNo(no, db);
+	}
+
+	public boolean deleteReview(String id, int no) {
+
+		int count = orderRepository.deleteReview(id, no);
+		return count == 1;
+	}
 
 
 

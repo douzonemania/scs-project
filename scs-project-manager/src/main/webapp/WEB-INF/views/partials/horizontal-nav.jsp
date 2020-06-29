@@ -127,7 +127,10 @@
                                     </li>
                                     <li>
                                         <a href="${pageContext.request.contextPath }/${ authUser.id }/order/settle">정산 관리</a>
-                                    </li>                            
+                                    </li>  
+                                    <li>
+                                        <a href="${pageContext.request.contextPath }/${ authUser.id }/order/review">리뷰 관리</a>
+                                    </li>                          
                                 </ul>
                         </li>
                         <li class="has-submenu">
