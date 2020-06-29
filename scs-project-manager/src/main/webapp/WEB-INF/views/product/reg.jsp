@@ -284,11 +284,14 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	if(nowPrice=="" || !$.isNumeric(nowPrice)){
 		alert("정상가를 정확히 입력하세요(숫자)");
 		return;
-	}
-	if(!$.isNumeric(sale)){
-		alert("할인율을 정확히 입력하세요(숫자)");
-		return;
-	}
+	}if(sale==""){
+		
+	}else if(sale!=""){
+		if(!$.isNumeric(sale)){
+			alert("할인율을 정확히 입력하세요(숫자)");
+			return;
+		}		
+	}	
 	if(shipCompany=="----"){
 		alert("배송사를 선택하세요");
 		return;
