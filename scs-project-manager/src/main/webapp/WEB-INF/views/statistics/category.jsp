@@ -489,7 +489,7 @@ var MorrisCharts = function() {};
 	                {label: c+"", value: c2},
 	                {label: d+"", value: d2}
 	            ];
-	        this.createDonutChart('morris-donut-example', $donutData, ['#4fc6e1','#6658dd', '#1ABC9C','#F1556C','#F672A7']);
+	        this.createDonutChart('morris-donut-example', $donutData, ['#6658DD','#4fc6e1', '#1ABC9C','#F1556C','#F672A7']);
 	        
 	      	//create line chart
 	        var $data  = [
