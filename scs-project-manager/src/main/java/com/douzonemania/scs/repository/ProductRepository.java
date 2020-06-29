@@ -361,6 +361,12 @@ public class ProductRepository {
 		return sqlSession.selectOne("product.getShippingcharge",map);
 	}
 
+	public int findParentsCateogryCount(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		return sqlSession.selectOne("product.findParentsCateogryCount",map);
+	}
+
 
 
 

@@ -17,7 +17,7 @@
 					  where c.no=d.category_no) a
 			  group by a.parents_no
 			  order by parents_no asc
-			  limit 5
+			  limit #{limitCount}
 		]]>
 	</select>
 	<select id="findName" parameterType="map" resultType="string" >

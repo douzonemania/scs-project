@@ -287,6 +287,14 @@
 		]]>
 	</select>
 	
+	<select id="findParentsCateogryCount" parameterType="map" resultType="integer">
+		<![CDATA[
+			select count(*)
+			  from ${db}.category
+			 where parents_no is null;	
+		]]>
+	</select>
+	
 	<select id="findNameByNo" parameterType="map" resultType="string">
 		<![CDATA[
 			select name
