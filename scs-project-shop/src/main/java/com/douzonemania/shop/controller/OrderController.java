@@ -39,9 +39,6 @@ public class OrderController {
 			String db = session.getAttribute("db").toString();
 			Map<String,Object> map  = orderService.find(page,keyword,option,category,subCategory,db);
 			model.addAttribute("map",map);
-			
-			
-			
 		
 		return "order/list";
 	}
@@ -78,10 +75,6 @@ public class OrderController {
 		List<ItemVo> list = orderService.setCartList(db,vo.getNo());
 		model.addAttribute("list",list);
 		
-		for (ItemVo itemVo : list) {
-			System.out.println(itemVo.toString());
-		}		
-		
 		return "order/cart";
 	}
 	
@@ -103,9 +96,6 @@ public class OrderController {
 		
 		return "order/order";
 	}
-	
-	
-	
 	
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
 	public String order(HttpSession session,
@@ -191,25 +181,6 @@ public class OrderController {
 		return "order/orderlist";
 	}
 	
-	/*
-	 * @RequestMapping(value = "/board-write/{no}", method =
-	 * {RequestMethod.POST,RequestMethod.GET}) public String
-	 * orderListByStatement(HttpSession session,Model model,
-	 * 
-	 * @PathVariable(value="no") int no,
-	 * 
-	 * @RequestParam(value="itemName") String itemName ) {
-	 * System.err.println(no+"no::::"); String db =
-	 * session.getAttribute("db").toString(); MemberVo vo =
-	 * (MemberVo)session.getAttribute("authUser"); model.addAttribute("no", no);
-	 * model.addAttribute("itemName", itemName);
-	 * 
-	 * 
-	 * return "order/board-write"; }
-	 */
-
-	
-	
 	@RequestMapping(value="/review/view/{no}")
 	public String reviewView(@PathVariable int no,
 			Model model,HttpSession session) {
@@ -223,4 +194,15 @@ public class OrderController {
 		return "order/review-view";
 	}
 
+	@RequestMapping(value="/product/review/{no}")
+	public String productAllReview(@PathVariable int no,
+			@RequestParam(value="p",required = true,defaultValue = "1")Integer page,
+			Model model,HttpSession session) {
+		String db = session.getAttribute("db").toString(); 
+		
+		Map<String, Object> map = orderService.getProductAllReview(page, no, db);
+		
+		model.addAttribute("map", map);
+		return "order/product-review";
+	}
 }
