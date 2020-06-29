@@ -239,6 +239,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 	vo.categoryNo = categoryName2;
 	vo.shipCompany = shipCompany;
 	vo.shippingCharge = shippingCharge;
+	console.log("ship: " +shippingCharge)
 	
 	var i = 0;
 	var numberOfOption = $('.sizeOptionSelect').length;
@@ -255,14 +256,19 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 		colorArr.push(color);
 		sizeArr.push(size);
 		stockArr.push(stock);
-	} 
-	
+	}
+	  
+	  console.log("color : " + colorArr)
+	  console.log("size : " +sizeArr)
+	  
+	  
 	var objParams = {
 			'colorArr' : colorArr,
 			'sizeArr' : sizeArr,
 			'stockArr' : stockArr
 	}
 	
+	  console.log("objParams : " +objParams )
 	var form = $('#excelForm')[0];
 
 	if(categoryName2=="----"){
@@ -369,6 +375,7 @@ $(document).on("click", "#btn-reg",function(){	// 등록 버튼 클릭 함수
 				dataType: 'json',		
 				success : function(response){
 					alert("상품이 등록되었습니다.")
+					location.reload(); 
 					location.href="${pageContext.request.contextPath }/${authUser.id}/product/info"
 				},
 				error: function(xhr, status, e){
