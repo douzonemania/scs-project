@@ -474,4 +474,22 @@ public class OrderRepository {
 		
 		return sqlSession.selectList("order.getPhotoReviewList", map);
 	}
+
+
+	public int getProductAllReviewCount(int no, String db) {
+		map.put("no", no);
+		map.put("db", db);
+		
+		return sqlSession.selectOne("order.getProductAllReviewCount", map);
+	}
+
+
+	public List<ReviewVo> getProductAllReview(int no, String db, int size, int offset) {
+		map.put("no", no);
+		map.put("db", db);
+		map.put("size", size);
+		map.put("offset", offset);
+		
+		return sqlSession.selectList("order.getProductAllReview", map);
+	}
 }

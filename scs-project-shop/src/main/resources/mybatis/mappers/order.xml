@@ -419,9 +419,10 @@
 					i.reg_date as 'regDate', 
 					color, 
 					size 
-			   from mall.item_review i, 
-				    mall.member m 
-			  where i.member_no=m.no 
+			   from ${db}.item_review i, 
+				    ${db}.member m 
+			  where i.member_no=m.no
+			    and m.state='회원' 
 			    and item_no=#{no} 
 			  limit 5
 		]]>
@@ -547,5 +548,42 @@
 		  order by a.reg_date desc
 			 limit 6
 		]]>
+	</select>
+	
+	<select id="getProductAllReview" parameterType="map" resultType="reviewvo">
+		<![CDATA[
+			select a.no, 
+					   a.rate, 
+					   a.title, 
+					   content, 
+					   image, 
+					   a.reg_date as 'regDate',
+					   a.color, 
+					   a.size, 
+					   b.name as 'itemName', 
+					   c.id,
+					   a.item_no as 'itemNo',
+					   b.main_image as 'mainImage'
+				  from ${db}.item_review a, 
+				   	   ${db}.item b, 
+				   	   ${db}.member c
+			 	 where a.item_no=b.no
+	               and a.member_no=c.no
+	               and c.state='회원'
+	               and b.no=#{no}
+			  order by a.reg_date desc	
+			  limit ${size} offset #{offset}
+		  ]]>
+	</select>
+	
+	<select id="getProductAllReviewCount" parameterType="map" resultType="int">
+	<![CDATA[
+		select count(*) 
+		  from ${db}.item_review i, 
+			   ${db}.member m
+		 where m.no=i.member_no
+		   and m.state='회원' 
+		   and i.item_no=#{no}
+	]]>
 	</select>
 </mapper>

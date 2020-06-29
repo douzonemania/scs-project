@@ -660,10 +660,10 @@
 							<span style="font-size: 40px; color: #323A46; float: center;">DETAIL</span>
 							<div id="snow-viewer" style="height: auto; border: 1px solid #CECECE; pointer-events:none;" contentEditable="false"></div>
 						</div>
-						<!-- review -->						
+						<!-- review -->		
 						<div class="info-review" id="reviewSpace">
 							<span>REVIEW</span>
-							<span style="display: block;">
+							<span style="display: block; margin: 0 auto; margin-bottom: 2%;">
 								<div style="font-weight: bold; display: inline;">고객분들의 생생한 후기</div>도	함께 만나보세요</span>
 							<c:choose>
 							<c:when test="${fn:length(reviewList)==0}">
@@ -678,6 +678,7 @@
 								</c:when>
 							
 								<c:otherwise>
+								<div style="font-size: 1.3em; text-align: right; text-decoration: underline;"><a href="${ pageContext.request.contextPath }/${db }/order/product/review/${map.product.no}">전체</a></div>
 									<c:forEach items="${reviewList }" var="vo" varStatus="status">
 										<div class="review-group review-view" no='${vo.no }' style="cursor: pointer;">
 										<c:if test="${vo.image != '' }">

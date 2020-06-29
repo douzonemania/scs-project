@@ -1,14 +1,11 @@
 package com.douzonemania.shop.service;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-
-
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -465,7 +462,6 @@ public class OrderService {
 
 		List<ReviewVo> photoList = orderRepository.getPhotoReviewList(db);
 		map.put("photoList", photoList);
-		System.out.println("PHOTO:"+photoList);
 
 		map.put("list", list);
 		map.put("beginPage", beginPage);
@@ -575,6 +571,50 @@ public class OrderService {
 			byte[] content = buffer.toByteArray();
 			return new String(content, 0, content.length, "UTF-8");
 		}
+	}
+
+	public Map<String, Object> getProductAllReview(int currentPage, int no, String db) {
+		Map<String, Object> map = new HashMap<>();
+		
+		LIST_SIZE = 5;
+
+		int offset = (currentPage - 1) * 5;
+		int total = orderRepository.getProductAllReviewCount(no, db);
+		
+		List<ReviewVo> list = orderRepository.getProductAllReview(no, db, LIST_SIZE, offset);
+		
+		int pageCnt = (total % LIST_SIZE != 0) ? (total / LIST_SIZE) + 1 : (total / LIST_SIZE);
+		int calCnt = (currentPage % 5) == 0 ? currentPage - 1 : currentPage;
+		int beginPage = calCnt - (calCnt % 5) == 0 ? 1 : calCnt - (calCnt % 5) + 1;
+		int prevPage = beginPage == 1 ? 1 : beginPage - 1;
+		int endPage = (pageCnt - (pageCnt % 5)) == (calCnt - (calCnt % 5)) ? pageCnt : (beginPage + PAGE_SIZE) - 1;
+		int nextPage = (pageCnt - (pageCnt % 5)) == (calCnt - (calCnt % 5)) ? pageCnt : endPage + 1;
+
+		if (nextPage >= pageCnt)
+			nextPage = pageCnt;
+		if (endPage >= pageCnt)
+			endPage = pageCnt;
+		
+		map.put("list", list);
+		map.put("beginPage", beginPage);
+		map.put("prevPage", prevPage);
+		map.put("endPage", endPage);
+		map.put("nextPage", nextPage);
+		map.put("page", currentPage);
+		map.put("total", total);
+		map.put("calCnt", calCnt);
+
+		if (endPage != pageCnt)
+			map.put("listsize", LIST_SIZE);
+		else {
+			if (endPage % 5 == 0) {
+				map.put("listsize", 5);
+			} else {
+				map.put("listsize", endPage % 5);
+			}
+		}
+		
+		return map;
 	}
 
 }
