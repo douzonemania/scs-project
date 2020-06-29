@@ -144,8 +144,8 @@ public class UserService {
 		String address = "";
 		if(vo.getAddress().contains("!")) {
 			address = vo.getAddress().replaceAll("!", " ");
+			vo.setAddress(address);
 		}
-		vo.setAddress(address);
 		
 		return vo;
 	}
