@@ -276,7 +276,7 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 	vo.visible = visible;
 	vo.bestItem = bestItem;
 	vo.newItem = newItem;
-	vo.editor = editor;
+	vo.editor1 = editor;
 	vo.description = description;
 	vo.regDate = regDate;
 	vo.categoryNo = categoryName2;

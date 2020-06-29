@@ -102,9 +102,7 @@ public class ProductController {
 		
 		String[] subImageSplit = vo.getSubImage().split("\\?");			
 		
-		
 		String getEditor = productService.setStringEditor(vo.getEditor());
-//		System.out.println(getEditor);
 		
 		String viewer = "quill.setContents([ " + 
 				getEditor +
