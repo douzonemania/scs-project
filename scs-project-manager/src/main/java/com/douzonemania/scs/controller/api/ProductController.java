@@ -41,8 +41,10 @@ public class ProductController {
 		if ("----".equals(parentCategory)) {
 			if (productService.findCategoryByName(id, cVo.getName()) == null) { // 카테고리 이름 중복 방지
 				productService.addCategory(id, cVo);
-			} else
+			} else {
 				System.err.println("중복된 카테고리 명입니다.");
+				return JsonResult.success("duplication");
+			}
 
 			return JsonResult.success(productService.getCategoryNameList(id));
 		} else {
@@ -51,8 +53,10 @@ public class ProductController {
 			if (productService.findCategoryByName(id, cVo.getName()) == null) { // 카테고리 이름 중복 방지
 				cVo.setParentNo(parentCategoryNo);
 				productService.addCategory(id, cVo);
-			} else
+			} else {
 				System.err.println("중복된 카테고리 명입니다.");
+				return JsonResult.success("duplication");
+			}
 
 			return JsonResult.success(productService.getCategory2NameList(id, parentCategoryNo));
 		}
