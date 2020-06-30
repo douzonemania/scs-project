@@ -92,6 +92,7 @@ public class OrderController {
 		String db = session.getAttribute("db").toString();
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
 		
+		
 		orderService.setOrderPage(db,vo.getNo(),itemNo,firstOption,secondOption,quantity,session);
 		
 		return "order/order";

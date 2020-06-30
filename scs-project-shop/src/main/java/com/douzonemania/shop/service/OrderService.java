@@ -211,7 +211,6 @@ public class OrderService {
 			session.setAttribute("recentShip", vo);
 		} else {
 			session.setAttribute("shipListCheck", false);
-
 		}
 
 		for (Integer integer : cartNoList) {
@@ -225,6 +224,8 @@ public class OrderService {
 			list.add(temp);
 
 		}
+		session.setAttribute("cartOrderCheck",true);
+		session.setAttribute("cartNoList", cartNoList);
 		session.setAttribute("orderList", list);
 	}
 
@@ -261,30 +262,40 @@ public class OrderService {
 		itemVo = setTotalPrice(nowSale, itemVo);
 
 		list.add(itemVo);
-
+		session.setAttribute("cartOrderCheck",false);
 		session.setAttribute("orderList", list);
 	}
 
-	public String excuteOrder(String db, Long no, List<ItemVo> list, String shipMemo, int shipNo) {
+	public String excuteOrder(String db, Long no, List<ItemVo> list, String shipMemo, int shipNo,String cartOrderCheck,HttpSession session) {
 
 		String orderNum = makeOrderNum(db);
 		int result = orderRepository.insertOrder(db, orderNum, no, shipMemo, shipNo);
 
-		for (ItemVo vo : list) {
-			int itemNo = vo.getNo();
-			int firstOption = vo.getFirstOption();
-			int secondOption = vo.getSecondOption();
-
-			int amount = vo.getAmount();
-			int totalPrice = vo.getTotalPrice();
-
-			int stockNo = orderRepository.findStockNo(db, no, itemNo, firstOption, secondOption);
-
-			orderRepository.insertOrderItem(db, result, stockNo, amount, totalPrice, shipMemo);
-			orderRepository.updateStock(db, stockNo, amount);
-
+		
+	 
+		
+		if(cartOrderCheck.equals("true")) {
+			List<Integer> cartNoList =  (List<Integer>)session.getAttribute("cartNoList");
+			
+			for (Integer integer : cartNoList) {
+				orderRepository.deleteCart(db,integer);
+			}
 		}
-
+			
+		
+		 for (ItemVo vo : list) { int itemNo = vo.getNo(); int firstOption =
+		  vo.getFirstOption(); int secondOption = vo.getSecondOption();
+		  
+		  int amount = vo.getAmount(); int totalPrice = vo.getTotalPrice();
+		  
+		  int stockNo = orderRepository.findStockNo(db, no, itemNo, firstOption,
+		  secondOption);
+		  
+		  orderRepository.insertOrderItem(db, result, stockNo, amount, totalPrice,
+		  shipMemo); orderRepository.updateStock(db, stockNo, amount);
+		  
+		 }
+		 
 		return orderNum;
 	}
 
