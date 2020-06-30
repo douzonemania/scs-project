@@ -15,9 +15,10 @@
 																	where a.stock_no = s.no) b
 											  where i.no=b.item_no) d
 					  where c.no=d.category_no) a
+			  where parents_no is not null
 			  group by a.parents_no
 			  order by parents_no asc
-			  limit #{limitCount}
+			  limit #{limitCount };
 		]]>
 	</select>
 	<select id="findName" parameterType="map" resultType="string" >
