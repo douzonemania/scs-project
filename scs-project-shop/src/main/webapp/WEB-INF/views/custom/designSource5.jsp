@@ -11,7 +11,7 @@
 }
 
 .slide_viewer {
-  height: 340px;
+  height: 580px;
   overflow: hidden;
   position: relative;
 }
