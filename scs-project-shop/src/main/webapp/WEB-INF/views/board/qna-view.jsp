@@ -146,7 +146,7 @@ var removeCheck = function(no) {
 							
 							<br />
 							<div class="btn-submit-section">
-								<a href="${pageContext.servletContext.contextPath }/${db}/board/qna/list">
+								<a href="${pageContext.servletContext.contextPath }/${db}/custom/Q&A">
 								<button type="button" class="btn btn-secondary waves-effect" id="btn-list">
 									목록</button></a>
 											<c:if test="${authUser.no == boardVo.memberNo }">
