@@ -124,7 +124,7 @@ a.slide_btn {
 </style>
 
 <div style="padding-top:30px;"/>
-	<div class="design-source6">
+	<div class="design-source7">
 		<div class="slider">
   <div class="slide_viewer">
     <div class="slide_group">
