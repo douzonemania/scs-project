@@ -60,7 +60,7 @@ public class ProductService {
 		} else {
 			keyword = key;
 		}
-
+		
 		int offset = (currentPage - 1) * 5;
 
 		int total = productRepository.listCount(id, option, keyword);

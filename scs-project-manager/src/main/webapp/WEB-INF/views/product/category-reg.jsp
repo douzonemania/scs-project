@@ -142,6 +142,9 @@ $(function() {
 			type: "POST",
 			dataType: 'json',
 			success : function(response){
+				if(response.data=="duplication"){
+					alert("중복된 카테고리명입니다.")
+				}else{
 				$("select#cate-select-add option, select#cate-select-del option, select#cate-select-mod option").remove();
 				$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value=''>----</option>");
 				for( var key in response.data){
@@ -151,6 +154,7 @@ $(function() {
 				}
 				changeTable(vo.no, vo.name);
 				initial();
+				}
 			},
 				error: function(xhr, status, e){
 					console.error(status + " : " + e);
@@ -164,6 +168,9 @@ $(function() {
 				type: "POST",
 				dataType: 'json',
 				success : function(response){
+					if(response.data=="duplication"){
+						alert("중복된 카테고리명입니다.")
+					}else{
 					$("select#cate-select-del2 option, select#cate-select-mod2 option").remove();
 					$('#cate-select-del2,#cate-select-mod2').append("<option value=''>----</option>");
 					for( var key in response.data){
@@ -176,6 +183,7 @@ $(function() {
 					
 					changeTable2(no);
 					initial();
+					}
 				},
 					error: function(xhr, status, e){
 						console.error(status + " : " + e);
@@ -481,10 +489,10 @@ $(function() {
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">SCS</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">상품</a></li>
-                                    <li class="breadcrumb-item active">카테고리등록</li>
+                                    <li class="breadcrumb-item active">카테고리관리</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">카테고리등록</h4>
+                            <h4 class="page-title">카테고리관리</h4>
                                                                                                                                                   
                         </div>
                     </div>

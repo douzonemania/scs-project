@@ -8,10 +8,11 @@
 .slider {
   margin: 0 auto;
   width:100%;
+  height:100%;
 }
 
 .slide_viewer {
-  height: 340px;
+  height: 580px;
   overflow: hidden;
   position: relative;
 }
@@ -73,11 +74,11 @@ a.slide_btn {
 }
 
 .directional_nav {
-  height: 340px;
+  height: 80px;
   margin: 0 auto;
   width:100%;
   position: relative;
-  top: -340px;
+  top: -230px;
 }
 
 .previous_btn {
