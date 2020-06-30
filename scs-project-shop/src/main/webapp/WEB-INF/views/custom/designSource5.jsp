@@ -8,6 +8,7 @@
 .slider {
   margin: 0 auto;
   width:100%;
+  height:100%;
 }
 
 .slide_viewer {
@@ -73,7 +74,7 @@ a.slide_btn {
 }
 
 .directional_nav {
-  height: 340px;
+  height: 135px;
   margin: 0 auto;
   width:100%;
   position: relative;
