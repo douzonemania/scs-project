@@ -14,8 +14,8 @@ img{width:100%;height:100%;}
 /*** designSource1 CSS ***/
 /*************************/
 .imageBox{ width:48%; height:400px; float:left;}
-.imgSector{ width:70%; height: 350px; background-color: #efefef; margin-left: 50px;}
-.textBox{width:48%;height:400px;float:right; }
+.imgSector{ width:90%; height: 400px; background-color: #efefef; margin-left: 50px;}
+.textBox{width:51%;height:400px;float:right; }
 .first-input{margin-top: 30px;font-size: 2.4em;font-weight: bold; }
 .second-input{font-size:1.4em;margin-left: 25px;margin-top: 40px;display: block;}
  
