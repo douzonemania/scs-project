@@ -91,7 +91,7 @@
                                 <i class="fe-gift"></i>상품관리<div class="arrow-down"></div></a>
                             <ul class="submenu">
                                 <li>
-                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/product/category-reg">카테고리 등록</a>
+                                    <a href="${pageContext.request.contextPath }/${ authUser.id }/product/category-reg">카테고리 관리</a>
                                 </li>
                                 <li>
                                     <a href="${pageContext.request.contextPath }/${ authUser.id }/product/info">상품 정보</a>
