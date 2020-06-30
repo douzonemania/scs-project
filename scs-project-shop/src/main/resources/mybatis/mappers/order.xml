@@ -96,7 +96,7 @@
 				</when>
 				<otherwise>
 					<choose>
-						<when test='subCategory==null or subCategory==""'>
+						<when test='subCategory=="0"'>
 							<![CDATA[
 							select count(*)
 							from ${db}.item a , ${db}.category b

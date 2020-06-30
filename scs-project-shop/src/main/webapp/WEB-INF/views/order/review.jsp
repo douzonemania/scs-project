@@ -121,7 +121,7 @@ $(document).ready(function(){
                         
                         <c:forEach items="${map.photoList }" var="vo" varStatus="status">  
                             <div class="card">
-	                          <img class="review-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:200px; max-width: 200px; border: 1px solid #3C3C3C;" />
+	                          <img class="review-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:200px; max-width: 200px; border: none; border: 1px solid #3C3C3C;" />
                                 <p style="margin-left: 15px; width: 25%;">
                                 	<c:forEach begin="1" end="${vo.rate }">
 										<span class="mdi mdi-star text-warning"></span>

@@ -37,6 +37,7 @@ public class OrderController {
 					   @RequestParam(value="subCategory",required = true,defaultValue = "0")Integer subCategory,
 					   Model model,HttpSession session) {
 			String db = session.getAttribute("db").toString();
+
 			Map<String,Object> map  = orderService.find(page,keyword,option,category,subCategory,db);
 			model.addAttribute("map",map);
 		
