@@ -492,4 +492,14 @@ public class OrderRepository {
 		
 		return sqlSession.selectList("order.getProductAllReview", map);
 	}
+
+
+	public void deleteCart(String db, Integer no) {
+		
+		map.put("db",db);
+		map.put("no",no);
+		
+		sqlSession.delete("order.deleteCartAfterOrder",map);
+		
+	}
 }

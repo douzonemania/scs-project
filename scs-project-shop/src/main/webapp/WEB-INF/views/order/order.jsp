@@ -163,13 +163,15 @@
 				var postcode4= $('#postcode4').val();
 				var shipMemo = $('#ship-memo').val();
 				var post = postcode1+"!"+postcode2+"!"+postcode4;
+				var cartOrderCheck ="${cartOrderCheck }"
 				
 				var shipVoList ={
 						"shipNo" : no,
 						"shipName" : orderName,
 						"phoneNumber" : orderPhoneNumber,
 						"address" : post,
-						"shipMemo" : shipMemo
+						"shipMemo" : shipMemo,
+						"cartOrderCheck" : cartOrderCheck
 						
 				}
 				

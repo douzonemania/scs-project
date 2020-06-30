@@ -51,7 +51,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			}
 			
 			session.setAttribute("subMenuList",subMenuList);
-			
 			session.setAttribute("mainMenu", vo);
 		 	session.setAttribute("cgList", list);
 		 	

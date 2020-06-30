@@ -23,12 +23,15 @@ import com.douzonemania.shop.service.CustomService;
 import com.douzonemania.shop.service.MemberService;
 import com.douzonemania.shop.service.OrderService;
 import com.douzonemania.shop.vo.BoardVo;
+import com.douzonemania.shop.vo.CategoryVo;
 import com.douzonemania.shop.vo.ContentsVo;
 import com.douzonemania.shop.vo.CustomDesignVo;
 import com.douzonemania.shop.vo.ItemBoardVo;
 import com.douzonemania.shop.vo.ItemVo;
+import com.douzonemania.shop.vo.MainMenuVo;
 import com.douzonemania.shop.vo.MemberVo;
 import com.douzonemania.shop.vo.OrderListVo;
+import com.douzonemania.shop.vo.SubMenuVo;
 
 @Controller
 @RequestMapping("/{db}/member")
@@ -120,7 +123,13 @@ public class MemberController {
 	public String logout(HttpServletRequest request,@PathVariable("db")String db,Model model) {
 		
 		HttpSession session = request.getSession();
-	
+		
+		MainMenuVo vo = (MainMenuVo)session.getAttribute("mainMenu");
+		List<CategoryVo> cglist = (List<CategoryVo>) session.getAttribute("cgList");
+		List<SubMenuVo> subMenuList = (List<SubMenuVo>)session.getAttribute("subMenuList");
+		
+		
+		
 		session.removeAttribute("authUser");
 		session.invalidate();
 		
@@ -131,13 +140,16 @@ public class MemberController {
 		List<CustomDesignVo> list = customService.getCustomDesignBySubMenu(no);	
 		List<List<ContentsVo>> totalList = new ArrayList<List<ContentsVo>>();
 		
-		for (CustomDesignVo vo: list) {
-			List<ContentsVo> contentsList = customService.getContentsByCustomNo(vo.getNo());
+		for (CustomDesignVo nowVo: list) {
+			List<ContentsVo> contentsList = customService.getContentsByCustomNo(nowVo.getNo());
 			totalList.add(contentsList);
 		}
 		model.addAttribute("contentsList",totalList);
 		model.addAttribute("list",list);
-		
+		model.addAttribute("subMenuList",subMenuList);
+		model.addAttribute("mainMenu", vo);
+	 	model.addAttribute("cgList", cglist);
+	 	
 		return "main/index";
 	}
 	

@@ -333,6 +333,13 @@
 		]]>
 	</delete>
 	
+	<delete id="deleteCartAfterOrder" parameterType="map">
+		<![CDATA[
+			delete from ${db}.cart where no = #{no}
+		]]>
+	
+	</delete>
+	
 	<select id="getOrderList" parameterType="map" resultType="orderlistvo">
 		<![CDATA[
 			select DISTINCT a.no, a.name, a.main_image as 'image', b.no as 'stockNo', b.first_option as 'color', b.second_option as 'size',

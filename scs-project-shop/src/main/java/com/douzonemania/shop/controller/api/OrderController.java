@@ -130,14 +130,14 @@ public class OrderController {
 		String db = session.getAttribute("db").toString();
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
 		List<ItemVo> list = (List<ItemVo>)session.getAttribute("orderList");
-	
+		String cartOrderCheck = (String)map.get("cartOrderCheck");
 		
 		String shipMemo = (String) map.get("shipMemo");
 		
 		int shipNo = orderService.insertShip(db,vo.getNo(),map);
 		
 		
-		String orderNum = orderService.excuteOrder(db,vo.getNo(),list,shipMemo,shipNo);
+		String orderNum = orderService.excuteOrder(db,vo.getNo(),list,shipMemo,shipNo,cartOrderCheck,session);
 		
 		return JsonResult.success(orderNum);
 	}
@@ -153,13 +153,14 @@ public class OrderController {
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
 		List<ItemVo> list = (List<ItemVo>)session.getAttribute("orderList");
 		String shipMemo = (String) map.get("shipMemo");
-		System.err.println("map: " + map);
 		String nowNo = String.valueOf(map.get("shipNo"));
+		String cartOrderCheck = (String)map.get("cartOrderCheck");
+		
 		int shipNo = Integer.parseInt(nowNo);
 		orderService.updateShip(db,vo.getNo(),map);
 		
 		
-		String orderNum = orderService.excuteOrder(db,vo.getNo(),list,shipMemo,shipNo);
+		String orderNum = orderService.excuteOrder(db,vo.getNo(),list,shipMemo,shipNo,cartOrderCheck,session);
 		
 		return JsonResult.success(orderNum);
 	}
