@@ -74,11 +74,11 @@ a.slide_btn {
 }
 
 .directional_nav {
-  height: 135px;
+  height: 80px;
   margin: 0 auto;
   width:100%;
   position: relative;
-  top: -340px;
+  top: -230px;
 }
 
 .previous_btn {
