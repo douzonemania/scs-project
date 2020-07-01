@@ -61,6 +61,7 @@ $( document ).ready(function() {
 			dataType: 'json',
 			success : function(response){
 				alert("상품리뷰가 등록되었습니다");
+				opener.document.location.reload();
 				window.close();
 			},
 			error: function(xhr, status, e){
