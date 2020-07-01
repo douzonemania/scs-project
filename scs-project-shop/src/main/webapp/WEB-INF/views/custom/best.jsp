@@ -68,7 +68,6 @@
                         
                     </div> <!-- end card-box -->
                    
-                    
                 </div> <!-- end col-->
             </div>
             <!-- end row-->

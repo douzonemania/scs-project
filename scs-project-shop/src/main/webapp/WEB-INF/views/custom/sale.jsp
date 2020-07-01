@@ -43,7 +43,6 @@
             <div class="recipient-info">
                 <span style="Font-size:24px; font-weight:Bold; color:#323A46;">Category</span> 카테고리
             </div>
-
             <div class="row">
                 <div class="col-12">
                     <div class="card-box">

@@ -262,7 +262,7 @@
 							</div><!--select ship-->
 							
 							
-                      				<div class="radio form-check-inline ship-check-list" >
+                      				<div class="radio form-check-inline ship-check-list mobile-mg-13" >
 			                            <input type="radio" id="ship-list" value="option3" name="radioInline" >
 			                            <label for="ship-list" > 주소록 선택  </label>
 				                     </div>
