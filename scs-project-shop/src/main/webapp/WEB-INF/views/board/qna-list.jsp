@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="UTF-8">
 <head>
+
   <meta charset="utf-8" />
             <title></title>
             <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
@@ -33,7 +34,7 @@
 			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.css" />
- 
+
 <style>
 #board-table {
 	 width: 100%; 

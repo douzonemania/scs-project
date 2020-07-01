@@ -2,7 +2,7 @@
 <html lang="utf-8">
     <head>
         <meta charset="utf-8" />
-            <title></title>
+            <title>Pretty Girls~!</title>
             <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 			<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 			<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -119,7 +119,7 @@ $(document).ready(function(){
                         <c:forEach items="${map.photoList }" var="vo" varStatus="status">  
                             <div class="card">
 	                          <img class="review-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:200px; max-width: 200px; border: none; border: 1px solid #3C3C3C;" />
-                                <p style="margin-left: 15px; width: 25%;">
+                                <p style="margin-left: 15px; width: 33%;">
                                 	<c:forEach begin="1" end="${vo.rate }">
 										<span class="mdi mdi-star text-warning"></span>
 									</c:forEach>

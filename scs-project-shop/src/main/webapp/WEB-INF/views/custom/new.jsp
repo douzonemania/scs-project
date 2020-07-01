@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box">
-                        <div class="row product-list-custom">
+                        <div class="row product-list-custom mobile-visible">
                           	<c:choose>
                             	<c:when test="${empty map.category }">
                             		<div>신상품을 보여드립니다.</div>
