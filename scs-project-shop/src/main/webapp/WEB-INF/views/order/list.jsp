@@ -53,7 +53,7 @@
                             		<div>모든 상품을 보여드립니다.</div>
                             	</c:when>
                             	<c:otherwise>
-                            	 	<div class="col-lg-8 list-span-custom" >
+                            	 	<div class="col-lg-8 list-span-custom mobile-visible" >
 		                                <c:forEach items="${map.category }" var="vo">
 		                                	<a href="${pageContext.request.contextPath}/${db}/order/list?category=${vo.parentsNo}&subCategory=${vo.no}">${vo.name }</a>
 		                                	<span>l</span>

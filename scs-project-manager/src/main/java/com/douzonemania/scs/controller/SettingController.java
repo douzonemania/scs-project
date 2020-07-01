@@ -69,8 +69,7 @@ public class SettingController {
 		
 		String src = "";
 		
-		System.out.println("CeoVo:::::::::::" + ceoVo);
-	
+		
 		String logo = settingService.restore(ceoVo,multipartFile1,ceoVo.getSourceLogo());
 		String favicon = settingService.restore(ceoVo,multipartFile2,ceoVo.getSourceFavicon());
 		CeoVo findVo = userService.findCeoByIdJoin(ceoVo.getId());
