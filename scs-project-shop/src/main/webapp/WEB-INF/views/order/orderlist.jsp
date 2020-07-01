@@ -2,7 +2,7 @@
 <html lang="utf-8">
     <head>
         <meta charset="utf-8" />
-            <title></title>
+            <title>Pretty Girls~!</title>
             <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 			<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 			<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -132,9 +132,10 @@ $(document).ready(function(){
 							
 								<c:forEach items='${orderList }' var='vo' varStatus='status'>
 									<div class ="ol-item">
-										<img class="ol-img" src="/scs-manager${vo.image }"/>
+										<a href="${ pageContext.request.contextPath }/${db}/order/detail?no=${vo.no}">
+											<img class="ol-img" src="/scs-manager${vo.image }"/></a>
 										<div class="ol-iteminfo">
-											<p class="ol-itemName">${vo.name }</p>
+											<a href="${ pageContext.request.contextPath }/${db}/order/detail?no=${vo.no}"><p class="ol-itemName">${vo.name }</p></a>
 											<div class="ol-option">
 												<p class="ol-size">옵션 : ${vo.size } /</p>
 												<p class="ol-color">${vo.color }</p>

@@ -2,7 +2,7 @@
 <html lang="utf-8">
     <head>
         <meta charset="utf-8" />
-            <title></title>
+            <title>Pretty Girls~!</title>
 			<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 		    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 			<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -61,6 +61,7 @@ $( document ).ready(function() {
 			dataType: 'json',
 			success : function(response){
 				alert("상품리뷰가 등록되었습니다");
+				opener.document.location.reload();
 				window.close();
 			},
 			error: function(xhr, status, e){
