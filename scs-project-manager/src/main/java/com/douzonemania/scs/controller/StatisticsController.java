@@ -27,7 +27,6 @@ public class StatisticsController {
 			@RequestParam(value="endDate", required=true, defaultValue="") String endDate,
 			Model model) {
 		
-
 		String id = authUser.getId();
 		Map<String, Object> map = statisticsService.categoryGraphByDate(startDate, endDate, id, true);
 		model.addAttribute("map", map);
