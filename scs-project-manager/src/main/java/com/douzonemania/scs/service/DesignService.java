@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.naming.java.javaURLContextFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,10 +148,14 @@ public class DesignService {
 		
 		int submenuNum = designRepository.findSubmenuNum(index,id);
 		
-		for(int i=0;i<jArray.length()-1;i++) {
+		System.out.println(jArray);
+		System.out.println(jArray.length());
+		
+		
+		for(int i=0;i<jArray.length();i++) {
 			//파싱
 			JSONObject obj =jArray.getJSONObject(i);
-			
+			System.out.println(obj);
 			CustomDesignVo vo = new CustomDesignVo();
 			vo.setCustomIndex(obj.getInt("id"));
 			vo.setDesignID(obj.getString("element"));

@@ -111,9 +111,6 @@ $(document).ready(function(){
                     PHOTO REVIEW  &nbsp;&nbsp; l &nbsp;&nbsp;  포토 리뷰
                 </div>        
                 
-              
-
-               
 
                 <div class="row">
                     <div class="col-12">

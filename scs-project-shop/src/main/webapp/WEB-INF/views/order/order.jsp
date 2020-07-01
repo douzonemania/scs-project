@@ -317,39 +317,33 @@
          	 <c:forEach items='${orderList }' var='vo' varStatus='status'>
          	 <c:set var="total" value="${total+(vo.amount*vo.totalPrice) }" />
             <div class='mobile-order rounded' data-no='${vo.cartNo }'>
-            
-            	
-                <div class='moblie-cart-all-group'>
-                    
-                   <div class='responsive-cart-img float-left'>
+            	 <div class='moblie-cart-all-group'>
+                    <div class='responsive-cart-img float-left'>
                    		<img src='/scs-manager${vo.mainImage }' style="max-height:150px; max-height:100px;"alt='' class='rounded'>
-                   		
                     </div>
-                    <div class='responsive-cart-info float-right''>
+                    <div class='responsive-cart-info float-right'>
                     	<div style='width:60%; display:inline-block;' >
                     		<div class='responsive-cart-product-title'>
                     		${vo.name }
-                    	</div>
+                    		</div>
                     	<div class='responsive-cart-product-option'>
                                                 옵션 : ${vo.firstOptionName } ${vo.secondOptionName } 
                         </div>
                     	</div>
-                    	<div style='width:38%; display:inline-block;'>
-	                    	
-	                     <div class='responsive-order-btn-group' id='input-button'>
+                    	<div style='width:37%; display:inline-block;'>
+	                    	<div class='responsive-order-btn-group' id='input-button'>
 	                     		 <label >상품금액 :  &nbsp;&nbsp;</label>
 	                      		 <label id='price'>${vo.totalPrice }</label>
+	                      		 
 	                      		 </br>
 	                      		 <label>수&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;량 :&nbsp;&nbsp; </label>
-	                      	
 	                      		 <label value='${vo.amount }'>${vo.amount }</label>
 	                        </div>
 	                     </div>
-                     
                     </div>
-                   	
                 </div>
             </div>
+            <div style="border-bottom:1px solid #9e9e9e"></div>
             </c:forEach>
          </div>
             

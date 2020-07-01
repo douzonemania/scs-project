@@ -21,6 +21,7 @@
             <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
             <link href="${pageContext.request.contextPath}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
             <link href="${pageContext.request.contextPath}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css" />
 	
 		    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         
@@ -70,7 +71,7 @@
                     </div>
                     </br>
                     <div class="order-complete-num">
-                    	    주문번호 : <a href="${pageContext.request.contextPath}/order/orderlist"></a>
+                    	    주문번호 : <a href="${pageContext.request.contextPath}/${db }/order/orderlist"></a>
                     </div>
                     <div class="order-complete-date">
                      	   주문날짜 : <p style="display:inline-block; color:black"></p>
