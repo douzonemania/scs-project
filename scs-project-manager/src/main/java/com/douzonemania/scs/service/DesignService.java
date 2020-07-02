@@ -158,15 +158,6 @@ public class DesignService {
 				continue;
 			}
 
-		
-		System.out.println(jArray);
-		System.out.println(jArray.length());
-		
-		
-		for(int i=0;i<jArray.length();i++) {
-			//파싱
-			JSONObject obj =jArray.getJSONObject(i);
-			System.out.println(obj);
 
 			CustomDesignVo vo = new CustomDesignVo();
 			vo.setCustomIndex(obj.getInt("id")-checkIndex);
