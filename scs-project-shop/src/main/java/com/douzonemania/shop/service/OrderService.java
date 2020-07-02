@@ -47,11 +47,12 @@ public class OrderService {
 	@Autowired
 	private OrderRepository orderRepository;
 
-	public Map<String, Object> find(int currentPage, String keyword, String option, int category, int subCategory,
+	public Map<String, Object> find(int currentPage, int op1, String op2, int category, int subCategory,
 			String db) {
-
+		LIST_SIZE = op1;	// 한 페이지당 보여지는 상품 개수
+		
 		int offset = (currentPage - 1) * 16;
-		int total = orderRepository.totalCount(option, keyword, category, subCategory, db);
+		int total = orderRepository.totalCount(category, subCategory, db);
 		int pageCnt = (total % LIST_SIZE != 0) ? (total / LIST_SIZE) + 1 : (total / LIST_SIZE);
 		int calCnt = (currentPage % 5) == 0 ? currentPage - 1 : currentPage;
 
@@ -65,7 +66,7 @@ public class OrderService {
 		if (endPage >= pageCnt)
 			endPage = pageCnt;
 
-		List<ItemVo> tempList = orderRepository.find(offset, subCategory, category, db);
+		List<ItemVo> tempList = orderRepository.find(op1, op2, offset, subCategory, category, db);
 		List<ItemVo> list = orderRepository.calReviewAvg(tempList, db);
 
 		Map<String, Object> map = new HashMap<>();
@@ -85,7 +86,8 @@ public class OrderService {
 		map.put("nextPage", nextPage);
 		map.put("page", currentPage);
 		map.put("total", total);
-		map.put("kwd", keyword);
+		map.put("op1", op1);
+		map.put("op2", op2);
 
 		if (endPage != pageCnt)
 			map.put("listsize", PAGE_SIZE);
