@@ -8,7 +8,7 @@
 .slider {
   margin: 0 auto;
   width:100%;
-  height:100%;
+  height:auto;
 }
 
 .slide_viewer {
@@ -74,11 +74,11 @@ a.slide_btn {
 }
 
 .directional_nav {
-  height: 80px;
+  height: 0px;
   margin: 0 auto;
   width:100%;
   position: relative;
-  top: -230px;
+  top: -280px;
 }
 
 .previous_btn {
@@ -114,12 +114,10 @@ a.slide_btn {
 }
 
 @media only screen and (max-width: 767px) {
-  .previous_btn {
-    left: 30px;
-  }
-  .next_btn {
-    right: 0px;
-  }
+  .previous_btn { left: 30px;}
+  .next_btn {right: 0px;}
+  .slide_viewer{height:250px}
+  .directional_nav{top:-100px;}
 }
 </style>
 

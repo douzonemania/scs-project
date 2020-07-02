@@ -91,95 +91,25 @@
 							</ol>
 						</div>
 						
-						<h4 class="page-title">TOP 6 잘팔린 놈들</h4>
+						<h4 class="page-title">판매량 TOP 6</h4>
 					</div>
 				</div>
 			</div>
 				<div class="row" style="margin:0 auto;">
-                    <div class="col-md-2">
-                        <div class="card">
-                            <img class="card-img-top img-fluid" src="<%=request.getContextPath() %>/assets/images/nasi.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit
-                                    longer.</p>
-                                <p class="card-text">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                </p>
-                            </div>
-                        </div> <!-- end card-box-->
-                    </div> <!-- end col -->
-                    <div class="col-md-2">
-                        <div class="card">
-                            <img class="card-img-top img-fluid" src="<%=request.getContextPath() %>/assets/images/nasi.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit
-                                    longer.</p>
-                                <p class="card-text">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                </p>
-                            </div>
-                        </div> <!-- end card-box-->
-                    </div> <!-- end col -->
-                    <div class="col-md-2">
-                        <div class="card">
-                            <img class="card-img-top img-fluid" src="<%=request.getContextPath() %>/assets/images/nasi.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit
-                                    longer.</p>
-                                <p class="card-text">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                </p>
-                            </div>
-                        </div> <!-- end card-box-->
-                    </div> <!-- end col -->
-                    <div class="col-md-2">
-                        <div class="card">
-                            <img class="card-img-top img-fluid" src="<%=request.getContextPath() %>/assets/images/nasi.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit
-                                    longer.</p>
-                                <p class="card-text">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                </p>
-                            </div>
-                        </div> <!-- end card-box-->
-                    </div> <!-- end col -->
-                    <div class="col-md-2">
-                        <div class="card">
-                            <img class="card-img-top img-fluid" src="<%=request.getContextPath() %>/assets/images/nasi.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit
-                                    longer.</p>
-                                <p class="card-text">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                </p>
-                            </div>
-                        </div> <!-- end card-box-->
-                    </div> <!-- end col -->
-                    <div class="col-md-2">
-                        <div class="card">
-                            <img class="card-img-top img-fluid" src="<%=request.getContextPath() %>/assets/images/nasi.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a
-                                    natural lead-in to additional content. This content is a little bit
-                                    longer.</p>
-                                <p class="card-text">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                </p>
-                            </div>
-                        </div> <!-- end card-box-->
-                    </div> <!-- end col -->
+					<c:forEach var="vo" varStatus="status" items="${map.topSixList }">
+	                    <div class="col-md-2">
+	                        <div class="card">
+	                            <a href="/scs-shop/${authUser.id }/order/detail?no=${vo.no}"><img class="card-img-top img-fluid" src="/scs-manager${vo.mainImage }" alt="Card image cap"></a>
+	                            <div class="card-body">
+	                                <h5 class="card-title">${vo.name }</h5>
+	                                <p class="card-text">판매량: &nbsp;<span style="font-weight:bold; color:#E01E5A;">${vo.count }</span></p>
+	                                <p class="card-text">
+	                                    <small class="text-muted">Made by Pretty Girls</small>
+	                                </p>
+	                            </div>
+	                        </div> <!-- end card-box-->
+	                    </div> <!-- end col -->
+                    </c:forEach>
                 </div>
                 <!-- end row -->
              <div class="row">

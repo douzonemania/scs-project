@@ -46,7 +46,7 @@
                         	<c:otherwise>
                         		<a class="nav-link dropdown-toggle waves-effect" href="${ pageContext.request.contextPath }${id }/${db }/order/cart" role="button" aria-haspopup="false" aria-expanded="false">
                         	   		 <i class="fe-shopping-cart noti-icon"></i>
-                        	   		 <span class="badge badge-danger rounded-circle noti-icon-badge">${cartCnt}</span>
+                        	   		 <%-- <span class="badge badge-danger rounded-circle noti-icon-badge">${cartCnt}</span> --%>
                     		    </a>
                         	</c:otherwise>
                         </c:choose>

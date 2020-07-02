@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html lang="UTF-8">
 <head>
-   <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-	<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-        <meta content="Coderthemes" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Pretty Girls~! Q&A</title>
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.ico">
 
-        <!-- Plugins css -->
-        <link href="${pageContext.request.contextPath}/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+  <meta charset="utf-8" />
+            <title></title>
+            <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+			<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+			<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+			<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+			<%@ page import="java.util.*"%>
+			<%@ page import="java.text.SimpleDateFormat"%>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+            <meta content="Coderthemes" name="author" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <!-- App favicon -->
+            <link rel="shortcut icon" href="../assets/images/favicon.ico">
+    
+            <!-- Plugins css -->
+            <link href="${pageContext.request.contextPath}/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+    
+            <!-- App css -->
+            <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css" />
+            <link href="${pageContext.request.contextPath}/assets/css/orderList.css" rel="stylesheet" type="text/css" />
+            
+            <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+            <script type="text/JavaScript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+			<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.css" />
 
-        <!-- App css -->
-        <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="${pageContext.request.contextPath}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="${pageContext.request.contextPath}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
-         <link href="${pageContext.request.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css" />
-        
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        
 <style>
 #board-table {
-	width: 100%; 
+	 width: 100%; 
 	border-collapse: collapse; 
 }
 
@@ -55,10 +64,10 @@
 @media(max-width:991px){
 	#board-table th {font-size:1em;padding:5px;}
 	#board-table td {font-size:0.6em;padding:5px;}
-	.pagination{margin-left:50px;}
+	.pagination{}
+	.mobile-size-modify{width:35%;}
+	
 }
-
-
 </style>        
         
 <script type="text/javascript">
@@ -79,11 +88,12 @@ $(function(){
 </head>
 <body>
     <!-- Navigation Bar-->
-    <c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import>
+  		<c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import> 
 
-    <div class="wrapper ">
+       <div class="wrapper">
         <div class="container-fluid">
-            <!-- <div class="order-title" style="margin-top:40px">
+           <div style="width:100%;">
+           	 <!-- <div class="order-title" style="margin-top:40px">
                 <span> Product </span>상품</div> -->
             <div class="recipient-info">
                 <span style="Font-size:24px; font-weight:Bold; color:#323A46;">Q&A 게시판</span>
@@ -100,7 +110,7 @@ $(function(){
                               </select>
                          </div>
                          
-                         <div class="form-group">
+                         <div class="form-group mobile-size-modify">
                               <input id="member-input-box" name="kwd" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
                          </div>
                          <div>
@@ -125,14 +135,7 @@ $(function(){
 
 		  <div style="overflow-x: auto;">
 	           <table class="table-form-exposure" id="board-table">
-	            <colgroup>
-	            <col style="width:10%;">
-	            <col style="width:20%;">
-	            <col style="width:25%;">
-	            <col style="width:10%;">
-	            <col style="width:15%;">
-	            <col style="width:20%;">
-	            </colgroup>
+	           
 	           	<thead>
 			        <tr>
 			        	<th>번호</th>
@@ -202,7 +205,8 @@ $(function(){
                     </div> <!-- end col-->
                 </div>
                 <!-- end row-->
-
+           	
+           </div>
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->

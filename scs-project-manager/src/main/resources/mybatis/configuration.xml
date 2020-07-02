@@ -36,6 +36,7 @@
 		<typeAlias alias="categorybestvo" type="com.douzonemania.scs.vo.ceo.CategoryBestVo"/>
 		<typeAlias alias="categorynewvo" type="com.douzonemania.scs.vo.ceo.CategoryNewVo"/>
 		<typeAlias alias="categorynormalvo" type="com.douzonemania.scs.vo.ceo.CategoryNormalVo"/>
+		<typeAlias alias="itemtopsixvo" type="com.douzonemania.scs.vo.member.ItemTopSixVo"/>
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/main.xml" />

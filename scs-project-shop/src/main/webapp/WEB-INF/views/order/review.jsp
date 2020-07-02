@@ -15,7 +15,6 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <!-- App favicon -->
             <link rel="shortcut icon" href="../assets/images/favicon.ico">
-    
             <!-- Plugins css -->
             <link href="${pageContext.request.contextPath}/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
     
@@ -111,9 +110,6 @@ $(document).ready(function(){
                     PHOTO REVIEW  &nbsp;&nbsp; l &nbsp;&nbsp;  포토 리뷰
                 </div>        
                 
-              
-
-               
 
                 <div class="row">
                     <div class="col-12">
@@ -122,7 +118,7 @@ $(document).ready(function(){
                         <c:forEach items="${map.photoList }" var="vo" varStatus="status">  
                             <div class="card">
 	                          <img class="review-img reviewTd img-fluid" id="review${vo.no }" no="${vo.no }" src="/scs-manager${vo.image }" style="max-height:200px; max-width: 200px; border: none; border: 1px solid #3C3C3C;" />
-                                <p style="margin-left: 15px; width: 25%;">
+                                <p style="margin-left: 15px; width: 33%;">
                                 	<c:forEach begin="1" end="${vo.rate }">
 										<span class="mdi mdi-star text-warning"></span>
 									</c:forEach>
