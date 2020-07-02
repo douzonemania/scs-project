@@ -221,7 +221,7 @@
 	</select>
 	<select id="findTopSix" parameterType="map" resultType="itemtopsixvo">
 		<![CDATA[
-			select name, main_image as 'mainImage', count(*) as 'count'
+			select no, name, main_image as 'mainImage', count(*) as 'count'
 			  from ${db }.item i,(select item_no
 								  from ${db }.stock s, (select stock_no
 													   from ${db }.order_item oi, (select no

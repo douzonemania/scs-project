@@ -99,10 +99,10 @@
 					<c:forEach var="vo" varStatus="status" items="${map.topSixList }">
 	                    <div class="col-md-2">
 	                        <div class="card">
-	                            <img class="card-img-top img-fluid" src="/scs-manager${vo.mainImage }" alt="Card image cap">
+	                            <a href="/scs-shop/${authUser.id }/order/detail?no=${vo.no}"><img class="card-img-top img-fluid" src="/scs-manager${vo.mainImage }" alt="Card image cap"></a>
 	                            <div class="card-body">
 	                                <h5 class="card-title">${vo.name }</h5>
-	                                <p class="card-text">팔린 갯수: ${vo.count }</p>
+	                                <p class="card-text">판매량: &nbsp;<span style="font-weight:bold; color:#E01E5A;">${vo.count }</span></p>
 	                                <p class="card-text">
 	                                    <small class="text-muted">Made by Pretty Girls</small>
 	                                </p>

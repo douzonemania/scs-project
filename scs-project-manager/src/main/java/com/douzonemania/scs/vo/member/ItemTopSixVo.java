@@ -1,9 +1,18 @@
 package com.douzonemania.scs.vo.member;
 
 public class ItemTopSixVo {
+	private int no;
 	private String name;
 	private String mainImage;
 	private int count;
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
 
 	public String getName() {
 		return name;
@@ -31,7 +40,7 @@ public class ItemTopSixVo {
 
 	@Override
 	public String toString() {
-		return "ItemTopSixVo [name=" + name + ", mainImage=" + mainImage + ", count=" + count + "]";
+		return "ItemTopSixVo [no=" + no + ", name=" + name + ", mainImage=" + mainImage + ", count=" + count + "]";
 	}
 
 }
