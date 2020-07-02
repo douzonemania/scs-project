@@ -146,26 +146,30 @@ public class DesignService {
 		int index =jObject.getInt("index");
 		
 		int submenuNum = designRepository.findSubmenuNum(index,id);
-		
+		int checkIndex =0;
 		for(int i=0;i<jArray.length();i++) {
 			//파싱
 			JSONObject obj =jArray.getJSONObject(i);
-			
-			CustomDesignVo vo = new CustomDesignVo();
-			vo.setCustomIndex(obj.getInt("id"));
-			vo.setDesignID(obj.getString("element"));
-			
 			JSONObject elementData = obj.getJSONObject("elementData");
 			
-			  int check = designRepository.findCustoms(vo,submenuNum); 
-			  if(check ==0) {
+			if(elementData.toString().equals("{}")) {
+				checkIndex++;
+				continue;
+			}
+			
+			CustomDesignVo vo = new CustomDesignVo();
+			vo.setCustomIndex(obj.getInt("id")-checkIndex);
+			vo.setDesignID(obj.getString("element"));
+			
+			int check = designRepository.findCustoms(vo,submenuNum); 
+			if(check ==0) {
 				  check = designRepository.insertCustoms(vo,submenuNum); 
-			  }
+			}
 			  else { //update
 				  designRepository.updateCustoms(vo,submenuNum); 
-			  } 
+			} 
 			
-
+			 
 			  
 			  for(int j=1;j<=elementData.length();j++) { 
 				  int result =  designRepository.findContents(check,j);
