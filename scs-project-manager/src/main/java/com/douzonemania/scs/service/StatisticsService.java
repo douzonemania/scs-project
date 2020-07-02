@@ -26,6 +26,7 @@ import com.douzonemania.scs.vo.ceo.ProductsPaymentMarginVo;
 import com.douzonemania.scs.vo.ceo.ProductsPriceVo;
 import com.douzonemania.scs.vo.ceo.ProductsSalesVo;
 import com.douzonemania.scs.vo.member.CategoryVo;
+import com.douzonemania.scs.vo.member.ItemTopSixVo;
 
 @Service
 public class StatisticsService {
@@ -381,6 +382,9 @@ public class StatisticsService {
 			date = Integer.parseInt(cut[2]);
 		}
 		
+		/* TOP 6 상품 */
+		List<ItemTopSixVo> topSixList = statisticsRepository.findTopSix(id);
+		
 		/*  1  */ 
 		List<ProductsSalesVo> oneResultList = new ArrayList<ProductsSalesVo>();
 		ProductsSalesVo tempVo1 = new ProductsSalesVo();
@@ -659,6 +663,7 @@ public class StatisticsService {
 		}
 		
 		
+		map.put("topSixList", topSixList);
 		map.put("oneResultList", oneResultList);
 		map.put("twoResultList", twoResultList);
 		map.put("threeResultList", threeResultList);

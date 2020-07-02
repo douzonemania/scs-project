@@ -20,6 +20,7 @@ import com.douzonemania.scs.vo.ceo.ProductsPaymentAmountVo;
 import com.douzonemania.scs.vo.ceo.ProductsPaymentMarginVo;
 import com.douzonemania.scs.vo.ceo.ProductsPriceVo;
 import com.douzonemania.scs.vo.ceo.ProductsSalesVo;
+import com.douzonemania.scs.vo.member.ItemTopSixVo;
 
 @Repository
 public class StatisticsRepository {
@@ -150,6 +151,12 @@ public class StatisticsRepository {
 		map.put("startPrice", startPrice);
 		map.put("endPrice", endPrice);
 		return sqlSession.selectList("statistics.findSales5", map);
+	}
+
+	public List<ItemTopSixVo> findTopSix(String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("db", id);
+		return sqlSession.selectList("statistics.findTopSix", map);
 	}
 
 
