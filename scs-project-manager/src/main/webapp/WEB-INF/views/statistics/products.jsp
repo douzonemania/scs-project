@@ -91,7 +91,7 @@
 							</ol>
 						</div>
 						
-						<h4 class="page-title">TOP 6 잘팔린 놈들</h4>
+						<h4 class="page-title">판매량 TOP 6</h4>
 					</div>
 				</div>
 			</div>
