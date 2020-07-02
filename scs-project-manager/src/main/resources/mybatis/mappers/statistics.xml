@@ -219,4 +219,19 @@
 			group by b.total_price, date
 		]]>
 	</select>
+	<select id="findTopSix" parameterType="map" resultType="itemtopsixvo">
+		<![CDATA[
+			select name, main_image as 'mainImage', count(*) as 'count'
+			  from ${db }.item i,(select item_no
+								  from ${db }.stock s, (select stock_no
+													   from ${db }.order_item oi, (select no
+																			       from ${db }.shop_order) a
+													  where oi.order_no = a.no) b
+							  where s.no = b.stock_no) c
+			 where i.no = c.item_no
+			 group by name
+			 order by count(*) desc
+			 limit 6
+		]]>
+	</select>
 </mapper>
