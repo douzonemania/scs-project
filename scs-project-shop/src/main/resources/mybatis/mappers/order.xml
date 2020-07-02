@@ -98,12 +98,12 @@
 					<choose>
 						<when test='subCategory=="0"'>
 							<![CDATA[
-							select count(*)
-							from ${db}.item a , ${db}.category b
-							where a.category_no=b.no and b.parents_no=#{category}
-							and visible =1
-							and state = 1
-							ORDER BY a.no desc;
+								select count(*)
+								from ${db}.item a , ${db}.category b
+								where a.category_no=b.no and b.parents_no=#{category}
+								and visible =1
+								and state = 1
+								ORDER BY a.no desc;
 							]]>	
 						</when>
 						<otherwise>
@@ -119,48 +119,72 @@
 					</choose>
 				</otherwise>
 			</choose>
-			
-			
 	</select>
 
-	<select id="find" parameterType ="map" resultMap="itemList">	
-			<choose>
-				<when test='category=="0"'>
-					select *
-					from ${db}.item a , ${db}.category b
-					where a.category_no=b.no and visible =1
-					and state = 1
-					ORDER BY a.no desc limit 16 offset #{offset};
-				</when>
-				<otherwise>
-					<choose>
-						<when test='subCategory==null or subCategory=="0"'>
-							<![CDATA[
-							select *
-							from ${db}.item a , ${db}.category b
-							where a.category_no=b.no and b.parents_no=#{category}
-							and visible =1
-							and state = 1
-								ORDER BY a.no desc limit 16 offset #{offset};
-							]]>	
-						</when>
-						<otherwise>
-							<![CDATA[
-							select* 
-							from ${db}.item a , ${db}.category b
-							where a.category_no=b.no 
-							and b.parents_no=#{category}
-							and b.no=#{subCategory}
-							and visible =1
-							and state = 1
-							ORDER BY a.no desc limit 16 offset #{offset};
-							]]>	
-						</otherwise>
-					</choose>
-				
-				</otherwise>
-			</choose>
+	<!-- ============상품 리스트 페이징=============  -->
+	<select id="findAll" parameterType ="map" resultMap="itemList">
+		<![CDATA[
+			select *
+			  from ${db}.item a, ${db}.category b, (select ifnull(count,0) as 'count', a.no 
+													   from mall.item a
+					                                 left outer join (select ifnull(count(*), 0) as 'count', a.no
+																		from ${db}.item a, ${db}.item_review b
+																		where a.no = b.item_no
+																		group by b.item_no) b
+													on a.no=b.no) c
+			 where a.category_no=b.no 
+			   and a.no=c.no
+			   and visible =1
+			   and state = 1
+		  ORDER BY ${a1} ${a2}
+			 limit #{size} 
+			offset #{offset}			
+		]]>
 	</select>
+	
+	<select id="findCategory" parameterType ="map" resultMap="itemList">
+		<![CDATA[
+			select *
+			  from ${db}.item a , ${db}.category b, (select ifnull(count,0) as 'count', a.no 
+													   from mall.item a
+					                                 left outer join (select ifnull(count(*), 0) as 'count', a.no
+																		from ${db}.item a, ${db}.item_review b
+																		where a.no = b.item_no
+																		group by b.item_no) b
+													on a.no=b.no) c
+			 where a.category_no=b.no 
+			   and a.no=c.no
+			   and b.parents_no=#{category}
+			   and visible =1
+			   and state = 1
+		  ORDER BY ${a1} ${a2} 
+		     limit #{size} 
+			offset #{offset}
+		]]>
+	</select>
+	
+	<select id="findSubCategory" parameterType ="map" resultMap="itemList">
+		<![CDATA[
+			select * 
+			  from ${db}.item a, ${db}.category b, (select ifnull(count,0) as 'count', a.no 
+													   from mall.item a
+					                                 left outer join (select ifnull(count(*), 0) as 'count', a.no
+																		from ${db}.item a, ${db}.item_review b
+																		where a.no = b.item_no
+																		group by b.item_no) b
+													on a.no=b.no) c
+		     where a.category_no=b.no 
+		       and a.no=c.no
+		       and b.parents_no=#{category}
+			   and b.no=#{subCategory}
+			   and visible =1
+			   and state = 1
+		  ORDER BY ${a1} ${a2}
+		     limit #{size} 
+		    offset #{offset}
+		]]>
+	</select>
+	<!-- ================================== -->
 	
 	<select id="findCategoryList" parameterType="map" resultType="categoryvo">
 			<![CDATA[

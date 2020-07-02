@@ -27,33 +27,53 @@ public class OrderRepository {
 	Map<String,Object> map = new HashMap<>();
 
 	
-	public int totalCount(String option,String keyword,int category,int subCategory,String db) {
+	public int totalCount(int category,int subCategory,String db) {
 		
-		map.put("option", option);
-		map.put("keyword",keyword);
 		map.put("category",category);
 		map.put("subCategory",subCategory);
 		map.put("db",db);
 		
 		int count = sqlSession.selectOne("order.totalCount",map);
 		
-		
 		return count;
 	}
 	
 
-	public List<ItemVo> find(int offset,int subCategory,int category,String db){
+	public List<ItemVo> find(int op1, String op2, 
+			int offset,int subCategory,int category,String db){
 		
-		
+		map.put("size",op1);
 		map.put("offset",offset);
 		map.put("category",category);
 		map.put("subCategory",subCategory);
 		map.put("db",db);
-	
-	
-		List<ItemVo> list = sqlSession.selectList("order.find",map);
 		
-		return list;
+		if(op2.equals("new")) {
+			map.put("a1", "a.reg_date");
+			map.put("a2", "desc");
+		} else if(op2.equals("desc-price")) {
+			map.put("a1", "a.now_price * (100-a.sale)/100");
+			map.put("a2", "desc");
+		} else if(op2.equals("asc-price")) {
+			map.put("a1", "a.now_price * (100-a.sale)/100");
+			map.put("a2", "asc");
+		} else if(op2.equals("review")) {
+			map.put("a1", "c.count");
+			map.put("a2", "desc");
+		}
+		
+		// all
+		if(category == 0) {
+			return sqlSession.selectList("order.findAll", map);
+		}
+		
+		// 1차 category
+		if(subCategory == 0) {
+			return sqlSession.selectList("order.findCategory", map);
+		}
+
+		// 2차 category
+		return sqlSession.selectList("order.findSubCategory",map);
 	}
 	
 	public List<ItemVo> calReviewAvg(List<ItemVo> list,String db) {

@@ -31,14 +31,14 @@ public class OrderController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(@RequestParam(value="p",required = true,defaultValue = "1")Integer page,
-					   @RequestParam(value="kwd",required=true,defaultValue = "")String keyword,
-					   @RequestParam(value="option",required = true,defaultValue = "name")String option,
+					   @RequestParam(value="op1",required=true,defaultValue = "16")Integer op1,
+					   @RequestParam(value="op2",required = true,defaultValue = "new")String op2,
 					   @RequestParam(value="category",required = true,defaultValue = "0")Integer category,
 					   @RequestParam(value="subCategory",required = true,defaultValue = "0")Integer subCategory,
 					   Model model,HttpSession session) {
 			String db = session.getAttribute("db").toString();
 
-			Map<String,Object> map  = orderService.find(page,keyword,option,category,subCategory,db);
+			Map<String,Object> map  = orderService.find(page,op1,op2,category,subCategory,db);
 			model.addAttribute("map",map);
 		
 		return "order/list";
