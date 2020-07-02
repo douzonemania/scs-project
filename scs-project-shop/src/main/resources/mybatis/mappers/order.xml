@@ -126,7 +126,7 @@
 		<![CDATA[
 			select *
 			  from ${db}.item a, ${db}.category b, (select ifnull(count,0) as 'count', a.no 
-													   from mall.item a
+													   from ${db}.item a
 					                                 left outer join (select ifnull(count(*), 0) as 'count', a.no
 																		from ${db}.item a, ${db}.item_review b
 																		where a.no = b.item_no
@@ -146,7 +146,7 @@
 		<![CDATA[
 			select *
 			  from ${db}.item a , ${db}.category b, (select ifnull(count,0) as 'count', a.no 
-													   from mall.item a
+													   from ${db}.item a
 					                                 left outer join (select ifnull(count(*), 0) as 'count', a.no
 																		from ${db}.item a, ${db}.item_review b
 																		where a.no = b.item_no
@@ -167,7 +167,7 @@
 		<![CDATA[
 			select * 
 			  from ${db}.item a, ${db}.category b, (select ifnull(count,0) as 'count', a.no 
-													   from mall.item a
+													   from ${db}.item a
 					                                 left outer join (select ifnull(count(*), 0) as 'count', a.no
 																		from ${db}.item a, ${db}.item_review b
 																		where a.no = b.item_no
