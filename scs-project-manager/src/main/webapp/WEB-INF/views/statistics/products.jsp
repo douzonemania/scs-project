@@ -89,13 +89,110 @@
 								<li class="breadcrumb-item"><a href="javascript: void(0);">통계</a></li>
 								<li class="breadcrumb-item active">상품 별</li>
 							</ol>
+						</div>
+						
+						<h4 class="page-title">TOP 6 잘팔린 놈들</h4>
+					</div>
+				</div>
+			</div>
+				<div class="row" style="margin:0 auto;">
+                    <div class="col-md-2">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="<%=request.getContextPath() %>/assets/images/nasi.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a
+                                    natural lead-in to additional content. This content is a little bit
+                                    longer.</p>
+                                <p class="card-text">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div> <!-- end card-box-->
+                    </div> <!-- end col -->
+                    <div class="col-md-2">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="<%=request.getContextPath() %>/assets/images/nasi.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a
+                                    natural lead-in to additional content. This content is a little bit
+                                    longer.</p>
+                                <p class="card-text">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div> <!-- end card-box-->
+                    </div> <!-- end col -->
+                    <div class="col-md-2">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="<%=request.getContextPath() %>/assets/images/nasi.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a
+                                    natural lead-in to additional content. This content is a little bit
+                                    longer.</p>
+                                <p class="card-text">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div> <!-- end card-box-->
+                    </div> <!-- end col -->
+                    <div class="col-md-2">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="<%=request.getContextPath() %>/assets/images/nasi.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a
+                                    natural lead-in to additional content. This content is a little bit
+                                    longer.</p>
+                                <p class="card-text">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div> <!-- end card-box-->
+                    </div> <!-- end col -->
+                    <div class="col-md-2">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="<%=request.getContextPath() %>/assets/images/nasi.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a
+                                    natural lead-in to additional content. This content is a little bit
+                                    longer.</p>
+                                <p class="card-text">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div> <!-- end card-box-->
+                    </div> <!-- end col -->
+                    <div class="col-md-2">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="<%=request.getContextPath() %>/assets/images/nasi.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a
+                                    natural lead-in to additional content. This content is a little bit
+                                    longer.</p>
+                                <p class="card-text">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div> <!-- end card-box-->
+                    </div> <!-- end col -->
+                </div>
+                <!-- end row -->
+             <div class="row">
+				<div class="col-12">
+					<div class="page-title-box">
+						
 						<div class="page-title-right" style="width:220px; margin-bottom:10px;">
 							<label>날짜 검색</label>
                             <span class="input-group-addon">
 								<i class="fa fa-calendar bigger-110"></i>
 							</span>
 							<label>(지정날짜의 일주일전부터 탐색)</label>
-							<input type="text" id="date-picker" name="dates" value="<%=beforeWeek %> - <%=today %>" class="form-control" />
+							<input type="text" id="date-picker" name="dates" value="<%=today %> - <%=today %>" class="form-control" />
 							<script>
 							
 							
@@ -118,14 +215,12 @@
 													
 							</script>
 						</div>
-						</div>
 						
 						<h4 class="page-title">상품 별 통계</h4>
 					</div>
 				</div>
-				  
-					  
-			</div>
+			</div>   
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card-box" dir="ltr">

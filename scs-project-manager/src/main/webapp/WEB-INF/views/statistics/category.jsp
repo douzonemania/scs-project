@@ -137,7 +137,7 @@
 								<i class="fa fa-calendar bigger-110"></i>
 							</span>
 							<label>(지정날짜의 일주일전부터 탐색)</label>
-							<input type="text" id="date-picker" name="dates" value="<%=beforeWeek %> - <%=today %>" class="form-control" />
+							<input type="text" id="date-picker" name="dates" value="<%=today %> - <%=today %>" class="form-control" />
 							<script>
 							
 							
