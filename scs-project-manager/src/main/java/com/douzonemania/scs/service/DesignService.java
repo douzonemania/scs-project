@@ -147,6 +147,17 @@ public class DesignService {
 		int index =jObject.getInt("index");
 		
 		int submenuNum = designRepository.findSubmenuNum(index,id);
+		int checkIndex =0;
+		for(int i=0;i<jArray.length();i++) {
+			//파싱
+			JSONObject obj =jArray.getJSONObject(i);
+			JSONObject elementData = obj.getJSONObject("elementData");
+			
+			if(elementData.toString().equals("{}")) {
+				checkIndex++;
+				continue;
+			}
+
 		
 		System.out.println(jArray);
 		System.out.println(jArray.length());
@@ -156,20 +167,19 @@ public class DesignService {
 			//파싱
 			JSONObject obj =jArray.getJSONObject(i);
 			System.out.println(obj);
+
 			CustomDesignVo vo = new CustomDesignVo();
-			vo.setCustomIndex(obj.getInt("id"));
+			vo.setCustomIndex(obj.getInt("id")-checkIndex);
 			vo.setDesignID(obj.getString("element"));
 			
-			JSONObject elementData = obj.getJSONObject("elementData");
-			
-			  int check = designRepository.findCustoms(vo,submenuNum); 
-			  if(check ==0) {
+			int check = designRepository.findCustoms(vo,submenuNum); 
+			if(check ==0) {
 				  check = designRepository.insertCustoms(vo,submenuNum); 
-			  }
+			}
 			  else { //update
 				  designRepository.updateCustoms(vo,submenuNum); 
-			  } 
-			  
+			} 
+			
 			 
 			  
 			  for(int j=1;j<=elementData.length();j++) { 
@@ -178,6 +188,8 @@ public class DesignService {
 				  String nowStr = elementData.get(j+"").toString();
 				  nowStr = nowStr.replaceAll("\n", "<br>");   
 				
+				  System.out.println("TEST: "+nowStr);
+				  
 				  
 				  
 				  if(result==0) {
