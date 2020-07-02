@@ -51,7 +51,7 @@ public class OrderService {
 			String db) {
 		LIST_SIZE = op1;	// 한 페이지당 보여지는 상품 개수
 		
-		int offset = (currentPage - 1) * 16;
+		int offset = (currentPage - 1) * LIST_SIZE;
 		int total = orderRepository.totalCount(category, subCategory, db);
 		int pageCnt = (total % LIST_SIZE != 0) ? (total / LIST_SIZE) + 1 : (total / LIST_SIZE);
 		int calCnt = (currentPage % 5) == 0 ? currentPage - 1 : currentPage;
