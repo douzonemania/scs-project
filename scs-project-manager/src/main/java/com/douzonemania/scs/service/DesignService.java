@@ -147,7 +147,7 @@ public class DesignService {
 		
 		int submenuNum = designRepository.findSubmenuNum(index,id);
 		
-		for(int i=0;i<jArray.length()-1;i++) {
+		for(int i=0;i<jArray.length();i++) {
 			//파싱
 			JSONObject obj =jArray.getJSONObject(i);
 			
@@ -164,8 +164,8 @@ public class DesignService {
 			  else { //update
 				  designRepository.updateCustoms(vo,submenuNum); 
 			  } 
-			  
-			 
+			
+
 			  
 			  for(int j=1;j<=elementData.length();j++) { 
 				  int result =  designRepository.findContents(check,j);
@@ -173,6 +173,8 @@ public class DesignService {
 				  String nowStr = elementData.get(j+"").toString();
 				  nowStr = nowStr.replaceAll("\n", "<br>");   
 				
+				  System.out.println("TEST: "+nowStr);
+				  
 				  
 				  
 				  if(result==0) {

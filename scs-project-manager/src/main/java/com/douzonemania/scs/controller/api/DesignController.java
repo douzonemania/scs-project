@@ -179,7 +179,14 @@ public class DesignController {
 			
 			list.add(contentsList);
 		}
-	
+		
+		for (List<ContentsVo> list2 : list) {
+			if(list2.toString().equals("[]")) {
+				list.remove(list2);
+				break;
+			}
+		}
+		
 		map.put("list", list);
 			
 		return JsonResult.success(map);
