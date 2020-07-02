@@ -61,7 +61,8 @@ $(document).ready(function(){
  String beforeWeek2 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(week.getTime());
 %>
     <c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import>
-    <div class="wrapper">
+     <c:import url="/WEB-INF/views/partials/left-nav.jsp"></c:import>	
+        <div class="wrapper">
         <div class="container-fluid">
             <div class="mypage-order-group">
                 <div class="recipient-info">
