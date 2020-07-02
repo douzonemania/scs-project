@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.naming.java.javaURLContextFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,7 +157,17 @@ public class DesignService {
 				checkIndex++;
 				continue;
 			}
-			
+
+		
+		System.out.println(jArray);
+		System.out.println(jArray.length());
+		
+		
+		for(int i=0;i<jArray.length();i++) {
+			//파싱
+			JSONObject obj =jArray.getJSONObject(i);
+			System.out.println(obj);
+
 			CustomDesignVo vo = new CustomDesignVo();
 			vo.setCustomIndex(obj.getInt("id")-checkIndex);
 			vo.setDesignID(obj.getString("element"));
