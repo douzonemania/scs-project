@@ -408,7 +408,7 @@
 		]]>
 	</select>
 	
-	<delete id="delteReview">
+	<delete id="deleteReview">
 		<![CDATA[
 			delete from ${db}.item_review
 			 	  where no=#{no}
