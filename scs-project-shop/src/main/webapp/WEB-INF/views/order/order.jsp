@@ -54,7 +54,7 @@
 			var postArr = postString.split('!');
 			var orderName = '${recentShip.shipName}';
 			var phoneNumber = '${recentShip.phoneNumber}';
-			var orderList = '${orderList}'
+			var orderList = '${orderList}';
 			
 			$('#ship-option').hide();
 			var shipCheck = '${shipListCheck}';
