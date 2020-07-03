@@ -257,7 +257,7 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 	var regDate = null;
 	var categoryName1 = $("#first-category option:selected").text();
 	var categoryName2 = $("#seconds-category option:selected").val();
-	var shipCompany = $("#ship-company-name option:selected").text();
+	var shipCompany = $("#shipCompanyName option:selected").text();
 	
 	if($('input[name="shipping-charge"]:checked').val()=="free")
 		var shippingCharge=0;
