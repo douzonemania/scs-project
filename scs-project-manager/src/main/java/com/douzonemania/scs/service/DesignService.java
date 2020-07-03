@@ -199,7 +199,9 @@ public class DesignService {
 	}
 
 	public Boolean deleteCustomMenu(String id, int index) {
-		int count = designRepository.deleteCustomMenu(id, index);
+		designRepository.deleteCustomMenu(id, index);
+		
+		int count = designRepository.updateSubmenuIndex(id, index);
 		return count == 1;
 	}
 

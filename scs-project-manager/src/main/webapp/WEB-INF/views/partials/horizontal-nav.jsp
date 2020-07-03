@@ -30,6 +30,14 @@
                     </span>
                 </a>
             </li>
+            
+            <li>
+                <a href="/scs-shop/${authUser.id }" class="nav-link nav-user mr-0 waves-effect">
+                    <span class="pro-user-name ml-1">
+                        	내 쇼핑몰로 이동
+                    </span>
+                </a>
+            </li>
     
             <li>
                <a href="${pageContext.request.contextPath }/user/logout" class="nav-link nav-user mr-0 waves-effect">
