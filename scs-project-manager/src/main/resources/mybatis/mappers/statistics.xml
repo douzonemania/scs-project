@@ -17,7 +17,7 @@
 					  where c.no=d.category_no) a
 			  where parents_no is not null
 			  group by a.parents_no
-			  order by parents_no asc
+			  order by count desc
 			  limit #{limitCount };
 		]]>
 	</select>

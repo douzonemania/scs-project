@@ -43,18 +43,12 @@ public class StatisticsService {
 		/* 카테고리 TOP 5  구매건수 */
 		int limitCount = productRepository.findParentsCateogryCount(id);
 		List<CategoryDonutVo> donutList = statisticsRepository.findDonut(id,limitCount);
-		
 		for (CategoryDonutVo vo : donutList) {
 			int no = vo.getCategoryNo(); 
 			String name = statisticsRepository.findName(no, id); 
 			vo.setCategoryName(name);
 		}
-		
-		if(donutList.size()==5) {
-			
-		}
-		
-		
+		System.out.println(donutList);
 		
 		List<String> temp = new ArrayList<String>();
 		temp.add("text-primary");
@@ -79,7 +73,9 @@ public class StatisticsService {
 		}
 		
 		
-		List<CategoryVo> categoryList = productRepository.getCategoryNameList(id); 
+		List<CategoryVo> categoryList = productRepository.orderGetCategoryNameList(id); 
+		
+		System.out.println("!!!!!!!!!!!!" + categoryList);
 		List<CategoryBarVo> dateList1 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> dateList2 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> dateList3 = new ArrayList<CategoryBarVo>();
@@ -119,14 +115,15 @@ public class StatisticsService {
 			
 			dateList5.add(vo);
 		}
-		
-		int length = categoryList.size();
+		List<CategoryVo> tempp = productRepository.orderGetCategoryNameList(id);
+		int length = tempp.size();
 		List<CategoryBarVo> barListTop1 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> barListTop2 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> barListTop3 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> barListTop4 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> barListTop5 = new ArrayList<CategoryBarVo>();
 		
+		System.out.println("no:" + categoryList.get(4).getNo());
 		if(length == 1) {
 			barListTop1 = statisticsRepository.findBar(id, categoryList.get(0).getNo(), dateList1.get(6).getDate(), dateList1.get(0).getDate() );
 		} else if(length == 2) {
@@ -149,7 +146,7 @@ public class StatisticsService {
 			barListTop5 = statisticsRepository.findBar(id, categoryList.get(4).getNo(), dateList5.get(6).getDate(), dateList5.get(0).getDate() );
 		}
 		
-
+		System.out.println(barListTop1);
 		
 		for (CategoryBarVo vo : barListTop1) {
 			int no = vo.getCategoryNo(); 
@@ -188,6 +185,7 @@ public class StatisticsService {
 				}
 			}
 		}
+		System.out.println(dateList1);
 		for (CategoryBarVo vo : barListTop2) {
 			String returnDate = vo.getDate();
 			for(int i = 0; i < 7; i++) {
