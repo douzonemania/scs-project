@@ -30,7 +30,6 @@ public class StatisticsController {
 		String id = authUser.getId();
 		Map<String, Object> map = statisticsService.categoryGraphByDate(startDate, endDate, id, true);
 		model.addAttribute("map", map);
-	
 		return "statistics/category";
 	}
 	
