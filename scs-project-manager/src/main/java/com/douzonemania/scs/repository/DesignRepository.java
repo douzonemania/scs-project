@@ -148,6 +148,15 @@ public class DesignRepository {
 		
 		return sqlSession.update("design.deleteCustomMenu", map);
 	}  
+	
+	// 삭제한 sub_menu의 index를 9999로 update
+	public int updateSubmenuIndex(String id, int index) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		map.put("index",index);
+		
+		return sqlSession.update("design.updateSubmenuIndex", map);
+	}
 
 	public List<CustomVo> getCustomBySubmenuNo(int no, String id) {
 		Map<String, Object> map = new HashMap<>();
@@ -165,7 +174,6 @@ public class DesignRepository {
 		return sqlSession.selectList("design.getContentsByCustomNo", map);
 	}
 
-///////////////////////////////////////0619 jungeun start////////////////////////////////////////////////
 	
 	public int deleteQnaByIndex(int index, String id) {
 		Map<String, Object> map = new HashMap<>();
@@ -204,6 +212,7 @@ public class DesignRepository {
 		sqlSession.delete("design.deleteContents",map);
 		
 	}
+
 
 	
 	
