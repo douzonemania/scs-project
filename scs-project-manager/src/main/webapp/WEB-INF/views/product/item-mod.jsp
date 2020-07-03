@@ -124,7 +124,7 @@ function preview(input, target) {
 
 $(function() {
 	
-	console.log($("#main-image").attr('alt'))
+	
 	if($("#main-image").attr('alt')!='/scs-manager'){
 		$("#main-image").show();
 		$("#main-image-upload").hide();
@@ -132,7 +132,7 @@ $(function() {
 	}
 	
 	for(var i=0;i<5;i++){
-		console.log($("#sub-image"+i).attr('alt'))
+		
 		if($("#sub-image"+i).attr('alt')!='/scs-manager'){
 			$("#sub-image"+i).show();
 			$("#sub-image"+i+"-upload").hide();
@@ -153,6 +153,8 @@ $(function() {
 });
 
 $(document).ready(function(){
+	
+
 	
 	$(".imageDelete").click(function(){
 		var index = $('.imageDelete').index(this);
@@ -189,7 +191,7 @@ $(document).ready(function(){
 		type: "POST",
 		dataType: 'json',
 		success : function(response){
-			console.log(response.data);
+			
 			for( var key in response.data){
 				
 				var data = response.data[key];
@@ -301,8 +303,10 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 		stockArr.push(stock);
 		
 	} 
+	  
 	
 	var objParams = {
+			
 			'colorArr' : colorArr,
 			'sizeArr' : sizeArr,
 			'stockArr' : stockArr
@@ -365,16 +369,13 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 	        async:false,
 	        cache: false,
 	        success: function (data) {
-	        	console.log("SUCCESS : ", data);
+	        
 	            imageSrc = data.data;
 	            imageSrc = JSON.stringify(imageSrc);
 	            imageSrc = imageSrc.replace(/\"/g,'');
 	            		            
 	            var imageSrcSplit = imageSrc.split('?');
-	            for ( var i in imageSrcSplit ) {
-	               	console.log(imageSrcSplit[i]);
-	            }
-	            
+
 	            mainImage = imageSrcSplit[0];
 	            for (var i=1; i<6; i++){
 	            	if(imageSrcSplit[i]!=""){
@@ -382,9 +383,7 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 	            			subImage = subImage+imageSrcSplit[i]+"?"
 	            	}
 	            }
-	            console.log(mainImage+subImage+":: in ajaxcode");
-	          /*   alert(subImage); */
-	        	
+	          /*   alert(subImage); */	
 	        },
 	        error: function (e) {
 	            console.log("ERROR : ", e);
@@ -397,6 +396,9 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 			alert("메인이미지를 등록하세요 :" + mainImage);
 			return;
 		}
+		
+		
+		
 	$.ajax({
 		url: '${pageContext.request.contextPath }/${authUser.id}/api/product/modItem',
 		contentType: 'application/json',
@@ -404,6 +406,7 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 		type: "POST",
 		dataType: 'json',
 		success : function(response){
+			
 			$.ajax({
 				url: '${pageContext.request.contextPath }/${authUser.id}/api/product/stockMod/'+code,
 				contentType :'application/x-www-form-urlencoded; charset=UTF-8',
@@ -417,7 +420,7 @@ $(document).on("click", "#btn-mod",function(){	// 등록 버튼 클릭 함수
 				error: function(xhr, status, e){
 					console.error(status + " : " + e);
 				}
-			});
+			}); 
 			var viewer = response.data;
 		},
 		error: function(xhr, status, e){
@@ -491,17 +494,17 @@ $(function() {
 			contentType: 'application/json',
 			data: JSON.stringify(vo),
 			success: function(response){
-				console.log(response.data + +":" + response)
+				
 				for( var key in response.data){
 					var data = response.data[key];
 					//$('.form-control.colorOptionSelect').append("<option value='" + data.no + "'>" + data.name + "</option>");
 					//$('.form-control.sizeOptionSelect').append("<option value='" + data.no + "'>" + data.name + "</option>");
-					console.log(data.no + ":" + data.name + ":" + data.type);
+					
 					if(data.type=="color"){
-						console.log("type is color");
+					
 						colorOption = colorOption + ("<option value='" + data.no + "'>" + data.name + "</option>")
 					}else if (data.type=="size"){
-						console.log("type is size");
+					
 						sizeOption = sizeOption + ("<option value='" + data.no + "'>" + data.name + "</option>")
 					}
 				}				

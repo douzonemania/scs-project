@@ -253,9 +253,7 @@ public class ProductController {
 	public JsonResult modItem(@AuthUser CeoVo authUser, @RequestBody ItemVo iVo) throws IOException, JSONException {
 
 		JSONObject jObject = new JSONObject(iVo.getEditor1());
-
 		JSONArray jArray = jObject.getJSONArray("ops");
-
 		String contents = "";
 
 		for (int i = 0; i < jArray.length(); i++) {
@@ -288,15 +286,23 @@ public class ProductController {
 		int itemNo = productService.getItemNo(id, code);
 
 		// 아이템 no 해당 아이템 전부 삭제
-		productService.delStock(id, itemNo);
+		//productService.delStock(id, itemNo);
+		
+		
 		for (int i = 0; i < sizeArr.size(); i++) {
-
-			StockVo temp = new StockVo();
-			temp.setFirstOption(colorArr.get(i));
-			temp.setSecondOption(sizeArr.get(i));
-			temp.setStock(stockArr.get(i));
-			// stock insert
-			productService.insertStock(id, itemNo, temp);
+			boolean check = productService.checkStock(authUser.getId(),itemNo,colorArr.get(i),sizeArr.get(i));
+			if(check==true) {
+				productService.updateStock(authUser.getId(),itemNo,colorArr.get(i),sizeArr.get(i),stockArr.get(i));
+			}else {
+				StockVo sVo = new StockVo();
+				sVo.setFirstOption(colorArr.get(i));
+				sVo.setSecondOption(sizeArr.get(i));
+				sVo.setStock(stockArr.get(i));
+				sVo.setItemNo(itemNo);
+				
+				productService.insertStock(id, itemNo, sVo);
+			}
+		
 		}
 
 		return JsonResult.success("");

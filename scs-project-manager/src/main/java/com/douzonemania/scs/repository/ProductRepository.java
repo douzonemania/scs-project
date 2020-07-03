@@ -367,6 +367,32 @@ public class ProductRepository {
 		return sqlSession.selectOne("product.findParentsCateogryCount",map);
 	}
 
+	public boolean checkStock(String id,int itemNo, Integer firstOption, Integer secondOption) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("itemNo",itemNo);
+		map.put("firstOption",firstOption);
+		map.put("secondOption",secondOption);
+		int count = sqlSession.selectOne("product.checkStock",map);
+		boolean check = count==0 ? false: true;
+		
+		
+		return  check;
+	}
+
+	public void updateStock(String id, int itemNo, Integer firstOption, Integer secondOption, Integer amount) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("db",id);
+		map.put("itemNo",itemNo);
+		map.put("firstOption",firstOption);
+		map.put("secondOption",secondOption);
+		map.put("amount",amount);
+		
+	
+		sqlSession.update("product.updateStock",map);
+	}
+
 
 
 
