@@ -133,6 +133,15 @@
 			   and menu_index=#{index}		
 		]]>
 	</update>
+	
+	<update id="updateSubmenuIndex" parameterType="map">
+		<![CDATA[
+			update scs2.sub_menu
+			   set menu_index=9999
+			 where id=#{db}
+			   and menu_index=#{index}
+		]]>
+	</update>
 
 	<!-- menu_no로 해당 custom page의 custom list를 받아옴(index 1~5) -->	
 	<select id="getCustomBySubmenuNo" resultType="customvo">

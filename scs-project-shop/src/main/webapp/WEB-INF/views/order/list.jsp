@@ -26,16 +26,40 @@
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
         
-        <script>
-        function gotoDetail(no){
-        	location.href="${pageContext.servletContext.contextPath }/${db}/order/detail?no="+no;
-        }
-        </script>
+<script>
+function gotoDetail(no){
+      location.href="${pageContext.servletContext.contextPath }/${db}/order/detail?no="+no;
+}
+
+$(function(){
+	var op1 = '${map.op1}';
+	var op2 = '${map.op2}';
+	
+	$("#product-search-option1").val(op1).prop("selected", true);
+	$("#product-search-option2").val(op2).prop("selected", true);
+	
+	var change1 = document.getElementById('product-search-option1');
+	
+	change1.addEventListener('change', function(event) {
+		var option = $('#product-search-option1').val();
+		location.href="${pageContext.servletContext.contextPath }/${db}/order/list?p=${map.prevPage}&op1="+option+"&op2=${map.op2 }&category=${map.categoryNo }&subCategory=${map.subCategoryNo}";
+	});
+	
+	var change2 = document.getElementById('product-search-option2');
+	
+	change2.addEventListener('change', function(event) {
+		var option = $('#product-search-option2').val();
+		location.href="${pageContext.servletContext.contextPath }/${db}/order/list?p=${map.prevPage}&op1=${map.op1 }&op2="+option+"&category=${map.categoryNo }&subCategory=${map.subCategoryNo}";
+	});
+	
+});
+	
+</script>
 </head>
 <body>
     <!-- Navigation Bar-->
     <c:import url="/WEB-INF/views/partials/topbar.jsp"></c:import>
-
+    <c:import url="/WEB-INF/views/partials/left-nav.jsp"></c:import>	
     <div class="wrapper ">
         <div class="container-fluid">
             <div class="order-title" style="margin-top:40px">
@@ -66,6 +90,27 @@
                 </div> <!-- end col-->
             </div>
             <!-- end row-->
+            <div class="float-right" style="margin-left: 0.3%; width:30%;">
+					<form name="form">
+						<div class="float-right" style="margin-left: 10px; margin-bottom: 5px;">
+	                              <select id="product-search-option2" name="op2" class="custom-select custom-select-sm">
+	                                    <option value="new">신상품순</option>
+	                                    <option value="desc-price">가격 높은순</option>
+	                                    <option value="asc-price">가격 낮은순</option>
+	                                    <option value="review">리뷰 많은순</option>
+	                              </select>
+	               		</div>
+                		<div class="float-right">
+	                              <select id="product-search-option1" name="op1" class="custom-select custom-select-sm">
+	                                    <option value="8">8개씩 보기</option>
+	                                    <option value="16">16개씩 보기</option>
+	                                    <option value="24">24개씩 보기</option>
+	                              </select>
+	                    </div>
+                	</form>
+            </div>
+            <div style="margin-bottom:50px;"></div>
+            
             <div class="row product-list">
 			<c:forEach items="${map.list }" var="vo">
             	<div class="col-md-6 col-xl-3" >
@@ -154,7 +199,7 @@
                     <div class="col-12">
                         <ul class="pagination pagination-rounded justify-content-center mb-3">
                             <li class="page-item">
-                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.prevPage}&category=${map.categoryNo }&subCategory=${map.subCategoryNo}" aria-label="Previous">
+                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.prevPage}&op1=${map.op1 }&op2=${map.op2 }&category=${map.categoryNo }&subCategory=${map.subCategoryNo}" aria-label="Previous">
                                     <span aria-hidden="true">«</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
@@ -163,17 +208,17 @@
 								<c:choose>
 									<c:when test="${map.page == (map.beginPage+(i-1)) }">
 										<li class ="page-item active">
-											<a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.beginPage+(i-1) }&category=${map.categoryNo }&subCategory=${map.subCategoryNo}">${map.beginPage+(i-1) }</a>
+											<a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.beginPage+(i-1) }&op1=${map.op1 }&op2=${map.op2 }&category=${map.categoryNo }&subCategory=${map.subCategoryNo}">${map.beginPage+(i-1) }</a>
 										</li>
 									</c:when>
 									<c:otherwise>
-										<li><a  class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.beginPage+(i-1) }&category=${map.categoryNo }&subCategory=${map.subCategoryNo}">${map.beginPage+(i-1) }</a></li>
+										<li><a  class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.beginPage+(i-1) }&op1=${map.op1 }&op2=${map.op2 }&category=${map.categoryNo }&subCategory=${map.subCategoryNo}">${map.beginPage+(i-1) }</a></li>
 									</c:otherwise>
 								
 								</c:choose>
 							</c:forEach>
                             <li>
-                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.nextPage }&category=${map.categoryNo }&subCategory=${map.subCategoryNo}" aria-label="Next">
+                                <a class="page-link" href="${pageContext.servletContext.contextPath }/${db }/order/list?p=${map.nextPage }&op1=${map.op1 }&op2=${map.op2 }&category=${map.categoryNo }&subCategory=${map.subCategoryNo}" aria-label="Next">
                                     <span aria-hidden="true">»</span>
                                     <span class="sr-only">Next</span>
                                 </a>

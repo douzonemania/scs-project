@@ -100,8 +100,8 @@ public class ProductController {
 		List<ShipCompanyVo> shipCompanyList = productService.getShipCompanyList(id);
 		List<StockVo> stockList = productService.getStockListByItemNo(id, no);
 		
+		int salePrice = (int) (vo.getNowPrice() * (1 - ( (double)vo.getSale() / 100) ));
 		String[] subImageSplit = vo.getSubImage().split("\\?");			
-		
 		String getEditor = productService.setStringEditor(vo.getEditor());
 		
 		String viewer = "quill.setContents([ " + 
@@ -119,6 +119,7 @@ public class ProductController {
 		model.addAttribute("stockList", stockList);					//재고리스트
 		model.addAttribute("viewer", viewer);						//에디터
 		model.addAttribute("subImageSplit", subImageSplit);
+		model.addAttribute("salePrice", salePrice);
 		return "product/item-mod";
 	}
 	

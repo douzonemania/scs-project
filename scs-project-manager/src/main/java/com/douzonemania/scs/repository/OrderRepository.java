@@ -183,6 +183,6 @@ public class OrderRepository {
 		map.put("no", no);
 		map.put("db", id);
 		
-		return sqlSession.delete("order.delteReview", map);
+		return sqlSession.delete("order.deleteReview", map);
 	}
 }

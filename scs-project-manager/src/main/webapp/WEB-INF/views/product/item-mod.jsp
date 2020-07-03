@@ -517,7 +517,23 @@ $(function() {
 		});
 	});
 });
-	
+
+$(function() {
+	/* 판매가 계산 */
+		$('#item-sup-price, #item-now-price, #item-sale').change(function(){		
+			if( $('#item-now-price').val() != ""){				
+				var nowPrice = $('#item-now-price').val();
+				var sale = $('#item-sale').val();		
+				
+				nowPrice = Number(nowPrice);
+				sale = Number(sale);
+				
+				var salePrice = nowPrice * ( 1 - (sale/100));
+				//salePrice = Math.floor((salePrice/10)) * 10;	// 원단위 계산
+				$('#item-sale-price').val(salePrice);
+			}
+		});
+});
 </script>
 </head>
 <body>
