@@ -43,8 +43,6 @@ public class OrderController {
 		
 		Map<String, Object> map = orderService.findDeliveryByDate(startDate, endDate, authUser.getId(), page, option, keyword);
 		
-		
-		
 		return JsonResult.success(map);
 	}
 	

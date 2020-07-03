@@ -298,7 +298,7 @@
 		<![CDATA[
 			select count(*)
 			  from ${db}.category
-			 where parents_no is null;	
+			 where parents_no is null;
 		]]>
 	</select>
 	

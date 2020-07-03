@@ -391,6 +391,13 @@ public class ProductRepository {
 		
 	
 		sqlSession.update("product.updateStock",map);
+  }
+  
+	public List<CategoryVo> orderGetCategoryNameList(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("db", id);
+		return sqlSession.selectList("category.orderGetCategoryNameList",map);
+
 	}
 
 
