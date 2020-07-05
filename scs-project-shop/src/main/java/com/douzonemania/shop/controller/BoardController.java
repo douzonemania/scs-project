@@ -126,7 +126,7 @@ public class BoardController {
 		if(itemBoardVo.isReplyState()) {
 			ItemReplyVo itemReplyVo = boardService.findItemReplyByParentsNo(db, no);
 			String reply = "quill3.setContents([ " + 
-								itemReplyVo.getContents() +
+								itemReplyVo.getContents1() +
 			                 "]);";
 			
 			model.addAttribute("reply", reply);	
