@@ -63,5 +63,24 @@
 					select no from ${db}.category where name = #{name}
 				]]>
 	</select>
+	
+	<select id="orderGetCategoryNameList" parameterType="map" resultType="categoryvo">		
+				<![CDATA[
+select b.no as 'no', b.name as 'name' 
+  from (select parents_no as 'categoryNo', sum(a.amount) as 'count'
+			  from (select parents_no, amount
+					  from ${db}.category c, (select category_no, amount, item_no
+												from ${db}.item i, (select item_no, amount
+																	  from ${db}.stock s, (select no as order_no, stock_no, amount
+																							from ${db}.shop_order o, ${db}.order_item oi
+																							where o.no = oi.order_no) a
+																	where a.stock_no = s.no) b
+											  where i.no=b.item_no) d
+					  where c.no=d.category_no) a
+			  where parents_no is not null
+			  group by a.parents_no) a, ${db}.category b
+              where a.categoryNo=b.no
+				]]>
+	</select>
 </mapper>
 

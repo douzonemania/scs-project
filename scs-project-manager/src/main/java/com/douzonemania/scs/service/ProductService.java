@@ -520,4 +520,14 @@ public class ProductService {
 	}
 ////////////////////////////////////////////////////////////////////
 
+	public boolean checkStock(String id,int itemNo, Integer firstOption, Integer secondOption) {
+		return productRepository.checkStock(id,itemNo,firstOption,secondOption);
+	}
+
+	public void updateStock(String id, int itemNo, Integer firstOption, Integer secondOption, Integer amount) {
+		
+		productRepository.updateStock(id,itemNo,firstOption,secondOption,amount);
+		
+	}
+
 }

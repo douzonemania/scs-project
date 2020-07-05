@@ -151,6 +151,13 @@
 				]]>
 	</update>
 	
+	<update id="updateStock" parameterType="map">
+				<![CDATA[
+					update ${db}.stock set stock=#{amount} where first_option=#{firstOption} and second_option=#{secondOption} and item_no=#{itemNo}
+				]]>
+	</update>
+	
+	
 		<select id="itemBoardListCount" parameterType="map" resultType="int">
 			<choose>
 				<when test='option==""'>
@@ -291,7 +298,7 @@
 		<![CDATA[
 			select count(*)
 			  from ${db}.category
-			 where parents_no is null;	
+			 where parents_no is null;
 		]]>
 	</select>
 	
@@ -350,4 +357,11 @@
 		]]>
 	</select>
 			
+	<select id="checkStock" parameterType="map" resultType="Integer">
+		<![CDATA[
+			select count(*) from ${db}.stock 
+			where first_option=#{firstOption} and second_option=#{secondOption} and item_no=#{itemNo}
+		]]>
+	</select>		
+	
 </mapper>
