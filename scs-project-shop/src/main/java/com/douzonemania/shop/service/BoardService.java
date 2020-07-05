@@ -136,9 +136,15 @@ public class BoardService {
 		return boardRepository.findNameByNo(id, no);
 	}
 
-	public ReplyVo findReplyByParentsNo(String id, int no) {
+	public ReplyVo findReplyByParentsNo(String id, int no) throws IOException {
 
-		return boardRepository.findReplyByParentsNo(id, no);
+		ReplyVo vo = boardRepository.findReplyByParentsNo(id, no);
+		
+		byte[] b = vo.getContents();
+
+		vo.setContents1(unCompressString(b));
+		
+		return vo;
 	}
 
 	public boolean deleteBoard(String id, int no) {
@@ -236,8 +242,14 @@ public class BoardService {
 		return vo;
 	}
 
-	public ItemReplyVo findItemReplyByParentsNo(String id, int no) {
-		return boardRepository.findItemReplyByParentsNo(id, no);
+	public ItemReplyVo findItemReplyByParentsNo(String id, int no) throws IOException {
+		ItemReplyVo vo = boardRepository.findItemReplyByParentsNo(id, no);
+		
+		byte[] b = vo.getContents();
+
+		vo.setContents1(unCompressString(b));
+		
+		return vo;
 	}
 
 	public boolean deleteItemBoard(String id, int no) {
