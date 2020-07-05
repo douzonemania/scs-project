@@ -167,7 +167,7 @@ var removeCheck = function(no) {
 								<!-- 답글이 있을 경우  -->
 								<c:if test="${itemBoardVo.replyState }">
 									<br />
-									<div style="border: 1px dashed #6C757D;"></div>
+									
 									<h3 class="page-title">답변</h3>
 									<table class="table-form-exposure">
                                         <colgroup>

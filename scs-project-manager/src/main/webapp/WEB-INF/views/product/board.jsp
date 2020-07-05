@@ -55,6 +55,17 @@
 	crossorigin="anonymous"></script>
 		<script type="text/JavaScript"
 		src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<style>
+#itemURL {
+	color: #000000;
+	cursor: pointer;
+}
+
+#itemURL:hover {
+	color: #4834C3;
+}
+</style>
 		
 <script type="text/javascript">
 var removeCheck = function(no) {
@@ -163,7 +174,7 @@ var removeCheck = function(no) {
                                 <c:forEach items="${map.list }" var="vo" varStatus="status">
                                 	<tr>
                                 		<td>${status.count + (map.page - 1) * 5 }</td>
-                                		<td>${vo.code }</td>
+                                		<td><a id="itemURL" href="/scs-shop/${authUser.id }/order/detail?no=${vo.itemNo }">${vo.code }</a></td>
                                 		<td> 
                                 			<a style="color:#6C757D;"
 												href="${ pageContext.request.contextPath }/${authUser.id}/product/board/view/${ vo.no }">${vo.title }</a>
