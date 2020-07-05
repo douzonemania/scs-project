@@ -1,12 +1,14 @@
 package com.douzonemania.shop.vo;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class ReplyVo {
 	private int no;
 	private int parentsNo;
-	private String contents;
 	private Timestamp regDate;
+	private byte[] contents;
+	private String contents1;
 
 	public int getNo() {
 		return no;
@@ -24,14 +26,6 @@ public class ReplyVo {
 		this.parentsNo = parentsNo;
 	}
 
-	public String getContents() {
-		return contents;
-	}
-
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-
 	public Timestamp getRegDate() {
 		return regDate;
 	}
@@ -40,10 +34,26 @@ public class ReplyVo {
 		this.regDate = regDate;
 	}
 
+	public byte[] getContents() {
+		return contents;
+	}
+
+	public void setContents(byte[] contents) {
+		this.contents = contents;
+	}
+
+	public String getContents1() {
+		return contents1;
+	}
+
+	public void setContents1(String contents1) {
+		this.contents1 = contents1;
+	}
+
 	@Override
 	public String toString() {
-		return "ReplyVo [no=" + no + ", parentsNo=" + parentsNo + ", contents=" + contents + ", regDate=" + regDate
-				+ "]";
+		return "ReplyVo [no=" + no + ", parentsNo=" + parentsNo + ", regDate=" + regDate + ", contents="
+				+ Arrays.toString(contents) + ", contents1=" + contents1 + "]";
 	}
 
 }
