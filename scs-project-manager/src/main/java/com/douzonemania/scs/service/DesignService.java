@@ -179,10 +179,6 @@ public class DesignService {
 				  String nowStr = elementData.get(j+"").toString();
 				  nowStr = nowStr.replaceAll("\n", "<br>");   
 				
-				  System.out.println("TEST: "+nowStr);
-				  
-				  
-				  
 				  if(result==0) {
 					  designRepository.insertContents(j,nowStr,check);		  
 				  }else { 
