@@ -127,14 +127,14 @@ var removeCheck = function(no) {
 								<c:if test="${boardVo.replyState }">
 									<br /><br />
 									
-									<h3 class="page-title">답변</h3>
+									<span class="page-title" style="font-size: 2.1em;">답변</span><br />
 									<table class="table-form-exposure">
                                         <colgroup>
                                             <col width="20%" /><col width="*" />
                                         </colgroup>
                                         <tbody>
                                         <tr>
-                            	            <th>작성일</th>
+                            	            <th style="font-weight: bold; font-size: 1.2em;">작성일</th>
                                             <td>
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${replyVo.regDate }
                                             </td>

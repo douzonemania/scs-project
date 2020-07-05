@@ -683,7 +683,7 @@
 										<div class="review-group review-view" no='${vo.no }' style="cursor: pointer;">
 										<c:if test="${vo.image != '' }">
 											<div class="review-img">
-												<img src="/scs-manager${vo.image}" alt="" class="rounded">
+												<img src="/scs-manager${vo.image}" alt="" class="rounded" style="width: 80%;">
 											</div>
 										</c:if>
 											<div class="review-box">
