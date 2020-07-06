@@ -15,6 +15,7 @@
 	name="description" />
 <meta content="Coderthemes" name="author" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="shortcut icon" href="/scs-manager${favicon }">
 
 <!-- Plugins css -->
 <link

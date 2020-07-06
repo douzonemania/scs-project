@@ -13,6 +13,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
        	<meta name="_csrf" th:content="${_csrf.token }"/>
        	<meta name="_csrf_header" th:content="${_csrf.haderName }" />
+       	<link rel="shortcut icon" href="/scs-manager${favicon }">
         <!-- Plugins css -->
         <link href="<%=request.getContextPath() %>/assets/libs/jquery-nice-select/nice-select.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath() %>/assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />

@@ -11,6 +11,7 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>Pretty Girls~! Q&A</title>
+        <link rel="shortcut icon" href="/scs-manager${favicon }">
 
         <!-- Plugins css -->
         <link href="${pageContext.request.contextPath}/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />

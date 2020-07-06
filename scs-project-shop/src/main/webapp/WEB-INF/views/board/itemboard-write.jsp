@@ -11,6 +11,7 @@
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="shortcut icon" href="/scs-manager${favicon }">
        	<meta name="_csrf" th:content="${_csrf.token }"/>
        	<meta name="_csrf_header" th:content="${_csrf.haderName }" />
         <!-- Plugins css -->
