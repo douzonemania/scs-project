@@ -460,6 +460,17 @@ $(function() {
 			});
 			$("select#cate-select-mod2 option").remove();
 		});
+	
+	$(".sortable").sortable({
+		revert: true
+	});
+		
+	$(".draggable").draggable({
+		connectToSortable : ".sortable",
+		helper:"clone",
+		revert:"invalid"
+	});
+	
 });
 </script>       
        
@@ -512,8 +523,8 @@ $(function() {
 
 									<c:forEach var="vo" varStatus="status" items="${categoryNameList }">
 									
-									<table class="category-table" id="category-table-${vo.no }" style="margin-left:20px; margin-top:20px;">
-										<tr id="category-table-tr-${vo.no}">
+									<table class="category-table draggable" id="category-table-${vo.no }" style="margin-left:20px; margin-top:20px;">
+										<tr id="category-table-tr-${vo.no}" class="sortable">
 											<th style="min-width:100px;" id="category-table-th-${vo.no }">${vo.name }</th>
 											
 											<c:forEach var="vo2" varStatus="status" items="${category2NameList }">

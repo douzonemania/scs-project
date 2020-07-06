@@ -46,7 +46,6 @@
 			}else{
 				var no="${recentShip.no}";
 			}
-		
 		$(function(){
 			
 			var width = $(window).width();
@@ -54,7 +53,6 @@
 			var postArr = postString.split('!');
 			var orderName = '${recentShip.shipName}';
 			var phoneNumber = '${recentShip.phoneNumber}';
-			var orderList = '${orderList}';
 			
 			$('#ship-option').hide();
 			var shipCheck = '${shipListCheck}';
@@ -207,10 +205,8 @@
 					});  
 				}
 				 
-		});
-			
+		});	
 	});
-		
 		});	
 		
 		
