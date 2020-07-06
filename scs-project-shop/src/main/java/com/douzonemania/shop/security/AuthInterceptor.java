@@ -44,11 +44,17 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			
 			List<SubMenuVo> subMenuList = customService.getSubMenuById(session.getAttribute("db").toString());
 			
+			String logo = customService.getLogo(session.getAttribute("db").toString());
+			session.setAttribute("logo", logo);
 			
+			String favicon = customService.getFavicon(session.getAttribute("db").toString());
+			session.setAttribute("favicon", favicon);
 			
 			for (SubMenuVo subMenuVo : subMenuList) {
 				List<ContentsVo> contentsVo = customService.getContentsByCustomNo(subMenuVo.getNo());
 			}
+			
+			
 			
 			session.setAttribute("subMenuList",subMenuList);
 			session.setAttribute("mainMenu", vo);

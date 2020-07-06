@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<link rel="shortcut icon" href="/scs-manager${logoList.favicon }">
+<link rel="shortcut icon" href="/scs-manager${favicon }">
 
 <header id="topnav" style="background-color:#ffffff">
         <!-- Topbar Start -->
@@ -73,12 +73,12 @@
                 <div class="logo-box">
                     <a href="${ pageContext.request.contextPath }/${db }" class="logo text-center">
                         <span class="logo-lg">
-                            <img src="/scs-manager/assets/scs-manager/images/20205245527500.png" onError="this.src='/scs-manager${logoList.logo }'"  alt="" style="max-height:64px; max-width:64px">
+                            <img src="/scs-manager/assets/scs-manager/images/20205245527500.png" onError="this.src='/scs-manager${logo }'"  alt="" style="max-height:64px; max-width:64px">
                             <!-- <span class="logo-lg-text-light">UBold</span> -->
                         </span>
                         <span class="logo-sm" style="margin-left: 120px;">
                             <!-- <span class="logo-sm-text-dark">U</span> -->
-                            <img src="/scs-manager/assets/scs-manager/images/20205245527500.png" onError="this.src='/scs-manager${logoList.logo }'" alt="" style="max-height:48px; max-width:48px">
+                            <img src="/scs-manager/assets/scs-manager/images/20205245527500.png" onError="this.src='/scs-manager${logo }'" alt="" style="max-height:48px; max-width:48px">
                         </span>
                     </a>
                 </div>
