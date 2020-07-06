@@ -70,9 +70,7 @@ public class OrderController {
 		String db = session.getAttribute("db").toString();
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
 		
-		if(vo==null) {
-			return "member/login";
-		}
+		if(vo==null) {return "member/login";}
 		List<ItemVo> list = orderService.setCartList(db,vo.getNo());
 		model.addAttribute("list",list);
 		
@@ -86,13 +84,11 @@ public class OrderController {
 			@RequestParam(value="firstoption",required=true,defaultValue = "")Integer firstOption,
 			@RequestParam(value="secondoption",required = true,defaultValue = "")Integer secondOption,
 			@RequestParam(value="quantity",required = true,defaultValue = "0")Integer quantity
-			
 			) {
 			
 		
 		String db = session.getAttribute("db").toString();
 		MemberVo vo = (MemberVo)session.getAttribute("authUser");
-		
 		
 		orderService.setOrderPage(db,vo.getNo(),itemNo,firstOption,secondOption,quantity,session);
 		

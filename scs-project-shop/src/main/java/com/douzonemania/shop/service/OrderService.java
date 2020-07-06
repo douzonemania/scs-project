@@ -249,6 +249,7 @@ public class OrderService {
 		} else {
 			session.setAttribute("shipListCheck", false);
 		}
+		
 		ItemVo itemVo = orderRepository.findItem(itemNo, db);
 		ItemVo optionVo = orderRepository.findOption(firstOption, secondOption, db);
 		
@@ -262,10 +263,15 @@ public class OrderService {
 		itemVo.setAmount(quantity);
 		int nowSale = itemVo.getSale();
 		itemVo = setTotalPrice(nowSale, itemVo);
-
+		byte[] a = new byte[0];
+		itemVo.setEditor(a);
 		list.add(itemVo);
 		session.setAttribute("cartOrderCheck",false);
+		
 		session.setAttribute("orderList", list);
+		
+		
+		/* System.out.println("SHIPLIST:"+shipList); */
 	}
 
 	public String excuteOrder(String db, Long no, List<ItemVo> list, String shipMemo, int shipNo,String cartOrderCheck,HttpSession session) {
