@@ -5,7 +5,7 @@
 
 	<select id="findDonut" parameterType="map" resultType="categorydonutvo" >
 		<![CDATA[
-			select parents_no as 'categoryNo', sum(a.amount) as 'count'
+			select  parents_no as 'categoryNo', ifnull(sum(a.amount),0) as 'count'
 			  from (select parents_no, amount
 					  from ${db}.category c, (select category_no, amount, item_no 
 												from ${db}.item i, (select item_no, amount 
@@ -18,7 +18,7 @@
 			  where parents_no is not null
 			  group by a.parents_no
 			  order by count desc
-			  limit #{limitCount };
+			  limit 5;
 		]]>
 	</select>
 	<select id="findName" parameterType="map" resultType="string" >
@@ -31,7 +31,7 @@
 	
 	<select id= "findBar" parameterType="map" resultType="categorybarvo">
 		<![CDATA[
-			select c.parents_no as 'categoryNo', sum(total_price*amount) as 'totalPrice', d.date as 'date'
+			select c.parents_no as 'categoryNo', ifnull(sum(total_price*amount),0) as 'totalPrice', d.date as 'date'
 			  from ${db}.category c, (select category_no, amount, item_no, total_price, b.date
 										from ${db}.item i, (select item_no, amount , total_price, a.date
 															  from ${db}.stock s, (select o.no as order_no, stock_no, amount, total_price, DATE_FORMAT(o.reg_date,'%Y-%m-%d') as 'date'
@@ -52,7 +52,7 @@
 	
 	<select id= "findLineCount" parameterType="map" resultType="categorylinecountvo">
 		<![CDATA[
-			select sum(amount) as 'count',  d.date as 'date'
+			select ifnull(sum(amount),0) as 'count',  d.date as 'date'
 			  from ${db}.category c, (select category_no, amount, item_no, b.date
 										from ${db}.item i, (select item_no, amount , a.date
 															  from ${db}.stock s, (select o.no as order_no, stock_no, amount, DATE_FORMAT(o.reg_date,'%Y-%m-%d') as 'date'
@@ -72,7 +72,7 @@
 	
 	<select id= "findLineSales" parameterType="map" resultType="categorylinesalesvo">
 		<![CDATA[
-			select sum(total_price*amount) as 'totalPrice',  d.date as 'date'
+			select ifnull(sum(total_price*amount),0) as 'totalPrice',  d.date as 'date'
 			  from ${db}.category c, (select category_no, amount, item_no, total_price, b.date
 										from ${db}.item i, (select item_no, amount , total_price, a.date
 															  from ${db}.stock s, (select o.no as order_no, stock_no, amount, total_price, DATE_FORMAT(o.reg_date,'%Y-%m-%d') as 'date'

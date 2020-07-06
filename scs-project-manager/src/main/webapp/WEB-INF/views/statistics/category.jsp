@@ -105,7 +105,9 @@
                             <div class="text-center">
                                 <p class="text-muted font-15 font-family-secondary mb-0">
                                 	<c:forEach var="list" items="${map.donutList }" varStatus="status">
-                                    	<span class="mx-2"><i class="mdi mdi-checkbox-blank-circle ${map.temp.get(status.index) }"></i>${list.categoryName }</span>
+                                		<c:if test="${list.categoryName ne null }">
+                                    		<span class="mx-2"><i class="mdi mdi-checkbox-blank-circle ${map.temp.get(status.index) }"></i>${list.categoryName }</span>
+                                    	</c:if>
                                     </c:forEach>
                                 </p>
                             </div>
@@ -220,7 +222,7 @@ var a2 = ${map.donutList.get(0).count};
 var b2 = ${map.donutList.get(1).count};
 var c2 = ${map.donutList.get(2).count};
 var d2 = ${map.donutList.get(3).count};
-var e2 = ${map.donutList.get(4).count};
+var e2 = ${map.donutList.get(4).count}; 
 
 // 0 이 최근, 6이 일주일전
 var barDataTop1TotalPrice1 = ${map.dateList1.get(6).totalPrice};
@@ -339,7 +341,6 @@ var MorrisCharts = function() {};
 				var vdate6 = response.data.countLineList[1].date;
 				var vdate7 = response.data.countLineList[0].date;
 				
-				console.log(vdate1, vdate2, vdate3, vdate4, vdate5, vdate6, vdate7)
 				
 				lineDataCount1 = response.data.countLineList[6].count;
 				lineDataCount2 = response.data.countLineList[5].count;
@@ -472,29 +473,7 @@ var MorrisCharts = function() {};
 	        });
 	    },
 	    MorrisCharts.prototype.init = function() {
-	       //creating bar chart
-	        var $barData  = [
-	            { y: date1+'', a: barDataTop1TotalPrice1, b: barDataTop2TotalPrice1 , c: barDataTop3TotalPrice1, d: barDataTop4TotalPrice1, e: barDataTop5TotalPrice1},
-	            { y: date2+'', a: barDataTop1TotalPrice2, b: barDataTop2TotalPrice2 , c: barDataTop3TotalPrice2, d: barDataTop4TotalPrice2, e: barDataTop5TotalPrice2},
-	            { y: date3+'', a: barDataTop1TotalPrice3, b: barDataTop2TotalPrice3 , c: barDataTop3TotalPrice3, d: barDataTop4TotalPrice3, e: barDataTop5TotalPrice3},
-	            { y: date4+'', a: barDataTop1TotalPrice4, b: barDataTop2TotalPrice4 , c: barDataTop3TotalPrice4, d: barDataTop4TotalPrice4, e: barDataTop5TotalPrice4},
-	            { y: date5+'', a: barDataTop1TotalPrice5, b: barDataTop2TotalPrice5 , c: barDataTop3TotalPrice5, d: barDataTop4TotalPrice5, e: barDataTop5TotalPrice5},
-	            { y: date6+'', a: barDataTop1TotalPrice6, b: barDataTop2TotalPrice6 , c: barDataTop3TotalPrice6, d: barDataTop4TotalPrice6, e: barDataTop5TotalPrice6}
-	        ];
-	        this.createBarChart('morris-bar-example', $barData, 'y', ['a', 'b', 'c','d','e'], ["1", "2", "3", "4", "5"], ['#6658dd','#4fc6e1', '#1ABC9C','#F1556C','#F672A7']);
-
-
-	        //creating donut chart
-	        var $donutData = [
-	                {label: a+"", value: a2},
-	                {label: b+"", value: b2},
-	                {label: c+"", value: c2},
-	                {label: d+"", value: d2},
-	                {label: e+"", value: e2}
-	            ];
-	        this.createDonutChart('morris-donut-example', $donutData, ['#6658DD','#4fc6e1', '#1ABC9C','#F1556C','#F672A7']);
-	        
-	      	//create line chart
+	    	//create line chart
 	        var $data  = [
 	        	// y: 일자, a:구매건수, b:매출max
 	            { y: date1+'', a: lineDataPrice1},
@@ -513,11 +492,58 @@ var MorrisCharts = function() {};
 	            { y: date4+'', a: lineDataCount4, b: bestCount4, c: newCount4, d: normalCount4},
 	            { y: date5+'', a: lineDataCount5, b: bestCount5, c: newCount5, d: normalCount5},
 	            { y: date6+'', a: lineDataCount6, b: bestCount6, c: newCount6, d: normalCount6},
-	            { y: date7+'', a: lineDataCount7, b: bestCount7, c: newCount7, d: normalCount7},
+	            { y: date7+'', a: lineDataCount7, b: bestCount7, c: newCount7, d: normalCount7}
 	          ];
 	        this.createLineChart('morris-line-example1', $data, 'y', ['a'], ["최대 매출: "],['0.5'],['#ffffff'],['#999999'], ['#f672a7']);
 	        this.createLineChart('morris-line-example2', $data2, 'y', ['a', 'b', 'c', 'd'], ["Total: ","BEST: "	, "New: ", "Normal: "],['0.5'],['#ffffff'],['#999999'], ['#F1556C', '#4a81d4', '#f672a7', '#1ABC9C']);
-	    }
+	    
+	       //creating bar chart
+	        var $barData  = [
+	            { y: date1+'', a: barDataTop1TotalPrice1, b: barDataTop2TotalPrice1 , c: barDataTop3TotalPrice1, d: barDataTop4TotalPrice1, e: barDataTop5TotalPrice1},
+	            { y: date2+'', a: barDataTop1TotalPrice2, b: barDataTop2TotalPrice2 , c: barDataTop3TotalPrice2, d: barDataTop4TotalPrice2, e: barDataTop5TotalPrice2},
+	            { y: date3+'', a: barDataTop1TotalPrice3, b: barDataTop2TotalPrice3 , c: barDataTop3TotalPrice3, d: barDataTop4TotalPrice3, e: barDataTop5TotalPrice3},
+	            { y: date4+'', a: barDataTop1TotalPrice4, b: barDataTop2TotalPrice4 , c: barDataTop3TotalPrice4, d: barDataTop4TotalPrice4, e: barDataTop5TotalPrice4},
+	            { y: date5+'', a: barDataTop1TotalPrice5, b: barDataTop2TotalPrice5 , c: barDataTop3TotalPrice5, d: barDataTop4TotalPrice5, e: barDataTop5TotalPrice5},
+	            { y: date6+'', a: barDataTop1TotalPrice6, b: barDataTop2TotalPrice6 , c: barDataTop3TotalPrice6, d: barDataTop4TotalPrice6, e: barDataTop5TotalPrice6}
+	        ];
+	        this.createBarChart('morris-bar-example', $barData, 'y', ['a', 'b', 'c','d','e'], ["1", "2", "3", "4", "5"], ['#6658dd','#4fc6e1', '#1ABC9C','#F1556C','#F672A7']);
+
+	        //creating donut chart
+			if(${map.donutListLength} == 1){
+				var $donutData = [
+	                {label: a+"", value: a2}
+	            ];
+			} else if(${map.donutListLength} == 2){
+				var $donutData = [
+	                {label: a+"", value: a2},
+	                {label: b+"", value: b2}
+	            ];
+			} else if(${map.donutListLength} == 3){
+				var $donutData = [
+	                {label: a+"", value: a2},
+	                {label: b+"", value: b2},
+	                {label: c+"", value: c2}
+	            ];
+			} else if(${map.donutListLength} == 4){
+				var $donutData = [
+	                {label: a+"", value: a2},
+	                {label: b+"", value: b2},
+	                {label: c+"", value: c2},
+	                {label: d+"", value: d2}
+	            ];
+			} else{
+				var $donutData = [
+	                {label: a+"", value: a2},
+	                {label: b+"", value: b2},
+	                {label: c+"", value: c2},
+	                {label: d+"", value: d2},
+	                {label: e+"", value: e2}
+	            ];
+			}
+		
+	        this.createDonutChart('morris-donut-example', $donutData, ['#6658DD','#4fc6e1', '#1ABC9C','#F1556C','#F672A7']);
+	        
+	      	}
 	    
 	    //init
 	    $.MorrisCharts = new MorrisCharts, 

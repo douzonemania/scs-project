@@ -43,13 +43,21 @@ public class StatisticsService {
 		/* 카테고리 TOP 5  구매건수 */
 		int limitCount = productRepository.findParentsCateogryCount(id);
 		List<CategoryDonutVo> donutList = statisticsRepository.findDonut(id,limitCount);
+		int donutListLength = donutList.size();
+		for(int i = donutListLength; i<5; i++) {
+			CategoryDonutVo vo = new CategoryDonutVo();
+			vo.setCategoryName("빈칸");
+			vo.setCount(0);
+			donutList.add(vo);
+		}
 		for (CategoryDonutVo vo : donutList) {
 			int no = vo.getCategoryNo(); 
 			String name = statisticsRepository.findName(no, id); 
 			vo.setCategoryName(name);
+
 		}
-		System.out.println(donutList);
 		
+		map.put("donutListLength", donutListLength);
 		List<String> temp = new ArrayList<String>();
 		temp.add("text-primary");
 		temp.add("text-info");
@@ -75,7 +83,6 @@ public class StatisticsService {
 		
 		List<CategoryVo> categoryList = productRepository.orderGetCategoryNameList(id); 
 		
-		System.out.println("!!!!!!!!!!!!" + categoryList);
 		List<CategoryBarVo> dateList1 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> dateList2 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> dateList3 = new ArrayList<CategoryBarVo>();
@@ -116,14 +123,12 @@ public class StatisticsService {
 			dateList5.add(vo);
 		}
 		List<CategoryVo> tempp = productRepository.orderGetCategoryNameList(id);
-		int length = tempp.size();
+		int length = tempp.size();	
 		List<CategoryBarVo> barListTop1 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> barListTop2 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> barListTop3 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> barListTop4 = new ArrayList<CategoryBarVo>();
 		List<CategoryBarVo> barListTop5 = new ArrayList<CategoryBarVo>();
-		
-		System.out.println("no:" + categoryList.get(4).getNo());
 		if(length == 1) {
 			barListTop1 = statisticsRepository.findBar(id, categoryList.get(0).getNo(), dateList1.get(6).getDate(), dateList1.get(0).getDate() );
 		} else if(length == 2) {
@@ -145,9 +150,6 @@ public class StatisticsService {
 			barListTop4 = statisticsRepository.findBar(id, categoryList.get(3).getNo(), dateList4.get(6).getDate(), dateList4.get(0).getDate() );
 			barListTop5 = statisticsRepository.findBar(id, categoryList.get(4).getNo(), dateList5.get(6).getDate(), dateList5.get(0).getDate() );
 		}
-		
-		System.out.println(barListTop1);
-		
 		for (CategoryBarVo vo : barListTop1) {
 			int no = vo.getCategoryNo(); 
 			String name = statisticsRepository.findName(no, id); 
@@ -185,7 +187,6 @@ public class StatisticsService {
 				}
 			}
 		}
-		System.out.println(dateList1);
 		for (CategoryBarVo vo : barListTop2) {
 			String returnDate = vo.getDate();
 			for(int i = 0; i < 7; i++) {
@@ -233,8 +234,7 @@ public class StatisticsService {
 				}
 			}
 		}
-
-		/* Total 구매건수와 매출 */
+		/* Total 매출 */
 		List<CategoryLineCountVo> countLineList = new ArrayList<CategoryLineCountVo>();
 		List<CategoryLineSalesVo> salesLineList = new ArrayList<CategoryLineSalesVo>();
 		
