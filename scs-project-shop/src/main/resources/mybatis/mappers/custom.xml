@@ -278,7 +278,7 @@
 		<![CDATA[
 			select logo
 			  from scs2.site
-			 where id=${db}
+			 where id=#{db}
 		]]>
 	</select>
 	
@@ -286,7 +286,7 @@
 		<![CDATA[
 			select favicon
 			  from scs2.site
-			 where id=${db}
+			 where id=#{db}
 		]]>
 	</select>
 
