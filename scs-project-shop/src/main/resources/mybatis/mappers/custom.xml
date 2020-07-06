@@ -22,7 +22,7 @@
 		<result property="cnt" column="cnt" />
 		<result property="rate" column="rate" />
 	</resultMap>
-
+	
 	<select id="findBest" parameterType="map" resultMap="itemList">
 		<choose>
 			<when test='category=="0"'>
@@ -264,13 +264,30 @@
 	</select>
 	
 	<select id="getCustomNo" parameterType="map" resultType="int">
-		select b.no 
-		  from scs2.sub_menu a, 
-		       scs2.custom b 
-		 where a.no=b.menu_no 
-	       and id=#{db} 
-		   and menu_index=#{index}
+		<![CDATA[
+			select b.no 
+			  from scs2.sub_menu a, 
+			       scs2.custom b 
+			 where a.no=b.menu_no 
+		       and id=#{db} 
+			   and menu_index=#{index}
+		   ]]>
 	</select>
 	
+	<select id="getLogo" parameterType="map" resultType="string">
+		<![CDATA[
+			select logo
+			  from scs2.site
+			 where id=${db}
+		]]>
+	</select>
+	
+	<select id="getFavicon" parameterType="map" resultType="string">
+		<![CDATA[
+			select favicon
+			  from scs2.site
+			 where id=${db}
+		]]>
+	</select>
 
 </mapper>

@@ -208,4 +208,12 @@ public class CustomService {
 	public int getCustomNo(int index, String id) {
 		return customRepository.getCustomNo(index, id);
 	}
+
+	public String getLogo(String id) {
+		return customRepository.getLogo(id);
+	}
+	
+	public String getFavicon(String id) {
+		return customRepository.getFavicon(id);
+	}
 }

@@ -153,4 +153,17 @@ public class CustomRepository {
 		
 		return sqlSession.selectOne("custom.getCustomNo", map);
 	}
+
+	public String getLogo(String id) {
+		map.put("db", id);
+		
+		return sqlSession.selectOne("custom.getLogo", map);
+	}
+	
+	public String getFavicon(String id) {
+		map.put("db", id);
+		
+		return sqlSession.selectOne("custom.getFavicon", map);
+	}
+	
 }

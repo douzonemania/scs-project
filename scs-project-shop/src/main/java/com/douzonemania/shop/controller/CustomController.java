@@ -50,17 +50,8 @@ public class CustomController {
 		
 		model.addAttribute("contentsList",totalList);
 		
-		for (List<ContentsVo> list2 : totalList) {
-			System.out.println(list2);
-		}
-		
 		model.addAttribute("list",list);
 	
-		for (CustomDesignVo list2 : list) {
-			System.out.println(list2);
-		}
-		
-		
 		return "custom/customindex";
 	}
 	
