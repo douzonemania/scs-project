@@ -123,11 +123,12 @@
 			
 			if(secondOption=="X"){
 				alert("옵션을 선택해주세요");
-				
+				return;
 			
 			}else{
 				if(quantity==0){
 					alert("수량을 확인해주세요");
+					return;
 				} else{
 					$.ajax({
 						url : '${pageContext.request.contextPath }/api/order/cart/insert/'+ itemNo + "/" + firstOption+ "/" + secondOption+"/"+quantity,
