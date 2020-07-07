@@ -60,7 +60,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			session.setAttribute("favicon", favicon);
 			
 			CeoVo ceoVo = mainService.getCeoVo(session.getAttribute("db").toString());
-			
+		 	
 		 	session.setAttribute("ceoVo", ceoVo);
 		 	
 		 	if(session.getAttribute("authUser")!=null) {
