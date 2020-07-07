@@ -73,12 +73,12 @@
                 <div class="logo-box">
                     <a href="${ pageContext.request.contextPath }/${db }" class="logo text-center">
                         <span class="logo-lg">
-                            <img src="${ceoVo.logo }"   alt="" style="max-height:64px; max-width:64px">
+                            <img src="/scs-manager${ceoVo.logo }" alt="" style="max-height:64px; max-width:64px">
                             <!-- <span class="logo-lg-text-light">UBold</span> -->
                         </span>
                         <span class="logo-sm" style="margin-left: 120px;">
                             <!-- <span class="logo-sm-text-dark">U</span> -->
-                            <img src="${ceoVo.logo }" alt="" style="max-height:48px; max-width:48px">
+                            <img src="/scs-manager${ceoVo.logo }" alt="" style="max-height:48px; max-width:48px">
                         </span>
                     </a>
                 </div>
