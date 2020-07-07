@@ -40,7 +40,8 @@
 				   company_name as 'companyName', 
 				   address, 
 				   co_number as 'coNumber', 
-				   cm_number as 'cmNumber' 
+				   cm_number as 'cmNumber',
+				   logo
 			  from scs2.site a, scs2.ceo b
 			 where a.id=b.id 
 			   and a.id=#{db}
