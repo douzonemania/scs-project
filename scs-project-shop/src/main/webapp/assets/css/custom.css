@@ -1,9 +1,9 @@
-.wrapper2{width:93%; margin: 0 auto;}
+.wrapper2{width:93%; margin: 0 auto; height:auto;border:1px solid red;}
 
 img{width:100%;height:100%;}
 .hoverImg:hover{opacity:0.5;}
 
-.design-source1{ width:80%; height: auto; margin : 0 auto; }
+.design-source1{ width:80%; height: 300px; margin : 0 auto; }
 .design-source2{ width:80%; height: 600px; margin : 0 auto;}
 .design-source3{ width:90%; height: 300px; margin : 0 auto;}
 .design-source4{ width:80%; height: 500px; margin : 3 auto;}
