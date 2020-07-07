@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="footer-wrapper">
             <div class="footer-logo">
-                <img src="${ceoVo.logo}" />
+                <img src="/scs-manager${ceoVo.logo}" />
            </div>
            
         <div class="footer-contents">
