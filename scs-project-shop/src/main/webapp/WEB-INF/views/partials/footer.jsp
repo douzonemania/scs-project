@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="footer-wrapper">
             <div class="footer-logo">
-                <img src="<%=request.getContextPath() %>/assets/images/logo-scs.png" alt="안녕하세요" height="112"/>
+                <img src="/scs-manager${ceoVo.logo}" />
            </div>
            
         <div class="footer-contents">
