@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzonemania.shop.repository.MainRepository;
+import com.douzonemania.shop.vo.CeoVo;
 import com.douzonemania.shop.vo.MemberVo;
 
 @Service
@@ -14,5 +15,9 @@ public class MainService {
 	
 	public MemberVo getList() {
 		return mainRepository.getList();
+	}
+	
+	public CeoVo getCeoVo(String id) {
+		return mainRepository.getCeoVo(id);
 	}
 }

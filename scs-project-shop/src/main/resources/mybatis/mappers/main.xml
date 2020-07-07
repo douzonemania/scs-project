@@ -32,5 +32,19 @@
 				where a.member_no=#{no}
 			]]>
 	</select>
+	
+	<select id="getCeoVo" parameterType="map" resultType="ceovo">
+		<![CDATA[
+			select name, 
+				   phone_number as 'phoneNumber', 
+				   company_name as 'companyName', 
+				   address, 
+				   co_number as 'coNumber', 
+				   cm_number as 'cmNumber' 
+			  from scs2.site a, scs2.ceo b
+			 where a.id=b.id 
+			   and a.id=#{db}
+		]]>
+	</select>
 
 </mapper>

@@ -11,7 +11,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.douzonemania.shop.repository.MainRepository;
 import com.douzonemania.shop.service.CustomService;
+import com.douzonemania.shop.service.MainService;
 import com.douzonemania.shop.vo.CategoryVo;
+import com.douzonemania.shop.vo.CeoVo;
 import com.douzonemania.shop.vo.ContentsVo;
 import com.douzonemania.shop.vo.MainMenuVo;
 import com.douzonemania.shop.vo.MemberVo;
@@ -24,6 +26,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 	MainRepository mainRepository;
 	@Autowired
 	CustomService customService;
+	@Autowired
+	MainService mainService;
 	
 	 @Override
 	    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
@@ -44,21 +48,20 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			
 			List<SubMenuVo> subMenuList = customService.getSubMenuById(session.getAttribute("db").toString());
 			
-			String logo = customService.getLogo(session.getAttribute("db").toString());
-			session.setAttribute("logo", logo);
-			
-			String favicon = customService.getFavicon(session.getAttribute("db").toString());
-			session.setAttribute("favicon", favicon);
-			
 			for (SubMenuVo subMenuVo : subMenuList) {
 				List<ContentsVo> contentsVo = customService.getContentsByCustomNo(subMenuVo.getNo());
 			}
 			
-			
-			
 			session.setAttribute("subMenuList",subMenuList);
 			session.setAttribute("mainMenu", vo);
 		 	session.setAttribute("cgList", list);
+		 	
+			String favicon = customService.getFavicon(session.getAttribute("db").toString());
+			session.setAttribute("favicon", favicon);
+			
+			CeoVo ceoVo = mainService.getCeoVo(session.getAttribute("db").toString());
+			
+		 	session.setAttribute("ceoVo", ceoVo);
 		 	
 		 	if(session.getAttribute("authUser")!=null) {
 		 		MemberVo nowUser = (MemberVo)session.getAttribute("authUser");

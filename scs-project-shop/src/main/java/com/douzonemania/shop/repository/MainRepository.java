@@ -13,6 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.douzonemania.shop.vo.CategoryVo;
+import com.douzonemania.shop.vo.CeoVo;
 import com.douzonemania.shop.vo.MainMenuVo;
 import com.douzonemania.shop.vo.MemberVo;
 
@@ -43,7 +44,17 @@ public class MainRepository {
 		return sqlSession.selectOne("main.getCartCnt",map);
 	}
 	
-	
+	public MainMenuVo getMainMenu() {
+		String db=getSession();
+		map.put("db", db);
+		return sqlSession.selectOne("main.getMainMenu",map);
+	}
+
+	public CeoVo getCeoVo(String id) {
+		String db=getSession();
+		map.put("db", db);
+		return sqlSession.selectOne("main.getCeoVo",map);
+	}
 	
 	public String getSession() {
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
@@ -53,13 +64,4 @@ public class MainRepository {
 		
 		return id;
 	}
-
-	public MainMenuVo getMainMenu() {
-		String db=getSession();
-		map.put("db", db);
-		return sqlSession.selectOne("main.getMainMenu",map);
-	}
-
-	
-	
 }
