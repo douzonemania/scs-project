@@ -14,21 +14,21 @@
            
         <div class="footer-contents">
             <span class="span-bold footer-span-custom">대표자명</span>
-            <span class="footer-span-custom">유기현</span>
+            <span class="footer-span-custom">${ceoVo.name }</span>
             <span class="span-bold footer-span-custom">회사명</span>
-            <span class="footer-span-custom">주식회사 오호라</span>
+            <span class="footer-span-custom">${ceoVo.companyName }</span>
            
             <span class="span-bold footer-span-custom">대표번호</span>
-            <span class="footer-span-custom">01012345689</span>
+            <span class="footer-span-custom">${ceoVo.phoneNumber }</span>
             <br/>
             <span class="span-bold footer-span-custom">주소</span>
-            <span class="footer-span-custom">대한민국 대구 광역시 호산동 364</span>
+            <span class="footer-span-custom">${ceoVo.address }</span>
             <br/>
             <span class="span-bold custom-display-inline-block">사업자등록번호</span>
-           <span class="custom-display-inline-block">04564065406</span>
+           <span class="custom-display-inline-block">${ceoVo.coNumber }</span>
            <br/>
            <span class="span-bold custom-display-inline-block">통신판매신고번호</span>
-           <span class="custom-display-inline-block">1359105781035</span>
+           <span class="custom-display-inline-block">${ceoVo.cmNumber }</span>
         </div>
         
     </div>

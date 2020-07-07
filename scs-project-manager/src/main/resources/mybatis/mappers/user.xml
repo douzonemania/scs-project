@@ -32,7 +32,7 @@
 		<![CDATA[
 				insert 
 				  into site 
-				values (null,'신테스트','1','1',0,#{id},'','')
+				values (null,#{ceo},'1','1',0,#{id},'','')
 		]]>
 	</insert>
 	<select id="findById" parameterType="string" resultType="ceovo">

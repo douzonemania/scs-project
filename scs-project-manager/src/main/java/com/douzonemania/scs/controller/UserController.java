@@ -66,7 +66,9 @@ public class UserController {
 		AgreementVo agreementVo = new AgreementVo();
 		agreementVo.setId(ceoVo.getId());
 		SiteVo siteVo = new SiteVo();
+		
 		siteVo.setId(ceoVo.getId());
+		siteVo.setCeo(ceoVo.getName());
 		userService.insert(ceoVo,agreementVo,siteVo);
 
 		// 회원 DB와 table 생성

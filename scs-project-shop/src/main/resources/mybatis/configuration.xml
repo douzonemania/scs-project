@@ -21,6 +21,7 @@
 		<typeAlias alias="itemboardvo" type="com.douzonemania.shop.vo.ItemBoardVo"/>
 		<typeAlias alias="itemreplyvo" type="com.douzonemania.shop.vo.ItemReplyVo"/>
 		<typeAlias alias="reviewvo" type="com.douzonemania.shop.vo.ReviewVo"/>
+		<typeAlias alias="ceovo" type="com.douzonemania.shop.vo.CeoVo"/>
 
 	</typeAliases>	
 	<mappers>
