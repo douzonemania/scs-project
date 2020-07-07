@@ -8,8 +8,8 @@
 <footer class="footer">
     <div class="container-fluid">
         <div class="footer-wrapper">
-            <div class="footer-logo">
-                <img src="/scs-manager${ceoVo.logo}" />
+            <div class="footer-logo" >
+                <img src="/scs-manager${ceoVo.logo}" style="width:100%; height:100%;" />
            </div>
            
         <div class="footer-contents">
