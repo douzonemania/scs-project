@@ -31,11 +31,11 @@
 		<script>
 		
 		function firstAgreement(){
-			window.open('${ pageContext.request.contextPath }/${db }/member/agree/first','이용약관','width=0,height:0,location=no,status=no');
+			window.open('${ pageContext.request.contextPath }/${db }/member/agree/first','이용약관','width=500,height:250,location=no,status=no');
 		}
 		
 		function thirdAgreement(){
-			window.open('${ pageContext.request.contextPath }/${db }/member/agree/third','이용약관','width=0,height:0,location=no,status=no');
+			window.open('${ pageContext.request.contextPath }/${db }/member/agree/third','이용약관','width=500,height:250,location=no,status=no');
 		}
 		
 		$(document).ready(function(){
