@@ -55,6 +55,8 @@
         <script src="${ pageContext.request.contextPath }/assets/libs/flot-charts/jquery.flot.selection.js"></script>
         <script src="${ pageContext.request.contextPath }/assets/libs/flot-charts/jquery.flot.crosshair.js"></script>
 
+		<c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
+		
         <!-- Dashboar 1 init js-->
         <script src="${ pageContext.request.contextPath }/assets/js/pages/dashboard-1.init.js"></script>
 
