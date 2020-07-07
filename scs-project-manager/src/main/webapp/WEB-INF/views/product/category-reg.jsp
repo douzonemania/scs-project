@@ -118,6 +118,14 @@ $(function() {
 		var isParent = $('input[name="cate-n"]:checked').val();
 		var parentCategory = $("#cate-select-add option:selected").text();
 		
+		if(name==""){
+			alert("카테고리 이름을 입력하세요");
+			return;
+		}
+		if(parentCategory==""){
+			alert("카테고리 이름을 입력하세요");
+			return;
+		}
 		
 		/* parentNo 구하기 1차:null 2차: 1*/
 		var parentNo;
@@ -155,6 +163,7 @@ $(function() {
 				changeTable(vo.no, vo.name);
 				initial();
 				}
+				alert("카테고리가 추가되었습니다.");
 			},
 				error: function(xhr, status, e){
 					console.error(status + " : " + e);
@@ -184,6 +193,7 @@ $(function() {
 					changeTable2(no);
 					initial();
 					}
+					alert("카테고리가 추가되었습니다.");
 				},
 					error: function(xhr, status, e){
 						console.error(status + " : " + e);
@@ -203,12 +213,21 @@ $(function() {
 		var name = $("#cate-select-del option:selected").text();		
 		var childCategoryName = $("#cate-select-del2 option:selected").text();
 		var no = $("#cate-select-del2 option:selected").val();
-		
+
 		// 카테고리 선택이 안되었을 때 return
-		if(name=="----"){
-			alert("카테고리를 선택하세요");
-			return;
+		if(isParent=="parent"){
+			if(name=="----"){
+				alert("카테고리를 선택하세요");
+				return;
+			}
 		}
+		if(isParent=="child"){
+			if(childCategoryName==""){
+				alert("카테고리를 선택하세요");
+				return;
+			}
+		}
+
 		var vo={};
 		if(isParent=="parent")
 			parentNo = null;
@@ -237,6 +256,7 @@ $(function() {
 						if(data.name!=null)
 							$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.no + "'>" + data.name + "</option>");
 					}
+					alert("카테고리가 삭제되었습니다.");
 				},
 					error: function(xhr, status, e){
 						console.error(status + " : " + e);
@@ -256,6 +276,7 @@ $(function() {
 $(function() {
 	
 	$("#cate-mod-button").click(function() {
+				var isParent = $('input[name="cate-n-mod"]:checked').val();
 				var name = $("#cate-select-mod option:selected").text();
 				var childCategoryName = $("#cate-select-mod2 option:selected").text();
 				var afterName = $('#category-name-mod').val();		
@@ -263,10 +284,7 @@ $(function() {
 				//createTable에 사용
 			
 				// 카테고리 선택이 안되었을 때 return
-				if(name=="----"){
-					alert("카테고리를 선택하세요");
-					return;
-				}
+				
 				var vo={};
 				vo.afterName = afterName;		// 변경할 카테고리 이름
 				// 2차카테고리 입력 별 name 값 설정
@@ -275,6 +293,27 @@ $(function() {
 				}else{
 					vo.name = childCategoryName;
 				}				
+				
+				if(isParent=="parent"){
+					if(name=="----"){
+						alert("카테고리를 선택하세요");
+						return;
+					}
+					if(afterName==""){
+						alert("수정할 카테고리 이름을 입력하세요");
+						return;
+					}
+				}
+				if(isParent=="child"){
+					if(childCategoryName==""){
+						alert("카테고리를 선택하세요");
+						return;
+					}
+					if(afterName==""){
+						alert("수정할 카테고리 이름을 입력하세요");
+						return;
+					}
+				}
 				
 		$.ajax({
 			url: '${pageContext.request.contextPath }/${authUser.id}/api/product/category-reg/mod/' + afterName,
@@ -291,6 +330,7 @@ $(function() {
 						$('#cate-select-add,#cate-select-del,#cate-select-mod').append("<option value='" + data.no + "'>" + data.name + "</option>");
 					initial();
 				}
+				alert("카테고리가 수정되었습니다.");
 			},
 			error:
 				 function(xhr, status, e){
