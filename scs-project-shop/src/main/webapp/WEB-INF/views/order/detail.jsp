@@ -92,6 +92,9 @@
 		var firstOption= $('#firstOption').val();
 		var mobileFirstOption= $('#mobileFirstOption').val();
 		
+		
+	
+		
 		if(firstOption==0 || firstOption=="X"){
 			$('#detail-cart-btn').attr('disabled',true);
 			$('#detail-order-btn').attr('disabled',true);
@@ -107,7 +110,7 @@
 			$('#mobile-detail-cart-btn').attr('disabled',false);
 			$('#mobile-detail-order-btn').attr('disabled',false);
 		}
-
+		
 		
 		$('#detail-cart-btn').click(function(){
 			var itemNo = ${map.product.no};
@@ -135,7 +138,7 @@
 						ataType : 'json',
 						data : '',
 						success : function(response) {
-							
+							 $('#cart-modal').modal();
 						},
 						error : function(xhr, status, e) {
 							console.error(status + ":" + e);
@@ -243,42 +246,50 @@
 				secondOption =$("#mobileSecondOption").val();
 			}
 			
-			var itemNo = ${map.product.no};
-			var quantity=$('#nowQuantity').val();
+			if(secondOption==0 || secondOption=="X"){
+				alert("옵션을 선택해주세요");
+			}else{
+				var itemNo = ${map.product.no};
+				var quantity=$('#nowQuantity').val();
+				
+					if(quantity==0){
+						alert("수량을 확인해주세요")
+					} else{
+						$.ajax({
+							url : '${pageContext.request.contextPath }/api/order/cart/insert/'+ itemNo + "/" + firstOption+ "/" + secondOption+"/"+quantity,
+							async : true,
+							type : 'get',
+							ataType : 'json',
+							data : '',
+							success : function(response) {
+								 $('#cart-modal').modal();
+							},
+							error : function(xhr, status, e) {
+								console.error(status + ":" + e);
+							}
+						});
+					}
+			}
 			
-				if(quantity==0){
-					alert("수량을 확인해주세요")
-				} else{
-					$.ajax({
-						url : '${pageContext.request.contextPath }/api/order/cart/insert/'+ itemNo + "/" + firstOption+ "/" + secondOption+"/"+quantity,
-						async : true,
-						type : 'get',
-						ataType : 'json',
-						data : '',
-						success : function(response) {
-							
-						},
-						error : function(xhr, status, e) {
-							console.error(status + ":" + e);
-						}
-					});
-				}
+			
 		});
 		
-		
+		$('#mobileSecondOption').change(function(){
+			alert("TEST");
+		});
 		$('#firstOption').change(function() {
 				var option = this.value;
 				var no = ${map.product.no};
 				
 				FirstOption= $('#firstOption').val();
-	
+				var secondOption = $('#mobileSecondOption').val();
 				if(FirstOption==0 || FirstOption=="X"){
 					$('#detail-cart-btn').attr('disabled',true);
 					$('#detail-order-btn').attr('disabled',true);
 				} else{
 					$('#detail-cart-btn').attr('disabled',false);
 					$('#detail-order-btn').attr('disabled',false);
-				}
+				} 
 				
 				if (option == 0) {
 					alert("품절된 상품 입니다");
@@ -319,7 +330,7 @@
 		$('#mobileFirstOption').change(function() {
 			var option = this.value;
 			var no = ${map.product.no};
-
+			
 			mobileFirstOption= $('#mobileFirstOption').val();
 			if(mobileFirstOption==0 || mobileFirstOption=="X"){
 				
@@ -328,7 +339,7 @@
 			} else{
 				$('#mobile-detail-cart-btn').attr('disabled',false);
 				$('#mobile-detail-order-btn').attr('disabled',false);
-			}
+			} 
 			
 			if (option == 0) {
 				alert("품절된 상품 입니다");
@@ -367,6 +378,7 @@
 			}
 		});
 		
+	
 		$('#quantityPlusBtn').click(function(){
 			var now = parseInt($("#nowQuantity").val())+1;
 			$("#nowQuantity").val(now);
@@ -551,7 +563,7 @@
 									<c:choose>
 									<c:when test="${not empty authUser  }">
 									<div class="mobile-product-detail-order-btn">
-										<button type="button" class="btn btn-dark waves-effect waves-light detail-custom-btn" id="detail-cart-btn" data-toggle="modal" data-target=".bs-example-modal-center">장바구니</button>
+										<button type="button" class="btn btn-dark waves-effect waves-light detail-custom-btn" id="detail-cart-btn" data-toggle="modal">장바구니</button>
 										<button type="button" class="btn btn-outline-dark waves-effect waves-light detail-order-btn" id="detail-order-btn"> 구매 하기</button>
 									</div>		
 									</c:when>
@@ -634,7 +646,7 @@
 								<c:choose>
 									<c:when test="${not empty authUser  }">
 									<div class="mobile-product-detail-order-btn">
-										<button type="button" class="btn btn-dark waves-effect waves-light" id="mobile-detail-cart-btn" data-toggle="modal" data-target=".bs-example-modal-center">장바구니</button>
+										<button type="button" class="btn btn-dark waves-effect waves-light" id="mobile-detail-cart-btn" data-toggle="modal" >장바구니</button>
 										<button type="button" class="btn btn-outline-dark waves-effect waves-light" id="mobile-detail-order-btn"> 구매 하기</button>
 									</div>		
 									</c:when>
@@ -784,7 +796,7 @@
 		<c:import url="/WEB-INF/views/partials/footer.jsp"></c:import>
 		<!-- Vendor js -->
 		
-		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="myCenterModalLabel" aria-hidden="true" style="display: none;">
+		<div class="modal fade bs-example-modal-center" id = "cart-modal"tabindex="-1" role="dialog" aria-labelledby="myCenterModalLabel" aria-hidden="true" style="display: none;">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
