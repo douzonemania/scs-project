@@ -17,7 +17,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${ceoVo.siteName }</title>
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>

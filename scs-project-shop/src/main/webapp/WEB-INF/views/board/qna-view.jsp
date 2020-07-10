@@ -10,7 +10,7 @@
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Pretty Girls~! Q&A</title>
+        <title>${ceoVo.siteName }</title>
         <link rel="shortcut icon" href="/scs-manager${favicon }">
 
         <!-- Plugins css -->
