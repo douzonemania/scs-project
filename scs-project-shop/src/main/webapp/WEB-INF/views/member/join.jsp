@@ -8,7 +8,7 @@
 	<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
     <meta charset="utf-8" />
-        <title>Pretty Girls~!</title>
+        <title>${ceoVo.siteName }</title>
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
