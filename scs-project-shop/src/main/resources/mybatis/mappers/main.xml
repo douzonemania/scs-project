@@ -41,7 +41,8 @@
 				   address, 
 				   co_number as 'coNumber', 
 				   cm_number as 'cmNumber',
-				   logo
+				   logo,
+				   b.site_name as 'siteName'
 			  from scs2.site a, scs2.ceo b
 			 where a.id=b.id 
 			   and a.id=#{db}
