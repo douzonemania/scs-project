@@ -377,16 +377,7 @@
                         </div>
                      </div>
 
-                     <div class="btn-group mb-2 mobile-order-button">
-                        <button id="ship-custom-button" class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                            			결제 수단 <i class="mdi mdi-chevron-down"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">신용카드</a>
-                            <a class="dropdown-item" href="#">계좌이체</a>
-                            <a class="dropdown-item" href="#">무통장 입금</a>
-                        </div>
-                    </div>
+                     
                 </div><!--select ship-->
 
                  <button type="button" class="btn btn-dark waves-effect waves-light order-button">결제하기</button> 
