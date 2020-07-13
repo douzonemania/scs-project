@@ -3,7 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <style>
-
+ .logo-box{width:60%}
+ @media(max-width:991px){
+ 	.logo-box{margin:0 auto}
+ }
 </style>
 
 
@@ -72,7 +75,7 @@
                     </li>
                 </ul>
                 <!-- LOGO -->
-                <div class="logo-box" style="width:60%; margin:0 auto;">
+                <div class="logo-box">
                     <a href="${ pageContext.request.contextPath }/${db }" class="logo text-center">
                         <span class="logo-lg">
                             <img src="/scs-manager${ceoVo.logo }" alt="" style="max-height:64px; max-width:64px">
