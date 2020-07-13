@@ -2,7 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<style>
 
+</style>
 
 
 <header id="topnav" style="background-color:#ffffff">
@@ -70,13 +72,13 @@
                     </li>
                 </ul>
                 <!-- LOGO -->
-                <div class="logo-box">
+                <div class="logo-box" style="width:60%; margin:0 auto;">
                     <a href="${ pageContext.request.contextPath }/${db }" class="logo text-center">
                         <span class="logo-lg">
                             <img src="/scs-manager${ceoVo.logo }" alt="" style="max-height:64px; max-width:64px">
                             <!-- <span class="logo-lg-text-light">UBold</span> -->
                         </span>
-                        <span class="logo-sm" style="margin-left:65px;">
+                        <span class="logo-sm" >
                             <!-- <span class="logo-sm-text-dark">U</span> -->
                             <img src="/scs-manager${ceoVo.logo }" alt="" style="max-height:48px; max-width:48px">
                         </span>
