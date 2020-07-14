@@ -29,7 +29,7 @@ public class UserService {
 	
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://192.168.1.58:3306";
+	static final String DB_URL = "jdbc:mysql://192.168.0.58:3306";
 	// Database credentials
 	static final String USER = "scs2";
 	static final String PASS = "scs2";
