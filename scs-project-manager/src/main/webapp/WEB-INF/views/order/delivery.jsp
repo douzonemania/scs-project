@@ -100,7 +100,6 @@ $(function() {
 			type: "GET",
 			dataType: 'json',
 			success : function(response){
-				console.log(response.data);
 				location.href="<%=request.getContextPath() %>/${authUser.id}/order/delivery?p="+response.data.page+"&startDate="+startDate+"&endDate="+endDate+"&op="+op+"&kwd="+kwd;
 			},
 			error:
